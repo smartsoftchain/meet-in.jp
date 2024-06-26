@@ -1,0 +1,10 @@
+.vagrant/
+.DS_Store
+!.gitkeep
+vagrant/php/logs/web.log
+vagrant/php/logs/chat.log
+vagrant/mysql/logs/query.log
+.idea
+.vscode
+.project
+

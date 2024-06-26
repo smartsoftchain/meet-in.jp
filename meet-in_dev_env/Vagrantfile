@@ -1,0 +1,45 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "bento/centos-7.2"
+  config.vm.box_check_update = false
+  config.vm.network "private_network", ip: "192.168.33.12"
+  config.vm.network "public_network"
+  config.vm.hostname = "meet-in.local"
+
+  config.vm.synced_folder "../meet-in-core", "/home/vagrant/html", type: "nfs"
+  config.vm.synced_folder "./websocket", "/home/vagrant/websocket", type: "nfs"
+  config.vm.synced_folder ".", "/home/vagrant/data", mount_options: ['dmode=775','fmode=777']
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "2048"
+    vb.name = "meet-in_dev"
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    set -ex
+    curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-1.12.1.tgz && tar --strip-components=1 -xvzf docker-1.12.1.tgz -C /usr/local/bin
+    sudo chown root:root /usr/local/bin/docker
+    sudo chmod +x /usr/local/bin/docker
+    sudo groupadd docker
+    sudo usermod -aG docker vagrant
+    curl -L https://github.com/docker/compose/releases/download/1.8.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+
+    sudo chown root:root /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+
+    sudo ln -s /home/vagrant/data/docker.socket /etc/systemd/system/docker.socket
+    sudo ln -s /home/vagrant/data/docker.service /etc/systemd/system/docker.service
+
+    # timezone
+    sudo cp -p  /usr/share/zoneinfo/Japan /etc/localtime
+  SHELL
+
+  config.vm.provision "shell", run: "always", inline:  <<-SHELL
+    sudo systemctl start docker
+		/usr/local/bin/docker-compose -f /home/vagrant/data/docker-compose.yml up -d
+		# --build
+  SHELL
+
+end

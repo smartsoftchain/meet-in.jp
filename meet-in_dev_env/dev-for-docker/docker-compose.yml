@@ -1,0 +1,36 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy_d
+    volumes:
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ../../meet-in-core/html:/var/www/html
+      - ./nginx/certs:/etc/nginx/ssl/cert:cached
+    ports: 
+      - 443:443
+    
+  php:
+    build:
+      context: ./php
+    volumes:
+      - ../../meet-in-core/application:/var/www/html/application
+      - ../../meet-in-core/public:/var/www/html/public
+      - ../../meet-in-core/library:/var/www/html/library
+      - ../../meet-in-core/batch:/var/www/html/batch
+      - /etc/localtime:/etc/localtime:ro
+      - ./php/logs/:/var/www/logs/
+    container_name: meet-in_app_d
+    ports:
+      - 8003:80
+  
+  node:
+    build:
+      context: ./node
+    container_name: meet-in_websocket_d
+    stdin_open: true
+    tty: true
+    volumes:
+      - ../../meet-in-core/websocket-server:/var/www/html_meet/websocket-server
+    ports:
+      - 4567:4567

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+while :
+do
+  # phpとwebphone_wsのコンテナが立ち上がってから
+  ping -c 1 "php"
+  if [ $? -eq 0 ]; then
+    ping -c 1 "webphone_ws"
+    if [ $? -eq 0 ]; then
+      break
+    fi
+  fi
+  echo "Dependncy server is not running."
+  sleep 1s
+done
+
+# set -x; nginx -g 'daemon off;'

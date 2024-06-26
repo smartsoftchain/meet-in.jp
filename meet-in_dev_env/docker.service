@@ -1,0 +1,23 @@
+[Unit]
+Description=Docker Application Container Engine
+Documentation=http://docs.docker.com
+After=network.target docker.socket
+Wants=docker-storage-setup.service
+
+[Service]
+Type=notify
+NotifyAccess=all
+Environment=GOTRACEBACK=crash
+Environment=DOCKER_CERT_PATH=/etc/docker
+ExecStart=/usr/local/bin/docker daemon
+LimitNOFILE=1048576
+LimitNPROC=1048576
+LimitCORE=infinity
+MountFlags=slave
+TimeoutStartSec=0
+Restart=on-failure
+StandardOutput=null
+StandardError=null
+
+[Install]
+WantedBy=multi-user.target

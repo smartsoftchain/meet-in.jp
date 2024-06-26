@@ -1,0 +1,74 @@
+version: '2'
+services:
+  php:
+    build:
+      context: ./php
+    volumes:
+      - ../html:/var/www/html
+      - /etc/localtime:/etc/localtime:ro
+      - ./php/logs/:/var/www/logs/
+
+
+  chat:
+    build:
+      context: ./php
+    volumes:
+      - ../html:/var/www/html
+      - /etc/localtime:/etc/localtime:ro
+      - ./php/logs/:/var/www/logs/
+    # working_dir: /var/www/html/websocket/chat
+    # command: php /var/www/html/websocket/chat/chatServer.php
+
+  proxy:
+    build:
+      context: ./proxy
+      args:
+        WS_CONTAINER: webphone_ws:3000
+        # CHAT_CONTAINER: chat:3001
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ../html:/var/www/html
+      # - ../spa:/var/www/spa:ro
+    entrypoint: /bin/sh
+    command: -c "/usr/sbin/nginx -g 'daemon off;'"
+
+    ports:
+      - 80:80
+      - 443:443
+      - 8443:8443
+    links:
+      - webphone_ws
+      - chat
+      - php
+  # mysql:
+  #   build:
+  #     context: ./mysql
+  #   volumes:
+  #     - ./mysql/logs/:/var/log/mysql/
+  #   restart: always
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.6.4-1
+    environment:
+      PMA_HOST: 59.106.219.172
+      MYSQL_ROOT_PASSWORD: 90kon6Fmysql
+    ports:
+      - 1000:80
+    # ports:
+    #   - 1000:80
+    # links:
+    #   - mysql
+
+  webphone_ws:
+    build:
+      context: ./webphone_ws
+    volumes:
+      - ../html/websocket:/var/www/websocket
+      - /etc/localtime:/etc/localtime:ro
+
+  websocket-sever:
+    build:
+      context: ./websocket-server
+    volumes:
+      - ../html/websocket-server:/var/www/html/websocket-server
+    command: "node websocket-server.js"
