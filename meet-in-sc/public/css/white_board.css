@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+/*
+*   Title:「 ホワイトボード 」要素CSS
+*   File Nmae: white_board.css
+*/
+
+.white_board_area{
+	position:fixed !important;
+	top: 80px;
+	left: 70px;
+	background: white !important;
+	box-shadow : none !important;
+	display: none;
+	z-index: 110;
+	height: 370px;
+	width: 280px;
+	box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;
+}
+
+.canvas_area{
+	margin : 40px 10px 10px 10px;
+	overflow : scroll;
+	height: calc(100% - 140px);
+	background-color: white;
+}
+
+.white_board{
+	background-color: white;
+}
+
+div.white_board_titke{
+	margin-top: 5px;
+	margin-left: 20px;
+}
+
+div.white_board_header_icon_area{
+	position:absolute;
+	top: 5px;
+	right: 5px;
+	text-align: center;
+	padding-right: 3px;
+	font-size: 12px;
+	cursor: pointer;
+	color: #a7a7a7;
+}
+
+.btn_reset{
+	margin-top : 5px;
+	margin-right : 20px;
+	float: left;
+	font-size: 18px;
+}
+.btn_close{
+	margin-top : 5px;
+	float: left;
+}
+.clear_both{
+	clear:both;
+}
+
+div.white_board_bottom_icon_area{
+	bottom: 0;
+	margin: 10px 0px 10px 10px;
+}
+
+div.btn_reset:HOVER{
+	color: #35a0d4;
+}
+
+span.icon-memo:HOVER{
+	color: #35a0d4;
+}

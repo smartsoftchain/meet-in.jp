@@ -1,0 +1,47 @@
+﻿<style>
+body: { 
+    padding: 10px;
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+select {
+    font-size: 1.2em;
+    border: 1px solid;
+    padding: 0;
+    outline: none!important;
+    border: 1px solid black !important;
+}
+
+select option {
+    padding: 2px 5px;
+    border-bottom: 1px solid black;
+}
+
+select option:last-child {
+    border-bottom: 0;
+}
+
+label {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+select[disabled] {
+    background-color: rgba(232, 229, 229, 0.17);
+    color: rgb(84, 82, 82);
+}
+</style>
+
+<h2>解像度：</h2>
+<select id="resolutions" size="1" style="width: 200px;">
+    <option value="720p">HD (720p)</option>
+</select>
+
+<h2>フレームレート：</h2>
+<input type="text" id="frameRate" value="10" style="width: 40px;">fps
+
+<script src="options.js"></script>

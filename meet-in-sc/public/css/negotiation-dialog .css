@@ -1,0 +1,273 @@
+@charset "UTF-8";
+
+/*-------------------------------------
+	（モーダル）基本型
+--------------------------------------*/
+.modal-content {
+    display: none;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0%;
+    left: 0%;
+    z-index: 100000002;
+}
+
+
+.modal-content .list-area,
+.modal-content .edit-area {
+    width: 100%;
+    max-width: 1180px;
+    overflow: auto;
+}
+
+/* モーダル */
+.modal-content .inner-wrap h5 {
+    padding: 5px 0 10px 0;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #215b82;
+}
+
+.f_name_{
+    display: inline-block !important;
+    width: 150px !important;
+    padding: 0 10px;
+}
+.text_short{
+    width:60px !important;
+    display: inline-block !important;
+    padding: 0 10px;
+}
+.text_medium{
+    width:200px !important;
+    display: inline-block !important;
+    padding: 0 10px;
+}
+.text_long{
+    width:443px !important;
+    display: inline-block !important;
+    padding: 0 10px;
+}
+
+.text_long2{
+    width:200px !important;
+    padding: 0 10px;
+}
+
+.f_mail{
+    width:295px !important;
+    padding: 0 10px;
+}
+
+/*-----------------------
+	モーダル領域
+------------------------*/
+
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 500;
+}
+
+.modal-open {
+    color: #1b75b1;
+    text-decoration: underline;
+}
+
+.modal-open:hover {
+    color: #df6b6e;
+    text-decoration: underline;
+}
+
+.modal-close {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    display: block;
+    width: 40px;
+    height: 40px;
+}
+
+.modal-close span {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-indent: -9999px;
+    background: #b6c3cc url("../img/btn_close.png") no-repeat center center;
+}
+
+.modal-close:hover {
+    cursor:pointer;
+}
+
+.modal-close:hover span {
+    background: #0f507a url("../img/btn_close.png") no-repeat center center;
+}
+
+.article-box {
+    display: block;
+    padding: 20px 20px 20px 20px;
+    height: auto;
+    background: #f1f7fa;
+}
+
+span.font1 {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+span.font2 {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.listtable {
+    width: 80%;
+    table-layout: fixed;
+}
+
+.listtable tr {
+    margin: 5px;
+    padding: 5px;
+    width: 100%;
+}
+
+.title_header{
+    margin-top: 40px;
+    text-align: center;
+}
+
+.title_header_icon{
+    float: left;
+    margin-left : 70px;
+    font-size: 48px;
+    margin-top: -5px;
+    color:#c8c9ca;
+}
+.title_header_message{
+    float: left;
+    text-align: left;
+    font-size : 24px;
+    margin-left : 20px;
+    font-weight: bold;
+    color:#929292;
+}
+.clear_both{
+    clear: both;
+}
+
+.info_area{
+    margin-top: 30px;
+}
+
+.info_title{
+background-color: #35a0d4;
+color: white;
+font-size : 20px;
+text-align: left;
+padding: 15px 40px;
+line-height: 1;
+font-weight: bold;
+cursor: pointer;
+}
+
+.info_title span{
+    float: right;
+}
+
+.info_data{
+    text-align: left;
+    margin-top : 20px;
+    font-size : 15px;
+}
+
+.info_data th{
+    padding : 10px;
+    width : 170px;
+    vertical-align: middle;
+}
+
+.info_data td{
+    padding : 5px;
+}
+
+.btn_regist_area{
+    margin-top : 50px;
+    margin-bottom : 20px;
+}
+
+.btn_link_middle{
+    display: block;
+    width: 240px;
+    height: 45px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #35a0d4;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.guest_end_message_area{
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-top : 180px;
+}
+
+.guest_end_message{
+    padding : 7px;
+}
+
+.font_bold{
+    font-weight: bold;
+}
+
+
+#modal-content .inner-wrap .list-area.hgt3.mi_modal_default{
+    max-height: calc(100% - 150px);
+    height: calc(100% - 150px);
+    max-width: 720px;
+    min-height: 500px;
+}
+
+#modal-content .mi_table_main,
+#modal-content .mi_table_input_right_wrap {
+    max-height: 100%;
+    width: 100%;
+}
+#modal-content .mi_table_input_right textarea.mi_default_input.input_hidden:focus,
+#modal-content .mi_table_input_right textarea.mi_default_input {
+    padding: 11px 30px;
+    height: 130px;
+    width: calc(100% - 60px);
+    border: 1px solid #e1e1e1;
+}
+
+#modal-content .mi_default_button {
+    margin: 35px 0 20px;
+}
+
+#negotiation_tmpl_list {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+#possibility {
+    max-width: 300px;
+}
+
+#next_action {
+    max-width: 300px;
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>共通/1px/close</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="safari-home-screen-copy-48" transform="translate(-339.000000, -85.000000)" fill="#000000">
+            <g id="Group" transform="translate(0.000000, 65.000000)">
+                <g id="共通/1px/close" transform="translate(339.000000, 20.000000)">
+                    <g id="meet-in/1px/close">
+                        <g id="icon" fill-rule="nonzero">
+                            <path d="M10.707,10 L19.853,0.854 C20.048,0.659 20.048,0.342 19.853,0.147 C19.658,-0.048 19.341,-0.048 19.146,0.147 L10,9.293 L0.854,0.147 C0.659,-0.048 0.342,-0.048 0.147,0.147 C-0.048,0.342 -0.048,0.659 0.147,0.854 L9.293,10 L0.147,19.146 C-0.048,19.341 -0.048,19.658 0.147,19.853 C0.244,19.951 0.372,20 0.5,20 C0.628,20 0.756,19.951 0.854,19.854 L10,10.707 L19.146,19.853 C19.244,19.951 19.372,20 19.5,20 C19.628,20 19.756,19.951 19.854,19.854 C20.049,19.659 20.049,19.342 19.854,19.147 L10.707,10 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

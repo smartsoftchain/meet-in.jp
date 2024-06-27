@@ -1,0 +1,16 @@
+{
+    "development":{
+        "uploads_dir": "./tmp/uploads/",
+        "wav_dir": "./tmp/wav/",
+        "callback_url": "https://stage.meet-in.jp/get-audio/record-update",
+        "speech_to_text_api_endpoint": "wss://acp-api.amivoice.com/v1/",
+        "speech_to_text_api_key": ""
+    },
+    "production":{
+        "uploads_dir": "./tmp/uploads/",
+        "wav_dir": "./tmp/wav/",
+        "callback_url": "https://meet-in.jp/get-audio/record-update",
+        "speech_to_text_api_endpoint": "wss://acp-api.amivoice.com/v1/",
+        "speech_to_text_api_key": ""
+    }
+}

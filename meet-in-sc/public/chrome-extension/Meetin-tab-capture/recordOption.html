@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+body: { 
+    padding: 10px;
+    height: 250px;
+}
+
+h2 {
+    font-size: 1.0em;
+    font-weight: bold;
+}
+
+select {
+    font-size: 1.0em;
+    border: 1px solid;
+    padding: 0;
+    outline: none!important;
+    border: 1px solid black !important;
+}
+
+select option {
+    padding: 2px 5px;
+    border-bottom: 1px solid black;
+}
+
+select option:last-child {
+    border-bottom: 0;
+}
+
+label {
+    font-size: 1.0em;
+}
+
+select[disabled] {
+    background-color: rgba(232, 229, 229, 0.17);
+    color: rgb(84, 82, 82);
+}
+
+input {
+    font-size: 1.0em;
+}
+
+</style>
+<body>
+	<div style="width:160px">
+		<label>解像度：</label>
+		<br>
+		<select id="resolutions" size="1">
+		    <option value="720p">HD (720p)</option>
+		</select>
+		<br>
+		<br>
+		<label>フレームレート：</label>
+		<br>
+		<input type="text" id="frameRate" value="10" style="width: 40px;">fps
+		<br>
+		<br>
+		<div id="microphone_state_area">
+		マイクの使用許可を確認中…
+		</div>
+		<div id="microphone_button_area" style="display:none;">
+			<input id="microphone_button"            type="button" value="有効"/>
+			<input id="microphone_permission_button" type="button" value="許可"/>
+		</div>
+		<script src="recordOption.js"></script>
+	</div>
+</body>

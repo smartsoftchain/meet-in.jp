@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:ror="http://rorweb.com/0.1/" >
+<channel>
+  <title>ROR Sitemap for https://meet-in.jp/</title>
+  <link>https://meet-in.jp/</link>
+
+<item>
+     <link>https://meet-in.jp/</link>
+     <title>meet in（ミートイン） | いつでも、どこでも1秒でweb会議</title>
+     <description>meet in（ミートイン）は、いつでも、どこでも簡単にweb会議ができる、オンラインコミュニケーションプラットフォームです。アプリのインストールは不要、すぐに始められます。</description>
+     <ror:updatePeriod>weekly</ror:updatePeriod>
+     <ror:sortOrder>0</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://meet-in.jp/index/login</link>
+     <title>meet in（ミートイン） | ログインページ</title>
+     <description>meet in（ミートイン）に管理者用アカウントのログインページです。</description>
+     <ror:updatePeriod>weekly</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://meet-in.jp/lp/sales_case.php</link>
+     <title>営業・商談 | 活用事例01 | meet in（ミートイン）</title>
+     <description>営業活動にmeet in（ミートイン）を活用し、オンラインで商談を行うことで生産性を3倍以上に。
+移動時間を減らすことで、無駄な時間を有効活用することが可能に。</description>
+     <ror:updatePeriod>weekly</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://meet-in.jp/lp/hr_case.php</link>
+     <title>面接・人事 | 活用事例02 | meet in（ミートイン）</title>
+     <description>面接・人事にmeet in（ミートイン）でオンライン面接を行うことで、採用活動の幅を広げ、応募率を高めます。求職者との連絡をスムーズにし気軽に出会う仕組みを作ります。</description>
+     <ror:updatePeriod>weekly</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://meet-in.jp/lp/work_case.php</link>
+     <title>在宅勤務 | 活用事例03 | meet in（ミートイン）</title>
+     <description>在宅勤務などの「新しい働き方」にmeet in（ミートイン）によるオンラインコミュニケーションが活躍します。従来の働き方を変革し、より自由で働きやすい社会を作ります。</description>
+     <ror:updatePeriod>weekly</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://meet-in.jp/lp/meeting_case.php</link>
+     <title>支社間の会議 | 活用事例04 | meet in（ミートイン）</title>
+     <description>企業の支社間でmeet in（ミートイン）によるweb会議を行うことで、コストカットをしながら組織力を向上させます。交通費や移動時間が減り、密度の高いコミュニケーションが可能に。</description>
+     <ror:updatePeriod>weekly</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://meet-in.jp/index/index</link>
+     <title>meet in（ミートイン） | いつでも、どこでも1秒でweb会議</title>
+     <description>meet in（ミートイン）は、いつでも、どこでも簡単にweb会議ができる、オンラインコミュニケーションプラットフォームです。アプリのインストールは不要、すぐに始められます。</description>
+     <ror:updatePeriod>weekly</ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+</channel>
+</rss>
+  

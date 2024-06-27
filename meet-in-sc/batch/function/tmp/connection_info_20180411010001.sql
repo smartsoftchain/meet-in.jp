@@ -1,0 +1,2 @@
+INSERT INTO `connection_info_history` ( `id`,`room_name`,`room_state`,`collabo_id`,`room_enter_cnt`,`room_access_cnt`,`connect_no`,`login_flg1`,`login_flg2`,`login_flg3`,`login_flg4`,`login_flg5`,`login_flg6`,`login_flg7`,`login_flg8`,`connection_state`,`created_datetime`,`updated_datetime`) VALUES ( '22428','mama001','0','0','0','0','99999999999','0','0','0','0','0','0','0','0','3','2018-03-11 16:52:41','2018-03-11 16:53:03');
+commit;

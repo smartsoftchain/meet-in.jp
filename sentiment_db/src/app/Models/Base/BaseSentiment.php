@@ -1,0 +1,86 @@
+<?php
+
+namespace App\Models\Base;
+
+use Baopham\DynamoDb\DynamoDbModel as Model;
+
+abstract class BaseSentiment extends Model
+{
+    protected static $type = 'sentiment';
+
+    protected $primaryKey = 'hash_key';
+
+    protected $compositeKey = ['hash_key', 'range_key'];
+
+    protected $dynamoDbIndexKeys = [
+        'SPEAKER_LABEL_LSI' => [
+            'hash' => 'hash_key',
+            'range' => 'speaker_label',
+        ],
+        'START_TIME_LSI' => [
+            'hash' => 'hash_key',
+            'range' => 'start_time',
+        ],
+    ];
+
+    protected $fillable = [
+        'conversation_id',
+        'speaker_label',
+        'segment',
+        'start_time',
+        'start_date_time',
+        'start_pos_sec',
+        'end_pos_sec',
+        'energy',
+        'stress',
+        'emo_cog',
+        'concentration',
+        'anticipation',
+        'excitement',
+        'hesitation',
+        'uncertainty',
+        'intensive_thinking',
+        'imagination_activity',
+        'embarrassment',
+        'passionate',
+        'brain_power',
+        'confidence',
+        'aggression',
+        'call_priority',
+        'atmosphere',
+        'upset',
+        'content',
+        'dissatisfaction',
+        'extreme_emotion',
+    ];
+
+    private static function createHashKey($conversation_id)
+    {
+        return $conversation_id . '_' . self::$type;
+    }
+
+    private static function createRangeKey($start_time)
+    {
+        return $start_time;
+    }
+
+    public static function factory($param)
+    {
+        $model = new static($param);
+        $model->hash_key = self::createHashKey($param['conversation_id']);
+        $model->range_key = self::createRangeKey($param['start_time']);
+        $model->type = self::$type;
+        return $model;
+    }
+
+    public static function search($conversation_id, $speaker_label)
+    {
+        $speakerNo = (int)$speaker_label;
+        $models = self::query()
+            ->where('hash_key', '=', self::createHashKey($conversation_id))
+            ->where('speaker_label', 'between', [$speakerNo, $speakerNo])
+            ->get();
+
+        return $models;
+    }
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>共通/1px/edit</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="safari-home-screen-copy-48" transform="translate(-272.000000, -1618.000000)" fill="#000000">
+            <g id="Group-2" transform="translate(0.000000, 237.000000)">
+                <g id="共通/1px/edit" transform="translate(272.000000, 1381.000000)">
+                    <g id="meet-in/1px/edit">
+                        <g id="icon" fill-rule="nonzero">
+                            <g id="Group">
+                                <path d="M19.853,3.589 L16.4,0.146 C16.205,-0.048 15.889,-0.048 15.694,0.146 L6.724,9.089 C6.653,9.16 6.605,9.25 6.586,9.348 L5.763,13.611 C5.731,13.774 5.783,13.942 5.9,14.059 C5.994,14.154 6.122,14.205 6.254,14.205 C6.285,14.205 6.317,14.202 6.348,14.196 L10.624,13.376 C10.722,13.357 10.812,13.309 10.883,13.239 L19.853,4.296 C19.947,4.203 20,4.076 20,3.943 C20,3.81 19.947,3.683 19.853,3.589 Z M10.285,12.423 L6.885,13.075 L7.539,9.688 L16.047,1.206 L18.792,3.943 L10.285,12.423 Z" id="Shape"></path>
+                                <path d="M17.201,10.675 C16.925,10.675 16.701,10.899 16.701,11.175 L16.701,19 L1,19 L1,3.35 L8.851,3.35 C9.127,3.35 9.351,3.126 9.351,2.85 C9.351,2.574 9.127,2.35 8.851,2.35 L0.5,2.35 C0.224,2.35 0,2.573 0,2.85 L0,19.5 C0,19.776 0.224,20 0.5,20 L17.201,20 C17.477,20 17.701,19.776 17.701,19.5 L17.701,11.175 C17.701,10.898 17.477,10.675 17.201,10.675 Z" id="Shape"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

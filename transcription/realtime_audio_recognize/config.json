@@ -1,0 +1,16 @@
+{
+  "development":{
+    "api_endpoint": "wss://acp-api.amivoice.com/v1/",
+    "api_key": "",
+    "audio_format": "lsb16k",
+    "engine": "-a-general",
+    "port": 5001
+  },
+  "production":{
+    "api_endpoint": "wss://acp-api.amivoice.com/v1/",
+    "api_key": "",
+    "audio_format": "lsb16k",
+    "engine": "-a-general",
+    "port": 5001
+  }
+}

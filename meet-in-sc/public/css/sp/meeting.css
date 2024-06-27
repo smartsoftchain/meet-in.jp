@@ -1,0 +1,748 @@
+.content__wrap {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.full_screen__wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #333333;
+}
+
+.full_screen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 500ms 0s ease;
+}
+
+.meeting__header {
+  width: 100%;
+  height: 15%;
+  position: absolute;
+  top: 0;
+  background: linear-gradient(#333333, transparent);
+  opacity: 0.6;
+  z-index: 100;
+}
+
+.meeting__header--timeWrap {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #FFFFFF;
+  letter-spacing: 1px;
+}
+
+.meeting__header--timeMark {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #87C87F;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.meeting__menuBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 56px;
+  z-index: 300;
+  cursor: pointer;
+}
+
+.meeting__sidebar {
+  position: absolute;
+  top: 43px;
+  right: 15px;
+  width: 56px;
+  z-index: 200;
+  background: linear-gradient(rgba(255, 255, 255, 0.4), transparent);
+  padding: 34px 0 24px;
+  display: none;
+}
+
+.meeting__sidebar--btn {
+  width: 100%;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.meeting__members--wrap {
+  position: absolute;
+  top: 70%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.meeting__members--item {
+  width: 20%;
+}
+
+.meeting__members--img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.meeting__footer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px 15px;
+  z-index: 10;
+}
+
+/* 縦長画面 */
+.meeting__footer--btn-v {
+	width: 18%;
+	height: 0%;
+}
+
+/* 横長画面 */
+.meeting__footer--btn-h {
+	width: 10%;
+	height: 0%;
+}
+
+/* 人画像サンプル用 */
+.display_none {
+  display: none;
+}
+
+.visible_none {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transition: all 900ms 0 ease;
+}
+
+/* チャット画面 */
+.chat__wrap {
+  display: none;
+}
+
+.chat__return {
+  width: 27px;
+  height: 27px;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  z-index: 100;
+  cursor: pointer;
+}
+
+.chat__return img {
+  width: 100%;
+  height: 100%;
+}
+
+.chat__content {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100% - 55px);
+  position: absolute;
+  top: 0;
+  padding: 30px 0;
+  overflow-y: scroll;
+}
+
+.chat__content--left {
+  display: grid;
+  grid-template-columns: 15% 1fr;
+  position: relative;
+}
+
+.chat__leftImg {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.chat__img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  bottom: 40px;
+  left: 5px;
+}
+
+.chat__leftComment--wrap {
+  font-size: 14px;
+  line-height: 1.4;
+  width: 82%;
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.chat__leftComment {
+  color: #555555;
+  margin-left: 10px;
+  background-color: #ECECEC;
+  border-radius: 16px;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+
+.chat__leftComment--last {
+  color: #555555;
+  margin-left: 10px;
+  background-color: #ECECEC;
+  border-radius: 16px 16px 16px 0;
+  padding: 10px;
+}
+
+.chat__content--right {
+  display: grid;
+  grid-template-columns: 22% 1fr;
+}
+
+.chat__rightEmpty {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.chat__rightComment--wrap {
+  font-size: 14px;
+  line-height: 1.4;
+  width: 90%;
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.chat__rightComment {
+  color: #FFFFFF;
+  background-color: #35a0d4;;
+  border-radius: 16px;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+
+.chat__rightComment--last {
+  color: #FFFFFF;
+  background-color: #35a0d4;
+  border-radius: 16px 16px 0 16px;
+  padding: 10px;
+}
+
+.chat__rightComment--delivered {
+  font-size: 11px;
+  color: #FFFFFF;
+  letter-spacing: 1px;
+  margin-top: 2px;
+  text-align: right;
+}
+
+.lastComment {
+  margin-bottom: 40px;
+}
+
+.chat__footer {
+  width: 100%;
+  height: 50px;
+  background-color: #9E9E9E;
+  position: absolute;
+  bottom: 0;
+}
+
+.chat__addComment {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  cursor: pointer;
+}
+
+.chat__addComment img {
+  width: 100%;
+  height: 100%;
+}
+
+.chat__addEmoji {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.chat__addEmoji img {
+  width: 100%;
+  height: 100%;
+}
+
+.chat__textArea {
+  display: none;
+}
+
+.chat__textArea  textarea {
+  box-sizing: border-box !important;
+  font-size: 16px !important;
+  color: #555555 !important;
+  width: calc(100% - 45px) !important;
+  height: 75px !important;
+  position: absolute !important;
+  bottom: 15px !important;
+  border: none !important;
+  border-radius: 5px !important;
+  box-shadow: 0 0 10px #777777 !important;
+  resize: none !important;
+  margin: 10px 20px 0 !important;
+  padding: 8px 10px !important;
+}
+
+/* ペイント画面 */
+.chat__paint {
+  display: none;
+}
+
+.paint__content {
+  width: 100%;
+  height: 94%;
+  background-color: #FFFFFF;
+  position: absolute;
+  bottom: 0;
+  z-index: 400;
+}
+
+.paint__header {
+  color: #B2B2B2;
+  font-weight: bold;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.paint__header--undo {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.paint__header--done {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.paint__sideBtn {
+  position: absolute;
+  top: 60px;
+  right: 18px;
+}
+
+.paint__sideBtn--img {
+  margin-bottom: 5px;
+}
+
+/* サンプル */
+.paint__sample {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 227px;
+  height: 105px;
+  transform: rotate(45deg);
+}
+
+.paint__footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.color__palet {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px 20px;
+}
+
+.color__white {
+  width: 16%;
+  border: 1px solid #979797;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.color__black {
+  width: 16%;
+  background-color: #333333;
+  border-radius: 50%;
+}
+
+.color__green {
+  width: 16%;
+  background-color: #87C87F;
+  border-radius: 50%;
+}
+
+.color__yellow {
+  width: 16%;
+  background-color: #F3C200;
+  border-radius: 50%;
+}
+
+.color__red {
+  width: 16%;
+  background-color: #D0021B;
+  border-radius: 50%;
+}
+
+.color__blue {
+  width: 16%;
+  background-color: #4A90E2;
+  border-radius: 50%;
+}
+
+.selected_color_frame{
+	border: 3px solid #36A0D4 !important;
+}
+
+/* ======================
+ ビデオレイアウト関連
+======================*/
+div.video_area_wrap{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+/* ビデオアイコン領域内にあるビデオのスタイル */
+.video_target_area{
+	position: absolute;
+	display: none;
+}
+/* 画面が縦方向の場合のビデオスタイル */
+.video_target_area_vertical{
+	width: 100%;
+}
+/* 画面が横方向の場合のビデオスタイル */
+.video_target_area_side{
+	height: 100%;
+}
+/* 自分のビデオ領域 */
+.big_video_area{
+	z-index: 1;
+}
+/* 相手のビデオ領域 */
+.small_video_area{
+	z-index: 2;
+	background-color: rgba(5,5,5,0.3);
+}
+/* ビデオタグ自体のスタイル */
+.video_style{
+	width: 100%;
+	height: 100%;
+}
+
+/* カメラOFFの画像 */
+.img_video_off{
+	display: none;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: all 500ms 0s ease;
+	position: absolute;
+	z-index: 5;
+}
+/* 小さいカメラOFFの画像 */
+.img_small_video_off{
+	display: none;
+	z-index: 5;
+	margin: auto;
+	height: 100%;
+	max-width:100%;
+	max-height:100%;
+}
+/* IEの場合は必ず画像OFFなので強制力のあるクラスを追加する */
+.forced_img_video_off{
+	display: block !important;
+}
+/* ミュート画像 */
+.img_mute{
+	display: none;
+	position: absolute;
+	left: 0;
+}
+.img_big_mute{
+	height: 15%;
+	z-index: 6;
+}
+.img_small_mute{
+	height: 40%;
+	z-index: 6;
+}
+/* ======================
+ ホワイトボード関連
+====================== */
+/* キャンバスの表示領域 */
+div.canvas_area{
+	width: 100%;
+	height: 100%;
+	overflow: scroll;
+}
+
+/* ========================================================================================
+ チャット関連
+ 基本「!important」を使用しているのは、タグ毎DBに保存しており
+ webとspで同じタグを使用する必要がある為、spだけデザインを変えるために使用しています。
+ ※メッセージだけの保存であれば、SP専用のタグを切れるので下記スタイルは書き直すことができます。
+
+ 「div.」などの方法で強制力を持たせても良かったですが、webの方でタグがどう変わるかわからないので
+ スタイルの強制で対応しました。
+======================================================================================== */
+/* チャット文字の大きさ（SP版は大きく） */
+.chat_message_size_forced{
+	font-size: 13px !important;
+}
+/* チャット全体に右余白を開ける為の設定 */
+.chat_board_message_forced{
+	margin-right: 20px !important;
+}
+/* チャットメッセージ領域のアイコン表示サイズの子要素の領域 */
+div.chat_board_userimg_wrap_left_forced{
+	width: 55px !important;
+	height: 55px !important;
+}
+/* チャットメッセージ表示領域の設定 */
+.chat_board_userimg_left_forced{
+	margin-right: 50px;
+}
+/* チャットを続けて打った場合の領域場所 */
+.chat_board_message_box_end_forced{
+	margin-left: 82px  !important;
+	margin-right: 0px !important;
+}
+/* チャットメッセージのパディング */
+.chat_message_padding_forced{
+	padding : 10px !important;
+}
+/* チャット送信用フォントアイコン */
+.icon_send_chat_message{
+	font-size: 26px;
+	color: #ffffff;
+}
+
+/* ======================
+ フォトアルバムアクセス関連
+======================*/
+.access_photos{
+	display: none;
+}
+.sp_document_area{
+	display: none;
+}
+.sp_document_content {
+	width: 100%;
+	height: 94%;
+	background-color: #FFFFFF;
+	position: absolute;
+	bottom: 0;
+	z-index: 400;
+}
+.sp_document_header {
+	color: #B2B2B2;
+	font-weight: bold;
+	letter-spacing: 1px;
+	position: relative;
+	z-index: 401;
+}
+.sp_document_close {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+}
+div.sp_img_document_area{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+/* 横長画像に設定するスタイル */
+.width_long_image{
+	height: 100%;
+	position: absolute;
+	top:0;
+	bottom:0;
+	right:0;
+	left:0;
+	margin: auto;
+	max-width:100%;
+	max-height:100%;
+}
+/* 縦長画像に設定するスタイル */
+.height_long_image{
+	width: 100%;
+	position: absolute;
+	top:0;
+	bottom:0;
+	right:0;
+	left:0;
+	margin: auto;
+	max-width:100%;
+	max-height:100%;
+}
+/* 資料のキャンバス */
+/*
+.sp_img_canvas{
+	position: absolute;
+	margin: auto;
+	max-width:100%;
+	max-height:100%;
+}
+*/
+/* ======================
+ ルームシェアモーダル
+======================*/
+.modal_share_room{
+	z-index: 11;
+	position: absolute;
+	width: 100%;
+	height: 329px;
+	box-shadow: 1px 1px 3px 0px #333;
+	background-color: #ffffff;
+	top: 16%;
+	display: none;
+}
+.modal_share_room .title_logo{
+	text-align: center;
+	color: #b4b4b4;
+	margin-top: 45px;
+	font-size: 41px;
+}
+.modal_share_room .title_header{
+	margin-top: 21px;
+	font-family: Meiryo;
+	font-size: 18px;
+	font-weight: bold;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.39;
+	letter-spacing: normal;
+	text-align: center;
+	color: #35a0d4;
+}
+.modal_share_room .message_label{
+	margin-top: 8px;
+	font-family: Meiryo;
+	font-size: 12px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.17;
+	letter-spacing: normal;
+	text-align: center;
+	color: #333333;
+}
+.modal_share_room .room_url_label{
+	margin-top: 20px;
+	font-family: Meiryo;
+	font-size: 20px;
+	font-weight: bold;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	text-align: center;
+	color: #35a0d4;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.negotiation_modal_close {
+	background: #35a0d4 url(/img/btn_close.png) no-repeat center center;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	display: block;
+	width: 40px;
+	height: 40px;
+}
+	.negotiation_modal_close:hover { background-color: #cfe8f3;}
+
+/*コピーするボタン*/
+.room_copy_btn {
+	width: 160px;
+	height: 40px;
+	background-color: #f5f5f5;
+}
+.room_copy_btn:hover { background: #c8c8c8; color: #fff; }
+
+.copy_btn_inner{
+	font-family: Meiryo;
+	font-size: 14px;
+	font-weight: bold;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	text-align: left;
+	color: #b2b2b2;
+}
+.copy_btn_inner img{
+	vertical-align: middle;
+	padding-right: 10px;
+	width: 20px;
+}
+/* 招待文をコピするために表示するメッセージ文領域 */
+.share_message_area{
+	position: absolute;
+	top: 0;
+	left: -999;
+}
+.share_message{
+	font-size: 0;
+	height: 0;
+	width: 0;
+}
+
+/* ======================
+ 共有メモ
+======================*/
+/* 共有メモの全体領域 */
+.share_memo_area{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	bottom: 0;
+	z-index: 400;
+	background-color: rgb(200, 200, 200);
+	display: none;
+}
+/* 共有メモ閉じるボタン */
+.share_memo_close{
+	width: 27px;
+	height: 27px;
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	z-index: 100;
+	cursor: pointer;
+}
+/* 共有メモのメッセージ領域 */
+.share_memo_messages{
+	margin-top: 52px;
+	width: 100%;
+	height: calc(90% - 57px);
+}
+/* 実際のメッセージ表示箇所 */
+.share_memo_text{
+	width: 98%;
+	height: 100%;
+	font-size: 16px !important;
+}
+/* PDFダウンロードアイコン */
+.share_memo_footer{
+	margin-top: 15px;
+	margin-left: 10px;
+}

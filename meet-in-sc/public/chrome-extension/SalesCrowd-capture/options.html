@@ -1,0 +1,51 @@
+﻿<style>
+body: { 
+    padding: 10px;
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+select {
+    font-size: 1.2em;
+    border: 1px solid;
+    padding: 0;
+    outline: none!important;
+    border: 1px solid black !important;
+}
+
+select option {
+    padding: 2px 5px;
+    border-bottom: 1px solid black;
+}
+
+select option:last-child {
+    border-bottom: 0;
+}
+
+label {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+select[disabled] {
+    background-color: rgba(232, 229, 229, 0.17);
+    color: rgb(84, 82, 82);
+}
+.alert {
+    display: none;
+    color: red;
+}
+.normal {
+    display: none;
+    color: black;
+}
+
+</style>
+
+<h2>キャプチャまでの秒数：</h2>
+<input type="text" id="captureDelayTimer" value="15" style="width: 40px;">秒(1～60)
+<p class="alert" id="msg">保存しました</p>
+<script src="options.js"></script>

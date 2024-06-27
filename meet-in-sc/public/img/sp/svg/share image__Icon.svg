@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="20px" viewBox="0 0 25 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Money</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="safari-home-screen-copy-50" transform="translate(-330.000000, -194.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Money" transform="translate(330.000000, 194.000000)">
+                <path d="M25,18.1818182 L25,1.81818182 C25,0.814027728 24.2005085,0 23.2142857,0 L1.78571429,0 C0.799491518,0 0,0.814027728 0,1.81818182 L0,18.1818182 C0,19.1859723 0.799491518,20 1.78571429,20 L23.2142857,20 C24.2005085,20 25,19.1859723 25,18.1818182 Z M1.78571429,1.81818182 L23.2142857,1.81818182 L23.2142857,18.1818182 L1.78571429,18.1818182 L1.78571429,1.81818182 Z" id="Shape"></path>
+                <path d="M8,8 C6.8954305,8 6,7.1045695 6,6 C6,4.8954305 6.8954305,4 8,4 C9.1045695,4 10,4.8954305 10,6 C10,7.1045695 9.1045695,8 8,8 Z M20,19 L6,19 L12.9066667,12 L20,19 Z M23.9097065,18.0702479 C23.9097065,18.5837358 23.505449,19 23.006772,19 L21.4176072,19 L16,13.4214876 L19.3950339,10 L24,14.7417355 L23.9097065,18.0702479 Z" id="Oval"></path>
+            </g>
+        </g>
+    </g>
+</svg>

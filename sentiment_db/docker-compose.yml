@@ -1,0 +1,50 @@
+version: '3.3'
+services:
+  app:
+    build:
+      context: docker/php
+    working_dir: /var/www/html/sentiment_db
+    volumes:
+      - ./docker/php/apache2.conf:/etc/apache2/apache2.conf
+      - ./docker/php/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./src:/var/www/html/sentiment_db
+    ports:
+      - 8080:80
+  sc-worker:
+    build:
+      context: docker/worker
+    working_dir: /var/www/html/sentiment_db
+    volumes:
+      - ./docker/worker/supervisord.conf:/etc/supervisor/supervisord.conf
+      - ./docker/worker/sc-worker.conf:/etc/supervisor/conf.d/sc-worker.conf
+      - ./src:/var/www/html/sentiment_db
+  meet-worker:
+    build:
+      context: docker/worker
+    working_dir: /var/www/html/sentiment_db
+    volumes:
+      - ./docker/worker/supervisord.conf:/etc/supervisor/supervisord.conf
+      - ./docker/worker/meet-worker.conf:/etc/supervisor/conf.d/meet-worker.conf
+      - ./src:/var/www/html/sentiment_db
+  dynamo:
+    image: amazon/dynamodb-local
+    volumes:
+      - ./docker/dynamo/data:/home/dynamodblocal/data
+    command: -jar DynamoDBLocal.jar -dbPath ./data
+#    ports:
+#      - 8000:8000
+  dynamo-admin:
+    image: aaronshaf/dynamodb-admin
+    ports:
+      - 8001:8001
+    environment:
+      - DYNAMO_ENDPOINT=http://dynamo:8000
+    depends_on:
+      - dynamo
+  queue:
+    image: softwaremill/elasticmq
+    volumes:
+    - ./docker/queue/custom.conf:/opt/elasticmq.conf
+    ports:
+      - 9324:9324
+      - 9325:9325
