@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2008-2011 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+Author: Jozsef Vass
+-->
+
+<!-- Adobe labs limit width to 520 pixels. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="init()" backgroundColor="0xffffff" width="520" height="300">
+	<fx:Script>
+		<![CDATA[
+			import flash.events.SampleDataEvent;
+			
+			import mx.collections.ArrayList;
+			
+			// rtmfp server address (Adobe Cirrus or FMS)
+			[Bindable] private var connectUrl:String = "rtmfp://p2p.rtmfp.net";
+			
+			// developer key, please insert your developer key here
+			private const DeveloperKey:String = "1be4cea61139a4e9004f2008-21d4cc6c81eb";
+			
+			// please insert your web service URL here for exchanging peer ID
+			private const WebServiceUrl:String = "https://delphinus.sense.co.jp/flash-api/flash-web-service";
+			
+			// this is the connection to rtmfp server
+			private var netConnection:NetConnection;	
+			
+			// outgoing media stream (audio, video, text and some control messages)
+			private var outgoingStream:NetStream;
+			
+			// incoming media stream (audio, video, text and some control messages)
+			private var incomingStream:NetStream;
+			
+			// ID management serice
+			private var idManager:AbstractIdManager;
+			
+			private var remoteVideo:Video;
+			
+			// login/registration states
+			private const LoginNotConnected:String = "LoginNotConnected";
+			private const LoginConnecting:String = "LoginConnecting";
+			private const LoginConnected:String = "LoginConnected";
+			private const LoginDisconnecting:String = "LoginDisconnecting";
+			
+			// call states, only used when LoginConnected		
+			private const CallReady:String = "CallReady";
+			private const CallCalling:String = "CallCalling";
+			private const CallRinging:String = "CallRinging";
+			private const CallEstablished:String = "CallEstablished";
+			private const CallFailed:String = "CallFailed";
+			
+			// available microphone devices
+			[Bindable] private var micNames:ArrayList = new ArrayList();
+			private var micIndex:int = 0;
+			
+			// available camera deviced
+			[Bindable] private var cameraNames:ArrayList = new ArrayList();
+			private var cameraIndex:int = 0;
+			
+			// user name is saved in local shared object
+			private var localSO:SharedObject;
+			
+			[Bindable] private var remoteName:String = "";
+			private var remoteId:String = "";
+			
+			private var callTimer:int;
+			
+			private var ringer:Sound;
+			private var ringerChannel:SoundChannel;
+			
+			// signaling
+			/**
+			 * Simple request-reply protocol.
+			 * 
+			 * Call flow 1, caller cancels call
+			 * FP1 --- Invite --> FP2
+			 * FP1 --- Cancel --> FP2
+			 * FP1 <-- Ok ------- FP2
+			 * 
+			 * Call flow 2, callee rejects call
+			 * FP1 --- Invite --> FP2
+			 * FP1 <-- Reject --- FP2
+			 * 
+			 * * Call flow 3, call established and caller ends call
+			 * FP1 --- Invite --> FP2
+			 * FP1 <-- Accept --- FP2
+			 * FP1 --- Bye -----> FP2
+			 * FP1 <-- Ok ------- FP2
+			 */
+			private const Relay:String = "relay";
+			private const Invite:String = "invite";
+			private const Cancel:String = "cancel";
+			private const Accept:String = "accept";
+			private const Reject:String = "reject";
+			private const Bye:String = "bye";
+			private const Ok:String = "ok";
+			
+			// called when application is loaded            		
+			private function init():void
+			{		
+				currentState = LoginNotConnected;
+				
+				localSO = SharedObject.getLocal("videoPhoneSettings");
+				if (localSO.data.hasOwnProperty("user"))
+				{
+					userNameInput.text = localSO.data.user;
+				}
+				
+				var mics:Array = Microphone.names;
+				if (mics)
+				{
+					micNames.source = mics;
+				}
+				else
+				{
+				}
+				
+				var cameras:Array = Camera.names;
+				if (cameras)
+				{
+					cameraNames.source = cameras;
+				}
+				else
+				{
+				}
+				
+				// selected mic device
+				micIndex = 0;
+				if (localSO.data.hasOwnProperty("micIndex"))
+				{
+					micIndex = localSO.data.micIndex;
+				}
+				
+				// selected camera device
+				if (localSO.data.hasOwnProperty("cameraIndex"))
+				{
+					cameraIndex = localSO.data.cameraIndex;
+				}
+				
+				// mic volume
+				var micVolume:int = 50;
+				if (localSO.data.hasOwnProperty("micVolume"))
+				{
+					micVolume = localSO.data.micVolume;
+				}
+				
+				// speaker volume
+				var speakerVolume:Number = 80;
+				if (localSO.data.hasOwnProperty("speakerVolume"))
+				{
+					speakerVolume = localSO.data.speakerVolume;
+				}
+				
+				// configure audio and video
+				var mic:Microphone = getMicrophone();
+				if (mic)
+				{
+					mic.gain = micVolume;
+					
+					mic.addEventListener(ActivityEvent.ACTIVITY, onDeviceActivity);
+					
+					handleCodecChange();
+				}
+				
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				if (camera)
+				{
+					camera.addEventListener(ActivityEvent.ACTIVITY, onDeviceActivity);
+					
+					cameraChanged();
+				}
+			}
+			
+			// user clicked connect
+			private function onConnect():void
+			{
+				localSO.data.user = userNameInput.text;
+				try
+				{
+					localSO.flush();
+				}
+				catch (e:Error)
+				{
+				}
+				
+				netConnection = new NetConnection();
+				netConnection.addEventListener(NetStatusEvent.NET_STATUS, netConnectionHandler);
+				
+				// incoming call coming on NetConnection object
+				var c:Object = new Object();
+				c.onRelay = function(id:String, action:String, name:String):void
+				{
+					if (Invite == action)
+					{
+						if (currentState == CallReady)
+						{
+							ring();
+							
+							currentState = CallRinging;
+							
+							// callee subscribes to media, to be able to get the remote user name
+							incomingStream = new NetStream(netConnection, id);
+							incomingStream.play("media-caller");
+							
+							// set volume for incoming stream
+							var st:SoundTransform = new SoundTransform(1);
+							incomingStream.soundTransform = st;
+							
+							incomingStream.receiveAudio(false);
+							incomingStream.receiveVideo(false);
+							
+							var i:Object = new Object;
+							
+							incomingStream.client = i;
+							
+							remoteName = name;
+							remoteId = id;
+						}
+						else
+						{
+							netConnection.call(Relay, null, id, Reject, userNameInput.text);
+						}
+					}
+					else if (Reject == action)
+					{
+						currentState = CallReady;
+						
+						onHangup();
+					}
+					else if (Accept == action)
+					{
+						if (currentState != CallCalling)
+						{
+							return;
+						}
+						
+						currentState = CallEstablished;
+					}
+					else if (Bye == action)
+					{
+						netConnection.call(Relay, null, id, Ok, userNameInput.text);
+						
+						currentState = CallReady;
+						
+						onHangup();
+					}
+					else if (Cancel == action)
+					{
+						netConnection.call(Relay, null, id, Ok, userNameInput.text);
+						
+						currentState = CallReady;
+						
+						onHangup();
+					}
+				}
+				
+				netConnection.client = c;
+				
+				try
+				{
+					netConnection.connect(connectUrl, DeveloperKey);
+				}
+				catch (e:ArgumentError)
+				{
+					return;
+				}
+				
+				currentState = LoginConnecting;	
+			}
+			
+			private function netConnectionHandler(event:NetStatusEvent):void
+			{
+				switch (event.info.code)
+				{
+					case "NetConnection.Connect.Success":
+						connectSuccess();
+						break;
+					
+					case "NetConnection.Connect.Closed":
+						currentState = LoginNotConnected;
+						break;
+					
+					case "NetStream.Connect.Success":
+						// we get this when other party connects to our outgoing stream
+						break;
+					
+					case "NetConnection.Connect.Failed":
+						currentState = LoginNotConnected;
+						break;
+				}
+			}
+			
+			// connection to rtmfp server succeeded and we register our peer ID with an id exchange service
+			// other clients can use id exchnage service to lookup our peer ID
+			private function connectSuccess():void
+			{
+				// exchange peer id using web service
+				idManager = new HttpIdManager();
+				idManager.service = WebServiceUrl;
+				
+				idManager.addEventListener("registerSuccess", idManagerEvent);
+				idManager.addEventListener("registerFailure", idManagerEvent);
+				idManager.addEventListener("lookupFailure", idManagerEvent);
+				idManager.addEventListener("lookupSuccess", idManagerEvent);
+				idManager.addEventListener("idManagerError", idManagerEvent);
+				
+				idManager.register(userNameInput.text, netConnection.nearID);
+			}
+			
+			private function placeCall(user:String, identity:String):void
+			{
+				if (identity.length != 64)
+				{	
+					currentState = CallFailed;
+					return;
+				}
+				
+				netConnection.call(Relay, null, identity, Invite, userNameInput.text);
+				
+				// caller publishes media stream
+				outgoingStream = new NetStream(netConnection, NetStream.DIRECT_CONNECTIONS);
+				outgoingStream.publish("media-caller");
+				
+				var o:Object = new Object
+				o.onPeerConnect = function(caller:NetStream):Boolean
+				{
+					return true; 
+				}
+				outgoingStream.client = o;
+				
+				startAudio();					
+				startVideo();
+				
+				// caller subscribes to callee's media stream
+				incomingStream = new NetStream(netConnection, identity);
+				incomingStream.play("media-callee");
+				
+				// set volume for incoming stream
+				var st:SoundTransform = new SoundTransform(1);
+				incomingStream.soundTransform = st;
+				
+				var i:Object = new Object;
+				incomingStream.client = i;
+				
+				remoteVideo = new Video();
+				remoteVideo.width = 320;
+				remoteVideo.height = 240;
+				remoteVideo.attachNetStream(incomingStream);
+				remoteVideoDisplay.addChild(remoteVideo);
+				
+				remoteName = user;
+				remoteId = identity;
+				
+				currentState = CallCalling;
+			}
+			
+			// process successful response from id manager		
+			private function idManagerEvent(e:Event):void
+			{
+				if (e.type == "registerSuccess")
+				{
+					switch (currentState)
+					{
+						case LoginConnecting:
+							currentState = LoginConnected;
+							break;
+						case LoginDisconnecting:
+						case LoginNotConnected:
+							currentState = LoginNotConnected;
+							return;
+						case LoginConnected:
+							return;
+					}	
+					
+					currentState = CallReady;	
+				}
+				else if (e.type == "lookupSuccess")
+				{
+					// party query response
+					var i:IdManagerEvent = e as IdManagerEvent;
+					
+					placeCall(i.user, i.id);	
+				}
+				else
+				{
+					// all error messages ar IdManagerError type
+					var error:IdManagerError = e as IdManagerError;
+					onDisconnect();
+				}
+			}
+			
+			// user clicked accept button
+			private function acceptCall():void
+			{
+				stopRing();
+				
+				incomingStream.receiveAudio(true);
+				incomingStream.receiveVideo(true);
+				
+				remoteVideo = new Video();
+				remoteVideo.width = 320;
+				remoteVideo.height = 240;
+				remoteVideo.attachNetStream(incomingStream);
+				remoteVideoDisplay.addChild(remoteVideo);
+				
+				// callee publishes media
+				outgoingStream = new NetStream(netConnection, NetStream.DIRECT_CONNECTIONS);
+				outgoingStream.publish("media-callee");
+				
+				var o:Object = new Object
+				o.onPeerConnect = function(caller:NetStream):Boolean
+				{
+					return true; 
+				}
+				outgoingStream.client = o;
+				
+				netConnection.call(Relay, null, remoteId, Accept, userNameInput.text);
+				
+				startVideo();
+				startAudio();
+				
+				currentState = CallEstablished;
+			}
+			
+			private function onDisconnect():void
+			{
+				onHangup();
+				
+				if (idManager)
+				{
+					idManager.unregister();
+					idManager = null;
+				}
+				
+				currentState = LoginNotConnected;
+				
+				netConnection.close();
+				netConnection = null;
+			}
+			
+			// placing a call
+			private function onCall():void
+			{	
+				if (netConnection && netConnection.connected)
+				{
+					if (calleeInput.text.length == 0)
+					{
+						return;
+					}
+					
+					// first, we need to lookup callee's peer ID
+					if (idManager)
+					{
+						idManager.lookup(calleeInput.text);
+					}
+					else
+					{
+						return;
+					}
+				}
+				else
+				{
+				}
+			}
+			
+			private function startAudio():void
+			{
+				var mic:Microphone = getMicrophone();
+				if (mic && outgoingStream)
+				{
+					outgoingStream.attachAudio(mic);
+				}
+			}
+			
+			private function startVideo():void
+			{
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				if (camera)
+				{
+//					localVideoDisplay.attachCamera(camera);
+					if (outgoingStream)
+					{
+						outgoingStream.attachCamera(camera);
+					}
+				}
+			}
+			
+			private function onDeviceActivity(e:ActivityEvent):void
+			{
+				//				status("Device activity: " + e.activating + "\n");
+			}
+			
+			private function onHangup():void
+			{
+				// signaling based on state
+				if (CallEstablished == currentState)
+				{
+					netConnection.call(Relay, null, remoteId, Bye, userNameInput.text);
+				}
+				else if (CallCalling == currentState)
+				{
+					netConnection.call(Relay, null, remoteId, Cancel, userNameInput.text);	
+				}
+				else if (CallRinging == currentState)
+				{
+					netConnection.call(Relay, null, remoteId, Reject, userNameInput.text);	
+				}
+				
+				stopRing();
+				
+				calleeInput.text = "";
+				currentState = CallReady;
+				
+				if (incomingStream)
+				{
+					incomingStream.close();
+				}
+				
+				if (outgoingStream)
+				{
+					outgoingStream.close();
+				}
+				
+				incomingStream = null;
+				outgoingStream = null;
+				
+				remoteName = "";
+				remoteId = "";
+				
+				callTimer = 0;
+			}
+			
+			private function getMicrophone():Microphone
+			{
+				return Microphone.getEnhancedMicrophone(micIndex);
+			}
+			
+			private function speakerVolumeChanged(e:Event):void
+			{
+				if (incomingStream)
+				{
+					var volume:Number = e.target.value / 100;
+					var st:SoundTransform = new SoundTransform(volume);
+					incomingStream.soundTransform = st;
+				}
+				
+				localSO.data.speakerVolume = e.target.value;
+				try
+				{
+					localSO.flush();
+				}
+				catch (e:Error)
+				{
+				}
+			}
+			
+			private function micVolumeChanged(e:Event):void
+			{
+				var mic:Microphone = getMicrophone();
+				if (mic)
+				{
+					mic.gain = e.target.value;
+					
+					localSO.data.micVolume = e.target.value;
+					localSO.flush();
+				}
+			}
+			
+			// sending text message
+			private function onSend():void
+			{
+/*
+				var msg:String = textInput.text; 
+				if (msg.length != 0 && outgoingStream)
+				{
+					outgoingStream.send("onIm", userNameInput.text, msg);
+				}
+*/
+			}
+			
+			private function micChanged(event:Event):void
+			{
+//				micIndex = micSelection.selectedIndex;
+				
+				var mic:Microphone = getMicrophone();
+				
+				// set the new microphne values based on UI
+				mic.addEventListener(ActivityEvent.ACTIVITY, onDeviceActivity);
+				
+				handleCodecChange();
+				
+				if (currentState == CallEstablished)
+				{	
+					outgoingStream.attachAudio(mic);
+				}
+				
+//				localSO.data.micIndex = micIndex;
+				try
+				{
+					localSO.flush();
+				}
+				catch (e:Error)
+				{
+				}
+			}
+			
+			private function cameraChanged(event:Event = null):void
+			{
+//				cameraIndex = cameraSelection.selectedIndex;
+				
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				
+				if (camera)
+				{
+					camera.setMode(320, 240, 15);
+					camera.setQuality(0, 80);
+				}
+				
+				// when user changes video device, we want to show preview
+//				localVideoDisplay.attachCamera(camera);
+				
+				if (currentState == CallEstablished)
+				{	
+					outgoingStream.attachCamera(camera);
+				}
+				
+//				localSO.data.cameraIndex = cameraIndex;
+				try
+				{
+					localSO.flush();
+				}
+				catch (e:Error)
+				{
+				}
+			}
+			
+			private function videoQualityChanged(e:Event = null):void
+			{
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				if (camera)
+				{
+					camera.setQuality(0, 80);
+				}
+			}
+			
+			private function onAudioMuted():void
+			{
+				if (incomingStream)
+				{
+					incomingStream.receiveAudio(true);
+				}
+			}
+			
+			private function onVideoPaused():void
+			{
+				if (incomingStream)
+				{
+					incomingStream.receiveVideo(true);
+				}
+			}
+			
+			private function handleCodecChange():void
+			{
+				var mic:Microphone = getMicrophone();
+				if (mic)
+				{	
+					mic.codec = SoundCodec.SPEEX;
+					mic.framesPerPacket = 1;
+					mic.encodeQuality = int(6);
+					mic.setSilenceLevel(0);
+				}
+			}
+			
+			private function speexQuality(e:Event):void
+			{
+				var mic:Microphone = getMicrophone();
+				if (mic)
+				{
+					var quality:int = int(e.target.selectedItem);
+					mic.encodeQuality = quality;
+				}
+			}
+			
+			private function nellymoserRate(e:Event):void
+			{
+				var mic:Microphone = getMicrophone();
+				if (mic)
+				{
+					var rate:int = int(e.target.selectedItem);
+					mic.rate = rate;
+				}
+			}
+			
+			private function ring():void
+			{				
+				ringer = new Sound();
+				
+				ringer.addEventListener("sampleData", ringTone);
+				ringerChannel = ringer.play();
+			}
+			
+			private function stopRing():void
+			{
+				if (ringerChannel)
+				{
+					ringerChannel.stop();
+					
+					ringer.removeEventListener("sampleData", ringTone);
+					
+					ringer = null;
+					ringerChannel = null;
+				}
+			}
+			
+			private function ringTone(event:SampleDataEvent):void
+			{	
+				for (var c:int=0; c<8192; c++) 
+				{
+					var pos:Number = Number(c + event.position) / Number(6 * 44100);
+					var frac:Number = pos - int(pos);
+					var sample:Number;
+					if (frac < 0.066)
+					{
+						sample = 0.4 * Math.sin(2* Math.PI / (44100/784) * (Number(c + event.position)));
+					}
+					else if (frac < 0.333)
+					{
+						sample = 0.2 * (Math.sin(2* Math.PI / (44100/646) * (Number(c + event.position)))
+							+ Math.sin(2* Math.PI / (44100/672) * (Number(c + event.position)))
+							+ Math.sin(2* Math.PI / (44100/1034) * (Number(c + event.position)))
+							+ Math.sin(2* Math.PI / (44100/1060) * (Number(c + event.position))));
+					}
+					else
+					{
+						sample = 0;	
+					}
+					event.data.writeFloat(sample);
+					event.data.writeFloat(sample);
+				}
+			}
+		]]>
+	</fx:Script>
+	
+		<fx:Style>
+		.buttonStyle {
+			color: "0x000000";
+			textRollOverColor: "0x000000";
+			textSelectedColor: "0x000000";
+		}
+		
+		.checkboxStyle
+		{
+			color: "0xffffff";
+			textRollOverColor: "0xffffff";
+			textSelectedColor: "0xffffff";
+		}
+	</fx:Style>
+	
+	<s:states>
+		<s:State name="LoginNotConnected"/>
+		<s:State name="LoginConnecting"/>
+		<s:State name="LoginConnected"/>
+		<s:State name="LoginDisconnecting"/>
+		<s:State name="CallReady"/>
+		<s:State name="CallCalling"/>
+		<s:State name="CallRinging"/>
+		<s:State name="CallEstablished"/>
+		<s:State name="CallFailed"/>
+	</s:states>
+	
+	<fx:Declarations>
+		<s:RadioButtonGroup id="codecGroup" change="handleCodecChange()"/>
+	</fx:Declarations>
+	
+	<s:BorderContainer cornerRadius="10" backgroundColor="0x303030" borderStyle="solid">
+		<s:layout>
+			<s:VerticalLayout paddingTop="5" paddingLeft="5" paddingBottom="5" paddingRight="5"/>
+		</s:layout>
+		
+		<!-- Login pane -->
+		<s:HGroup includeIn="LoginNotConnected" verticalAlign="middle">
+			<s:Label text="User Name: " color="0xffffff"/>
+			<s:TextInput id="userNameInput" width="80" enter="onConnect()"/>
+			<s:Button label="CONNECT" click="onConnect()" enabled="{userNameInput.text.length > 0}" styleName="buttonStyle"/>
+		</s:HGroup>
+		<s:HGroup includeIn="LoginConnecting" verticalAlign="middle">
+			<s:Label text="Connecting to {connectUrl}" color="0xffffff"/>
+			<s:Button label="CANCEL" click="onDisconnect()" styleName="buttonStyle"/>
+		</s:HGroup>
+		<s:HGroup includeIn="LoginConnected, CallReady, CallCalling, CallRinging, CallEstablished, CallFailed" verticalAlign="middle">
+			<s:Label text="Connected as {userNameInput.text}" color="0xffffff"/>
+			<s:Button label="DISCONNECT" click="onDisconnect()" styleName="buttonStyle"/>
+		</s:HGroup>
+		<s:HGroup includeIn="LoginDisconnecting">
+			<s:Label text="Disconnecting from {connectUrl}" color="0xffffff"/>
+		</s:HGroup>
+		
+		<!-- Call status pane -->
+		<s:Label text="Please enter user name and connect" color="0xffffff" height="22" includeIn="LoginNotConnected, LoginConnecting, LoginDisconnecting"/>
+		
+		<s:HGroup includeIn="CallReady" verticalAlign="middle">
+			<s:TextInput id="calleeInput" enter="onCall()"/>
+			<s:Button label="CALL" click="onCall()" styleName="buttonStyle" enabled="{calleeInput.text.length > 0}"/>
+		</s:HGroup>
+		
+		<s:HGroup includeIn="CallCalling" verticalAlign="middle">
+			<s:Label text="Calling {remoteName}" color="0xffffff"/>
+			<s:Button label="CANCEL" click="onHangup()" styleName="buttonStyle"/>
+		</s:HGroup>
+		
+		<s:HGroup includeIn="CallRinging" verticalAlign="middle">
+			<s:Label text="Incoming call from: {remoteName}" color="0xffffff"/>
+			<s:Button label="ACCEPT" click="acceptCall()" styleName="buttonStyle"/>
+			<s:Button label="REJECT" click="onHangup()" styleName="buttonStyle"/>
+		</s:HGroup>
+		
+		<s:HGroup includeIn="CallEstablished" verticalAlign="middle">
+			<s:Label text="Call in progress with {remoteName}" color="0xffffff"/>
+			<s:Button label="HANGUP" click="onHangup()" styleName="buttonStyle"/>
+			<s:Label id="callTimerText" color="0xffffff"/>
+		</s:HGroup>
+		
+		<s:HGroup includeIn="CallFailed" verticalAlign="middle">
+			<s:Label text="Call failed to {calleeInput.text}" color="0xffffff"/>
+			<s:Button label="HANGUP" click="onHangup()" styleName="buttonStyle"/>
+		</s:HGroup>
+		
+		<s:HGroup>
+			<mx:VideoDisplay id="remoteVideoDisplay" width="320" height="240" />
+		</s:HGroup>
+	</s:BorderContainer>
+</s:Application>

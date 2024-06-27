@@ -1,0 +1,185 @@
+/*----------------------------------------------------------------
+	音声分析用css
+	saはsentiment_analysisの略
+-----------------------------------------------------------------*/
+/* 音声分析開始・終了モーダル内のメッセージ */
+.sa_modal_message{
+	font-weight: bold;
+	margin-bottom: 20px;
+	color: #ffa000;
+}
+/* 音声分析開始・終了モーダル内のキャンセルボタン */
+.sa_btn_cancel{
+	width: 200px;
+	background-color: #B1B1B1;
+}
+
+/* 音声分析実行中モーダル */
+.mcrsa_area{
+	display: none;
+	position: absolute;
+	top: 30px;
+	right: 50px;
+	width: 345px;
+	height: 50px;
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #00000029;
+	border: 1px solid #FFAA00;
+	border-radius: 6px;
+	opacity: 1;
+	z-index: 100000001;
+	margin: 20px 15px 10px 5px;
+}
+.mcrsa_contents{
+	position: relative;
+}
+.mcrsaa_close_area{
+	position: absolute;
+	top: -16px;
+	right: -16px;
+	cursor: pointer;
+}
+.mcrsa_main{
+	padding: 10px;
+	cursor: move;
+}
+.mcrsaa_mike{
+	float: left;
+	margin-left: 5px;
+}
+.mcrsaa_message{
+	float: left;
+	font: normal normal normal 11px/1px Hiragino Sans;
+	letter-spacing: 0px;
+	color: #333333;
+	opacity: 1;
+	margin: 15px 5px 0 5px;
+}
+#audio-analysis-time-countdown_area{
+	margin-left: 10px;
+	padding-left: 10px;
+	border-left: 2px solid #E9E8E7;
+}
+#modal-content-start_sentiment_analysis,
+#modal-content-running_sentiment_analysis,
+#modal-content-stop_sentiment_analysis {
+	display: none;
+}
+
+.mcrsaa_stop{
+	float: left;
+	margin-left: 10px;
+}
+.mcrsaa_stop button{
+	width: 73px;
+	height: 32px;
+	line-height: 12px;
+	background: #FFAA00 0% 0% no-repeat padding-box;
+	border-radius: 3px;
+	opacity: 1;
+	font-size: 11px;
+}
+.mcrsaa_stop img{
+	margin-right: 10px;
+}
+.clear_both{
+	clear: both;
+}
+
+/* 機能制限用のメッセージ */
+.temporary_message_area{
+	display: none;
+	position: absolute;
+	background: #1B1B1B 0% 0% no-repeat padding-box;
+	padding: 5px;
+	margin-left: -85px; 
+	margin-top: -110px;
+	width: 280px;
+	color: #FFFFFF;
+	border-radius: 3px;
+	border: 1px solid #1B1B1B;
+	padding: 5px 10px 5px 10px;
+}
+.temporary_message_area:after{
+	content: "";
+	position: absolute;
+	right: 0;
+	bottom: -10px;
+	left: 0;
+	width: 0px;
+	height: 0px;
+	margin: auto;
+	border-style: solid;
+	border-color: #1B1B1B transparent transparent transparent;
+	border-width: 10px 10px 0 10px;
+}
+.temporary_second_text_stop {
+	margin-right: 64px;
+}
+.temporary_second_text_wait {
+	margin-right: 10px;
+}
+.temporary_second_text_stop_analysis {
+	margin-right: 78px;
+}
+#tmp_message_run_sentiment_analysis {
+	margin-left: -45px;
+  margin-top: -100px;
+	width: 200px;
+	padding: 10px;
+}
+.title_sentiment_analysis{
+	position: relative;
+}
+.run_sentiment_analysis{
+	display: none;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background: #69B076 0% 0% no-repeat padding-box;
+	position: absolute;
+	top: 3px;
+	left: 100px;
+}
+
+/* 残時間 0状態　表示用のスタイル */
+/*　下部メニュー */
+.icon_footer_mike.lock,
+.title_sentiment_analysis.lock
+{
+	opacity: 0.3;
+}
+#button_sentiment_analysis.lock:hover {
+	background: #ffaa00;
+}
+
+.no_time_alert_area{
+	width: 252px;
+	height: 40px;
+	margin-left: -70px; 
+}
+.no_time_alert_area .alert_modal_contents{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+}
+.no_time_alert_area .alert_modal_contents .icon_alert_mike_image{
+	margin-right: 5px;
+}
+.add_text_alert {
+	margin-top: -146px;
+	margin-left: -65px;;
+	line-height: 20px;
+	padding: 14px 0px 14px 0px;
+	width: 258px;
+	line-height: 20px;
+}
+.add_text_icon_alert_mike {
+	padding: 0px 5px 3px 0px;
+}
+.add_text {
+	display: flex;
+	padding-left: 47px;
+	text-align: left;
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/information</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="parts/header" transform="translate(-661.000000, -10.000000)" fill="#FFAA00">
+            <g id="icon/information">
+                <g transform="translate(661.000000, 10.000000)">
+                    <path d="M2,18 L18,18 L18,2 L2,2 L2,18 Z M0,20 L20,20 L20,0 L0,0 L0,20 Z M9,7 L11,7 L11,5 L9,5 L9,7 Z M9,15 L11,15 L11,9 L9,9 L9,15 Z" id="information-[#1535]"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

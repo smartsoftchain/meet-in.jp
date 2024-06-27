@@ -1,0 +1,33 @@
+﻿リリースの手順
+
+■ルート権限の取得
+コマンド：
+su -
+Sf%a3.ZkQ!~b*jb
+
+####################################
+# Node.js パッケージ追加
+# 
+# websocket-serverからDB(MySQQL)とディレクトリ(ディレクトリ削除)を行うため
+# パッケージ MySQL と rimraf 追加
+# 
+####################################
+
+●ルートディレクトリのホームで実行
+cd
+
+# MySQL
+npm install mysql
+
+# rimraf
+npm install rimraf
+
+●念のためwebsocket-serverで実行(起動時にエラーになったので)
+cd /var/www/html_meet/websocket-server
+
+# MySQL
+npm install mysql
+
+# rimraf
+npm install rimraf
+

@@ -1,0 +1,1 @@
+ALTER TABLE `logs` ADD `day_of_week` VARCHAR( 4 ) NULL DEFAULT NULL COMMENT 'roomの使用曜日' AFTER `create_time` ;

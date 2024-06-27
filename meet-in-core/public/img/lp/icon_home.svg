@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="18px" viewBox="0 0 14 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/home [#1392]</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="contents/機能紹介" transform="translate(-482.000000, -123.000000)" fill="#FFAA00">
+            <g id="contents">
+                <g transform="translate(102.000000, 104.000000)">
+                    <g id="text" transform="translate(380.000000, 18.000000)">
+                        <path d="M12.25,17.2011692 L9.625,17.2011692 L9.625,13.6035077 L4.375,13.6035077 L4.375,17.2011692 L1.75,17.2011692 L1.75,8.91395593 L6.99125,3.5264578 L12.25,8.93194424 L12.25,17.2011692 Z M13.9545,8.20701544 L6.9755,1 L0,8.19442362 L0,19 L6.125,19 L6.125,15.4023385 L7.875,15.4023385 L7.875,19 L14,19 L14,18.9730175 L14,8.20701544 L13.9545,8.20701544 Z" id="icon/home-[#1392]"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,52 @@
+
+<!-- 
+  You must copy the webphone.jar in this directory for this example to work.
+  Then change at least the "serverAddress" variable below.
+  *You need at least the Standard license for this to work (the basic version doesn't contain the java script API)
+  *Make sure to have the webphone.jar near this html or set the file exact path with the "archive" applet parameter
+-->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Mizutech Click2Call</title>
+
+
+
+</head>
+<script type="text/javascript"> 
+<!-- 
+	$(document).ready(function(){
+		$("#btn_callhangup_inner").click(function () {
+			alert("a");
+		});
+	});
+//--> 
+</script>
+<body>
+<div id="js_not_enabled">The webphone needs JavaScript to be enabled</div>
+    
+<script type="text/javascript">     // Webphone Configuration Settings
+	
+	var voipServerAddress = '222.230.136.74:9051';    // yoursipdomain.com your VoIP server IP address or domain name
+    var register = true;                    // wheter to register with domain
+    var username = '201';                      // SIP account username
+    var password = '90kon6F000';                      // SIP account password
+    var md5 = '';                           // Instead of using the password parameter you can pass an MD5 checksum for better protection: MD5(username:realm:password)
+                                            // (The parameters are separated with the ‘:’ character) 
+    var realm = '';                         // The realm is usually your server domain name or IP address (otherwise it is set on your server) 
+    var destination_number = '09077016488'             // destination number to call
+
+    var call_button_text = '09077016488に通話する';          // text showed on call button
+    var hangup_button_text = '終話';      // text showed on hangup button
+	var call_button_color = '#48cd55';		// call button color
+	var hangup_button_color = '#d43434';	// hangup button color
+    var button_width = 220;                 // width of button - don't specify measurement unit
+</script>
+<div><script type="text/JavaScript" src="webphone.js"></script></div>
+
+</body>
+</html>

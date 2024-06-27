@@ -1,0 +1,19 @@
+{
+    "databaseAuth": {
+        "user": "root",
+        "password": "90kon6Fmysql",
+        "database": "meetin_db",
+        "host": "localhost",
+        "port": 3306
+    },
+    "databasePool": {
+ 	"user": "root",
+	"password": "90kon6Fmysql",
+	"database": "meetin_db",
+	"host": "localhost",
+        "port": 3306,
+	"connectTimeout": 1000,
+	"supportBigNumbers": true,
+	"connectionLimit": 10
+    }
+}

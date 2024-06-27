@@ -1,0 +1,10 @@
+<Files ~ (form_trial.html)>
+AuthUserFile /var/www/html_meet/public/lp/.htpasswd
+AuthGroupFile /dev/null
+AuthName "Please enter your ID and password."
+AuthType Basic
+require valid-user
+</Files>
+
+RewriteEngine On
+RewriteRule ^faq(.*)$ https://manual.meet-in.jp/ [R=301,L] 

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<title>meet in（ミートイン） | いつでも、どこでも1秒でweb会議</title>
+	<meta charset="utf-8">
+	<meta content="meet in（ミートイン）は、いつでも、どこでも簡単にweb会議ができる、オンラインコミュニケーションプラットフォームです。アプリのインストールは不要、すぐに始められます。" name="description">
+	<meta content="web 会議　webミーティング　オンラインコミュニケーション　インストール不要　簡単" name="keywords">
+	<meta content="" name="author">
+	<link href="/img/favicon.ico" rel="shortcut icon">
+	<link href="/css/fonts.css" rel="stylesheet">
+	<link href="/css/ie7.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+	<link href="/css/troubleShooting.css" rel="stylesheet">
+	<link href="/css/faq.css" rel="stylesheet">
+	<link href="/css/contract.css" rel="stylesheet">
+	<link href="/css/confirm_contact.css" rel="stylesheet">
+	<link href="/css/reset.css" rel="stylesheet">
+	<link href="/css/base.css" rel="stylesheet">
+	<link href="/css/page.css" rel="stylesheet">
+	<link href="/css/design.css" rel="stylesheet">
+	<link href="/css/top.css" rel="stylesheet">
+	<link href="/css/jquery-ui.css" rel="stylesheet">
+	<script src="/js/jquery-1.11.2.min.js">
+	</script>
+	<script src="/js/jquery-ui.min.js">
+	</script>
+	<script src="/js/common.js">
+	</script>
+	<script src="/js/top.js">
+	</script>
+	<script>
+	//オーバーレイ
+	$(function(){
+
+	  $( 'form.contactform').submit(function(event){
+	    event.preventDefault();
+	    var nameVal = $(".contactform [name=name]").val();
+	    var companyVal = $(".contactform [name=company]").val();
+	    var telNumberVal = $(".contactform [name=tel_number]").val();
+	    var mailVal = $(".contactform [name=mail]").val();
+	    var domeinVal = $(".contactform [name=domein]").val();
+	    var contactVal = $(".contactform [name=contact]").val();
+	    var privacyVal = $(".contactform [name=privacy]").val();
+	    var useVal = $(".contactform [name=use]").val();
+			var postcode = $(".contactform [name=postcode_1]").val()+ " - " +$(".contactform [name=postcode_2]").val();
+			var address_1 = $(".contactform [name=address_1]").val();
+			var address_2 = $(".contactform [name=address_2]").val();
+			var plan = $(".contactform [name=plan]").val();
+			var payment = $(".contactform [name=payment]").val();
+
+	    $(".mi_confirm_name").text(nameVal);
+	    $(".mi_confirm_company").text(companyVal);
+	    $(".mi_confirm_tel_number").text(telNumberVal);
+	    $(".mi_confirm_mail").text(mailVal + "@" + domeinVal);
+	    $(".mi_confirm_contact").text(contactVal);
+	    $(".mi_confirm_use").text(useVal);
+			$(".mi_confirm_postcode").text(postcode);
+			$(".mi_confirm_address1").text(address_1);
+			$(".mi_confirm_address2").text(address_2);
+			$(".mi_confirm_plan").text(plan);
+			$(".mi_confirm_payment").text(payment);
+
+	    $(".mi_confirm_name_input").val(nameVal);
+	    $(".mi_confirm_company_input").val(companyVal);
+	    $(".mi_confirm_tel_number_input").val(telNumberVal);
+	    $(".mi_confirm_mail_input").val(mailVal + "@" + domeinVal);
+	    $(".mi_confirm_contact_input").val(contactVal);
+	    $(".mi_confirm_use_input").val(useVal);
+			$(".mi_confirm_postcode_input").val(postcode);
+			$(".mi_confirm_address1_input").val(address_1);
+			$(".mi_confirm_address2_input").val(address_2);
+			$(".mi_confirm_plan_input").val(plan);
+			$(".mi_confirm_payment_input").val(payment);
+			$(".mi_confirm_use_input").val(useVal);
+
+			$("#mi_overlay_confirm").fadeIn("first");
+	    return false;
+		});
+
+	  $('.mi_overlay_colose_btn').on('click',function(){
+	    $(this).parents(".mi_overlay").fadeOut("first");
+	  });
+	});
+	</script>
+	<style>
+		.mi_overlay {
+			position: fixed;
+		}
+	</style>
+	<!-- Facebook Pixel Code -->
+	<script>
+	  !function(f,b,e,v,n,t,s)
+	  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	  n.queue=[];t=b.createElement(e);t.async=!0;
+	  t.src=v;s=b.getElementsByTagName(e)[0];
+	  s.parentNode.insertBefore(t,s)}(window, document,'script',
+	  'https://connect.facebook.net/en_US/fbevents.js');
+	  fbq('init', '251868542198394');
+	  fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none"
+	  src="https://www.facebook.com/tr?id=251868542198394&ev=PageView&noscript=1"
+	/></noscript>
+	<!-- End Facebook Pixel Code -->
+
+
+</head>
+<body>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-48144639-6', 'auto');
+		ga('send', 'pageview');
+
+	</script>
+
+	<div class="lp_wrap">
+		<!-- LPナビゲーション start -->
+		<nav class="mi_lpmain_nav_wrap">
+			<div class="mi_lp_top_nav_fixed" id="mi_lp_top_nav">
+				<div class="mi_lpmain_nav_block">
+					<div class="mi_lp_nav_logo_wrap">
+						<img alt="meet in" src="/img/logo_header.png" class="mi_lp_nav_logo"
+							onclick="location.href='/'">
+						<p class="mi_lp_nav_logo_side_message">Web会議・商談システム</P>
+					</div>
+					<ul class="mi_lpmain_nav_inner mi_js_scroll mi_clearfix">
+						<li>
+							<a href="/#mi_two_step_section">使い方</a>
+						</li>
+						<li>
+							<a href="/#mi_three_features_section">特徴</a>
+						</li>
+						<li>
+							<a href="/lp/lp_function.html">機能紹介</a>
+						</li>
+						<li>
+							<a href="/#mi_common_problems_list_section">活用方法</a>
+						</li>
+						<li>
+							<a href="/#mi_case_study_section">導入事例</a>
+						</li>
+					</ul>
+					<div class="mi_lp_nav_button_wrap">
+						<a href="/#mi_contact_section" class="mi_lp_nav_button mi_lp_nav_contact_button">
+							<span class="mi_lp_nav_contact_button_text">お問い合わせ</span>
+						</a>
+						<a href="/index/login" class="mi_lp_nav_button mi_lp_nav_rogin_button">
+							<span class="mi_lp_nav_rogin_button_text" id="lp-rogin-button">ログイン</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<!-- LPナビゲーション end -->
+		<!-- LPお問い合わせセクション start -->
+		<section class="mi_form_section mi_contact_section mi_bg_orange" id="form_application">
+			<div class="mi_top_section_inner">
+				<div class="mi_top_section_title_block">
+					<h2 class="mi_top_section_title mi_contact_title">お申し込みフォーム</h2>
+				</div>
+				<p class="mi_contact_subtitle">meet inプランのお申し込みは、下記の必要事項をご入力をお願いいたします。<br>
+				お申し込み内容確認後、決算画面へお進みください。</p>
+				<div class="mi_contact_block">
+					<form action="/lp/complete.php" class="contactform" method="post">
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>氏名</p><input class="mi_contactform_input_text_m" name="name" placeholder="田中 太郎" required="" type="text">
+						</div>
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>会社名<span class="mi_contactform_confilm_text">（個人事業主の場合は氏名を再度入力してください。）</span></p>
+							<input class="mi_contactform_input_text_l" name="company" placeholder="株式会社meet in" required="" type="text">
+						</div>
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>郵便番号</p><input class="mi_contactform_input_text_s" name="postcode_1" placeholder="000" required="" type="text"> <span class="mi_text_atmark">-</span> <input class="mi_contactform_input_text_s" name="postcode_2" placeholder="000" required="" type="text">
+							<!-- <button class="form_btn_address" id="address" name="button" type="button">自動入力</button> -->
+						</div>
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>住所<span class="mi_contactform_confilm_text">（都道府県・市区町村・番地）</span></p><input class="mi_contactform_input_text_l" name="address_1" placeholder="埼玉県さいたま市下落合" required="" type="text">
+						</div>
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>住所<span class="mi_contactform_confilm_text">（それ以降の住所）</span></p><input class="mi_contactform_input_text_l" name="address_2" placeholder="6-4-5 2ビル" required="" type="text">
+						</div>
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>電話番号</p><input class="mi_contactform_input_text_m" name="tel_number" placeholder="000-0000-0000" required="" type="text">
+						</div>
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>メールアドレス</p><input class="mi_contactform_input_text_ml" name="mail" placeholder="aaaaaaaaaaaaaaa" required="" type="text"><span class="mi_text_atmark">@</span><input class="mi_contactform_input_text_s" name="domein" placeholder="aaaa.jp" required="" type="text">
+						</div>
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>お申し込みプラン</p>
+							<p class="mi_form_radio_wrap"><label><input class="mi_form_radioLabel" name="plan" required="" type="radio" value="ライトプラン">ライトプラン</label></p>
+							<p class="mi_form_radio_wrap"><label><input class="mi_form_radioLabel" name="plan" required="" type="radio" value="スタンダードプラン">スタンダードプラン</label></p>
+							<p class="mi_form_radio_wrap"><label><input class="mi_form_radioLabel" name="plan" required="" type="radio" value="スタンダードプラン50">スタンダードプラン50</label></p>
+							<p class="mi_form_radio_wrap"><label><input class="mi_form_radioLabel" name="plan" required="" type="radio" value="スタンダードプラン100">スタンダードプラン100</label></p>
+							<p class="mi_form_radio_wrap"><label><input class="mi_form_radioLabel" name="plan" required="" type="radio" value="スタンダードプラン300">スタンダードプラン300</label></p>
+							<p class="mi_form_radio_wrap"><label><input class="mi_form_radioLabel" name="plan" required="" type="radio" value="スタンダードプラン1000">スタンダードプラン1000</label></p>
+						</div>
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>お支払い方法</p>
+							<p class="mi_form_radio_wrap"><input class="mi_form_radioLabel" name="payment" required="" type="radio" value="クレジットカード"><label>クレジットカード</label></p>
+							<p class="mi_form_radio_wrap"><input class="mi_form_radioLabel" name="payment" required="" type="radio" value="その他"><label>その他</label></p>
+						</div>
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title">使用用途</p><input class="mi_contactform_input_text_l" name="use" placeholder="例：ミーティング、営業など" type="text">
+						</div>
+						<p class="mi_contactform_text"><input class="mi_contactform_checkbox" id="mi_privacy_check" name="privacy" required="" type="checkbox"><label for="mi_privacy_check"><a class="mi_overlay_privacy_open" href="javascript:void(0)">個人情報の取り扱いについて</a>承諾しました。</label></p>
+						<div class="mi_contactform_send_wrap">
+							<button class="mi_contactform_send mi_overlay_confirm_open">確認画面へ</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+		<!-- LPお問い合わせセクション end -->
+		<!-- LPフッターセクション start -->
+		<footer class="mi_lp_footer footer-min-none">
+			<div class="mi_footer_wrap width-90">
+				<!-- パンくずエリア start -->
+				<div class="breadcrumbsContent__wrap">
+					<div class="breadcrumbsContent">
+						<a href="/index#lp_wrap"><img alt="meet in" class="mi_confirm_title_img" src="/img/FAQ/icon_logo.svg"></a>
+					</div>
+					<div class="breadcrumbsContent"><img alt="meet in" class="mi_confirm_title_img" src="/img/FAQ/icon_arrowRight.svg"></div>
+					<div class="breadcrumbsContent">
+						お申込みフォーム
+					</div>
+				</div><!-- パンくずエリア end -->
+				<div class="footer-nav-box">
+					<dl class="footer-nav">
+						<dt class="bold-text">製品について</dt>
+						<dd>
+							<ul class="mi_footer_nav_list">
+								<li>
+									<a href="/index">トップページ</a>
+								</li>
+								<li>
+									<a href="/index#mi_how_to_use_section">使い方</a>
+								</li>
+								<li>
+									<a href="/index#mi_chara_section">特徴</a>
+								</li>
+								<li>
+									<a href="/index#mi_case_section">活用事例</a>
+								</li>
+								<li>
+									<a href="/index#mi_plan_section">料金プラン</a>
+								</li>
+								<li>
+									<a href="form_application.html">お申し込み</a>
+								</li>
+							</ul>
+						</dd>
+					</dl>
+					<dl class="footer-nav">
+						<dt class="bold-text">meet inついて</dt>
+						<dd>
+							<ul class="mi_footer_nav_list">
+								<li>
+									<a href="/lp/lp_company_profile.html#mi_company_section">会社概要</a>
+								</li>
+								<li>
+									<a href="/lp/lp_company_profile.html">ビジョン</a>
+								</li>
+								<li>
+									<a href="/lp/lp_company_profile.html#mi_member_section">開発メンバー</a>
+								</li>
+								<li>
+									<a href="/lp/lp_company_profile.html#mi_topic_section">トピックス</a>
+								</li>
+							</ul>
+						</dd>
+					</dl>
+					<dl class="footer-nav">
+						<dt class="bold-text">サポート</dt>
+						<dd>
+							<ul class="mi_footer_nav_list">
+								<li>
+									<a href="/lp/faq_top.html">よくある質問</a>
+								</li>
+								<li>
+									<a href="form_contactUs.html">お問い合わせ</a>
+								</li>
+								<li>
+									<a href="/index#mi_overlay_privacy">プライバシーポリシー</a>
+								</li>
+							</ul>
+						</dd>
+					</dl>
+					<dl class="footer-nav">
+						<dt class="bold-text">言語</dt>
+						<dd>
+							<ul class="mi_footer_nav_list">
+								<li>
+									<a href="">日本語</a>
+								</li>
+								<li>English(Comming soon)</li>
+							</ul>
+						</dd>
+					</dl>
+				</div>
+			</div><img alt="meet in" class="mi_footer_img" src="/img/lp/rogo-meetin-footer.png">
+		</footer>
+		<!-- LPフッターセクション end -->
+		<!-- LPプライバシーポップアップコンテンツコンテンツ begin -->
+		<div class="mi_overlay mi_overlay_privacy" id="mi_overlay_privacy">
+			<div class="mi_modal_shadow"></div>
+			<div class="mi_overlay_wrap mi_overlay_privacy_wrap">
+				<div class="mi_overlay_contents mi_privacy_block">
+					<div class="mi_overlay_colose">
+						<a class="mi_overlay_colose_btn" href="javascript:void(0)"><img alt="閉じる" class="mi_privacy_close_img" src="/img/lp/ico-close.png"><br>
+						閉じる</a>
+					</div>
+					<div class="mi_overlay_contents_title mi_privacy_title_wrap">
+						<h2 class="mi_privacy_title">プライバシーポリシー</h2>
+					</div>
+					<dl class="mi_privacy_list">
+						<dt><span class="mi_text_orange">●</span>個人情報の取り扱いについて</dt>
+						<dd>株式会社meet in（以下「当社」）は、個人情報の適切な取り扱いを期しています。当社が提供する「meet in」によるサービス（以下、「当サービス」）へ のお申し込みについて、下記の事項をご理解いただき、同意の上で個人情報をご提供ください。</dd>
+						<dd></dd>
+						<dt><span class="mi_text_orange">●</span>個人情報の管理</dt>
+						<dd>当社は、お客さまの個人情報を正確かつ最新の状態に保ち、個人情報への不正アクセス・紛失・破損・改ざん・漏洩などを防止するため、セキュリティシステムの維持・管理体制の整備・ 社員教育の徹底等の必要な措置を講じ、安全対策を実施し個人情報の厳重な管理を行ないます。</dd>
+						<dd></dd>
+						<dt><span class="mi_text_orange">●</span>個人情報の利用目的</dt>
+						<dd>以下の利用目的のために、個人情報を取得致します。<br>
+						その利用目的の範囲を超えて取得した個人情報を利用することはありません。<br>
+						（1）当サービス利用に関する登録及び個人認証<br>
+						（2）当サービス利用に関する料金請求その他の代金請求及び商品等の引渡し業務に関すること<br>
+						（3）当サービス利用に関する問合せ内容の確認、回答、その他ご要望等への対応<br>
+						（4）当サービスの利用に伴う電話連絡及び電子メール、資料のご送付<br>
+						（5）当サービスの利用に関する新サービス、新メニューのご案内ならびに調査及び障害連絡<br>
+						（6）当サービスの利用に関する保守及びメンテナンス等の運営<br>
+						（7）当社によるサービスの開発およびマーケティング</dd>
+						<dd></dd>
+						<dt><span class="mi_text_orange">●</span>個人情報の第三者への開示・提供の禁止</dt>
+						<dd>当社は、お客さまよりお預かりした個人情報を適切に管理し、次のいずれかに該当する場合を除き、個人情報を第三者に開示いたしません。<br>
+						・お客さまの同意がある場合<br>
+						・お客さまが希望されるサービスを行なうために当社が業務を委託する業者に対して開示する場合<br>
+						・法令に基づき開示することが必要である場合</dd>
+						<dd></dd>
+						<dt><span class="mi_text_orange">●</span>個人情報の安全対策</dt>
+						<dd>当社は、個人情報の正確性及び安全性確保のために、セキュリティに万全の対策を講じています。</dd>
+						<dd></dd>
+						<dt><span class="mi_text_orange">●</span>ご本人の照会</dt>
+						<dd>お客さまがご本人の個人情報の照会・修正・削除などをご希望される場合には、ご本人であることを確認の上、対応させていただきます。</dd>
+						<dd></dd>
+						<dt><span class="mi_text_orange">●</span>法令、規範の遵守と見直し</dt>
+						<dd>当社は、保有する個人情報に関して適用される日本の法令、その他規範を遵守するとともに、本ポリシーの内容を適宜見直し、その改善に努めます。</dd>
+						<dd></dd>
+						<dt><span class="mi_text_orange">●</span>個人情報の開示等の請求について</dt>
+						<dd>提出して頂いた個人情報について、利用目的の通知、個人情報の開示、訂正、項目の追加または削除、消去や利用停止、提供停止を求める権利があります。自己の個人情報の開示等の請求を行う場合は、下記までご連絡ください。</dd>
+						<dd></dd>
+						<dt><span class="mi_text_orange">●</span>個人情報の取り扱いに関するお問い合わせ先</dt>
+						<dd>
+							株式会社meet in　個人情報対応窓口<br>
+							住所：〒171-0022 東京都豊島区南池袋2-25-5 藤久ビル東5号館 4F<br>
+							メール：<a href="mailto:privacy@meet-in.jp">privacy@meet-in.jp</a><br>
+							担当責任：個人情報保護管理者
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<!-- LPプライバシーコンテンツ end -->
+
+
+		<!-- LPお申込みコンテンツ begin -->
+		<div id="mi_overlay_confirm" class="mi_overlay mi_overlay_confirm">
+			<div class="mi_modal_shadow"></div>
+			<div class="mi_overlay_wrap mi_overlay_confirm_wrap">
+				<div class="mi_overlay_contents mi_confirm_block">
+					<div class="mi_overlay_colose">
+						<a href="javascript:void(0)" class="mi_overlay_colose_btn"><img src="/img/lp/ico-close.png" class="mi_privacy_close_img" alt="閉じる"><br>閉じる</a>
+					</div>
+					<div class="mi_overlay_contents_title mi_confirm_title_wrap">
+						<img src="/img/lp/rogo.png" class="mi_confirm_title_img" alt="meet in">
+						<h2 class="mi_confirm_title">お申し込み内容<br>
+							確認画面</h2>
+					</div>
+
+					<table class="mi_confirm_content">
+						<tr>
+							<th>氏名</th>
+							<td class="mi_confirm_name"></td>
+						</tr>
+						<tr>
+							<th>会社名</th>
+							<td class="mi_confirm_company"></td>
+						</tr>
+						<tr>
+							<th>郵便番号</th>
+							<td class="mi_confirm_postcode"></td>
+						</tr>
+						<tr>
+							<th>住所（都道府県・市区町村・番地）</th>
+							<td class="mi_confirm_address1"></td>
+						</tr>
+						<tr>
+							<th>住所（それ以降の住所）</th>
+							<td class="mi_confirm_address2"></td>
+						</tr>
+						<tr>
+							<th>電話番号</th>
+							<td class="mi_confirm_tel_number"></td>
+						</tr>
+						<tr>
+							<th>メールアドレス</th>
+							<td class="mi_confirm_mail"></td>
+						</tr>
+						<tr>
+							<th>お申し込みプラン</th>
+							<td class="mi_confirm_plan"></td>
+						</tr>
+						<tr>
+							<th>お支払い方法</th>
+							<td class="mi_confirm_payment"></td>
+						</tr>
+            <tr>
+							<th>使用用途</th>
+							<td class="mi_confirm_use"></td>
+						</tr>
+					</table>
+          <form action="/lp/complete.php" method="post" class="mi_confirm_form">
+            <input type="hidden" name="confirm_name" class="mi_confirm_name_input">
+            <input type="hidden" name="confirm_company" class="mi_confirm_company_input">
+						<input type="hidden" name="confirm_postcode" class="mi_confirm_postcode_input">
+						<input type="hidden" name="confirm_address1" class="mi_confirm_address1_input">
+						<input type="hidden" name="confirm_address2" class="mi_confirm_address2_input">
+            <input type="hidden" name="confirm_tel" class="mi_confirm_tel_number_input">
+            <input type="hidden" name="confirm_mail" class="mi_confirm_mail_input">
+            <!-- <input type="hidden" name="confirm_contact" class="mi_confirm_contact_input"> -->
+						<input type="hidden" name="confirm_plan" class="mi_confirm_plan_input">
+						<input type="hidden" name="confirm_payment" class="mi_confirm_payment_input">
+            <input type="hidden" name="confirm_use" class="mi_confirm_use_input">
+						<input type="hidden" name="confirm_type" class="mi_confirm_type_input" value="お申込み">
+				     <button class="mi_default_button mi_confirm_send">送信</button>
+          </form>
+				</div>
+			</div>
+		</div>
+		<!-- LP問い合わせコンテンツ end -->
+	</div>
+</body>
+</html>

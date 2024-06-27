@@ -1,0 +1,49 @@
+10
+
+dir
+0
+https://172.24.1.44/svn/delphinus/application/smarty/templates/setting-account
+https://172.24.1.44/svn/delphinus
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+974c56ca-a70b-4177-b905-ce661fac0144
+
+complete.tpl
+file
+
+
+
+add
+
+profile.tpl
+file
+
+
+
+add
+
+user-info.tpl
+file
+
+
+
+add
+

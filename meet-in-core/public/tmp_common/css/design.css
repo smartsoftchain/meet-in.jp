@@ -1,0 +1,254 @@
+@charset "UTF-8";
+
+/*
+*   Title:「 Meet in 」ページ要素CSS
+*   File Nmae: design.css
+*/
+
+/*-----------------------------------------------------------
+	共通CSS
+------------------------------------------------------------*/
+.error_msg{
+	color: red;
+}
+
+.user_icon {
+	position: relative;
+	display: inline-block;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	margin-top: 15px;
+	margin-right: 5px;
+}
+
+.btn_link_long{
+	display: block;
+	width: 360px;
+	height: 45px;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #ffaa00;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.btn_link_middle{
+	display: block;
+	width: 240px;
+	height: 45px;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #ffaa00;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.btn_link_short{
+	display: block;
+	width: 140px;
+	height: 45px;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #ffaa00;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.clear_both{
+	clear: both;
+}
+
+.lnk_download{
+	margin-right: 20px;
+	text-align: center;
+}
+
+.btn_link_short:hover,
+.btn_link_long:hover {
+	color: #fff;
+	background: #eb9600;
+}
+.btn_link_short:active,
+.btn_link_long:active {
+	color: #fff;
+	background: #e39101;
+}
+
+/*-----------------------------------------------------------
+	TOPメニュー
+------------------------------------------------------------*/
+.right_half_contents{
+	width: 50%;
+	min-width: 500px;
+	height: calc(100vh - 100px);
+	min-height: 450px;
+	float: left;
+	background-color: white;
+	position: absolute;
+}
+
+.right_half_contents .right_half_middle_contents{
+	margin-top:15%;
+	padding-left: 15%;
+}
+
+.right_half_contents .right_half_middle_contents .create_number{
+	width: 50%;
+	min-width: 500px;
+	height: 45px;
+	margin-top: 10px;
+}
+
+#connection_info_not_published .title_message {
+	text-align: left;
+}
+#connection_info_not_published .create_number  {
+	text-align: left;
+}
+
+.right_half_contents .right_half_middle_contents .connection_number_area{
+	display: none;
+	width: 500px;
+	text-align: left;
+}
+
+.right_half_contents .right_half_middle_contents .connection_number{
+	width: 300px;
+	height: 45px;
+	background-color: #f1f1f1;
+	float: left;
+	font-size: 28px;
+	vertical-align: middle;
+	padding-left: 20px;
+}
+
+.right_half_contents .right_half_middle_contents .again_number{
+	width: 150px;
+	height: 45px;
+	float: left;
+	margin-left: 10px;
+}
+
+.right_half_contents .right_half_middle_contents .notification_area{
+	margin-top: 100px;
+}
+
+.right_half_contents .right_half_middle_contents .notification_area .title_message{
+	text-align:left;
+	font-size: 20px;
+	color: #ffaa00;
+}
+
+.right_half_contents .right_half_middle_contents .notification_area .notification{
+	width: 80%;
+  height: calc(100vh - 500px);
+	min-height: 50px;
+	overflow-y: scroll;
+}
+
+.notification .notification_row{
+	text-align: left !important;
+}
+
+.notification .date{
+	float: left;
+  display: block;
+  
+}
+.notification .message{
+	width: auto !important;
+	margin-left: 115px;
+	display: block;
+	text-align: left !important;
+}
+
+/*-----------------------------------------------------------
+	クライアント一覧
+------------------------------------------------------------*/
+.btn_client_submit_area{
+	margin-top: 30px;
+	text-align: center;
+}
+
+/*-----------------------------------------------------------
+	オペレータ呼出モーダル
+------------------------------------------------------------*/
+.model_call_operator{
+	text-align: center;
+}
+
+.model_call_operator .sub_title{
+	margin-top: 20px;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.model_call_operator .sub_message{
+	margin-top: 20px;
+	font-size: 14px;
+}
+
+.model_call_operator .call_operator_icon {
+	position: relative;
+	display: inline-block;
+	background: #f5f5f5;
+  border: 1px solid #f5f5f5;
+	border-radius: 50%;
+	width: 130px;
+	height: 130px;
+	margin-top: 25px;
+}
+
+.model_call_operator .call_operator_icon .icon-parsonal{
+	font-size: 60px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+}
+
+.btn_connection_area{
+	margin-top : 20px;
+	text-align: center;
+}
+
+.btn_connection_area .btn_connection{
+	width: 240px;
+	height: 45px;
+	background-color: #ffaa00;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	border:0;
+}
+
+.btn_rejection_area{
+	margin-top: 15px;
+	font-size: 14px;
+}
+
+/*-----------------------------------------------------------
+	ゲスト接続中モーダル
+------------------------------------------------------------*/
+.connection_area{
+	margin-left: 50px;
+	margin-top: 100px;
+}
+
+.connection_img{
+	float: left;
+}
+
+.connection_message{
+	margin-top:40px;
+	margin-left:15%;
+	float: left;
+	font-size: 32px;
+}

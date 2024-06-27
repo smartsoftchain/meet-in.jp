@@ -1,0 +1,107 @@
+@charset "UTF-8";
+body.error_body {
+  margin: 0;
+}
+
+.error_content_area {
+  margin-top: 80px;
+}
+
+.error_text {
+  text-align: center;
+}
+
+.error_text1 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.error_text2 {
+  font-size: 16px;
+  margin-bottom: 50px;
+}
+
+.error_recommend_area {
+  width: 265px;
+  margin: 0 auto 50px;
+}
+
+.error_recommend_label {
+  font-size: 14px;
+  line-height : 1.7;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.error_recommend_text {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.error_url_copy {
+    width: 200px;
+    border: 1px solid rgba(255, 170, 37, 1);
+    padding: 13px 50px;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 0 auto 38px;
+}
+
+.error_url_copy_link {
+  font-size: 16px;
+  color: rgba(255, 170, 37, 1);
+  text-decoration: none;
+}
+
+.error_url_open {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.error_url_open .error_url_open_link {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 1);
+  text-decoration: none;
+
+  width: 200px;
+  background: rgba(255, 170, 0, 1) 0% 0% no-repeat padding-box;
+  border: 1px solid rgba(255,170,0,1);
+  padding: 13px 50px;
+}
+
+
+.error_url_open_link.android {
+  white-space: nowrap;
+  padding: 13px 14px;
+}
+
+.landscape .error_content_area {
+    margin-top: 46px;
+}
+
+.landscape .error_recommend_area {
+  width: 350px;
+}
+
+.landscape .error_text2 {
+    margin-bottom: 20px;
+}
+
+.landscape .error_recommend_area .error_recommend_text {
+    text-align: center;
+}
+
+.landscape .error_url_area {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+.landscape .error_url_area .error_url_copy {
+  margin: 0 65px 0 0;
+}
+.landscape .error_url_area .error_url_open {
+    margin: 0;
+}
+
+
+

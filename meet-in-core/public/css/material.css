@@ -1,0 +1,1050 @@
+@charset "UTF-8";
+
+/*
+*   Title:「資料共有 」要素CSS
+*   File Nmae: material.css
+*/
+
+/* 資料共有モーダルのデザイン */
+div.material_modal_area div.modal_material_header {
+	padding: 20px;
+	font-weight: bold;
+	font-size: 20px;
+	flex-direction: row;
+	align-items: center;
+}
+
+div.material_modal_area div.modal_material_header span {
+	font-weight: bold;
+  color: #fa0;
+}
+div.material_modal_area div.modal_material_header div.search_box {
+	/* line-height: 50px; */
+	height: 50px;
+	width: 300px;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+	margin-left: 2.0rem;
+	display: flex;
+	flex-direction: row;
+}
+div.material_modal_area div.modal_material_header div.search_box input {
+	width: 300px;
+	left: 0;
+	height: 50px;
+	/* position: absolute; */
+	box-sizing: border-box;
+	font-size: 14px;
+	padding: 0 64px 0 20px;
+	outline: none;
+	color: #6e6e6e;
+	border: 1px solid #e1e1e1;
+}
+div.material_modal_area div.modal_material_header div.search_box button {
+	line-height: 50px;
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 0 !important;
+	z-index: 3;    
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+div.material_modal_area div.modal_material_header div.search_box span.search_close_button {
+	color: #b9b9b9;
+	font-weight: 100;
+	font-size: 1.0rem;
+}
+div.material_modal_area div.modal_material_header div.search_box button span.icon-search {
+	content: "\e93b";
+	font-weight: 100;
+	color: #fff;
+	font-size: 1.5rem;
+}
+
+div.material_modal_area div.modal_material_header .remarks {
+	font-size: 14px;
+    font-weight: 100;
+    margin-top: 16px;
+    color: #333333;
+}
+
+
+div.material_modal_area div.modal_material_list_area{
+	width: calc(100% - 40px);
+	height: calc(100% - 270px);
+	/* 200px */
+	padding: 20px;
+	border-top: 1px solid #e8e8e8;
+	border-bottom: 1px solid #e8e8e8;
+	overflow: auto;
+}
+
+div.material_modal_area div.modal_material_list_area div.modal_material{
+	margin-top: 10px;
+	padding: 10px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+div.material_modal_area div.modal_material_list_area div.modal_material:hover {
+	background: #ffe1a0;
+}
+div.material_modal_area div.modal_material_list_area div.modal_material.checked_color {
+	background: #ffaa00;
+}
+div.material_modal_area div.modal_material_list_area input.material_check{
+	margin-right: 10px;
+}
+div.material_modal_area div.modal_material_list_area div.modal_material.locked{
+	opacity: 0.75;
+	color: #aaa;
+}
+div.material_modal_area div.modal_material_list_area div.modal_material.hidden{
+	display: none;
+}
+
+div.material_modal_area div.modal_material_list_area div.modal_material_icon{
+	font-size: 50px;
+	text-align: center;
+	vertical-align: middle;
+}
+div.material_modal_area div.modal_material_list_area div.modal_material_icon.locked_img{
+opacity: 0.5;
+}
+
+div.material_modal_area div.modal_material_list_area div.modal_material_info{
+	font-size: 18px;
+	padding: 10px 0px 10px 30px;
+	line-height: 1.25;
+	width: calc(100% - 80px);
+}
+
+div.material_modal_area div.modal_material_list_area div.modal_material_setting{
+	margin-top: 10px;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	border-bottom: 1px solid #e8e8e8;
+}
+div.material_modal_area div.modal_material_list_area div.modal_material_setting div.material_type_file_dl{
+	display: flex;
+	align-items: center
+}
+div.material_modal_area div.modal_material_list_area div.modal_material_setting div.material_type_file_dl span{
+	width: calc(100% - 250px);
+	margin-right: 20px;
+}
+div.material_modal_area div.modal_material_list_area div.modal_material_setting div.material_type_file_dl div.download_select_area{
+	border: 1px solid #e8e8e8;
+	width: calc(100% - 175px);
+	height: 50px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+}
+div.material_modal_area div.modal_material_list_area div.modal_material_setting div.material_type_file_dl div.download_select_area .input_radio{
+	cursor:pointer;
+}
+
+.document_header_icon{
+	min-width: 170px;
+	z-index: 25;
+	display: none;
+}
+
+.document_canvas_contents{
+	/*z-index: 19;*/
+	position: relative;
+	margin: auto;
+}
+
+.url_active {
+	z-index: 19;
+	position: relative;
+	margin-left: 50px;
+}
+
+/* サムネイル巨大化のスタイル */
+.bottom_arrow {
+	background-color:#fff;
+	border-radius:5px;
+	position:relative;
+	box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;
+}
+
+.bottom_arrow:before {
+	border:10px solid transparent;
+	border-top-color:#fff;
+	border-bottom-width:0;
+	bottom:-9px;
+	content:"";
+	display:block;
+	left:30px;
+	position:absolute;
+	width:0;
+	z-index:1;
+}
+
+.bottom_arrow:after {
+	border:10px solid transparent;
+
+	border-bottom-width:0;
+	bottom:-10px;
+	content:"";
+	display:block;
+	left:30px;
+	position:absolute;
+	width:0;
+}
+
+div.big_thumbnail_area{
+	position: fixed;
+	bottom: 55px;
+	margin-left: -20px;
+}
+
+.big_thumbnail_image{
+	height: 180px;
+	width: auto;
+}
+
+/* サムネイルを削除する為のゴミ箱アイコン */
+.remove_material{
+	margin: 5px 0px 10px 5px;
+	height: 40px;
+	width : 50px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	border: solid 1px white;
+	font-size: 22px;
+	color: white;
+	cursor: pointer;
+	padding-top: 2px;
+}
+.remove_material div.del_message{
+	font-size: 11px;
+}
+
+/*資料のヘッダー領域に表示するアイコン*/
+div.document_canvas_area{
+	position: relative;
+}
+
+div#document_header_icon{
+	position: fixed;
+	font-size: 32px;
+}
+
+
+/* 左メニューアイコン押下時のデザイン */
+.on_left_icon {
+	position: relative;
+}
+.on_left_icon:before {
+	background: #ffaa00;
+	content: "";
+	display: block;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width:4px;
+}
+
+/* コメントとダウンロードアイコン、ペンリセットアイコンのホバー時のカーソル */
+div#document_header_icon img.img_document_comment:hover,
+div#document_header_icon span.icon-download:hover,
+div#document_header_icon span.icon-reset:hover{
+	cursor : pointer;
+}
+
+div#document_header_icon img.img_document_comment{
+	width: 40px;
+	height: 40px;
+	vertical-align: middle;
+}
+
+div.document_comment{
+	line-height : 30px !important;
+}
+
+div.document_comment img.img_document_comment{
+	width: 20px !important;
+	height: 20px !important;
+}
+
+/* 目次アイコン */
+.display_none{
+	display: none;
+}
+
+/* 目次の付箋アイコン */
+.document_tag:after {
+	content: "";
+	width: 0;
+	height: 0;
+	position: absolute;
+	border-style: solid;
+	border-width: 20px;
+	border-color: #ffaa00 #ffaa00 transparent transparent;
+	right: 0;
+}
+/* 目次のコメントアイコン */
+.document_comment {
+	width: auto !important;
+	position: absolute;
+	padding-left: 10px;
+	color: #000000 !important;
+}
+
+/* 資料アップロード時のメッセージ */
+div.upload_document_message_area{
+	top: 150px;
+	right: 0;
+	width: 200px;
+	min-height: 50px;
+	position: fixed;
+	background-color: #ffffff;
+	box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;
+	display: none;
+	z-index: 350;
+}
+div.upload_document_message{
+	width: 200px;
+	height: 50px;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+/* 資料がこれ以上保存できない時のメッセージ */
+div.no_save_document_message_area{
+	top: 200px;
+	right: 0;
+	width: 300px;
+	height: 120px;
+	position: absolute;
+	background-color: #ffffff;
+	box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;
+	display: none;
+	z-index: 350;
+}
+div.no_save_document_message{
+	width: 300px;
+	height: 120px;
+	display: table-cell;
+	text-align: left;
+	vertical-align: middle;
+	padding-left: 10px;
+}
+/*-----------------------------------------------------------
+	同期メッセージ
+------------------------------------------------------------*/
+.negotiation_sync_message_area{
+	top: 200px;
+	right: 0;
+	width: 300px;
+	height: 120px;
+	position: absolute;
+	background-color: #ffffff;
+	box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;
+	display: none;
+	z-index: 350;
+}
+.negotiation_sync_message{
+	width: 300px;
+	height: 120px;
+	display: table-cell;
+	text-align: left;
+	vertical-align: middle;
+	padding-left: 10px;
+}
+
+/*-----------------------------------------------------------
+	新仕様キャンバス用のデザイン設定
+------------------------------------------------------------*/
+.document_img{
+	z-index: 15;
+	position: absolute;
+	display: none;
+}
+.document_canvas{
+	z-index: 20;
+	position: absolute;
+}
+.mi_arrow{
+	z-index: 25;
+	display: none;
+}
+
+/* 強調ポインターのスタイル */
+.span_emphasis_pointer{
+	width:16px;
+	height:16px;
+}
+.img_emphasis_pointer{
+	width: 100%;
+	height: 100%;
+}
+/*-----------------------------------------------------------
+	資料追加画面のボタン配置
+------------------------------------------------------------*/
+/* #document_pen_reset{
+	background-color: #1E1E1E99;
+	color: #fff;
+	border-radius: 50% 50%;
+	width: 80px;
+	height: 80px;
+    text-align: center;
+}
+
+.icon-reset{
+	line-height: 44px;
+}
+
+.mi_icon_text{
+	font-size: 14px;
+	white-space: nowrap;
+	letter-spacing: 0.1em;
+	line-height: 19px;
+}
+
+#document_close{
+	background-color: #1E1E1E99;
+	color: #fff;
+	border-radius: 50% 50%;
+	width: 80px;
+	height: 80px;
+    text-align: center;
+}
+
+#document_close .icon-close{
+	line-height: 38px;
+} */
+
+/*-----------------------------------------------------------
+	資料追加画面のボタン配置
+------------------------------------------------------------*/
+
+/* 二回書かないと反映されない Html直書きも効かない */
+#document_header_icon .document_button_wrapper{
+	display: inline-block;
+	margin-top: 3px;
+}
+#document_header_icon .document_button_wrapper{
+	display: inline-block;
+	margin-top: 3px;
+}
+
+#document_header_icon #document_close{
+	position:relative;
+	display: inline-block;
+	background-color: #1E1E1E99;
+	color: #fff;
+	border-radius: 50% 50%;
+	width: 60px;
+	height: 60px;
+    text-align: center;
+	cursor: pointer;
+}
+
+
+#document_header_icon .icon-close{
+	position:absolute;
+    top:0%;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+#document_header_icon .mi_icon_text{
+	position:absolute;
+    top:55%;
+    left:50%;
+    transform:translateX(-50%);
+	font-size: 10px;
+	white-space: nowrap;
+	letter-spacing: 0.1em;
+	line-height: 19px;
+}
+
+#document_header_icon #document_pen_reset{
+	position:relative;
+	display: inline-block;
+	background-color: #1E1E1E99;
+	color: #fff;
+	border-radius: 50% 50%;
+	width: 60px;
+	height: 60px;
+    text-align: center;
+	cursor: pointer;
+}
+
+#document_header_icon .icon-reset{
+	position:absolute;
+    top:3%;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+#document_header_icon .icon-reset:before{
+	font-size: 20px;
+}
+
+#document_header_icon .icon-close:before{
+	font-size: 16px;
+}
+
+div#document_header_icon img.img_document_comment{
+	display: inline;
+	padding-bottom :45px;
+}
+
+div#document_header_icon #document_download{
+	display: inline-block;
+	position: relative;
+	color: #fff;
+	background-color: #1E1E1E99;
+	border-radius: 50% 50%;
+	width: 60px;
+	height: 60px;
+    text-align: center;
+	cursor: pointer;
+}
+span.icon-download{
+	position:absolute;
+	bottom: 10%;
+	left:50%;
+	transform:translateX(-50%);
+}
+#document_download .icon-download:before{
+	font-size: 16px;
+}
+#document_download .mi_icon_download_text{
+	position:absolute;
+    top:55%;
+    left:50%;
+    transform:translateX(-50%);
+	font-size: 10px;
+	white-space: nowrap;
+	letter-spacing: 0.03em;
+	line-height: 12px;
+}
+
+div#document_header_icon span.icon-download:before{
+	vertical-align: top;
+	line-height: 70px;
+}
+
+/*-----------------------------------------------------------
+	資料中テキスト入力モーダルのデザイン
+------------------------------------------------------------*/
+div#text_form_modal {
+	width: 556px;
+	/* height: 66px; */
+	display: flex;
+	z-index: 90;
+	border-radius: 4px;
+	background-color: #F4DBAA;
+	padding: 10px;
+}
+
+div#text_form_modal.click{
+	z-index: 91;
+}
+
+div#text_form_modal #canvas_text_area {
+	width: 316px;
+	height: 40px;
+	min-height: 40px;
+	resize: both;
+	outline: none;
+	-webkit-user-select : auto;
+	font-size: 14px;
+	/*  薄いと言うことで、試しに設定 */
+	font-weight: 800;
+	color: #000000;
+	border: 1px solid #DEBC79 !important;
+	border-radius: 4px;
+	background: #fff;
+	line-height: 1;
+	overflow: hidden;
+}
+div#text_form_modal div.parts_inner_select {
+	font-size: 16px;
+	height: 40px;
+	text-align: center;
+	position: relative;
+	border: 1px solid #DEBC79;
+	border-radius: 4px;
+	background: #ffffff;
+	margin-left: 12px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+div#text_form_modal div.select_fontsize  {
+	font-size: 16px;
+	width: 65px;
+	min-width: 65px;
+	line-height: 16px;
+	padding-right: 1em;
+	cursor: pointer;
+	text-indent: 0.01px;
+	text-overflow: ellipsis;
+	border: none;
+	outline: none;
+	box-shadow: none;
+	-webkit-appearance: none;
+	appearance: none;
+	color: #333333;
+	padding-left: 4px;
+	border: 1px solid #DEBC79;
+	border-radius: 4px;
+	background: #ffffff;
+	margin-left: 12px;
+}
+div#text_form_modal div.dropdown_menu span#selected_fontsize {
+	width: 12px;
+	height: 18px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	padding: 0 4px;
+	margin-top: 11px;
+}
+
+div#text_form_modal div.dropdown_menu {
+	position: relative;
+	text-align: center;
+	display: block;
+	cursor: pointer;
+}
+div#text_form_modal div.dropdown_menu img.icon_arrow {
+	margin-left: 10px;
+}
+div#text_form_modal div.select_fontsize ul li {
+	padding: 2.5px 0px;
+}
+
+
+div#text_form_modal div.dropdown_menu ul {
+	width: 75px;
+	height: 0;
+	list-style: none;
+	position: absolute;
+	top: 45px;
+	left: 0;
+	overflow: hidden;
+	background: #fff;
+}
+div#text_form_modal div.dropdown_menu ul li {
+	margin-top: 5px;
+}
+div#text_form_modal div.dropdown_menu ul.change_text_color li img.color_option {
+	width: 25px;
+	height: 25px;
+	margin-left: 12px;
+}
+div#text_form_modal div.dropdown_menu ul li img.checked {
+	width: 13px;
+	height: 9px;
+	margin: 0 6px 8px 6px;
+	visibility: hidden;
+}
+div#text_form_modal div.dropdown_menu ul li img.fontsize_checked {
+	margin: 0px 12px 6px 8px;
+}
+
+div#text_form_modal div.dropdown_menu span#selected_color {
+	width: 12px;
+	height: 18px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	padding: 0 4px;
+	margin-left: 13px;
+	margin-top: 11px;
+}
+div#text_form_modal div.text_menu_wrapper {
+	display: flex;
+	border: none;
+	background: none;
+}
+div#text_form_modal div.select_text_color {
+	width: 54px;
+	min-width: 54px;
+}
+
+div#text_form_modal div.input_text_modal_apply_btn {
+	font-size: 16px;
+	width: 59px;
+	min-width: 59px;
+	height: 40px;
+	line-height: 30px;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #DEBC79;
+	border-radius: 4px;
+	margin-left: 12px;
+	cursor: pointer;
+}
+div#text_form_modal div.input_text_modal_close {
+	background: #1E1E1E99 url(/img/btn_close.png) no-repeat center;
+	position: absolute;
+	top: -40px;
+	right: -35px;
+	width: 41px;
+	height: 41px;
+	border-radius: 50% 50%;
+}
+div#text_form_modal div.input_text_modal_close:hover {
+	opacity: 0.7;
+}
+
+#document_text_field {
+	position: absolute;
+	z-index: 21;
+	width:  100%;
+    height: 100%;
+}
+
+
+div#text_form_modal.document_text.hide_mode {
+	display: none!important;
+}
+/* 資料のテキスト入力 要素の文字表示状態 = 標準状態  */
+/*
+.view_mode {}
+*/
+div#text_form_modal.document_text.view_mode {
+	pointer-events: none;
+}
+
+div#text_form_modal.document_text.view_mode .ui-resizable-se {
+	display: none!important;
+}
+
+div#text_form_modal.document_text {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0)!important;
+	width: -moz-fit-content;
+	width: fit-content;
+	height: fit-content;
+	min-height: 40px;
+	min-width: 40px;
+}
+
+div#text_form_modal.document_text #canvas_text_area {
+	background-color: rgba(0, 0, 0, 0);
+	border: none!important;
+	outline: none;
+	resize: none;
+	pointer-events : none;
+}
+
+div#text_form_modal.document_text .parts_inner_select {
+	display: none !important;
+}
+
+div#text_form_modal.document_text .input_text_modal_apply_btn {
+	display: none !important;
+}
+
+div#text_form_modal.document_text div.input_text_modal_close {
+	display: none !important;
+}
+
+.input_text_modal_edit_btn {
+	display: none;
+	cursor: pointer;
+}
+.input_text_modal_delete_btn {
+	display: none;
+	cursor: pointer;
+}
+
+/* 資料のテキスト入力 要素の文字 再編集か削除かを選択する状態  */
+/*
+.select_mode {}
+*/
+div#text_form_modal.document_text.document_text.select_mode  {
+	background-color: rgba(255, 255, 255, 1)!important;
+	border: 1px solid #FFAA00;
+	border-radius: 4px;
+	opacity: 1;
+}
+
+.document_text.select_mode .ui-resizable-se{
+	display: none!important;
+}
+
+.document_text.select_mode .input_text_modal_edit_btn {
+	margin-left: 10px;
+	width: 59px;
+	min-width: 59px;
+	height: 40px;
+	background-color: #FFAA00;
+	border-radius: 4px;
+	font: normal normal normal 16px/25px Hiragino Sans;
+	letter-spacing: 0px;
+	color: #FFFFFF;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.document_text.select_mode .input_text_modal_delete_btn {
+	margin-left: 10px;
+	width: 59px;
+	min-width: 59px;
+	height: 40px;
+	background-color: #B1B1B1;
+	border-radius: 4px;
+	font: normal normal normal 16px/25px Hiragino Sans;
+	letter-spacing: 0px;
+	color: #FFFFFF;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* 資料のテキスト入力 要素の文字 再編集する状態  */
+/*
+.edit_mode {}
+*/
+div#text_form_modal.document_text.edit_mode {
+	position: absolute;
+	background-color: #F4DBAA!important;
+}
+
+div#text_form_modal.document_text.edit_mode #canvas_text_area {
+	background-color: rgba(0, 0, 0, 0);
+	border: 1px solid #DEBC79 !important;
+	background-color: #FFFFFF !important;
+	pointer-events : unset;
+	resize: both;
+}
+
+div#text_form_modal.document_text.edit_mode .parts_inner_select {
+	display: block !important;
+}
+
+div#text_form_modal.document_text.edit_mode .input_text_modal_apply_btn {
+	display: flex !important;
+}
+
+div#text_form_modal.document_text.edit_mode div.input_text_modal_close {
+	display: block !important;
+}
+
+/* 資料のテキスト入力 要素の文字 ダウンロードする状態  */
+/*
+.printout_mode {}
+*/
+div#text_form_modal.document_text.printout_mode textarea{
+	display: none !important;
+}
+
+
+div#mi_docment_zoom {
+	position: absolute;
+	top: 15px;
+	left: -100px;
+	z-index: 22;
+	width: 120px;
+	height: 300px;
+}
+
+div#mi_docment_zoom #doc_scale_range_wrapper {
+	display: inline-block;
+	width: 42px;
+	height: 76px;
+	padding: 0;
+	margin: 0;
+	border: 0px;
+}
+
+
+div#mi_docment_zoom #doc_scale_range {
+	width: 76px;
+	background-color: #1E1E1E99;
+	position: absolute;
+	top: 280px;
+	border: none;
+	height: 42px;
+	left: 50px;
+	border-radius: 0;
+}
+
+div#mi_docment_zoom #doc_scale_range {
+	margin-top:25%;
+	-webkit-transform:rotate(-90deg);
+	-moz-transform:rotate(-90deg);
+	-o-transform:rotate(-90deg);
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	transform:rotate(270deg);
+	-webkit-transform-origin: top left;
+	-moz-transform-origin: top left;
+	-o-transform-origin: top left;
+	transform-origin: top left;
+	outline:0px none black!important;
+	outline: none!important;
+	background: #1E1E1E99; /* バーの背景色 */
+}
+
+/* WebKit向けのつまみ */
+div#mi_docment_zoom #doc_scale_range::-webkit-slider-thumb {
+	-webkit-appearance: none; /*  🚩デフォルトのつまみのスタイルを解除 */
+	background: #ffaa00; /* 背景色 */
+	width: 24px; /* 幅 */
+	height: 24px; /* 高さ */
+	border-radius: 50%; /* 円形に */
+	box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15); /* 影 */
+}
+
+/* Moz向けのつまみ */
+div#mi_docment_zoom #doc_scale_range::-moz-range-thumb {
+	background: #ffaa00; /* 背景色 */
+	width: 24px; /* 幅 */
+	height: 24px; /* 高さ */
+	border-radius: 50%; /* 円形に */
+	box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15); /* 影 */
+	border: none; /* デフォルトの線を消す */
+}
+
+/* Firefoxで点線が周りに表示されてしまう問題の解消 */
+div#mi_docment_zoom #doc_scale_range::-moz-focus-outer {
+	border: 0;
+}
+
+div#mi_docment_zoom .document_controller_btn {
+	position: relative;
+	background-color: #1E1E1E99;
+	color: #fff;
+	width: 42px;
+	height: 42px;
+	text-align: center;
+	cursor: pointer;
+	font-size: 14px;
+	font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+}
+
+div#mi_docment_zoom #document_close {
+	position: absolute; left: 50px; top: -12px;font-size:10px;
+}
+
+div#mi_docment_zoom #document_pen_reset {
+	position: absolute; left: 50px; top: 32px;font-size:9px;
+}
+
+div#mi_docment_zoom #document_download { 
+	position: absolute; height:52px; left: 50px; top: 503px;font-size:9px;
+	display: none;
+}
+
+div#mi_docment_zoom #img_document_comment {
+	position: absolute; left: 50px; top: 76px;font-size:10px;
+}
+
+div#mi_docment_zoom #document_zoom_btn {
+	position: absolute; left: 50px; top: 130px;font-size:10px;
+	display:none;
+}
+
+
+div#mi_docment_zoom #doc_scale_zoomin {
+	left: 50px;
+	top: 204px;
+	font-size: 19px;
+	position: absolute;
+	height: 30px;
+}
+
+div#mi_docment_zoom #doc_scale_zoomout {
+	left: 50px;
+	top: 310px;
+	font-size: 19px;
+	position: absolute;
+	height: 30px
+}
+
+div#mi_docment_zoom #doc_scale_value {
+	left: 50px;
+	top: 340px;
+	position: absolute;
+	height: 25px;
+	font-size: 12px;
+}
+
+div#mi_docment_zoom #mi_scroll_arrow_left {
+	left: 50px;top: 416px;position: absolute;font-size:12px;line-height:15px;
+}
+
+div#mi_docment_zoom #mi_scroll_arrow_right {
+	left: 50px;top: 459px;position: absolute;font-size:12px;line-height:15px;
+}
+
+div#mi_docment_zoom .page_content {
+	height: 30px; font-size:10px; position: absolute; left: 50px; top: 383px;display: inline-block; line-height: 32px; vertical-align: top;
+}
+
+/* 
+* 資料ダウンロード選択肢（相手 or 自分）のスタイル
+*/
+div#document_download_option {
+	color: #000000;
+	top: -1px;
+  left: 40px;
+  width: 200px;
+	position: absolute;
+	display: none;
+}
+div#document_download_option ul {
+	list-style: none;
+}
+div#document_download_option ul li.document_download_options {
+	height: 40px;
+	width: 170px;
+	font-size: 12px;
+	background: #FFFFFF;
+	border: #E1E1E1 solid 1px;
+	display: flex;
+	align-items: center;
+	padding: 14px 0px 12px 20px;
+	box-sizing: border-box;
+	z-index: 23;
+	cursor: pointer;
+}
+div#document_download_option ul li.document_download_options:nth-child(1) {
+	border-bottom: none;
+}
+div#document_download_option ul li.document_download_options:hover {
+	background: #FFF4E0;
+}
+
+
+/*-----------------------------------------------------------
+	タブレット表示のスタイル
+	*iPadデスクトップ表示など
+------------------------------------------------------------*/
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* サムネイルを削除する為のゴミ箱アイコン */
+	.remove_material{
+		width : 70px;
+	}
+
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="16px" viewBox="0 0 19 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/file</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="LP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="header更新" transform="translate(-557.000000, -75.000000)">
+            <g id="parts/header＿1" transform="translate(0.000000, -1.000000)">
+                <g id="parts/header_資料ファイル" transform="translate(0.000000, 70.000000)">
+                    <g id="資料ファイル" transform="translate(496.000000, 0.000000)">
+                        <g id="icon/file" transform="translate(61.000000, 6.000000)">
+                            <g>
+                                <path d="M17.6541667,11.52 L6.8875,11.52 L6.8875,1.28 L10.925,1.28 L10.925,3.84 L17.6541667,3.84 L17.6541667,11.52 Z M12.2708333,2.56 L12.2708333,0 L5.54166667,0 L5.54166667,12.8 L19,12.8 L19,2.56 L12.2708333,2.56 Z" id="folder-[#1796]-copy" fill="#FFFFFF"></path>
+                                <path d="M12.1125,14.72 L1.34583333,14.72 L1.34583333,4.48 L5.38333333,4.48 L5.38333333,7.04 L12.1125,7.04 L12.1125,14.72 Z M6.72916667,5.76 L6.72916667,3.2 L0,3.2 L0,16 L13.4583333,16 L13.4583333,5.76 L6.72916667,5.76 Z" id="folder-[#1796]" fill="#FFFFFF"></path>
+                                <polygon id="Path" fill="#FFAA00" points="12.1125 14.72 1.34583333 14.72 1.34583333 4.48 5.38333333 4.48 5.38333333 7.04 12.1125 7.04"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

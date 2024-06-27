@@ -1,0 +1,498 @@
+<!--会社概要ページ-->
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<title>meet in（ミートイン） | いつでも、どこでも1秒でweb会議</title>
+	<meta charset="utf-8">
+	<meta content="meet in（ミートイン）は、いつでも、どこでも簡単にweb会議ができる、オンラインコミュニケーションプラットフォームです。アプリのインストールは不要、すぐに始められます。"
+		name="description">
+	<meta content="web 会議　webミーティング　オンラインコミュニケーション　インストール不要　簡単" name="keywords">
+	<meta content="" name="author">
+	<link href="/img/favicon.ico" rel="shortcut icon">
+	<link href="/css/fonts.css" rel="stylesheet">
+	<link href="/css/index_menu.css" rel="stylesheet">
+	<link href="/css/ie7.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+	<link href="/css/contract.css" rel="stylesheet">
+	<link href="/css/confirm_contact.css" rel="stylesheet">
+	<link href="/css/reset.css" rel="stylesheet">
+	<link href="/css/base.css" rel="stylesheet">
+	<link href="/css/page.css" rel="stylesheet">
+	<link href="/css/design.css" rel="stylesheet">
+	<link href="/css/top.css" rel="stylesheet">
+	<link href="/css/jquery-ui.css" rel="stylesheet">
+	<script src="/js/jquery-1.11.2.min.js">
+	</script>
+	<script src="/js/jquery-ui.min.js">
+	</script>
+	<script src="/js/common.js">
+	</script>
+	<script src="https://maps.google.com/maps/api/js?key=AIzaSyCLGauYoFE65XpHa8SIQIE1lDIkwR3Znxk">
+	</script>
+	<script>
+		//プライバシーモーダル
+		$(function() {
+			$('.mi_overlay_privacy_open').click(function(){
+				$('#mi_overlay_privacy').fadeIn();
+			});
+			$('.mi_overlay_colose_btn').on('click',function(){
+				$(this).parents(".mi_overlay").fadeOut("first");
+			});
+		});
+	</script>
+	<!-- User Heat Tag -->
+	<script type="text/javascript">
+		(function(add, cla){window['UserHeatTag']=cla;window[cla]=window[cla]||function(){(window[cla].q=window[cla].q||[]).push(arguments)},window[cla].l=1*new Date();var ul=document.createElement('script');var tag = document.getElementsByTagName('script')[0];ul.async=1;ul.src=add;tag.parentNode.insertBefore(ul,tag);})('//uh.nakanohito.jp/uhj2/uh.js', '_uhtracker');_uhtracker({id:'uhu7hYUpVC'});
+	</script>
+	<!-- End User Heat Tag -->
+	<!-- facebook OGP関連 start -->
+	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+
+</head>
+		<meta property="og:title" content="meet in（ミートイン） | いつでも、どこでも1秒でweb会議"/>
+		<meta property="og:type" content="website"/>
+		<meta property="og:description" content="meet in（ミートイン）は、いつでも、どこでも簡単にweb会議ができる、オンラインコミュニケーションプラットフォームです。アプリのインストールは不要、すぐに始められます。" />
+		<meta property="og:url" content="https://meet-in.jp/"/>
+		<meta property="og:image" content="https://meet-in.jp/img/meet_in_ogp.png"/>
+		<meta property="og:site_name" content="meet in（ミートイン）"/>
+		<meta property="og:locale" content="ja_JP"/>
+		<meta content="IE=edge" http-equiv="X-UA-Compatible">
+		<meta property="fb:app_id" content="939268253193590"/>
+	
+
+</head>
+	<!-- facebook OGP関連 end -->
+
+
+</head>
+
+<body>
+	<script>
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-48144639-6', 'auto');
+		ga('send', 'pageview');
+
+	</script>
+
+	<div class="lp_wrap" id="mi_wrap">
+		<!-- メインコンテンツ start -->
+		<!-- LPナビゲーション start -->
+		<nav class="mi_lpmain_nav_wrap">
+			<div class="mi_lp_top_nav_fixed" id="mi_lp_top_nav">
+				<div class="mi_lpmain_nav_block">
+					<div class="mi_lp_nav_logo_wrap">
+						<img alt="meet in" src="/img/logo_header.png" class="mi_lp_nav_logo"
+							onclick="location.href='/'">
+						<p class="mi_lp_nav_logo_side_message">Web会議・商談システム</P>
+					</div>
+					<ul class="mi_lpmain_nav_inner mi_js_scroll mi_clearfix">
+						<li>
+							<a href="/#mi_two_step_section">使い方</a>
+						</li>
+						<li>
+							<a href="/#mi_three_features_section">特徴</a>
+						</li>
+						<li>
+							<a href="/lp/lp_function.html">機能紹介</a>
+						</li>
+						<li>
+							<a href="/#mi_common_problems_list_section">活用方法</a>
+						</li>
+						<li>
+							<a href="/#mi_case_study_section">導入事例</a>
+						</li>
+					</ul>
+					<div class="mi_lp_nav_button_wrap">
+						<a href="/#mi_contact_section" class="mi_lp_nav_button mi_lp_nav_contact_button">
+							<span class="mi_lp_nav_contact_button_text">お問い合わせ</span>
+						</a>
+						<a href="/index/login" class="mi_lp_nav_button mi_lp_nav_rogin_button">
+							<span class="mi_lp_nav_rogin_button_text" id="lp-rogin-button">ログイン</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<!-- LPナビゲーション end -->
+
+		<!-- wrap start -->
+		<div class="lp_wrap" id="mi_wrap">
+			<!-- メインコンテンツ start -->
+			<div class="mi_clearfix mi_top_visual" id="mi_top_visual">
+				<!-- ヘッダー start -->
+				<header class="lp_header mi_clearfix" id="lp_header">
+					<!-- ヘッダー左 start -->
+					<div class="mi_flt-l">
+					</div>
+					<!-- ヘッダー左 end -->
+				</header>
+				<!-- ヘッダー end -->
+
+				<!-- LPメインビジュアル start -->
+				<div class="mi_top_visual_inner mi_visual_inner_border">
+					<div class="mi_top_visual_img_wrap mi_function_introduction_img_wrap">
+						<img alt="" class="mi_top_visual_img mi_sub_visual_img" src="/img/lp/half-grobe.png">
+					</div>
+					<div class="mi_top_title">
+						<p class="mi_function_introduction_title">会社概要</p>
+					</div>
+				</div>
+				<!-- LPメインビジュアル end -->
+
+				<!-- LPビジョンセクション start -->
+				<!-- <section class="mi_c-profile_section mi_vision_section" id="mi_vision_section">
+			<div class="mi_top_section_inner">
+				<div class="mi_vision_section_subtitle"><img alt="" class="mi_vision_img" src="/img/lp/img-title-vision.png"></div>
+				<p class="mi_vision_section_text">少子高齢化の日本が直面する大きな課題の一つに労働力の減少があります。<br>
+				その影響を少しでも減らすために、在宅勤務や時短勤務などの多様な働き方が推奨されてきます。</p>
+				<p class="mi_vision_section_text">また、時間当たりの生産性を高めるために、<br>
+				必要ではない仕事や、意味のない長時間労働は是正されるようになってきており、<br>
+				様々な企業が、2017年の取り組みの上位に生産性を高めるという事を上げています。</p>
+				<p class="mi_vision_section_text">私たちはそのような中で、仕事において、<br>
+				「直接会う」という事が、オンライン上で行う事が当たり前になれば、<br>
+				「移動がなくなり」、「場所の制約もなくなり」、業務の生産性が、<br>
+				<span class="mi_overlay_memo_open">3倍とまでいかなくても2倍程度にはなるのではないか、という仮説を立てています。</span></p>
+				<p class="mi_vision_section_text">その仮説を現実にするために、テクノロジーの力を活用し、<br>
+				オンラインコミュニケーションプラットフォームを提供する会社を立ち上げました。</p>
+				<p class="mi_vision_section_text">株式会社meet inに期待してください。</p>
+				<div class="mi_vision_section_wrap mi_clearfix">
+					<h4 class="mi_dictionary_title mi_mintyofont">ミートイン【meet in】</h4>
+					<p class="mi_dictionary_meaning"><span class="mi_imi">意味</span>集まる、直接会う、出会う</p>
+				</div>
+			</div>
+		</section> -->
+				<!-- LPビジョンセクション end -->
+				<!-- LP開発チーム紹介セクション start -->
+				<!-- <section class="mi_c-profile_section mi_member_section" id="mi_member_section">
+			<div class="mi_top_section_inner mi_member_inner">
+				<div class="mi_top_section_title_block">
+					<h2 class="mi_top_section_title mi_title_line_purple mi_top_section_title_s">開発チーム紹介</h2>
+				</div>
+				<div class="mi_job_category_wrap">
+					<h3 class="mi_job_category mi_text_purple mi_Robotofont">ENGINEER</h3>
+					<div class="mi_member_block mi_clearfix">
+						<div class="mi_flt-l mi_member_detail">
+							<p class="mi_job_type">チーフエンジニア</p>
+							<p class="mi_member_name mi_text_purple">大嶋 優太<span class="mi_member_name_en mi_Robotofont">Yuta Ooshima</span></p>
+							<div class="mi_member_text_wrap">
+								<p class="mi_member_text">神奈川県出身。地元の一流大学、工学部に在学中、大学4年次のインターン実施企業より、ベトナムでの開発拠点立ち上げを任させられ、単身渡越。半年間で約20名規模まで拡大し、開発拠点立ち上げに成功。その後、大手新聞社、大手メディア運営企業、大手人材企業のWeb開発などを、一手に引き受け成功に導く。 Web開発のみならず、インフラ面の構築などの知見を積み、今回のmeet inの基幹機能の開発に大きく貢献。オンラインコミュニケーションを世界中でスタンダードにするために、プロジェクトマネジメント、バックエンド、インフラ、セキュリティなどの開発にコミット。</p>
+							</div>
+							<p class="mi_readmore_link"><a class="js_more_toggle mi_member_text_close mi_text_purple mi_Robotofont" href="javascript:void(0)">Read more</a></p>
+						</div>
+						<div class="mi_flt-l"><img alt="" class="" src="/img/lp/img-ooshima.png"></div>
+					</div>
+					<div class="mi_member_block mi_clearfix">
+						<div class="mi_flt-l mi_member_detail">
+							<p class="mi_job_type">エンジニア</p>
+							<p class="mi_member_name mi_text_purple">山崎 裕基<span class="mi_member_name_en mi_Robotofont">Yuki Yamazaki</span></p>
+							<div class="mi_member_text_wrap">
+								<p class="mi_member_text">東京理科大学出身、大学2年生より、インターン先企業、数社のシステム開発に従事。エンタープライズ向けグループウェアやiPhoneアプリをはじめとしたスマートフォンアプリのプロジェクトに参画。プロジェクトの経験値、プログラミングスキルの高さから、大学3年生の段階で3社のインターン先からの内定を得る。その後、大学4年生のタイミングでシリコンバレーに行き、Googleなどと比肩しうる可能性のあるサービス開発に従事したいという志で、今後、社会的に最もスケールすると想定される、「働き方」をテーマにしたサービス開発に従事。得意な分野はフロントエンドの開発全般。Go言語、Angularなどの最先端技術の知見を活かして、オンラインプラットフォーム開発にコミット。</p>
+							</div>
+							<p class="mi_readmore_link"><a class="js_more_toggle mi_member_text_close mi_text_purple mi_Robotofont" href="javascript:void(0)">Read more</a></p>
+						</div>
+						<div class="mi_flt-l"><img alt="" class="" src="/img/lp/img-yamazaki.png"></div>
+					</div>
+				</div>
+				<div class="mi_job_category_wrap">
+					<h3 class="mi_job_category mi_text_purple mi_Robotofont">DESIGNER</h3>
+					<div class="mi_member_block mi_clearfix">
+						<div class="mi_flt-l mi_member_detail">
+							<p class="mi_job_type">UI&amp;UXデザイナー</p>
+							<p class="mi_member_name mi_text_purple">坂井 真実<span class="mi_member_name_en mi_Robotofont">Mami Sakai</span></p>
+							<div class="mi_member_text_wrap">
+								<p class="mi_member_text">武蔵野美術大学出身、在学中よりアナログ表現に限らず、デジタルでの表現手法を活用し、デザインに従事。その後、日本最大級のデザインプロダクションに入社し、グラフィックデザイン、紙面広告、ブランディング広告などの、企画、ディレクション、制作に係る総合的な業務を経験。グラフィックデザインの知見をベースに、Webデザインの力を乗せる事によって、グローバルにインパクトを与える事の出来るサービスの立ち上げに関わりたい、という意向からUI/UXデザイナーに転向。様々なWebサービスのデザイン制作、WebアプリケーションのUX/UIの設計、改修に携わる。meet inではオンラインコミュニケーションプラットフォームをグローバルに展開していく為のUI/UXの設計、デザインの総合プロデュースに従事。</p>
+							</div>
+							<p class="mi_readmore_link"><a class="js_more_toggle mi_member_text_close mi_text_purple mi_Robotofont" href="javascript:void(0)">Read more</a></p>
+						</div>
+						<div class="mi_flt-l"><img alt="" class="" src="/img/lp/img-sakai.png"></div>
+					</div>
+				</div>
+				<div class="mi_job_category_wrap">
+					<h3 class="mi_job_category mi_text_purple mi_Robotofont">ADVISOR</h3>
+					<div class="mi_member_block mi_clearfix">
+						<div class="mi_flt-l mi_member_detail">
+							<p class="mi_job_type">特別アドバイザー</p>
+							<p class="mi_member_name mi_text_purple">清水 拓未<span class="mi_member_name_en mi_Robotofont">Takumi Shimizu</span></p>
+							<div class="mi_member_text_wrap mi_m_height">
+								<p class="mi_member_text">在宅ワーカーを活用した国内最大の営業支援会社に入社、入社2年目でMVPを受賞し、3年目から営業支援会社の営業部門を束ねる責任者へと昇格。多くの営業支援ツールの開発や、約300社を超える営業を改革するコンサルティングに携わり、株式会社meet inが営業市場における大きな改革の可能性を秘めていることを確信し、特別アドバイザーに就任。</p>
+							</div>
+							<p class="mi_readmore_link"><a class="js_more_toggle mi_member_text_close mi_text_purple mi_Robotofont" href="javascript:void(0)">Read more</a></p>
+						</div>
+						<div class="mi_flt-l"><img alt="" class="" src="/img/lp/img-shimizu.png"></div>
+					</div>
+					<div class="mi_member_block mi_clearfix">
+						<div class="mi_flt-l mi_member_detail">
+							<p class="mi_job_type">特別アドバイザー</p>
+							<p class="mi_member_name mi_text_purple">三浦 和広<span class="mi_member_name_en mi_Robotofont">Kazuhiro Miura</span></p>
+							<div class="mi_member_text_wrap mi_m_height">
+								<p class="mi_member_text">経営者をテーマにしたオンライン動画のメディアの経営を行い、月間100万PVを超えるメディアへと育成。その過程の中でフリーで働くクリエイターやデザイナーとのコミュニケーションツールを開発。現職ではその知見を活かして、在宅やフリーランスで働く人達と企業を結ぶ、メディアの運営や法人向けのアウトソーシング業務に携わる。オンラインコミュニケーションプラットフォームが、日本の働き方を変える可能性を感じ、特別アドバイザーに就任。</p>
+							</div>
+							<p class="mi_readmore_link"><a class="js_more_toggle mi_member_text_close mi_text_purple mi_Robotofont" href="javascript:void(0)">Read more</a></p>
+						</div>
+						<div class="mi_flt-l"><img alt="" class="" src="/img/lp/img-miura.png"></div>
+					</div>
+				</div>
+			</div>
+		</section> -->
+				<!-- LP活用方法セクション end -->
+
+				<!-- LP会社概要セクション start -->
+				<section class="mi_c-profile_section mi_company_section" id="mi_company_section">
+					<div class="mi_top_section_inner">
+						<div class="mi_top_section_title_block">
+							<h2 class="mi_top_section_title mi_title_line_orange mi_top_section_title_s">会社概要</h2>
+						</div>
+						<div class="mi_company_block">
+							<dl class="mi_company_info_list">
+								<dt>会社名</dt>
+								<dd>株式会社meet in</dd>
+								<dt>設立</dt>
+								<dd>2017年1月27日</dd>
+								<dt>代表者</dt>
+								<dd>代表取締役　齋藤 正秋</dd>
+								<dt class="mi_company_business">事業内容</dt>
+								<dd>オンラインコミュニケーションツールの開発<br>
+									<br>
+									オンラインコミュニケーションツールの提供<br>
+									<br>
+									オンラインコミュニケーションの教育・研修</dd>
+								<dt>資本金及び資本準備金</dt>
+								<dd>10,000,000円（2021年3月31日現在）</dd>
+								<dt class="mi_lp_company_zyusyo">所在地</dt>
+								<dd>〒171-0022<br>
+									<br>
+									東京都豊島区南池袋2-25-5 藤久ビル東5号館 4F</dd>
+							</dl>
+							<div class="mi_company_map" id="map_canvas"></div>
+						</div>
+					</div>
+				</section>
+				<!-- LP会社概要セクション end -->
+				<!-- LPトピックセクション start -->
+				<section class="mi_c-profile_section mi_topic_section" id="mi_topic_section">
+					<div class="mi_top_section_inner mi_topic_inner">
+						<div class="mi_top_section_title_block">
+							<h2 class="mi_top_section_title mi_title_line_purple mi_top_section_title_s">トピック</h2>
+						</div>
+						<div class="mi_topic_block">
+							<dl class="mi_topic_list">
+								<dt>2020年04月07日</dt>
+								<dd>
+									緊急事態宣言に伴う対応方針について<br />
+									<br /><br>
+									株式会社meet in（本社：東京都豊島区、代表：齋藤正秋、以下当社）は、<br>
+										緊急事態宣言に伴い、全従業員・取引先の安全確保のため、以下のとおり対応いたします。<br>
+										<br>
+										1．感染拡大抑止に向けた対応方針<br>
+										・弊社従業員への対応について<br>
+										（1）全従業員へ在宅勤務（テレワーク）を推奨<br>
+										（2）出社の必要がある従業員についてはラッシュアワーを回避した時差出勤を実施（9時00分～11時00分出社）<br>
+										（3）取引先との物理的接点を回避するために、オンライン商談ツールの活用を推奨<br>
+										（4）多数の参加者が集まる主催イベント・セミナーの開催は中止・延期。もしくは対面を避けオンライン開催へ変更<br>
+										<br>
+										・感染予防対策<br>
+										(1) 検温、マスクの着用、手指のアルコール消毒など、これまで以上に感染予防と体調管理を徹底<br>
+										(2)従業員及びに同居の家族に37.5度以上の発熱がある場合には、出社を停止<br>
+										<br>
+										2. 営業時間：平日10：00 ～ 18：00（土日祭日はお休み）<br>
+										問い合わせ先：経営管理部　03-5985-8290<br>
+										<br>
+										当社は、今後も社内外への感染被害抑止と従業員の安全確保を最優先に、必要な対応を実施してまいります。<br>
+										<br>
+										皆様には大変ご迷惑をおかけいたしますが、ご理解ご了承の程、<br>
+										何卒宜しくお願い申し上げます。
+								</dd>
+								<dt>2019年03月02日</dt>
+								<dd>
+									3月2日NHK『首都圏ニュース』
+									<br />3月3日NHK『おはよう日本』に、
+									<br />当社のママスタッフが働く、キッズスペース付きオフィス“ママワークスペース”が紹介されました。
+									<br />
+									<br />学校が休校になり、1人でお留守番させるのが心配な小学生を
+									<br />連れて出勤するママの様子などが撮影されました。
+								</dd>
+								<dt>2018年12月19日</dt>
+								<dd>
+									<a href="https://meet-in.jp/documents/news_181219.pdf"
+										target="_blank">営業職のオンラインMTG利用実態調査を行いました。</a>
+								</dd>
+								<dt>2018年5月31日</dt>
+								<dd>
+									<a href="https://meet-in.jp/documents/news_180531.pdf"
+										target="_blank">働き方改革に関する調査を行いました。</a>
+								</dd>
+								<dt>2017年3月29日</dt>
+								<dd>
+									<a href="http://nest.jane.or.jp/sponsors/" target="_blank">株式会社meet
+										inが新経済連盟のプロモーショナルスポンサーに就任致しました。</a>
+								</dd>
+								<dt>2017年2月20日</dt>
+								<dd>meet inをリリースいたしました。<br>
+									<br>
+									meet in公式サイトを公開いたしました。</dd>
+							</dl>
+						</div>
+					</div>
+				</section>
+				<!-- LPトピックセクション end -->
+
+				<!-- LP 下記までお問い合わせください！セクション start -->
+				<section class="mi_top_section mi_contactUs_section mi_background_space mi_clearfix">
+					<div class="mi_contactUs_section_block">
+						<p class="mi_contactUs_section_text">機能・料金などmeet inの詳細は下記までお問い合わせください！</p>
+						<a href="/#mi_contact_section">
+							<button class="mi_contactUs_btn" type="button">お問い合わせ</button>
+						</a>
+					</div>
+				</section>
+				<!-- LP 下記までお問い合わせください！セクション end -->
+
+				<!-- LP 料金・機能に関して、その他お問い合わせ start-->
+				<!-- <section class="mi_form_section mi_contact_section mi_bg_orange" id="mi_contact_section">
+			<div class="mi_top_section_inner">
+				<div class="mi_top_section_title_block">
+					<h2 class="mi_top_section_title mi_contact_title">
+					料金・機能に関して、その他お問い合わせ
+					</h2>
+				</div>
+				<p class="mi_contact_subtitle">meet inに関するお問い合わせ、お申し込みは下記に必要事項をご入力の上お問い合わせください。<br>
+				担当者より追って詳細のご案内をさせていただきます。</p>
+				<div class="mi_contact_block">
+					<form action="/lp/complete.php" class="contactform" method="post">
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>氏名</p><input class="mi_contactform_input_text_m" name="name" placeholder="田中 太郎" required="" type="text">
+						</div>
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>会社名<span class="mi_contactform_confilm_text">（個人事業主の場合は氏名を再度入力してください。）</span></p><input class="mi_contactform_input_text_l" name="company" placeholder="株式会社meet in" required="" type="text">
+						</div>
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>電話番号</p><input class="mi_contactform_input_text_m" name="tel_number" placeholder="000-0000-0000" required="" type="text">
+						</div>
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>メールアドレス</p><input class="mi_contactform_input_text_ml" name="mail" placeholder="aaaaaaaaaaaaaaa" required="" type="text"><span class="mi_text_atmark">@</span><input class="mi_contactform_input_text_s" name="domein" placeholder="aaaa.jp" required="" type="text">
+						</div>
+						<div class="mi_contactform_block"> -->
+				<!-- <p class="mi_contactform_title">
+								<span class="mi_contactform_required">必須</span>
+							件名</p> -->
+				<!-- <input type="text" name="name" class="mi_contactform_input_text_m" placeholder="田中 太郎" required> -->
+				<!-- <select class="form_selectbox" name="subject">
+								<option value="お申し込みについて">お申し込みについて</option>
+								<option value="ご契約について">ご契約について</option>
+								<option value="トラブルについて">トラブルについて</option>
+								<option value="その他">その他</option>
+							</select> -->
+				<!-- </div>
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title"> -->
+				<!-- <span class="mi_contactform_required">必須</span> -->
+				<!-- お問い合わせ内容</p>
+							<textarea class="mi_contactform_textarea" name="contact" placeholder="お問い合わせ内容を記載して下さい。" required=""></textarea>
+						</div>
+						<div class="mi_contactform_block">
+							<p class="mi_contactform_title">使用用途</p><input class="mi_contactform_input_text_l" name="use" placeholder="例：ミーティング、営業など" type="text">
+						</div>
+						<p class="mi_contactform_text"><input class="mi_contactform_checkbox" id="mi_privacy_check" name="privacy" required="" type="checkbox"><label for="mi_privacy_check"><a class="mi_overlay_privacy_open" href="#mi_overlay_privacy">個人情報の取り扱いについて</a>承諾しました。</label></p>
+						<div class="mi_contactform_send_wrap">
+							<a href="form_contactUs.html#mi_overlay_confirm"><button class="mi_contactform_send mi_overlay_confirm_open">確認画面へ</button></a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section> -->
+				<!-- LP 料金・機能に関して、その他お問い合わせ end-->
+
+				<!-- LPフッターセクション start -->
+				<footer class="mi_lp_footer footer-min-none">
+					<div class="mi_footer_wrap">
+						<a href="/" class="mi_footer_list">
+							TOP</a>	
+						<a href="/lp/lp_company_profile.html#mi_company_section" class="mi_footer_list">
+							会社概要</a>
+						<a href="/#mi_contact_section" class="mi_footer_list">
+							お問い合わせ</a>	
+						<a href="#mi_overlay_privacy" class="mi_overlay_privacy_open mi_footer_list">
+							個人情報の取り扱いについて</a>
+						<a href="/lp/terms_of_service.html" class="mi_footer_list">
+							利用規約</a>			
+					</div>
+					<img alt="meet in" class="mi_footer_img" src="/img/lp/rogo-meetin-footer.png">
+				</footer>
+				<!-- LPフッターセクション end -->
+				<!-- LPプライバシーポップアップコンテンツコンテンツ begin -->
+				<div class="mi_overlay mi_overlay_privacy" id="mi_overlay_privacy">
+					<div class="mi_modal_shadow"></div>
+					<div class="mi_overlay_wrap mi_overlay_privacy_wrap">
+						<div class="mi_overlay_contents mi_privacy_block">
+							<div class="mi_overlay_colose">
+								<a class="mi_overlay_colose_btn" href="javascript:void(0)"><img alt="閉じる"
+										class="mi_privacy_close_img" src="/img/lp/ico-close.png"><br>
+									閉じる</a>
+							</div>
+							<div class="mi_overlay_contents_title mi_privacy_title_wrap">
+								<h2 class="mi_privacy_title">プライバシーポリシー</h2>
+							</div>
+							<dl class="mi_privacy_list">
+								<dt><span class="mi_text_orange">●</span>個人情報の取り扱いについて</dt>
+								<dd>株式会社meet in（以下「当社」）は、個人情報の適切な取り扱いを期しています。当社が提供する「meet in」によるサービス（以下、「当サービス」）へ
+									のお申し込みについて、下記の事項をご理解いただき、同意の上で個人情報をご提供ください。</dd>
+								<dd></dd>
+								<dt><span class="mi_text_orange">●</span>個人情報の管理</dt>
+								<dd>当社は、お客さまの個人情報を正確かつ最新の状態に保ち、個人情報への不正アクセス・紛失・破損・改ざん・漏洩などを防止するため、セキュリティシステムの維持・管理体制の整備・
+									社員教育の徹底等の必要な措置を講じ、安全対策を実施し個人情報の厳重な管理を行ないます。</dd>
+								<dd></dd>
+								<dt><span class="mi_text_orange">●</span>個人情報の利用目的</dt>
+								<dd>以下の利用目的のために、個人情報を取得致します。<br>
+									その利用目的の範囲を超えて取得した個人情報を利用することはありません。<br>
+									（1）当サービス利用に関する登録及び個人認証<br>
+									（2）当サービス利用に関する料金請求その他の代金請求及び商品等の引渡し業務に関すること<br>
+									（3）当サービス利用に関する問合せ内容の確認、回答、その他ご要望等への対応<br>
+									（4）当サービスの利用に伴う電話連絡及び電子メール、資料のご送付<br>
+									（5）当サービスの利用に関する新サービス、新メニューのご案内ならびに調査及び障害連絡<br>
+									（6）当サービスの利用に関する保守及びメンテナンス等の運営<br>
+									（7）当社によるサービスの開発およびマーケティング</dd>
+								<dd></dd>
+								<dt><span class="mi_text_orange">●</span>個人情報の第三者への開示・提供の禁止</dt>
+								<dd>当社は、お客さまよりお預かりした個人情報を適切に管理し、次のいずれかに該当する場合を除き、個人情報を第三者に開示いたしません。<br>
+									・お客さまの同意がある場合<br>
+									・お客さまが希望されるサービスを行なうために当社が業務を委託する業者に対して開示する場合<br>
+									・法令に基づき開示することが必要である場合</dd>
+								<dd></dd>
+								<dt><span class="mi_text_orange">●</span>個人情報の安全対策</dt>
+								<dd>当社は、個人情報の正確性及び安全性確保のために、セキュリティに万全の対策を講じています。</dd>
+								<dd></dd>
+								<dt><span class="mi_text_orange">●</span>ご本人の照会</dt>
+								<dd>お客さまがご本人の個人情報の照会・修正・削除などをご希望される場合には、ご本人であることを確認の上、対応させていただきます。</dd>
+								<dd></dd>
+								<dt><span class="mi_text_orange">●</span>法令、規範の遵守と見直し</dt>
+								<dd>当社は、保有する個人情報に関して適用される日本の法令、その他規範を遵守するとともに、本ポリシーの内容を適宜見直し、その改善に努めます。</dd>
+								<dd></dd>
+								<dt><span class="mi_text_orange">●</span>個人情報の開示等の請求について</dt>
+								<dd>提出して頂いた個人情報について、利用目的の通知、個人情報の開示、訂正、項目の追加または削除、消去や利用停止、提供停止を求める権利があります。自己の個人情報の開示等の請求を行う場合は、下記までご連絡ください。
+								</dd>
+								<dd></dd>
+								<dt><span class="mi_text_orange">●</span>個人情報の取り扱いに関するお問い合わせ先</dt>
+								<dd>
+									株式会社meet in　個人情報対応窓口<br>
+									住所：〒171-0022 東京都豊島区南池袋2-25-5 藤久ビル東5号館 4F<br>
+									メール：<a href="mailto:privacy@meet-in.jp">privacy@meet-in.jp</a><br>
+									担当責任：個人情報保護管理者
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+				<!-- LPプライバシーコンテンツ end -->
+			</div>
+</body>
+
+</html>

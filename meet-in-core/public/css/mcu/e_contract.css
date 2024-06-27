@@ -1,0 +1,1999 @@
+@charset "UTF-8";
+
+/*
+*   Title:「 電子契約 」要素CSS
+*   File Nmae: e_contract.css
+*/
+.e_contract_area {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 230;
+  display: none;
+  background: #ffffff;
+  box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;
+  border-radius: 4px;
+  margin-bottom: 80px;
+}
+
+.e_contract_area form {
+  height: 100%;
+}
+
+.e_contract_header_area {
+  position: relative;
+  padding: 0 40px 5px;
+  border-bottom: 1px solid #E9E8E7;
+}
+
+.e_contract_header_area span {
+  font-size: 20px;
+  position: absolute;
+  top: 6px;
+}
+
+.e_contract_header_title {
+  color: #333;
+  font-size: 20px;
+  margin-left: 30px;
+}
+
+.e_contract_left_contents {
+  box-sizing: border-box;
+  width: 280px;
+  height: 100%;
+  float: left;
+  border-right: 1px solid #555555;
+}
+
+.e_contract_info_area {
+  color: #333;
+  box-sizing: border-box;
+  height: 495px;
+  padding: 20px 30px;
+}
+
+.e_contract_info_title {
+  text-align: center;
+}
+
+.e_contract_info_field--2clm {
+  width: 50%;
+  float: left;
+}
+.e_contract_info_field--clear {
+  clear: both;
+}
+
+.e_contract_info_label {
+  font-size: 12px;
+  padding-top: 12px;
+  line-height: 1;
+  padding-bottom: 2px;
+}
+
+.e_contract_info_input input {
+  width: 100%;
+}
+
+.e_contract_info_input textarea {
+  width: 100%;
+  border: 1px solid #bfbfbf;
+  resize: vertical;
+}
+
+.e_contract_info_input_money input {
+  width: calc(100% - 30px);
+}
+
+.e_contract_info_input_half input {
+  width: calc(50% - 10px);
+}
+
+.e_contract_mysign_area {
+  color: #333;
+  box-sizing: border-box;
+  /* height: 250px; */
+  border-top: 1px solid #555555;
+  padding: 15px;
+}
+
+.e_contract_mysign_img_area {
+  width: 100px;
+  z-index: 250;
+  margin: 10px auto 0;
+}
+
+.e_contract_info_note {
+  font-size: 10px;
+  text-align: center;
+}
+.e_contract_info_alert {
+  font-size: 10px;
+}
+
+.e_contract_messege_text {
+  height: 100px;
+}
+
+.e_contract_center_contents {
+  box-sizing: border-box;
+  width: 490px;
+  height: 100%;
+  float: left;
+  border-right: 1px solid #555555;
+  position: relative;
+}
+
+.e_contract_button_area {
+  text-align: center;
+}
+
+.e_contract_document_area {
+  box-sizing: border-box;
+  border: 2px dashed #888;
+  width: 420px;
+  height: 594px;
+  margin: 35px auto;
+}
+
+.contract_canvas_contents_wrap {
+  box-sizing: border-box;
+  margin: 0 auto;
+  position: relative;
+}
+.contract_canvas_contents {
+  position: relative;
+}
+
+.e_contract_document_comment {
+  padding: 30px;
+}
+
+.e_contract_right_contents {
+  width: 280px;
+  height: 100%;
+  float: right;
+}
+
+.icon-expansion_wrap {
+  position: absolute;
+  left: 23px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 4px;
+}
+.icon-expansion_wrap span{
+  margin-top: 3px;
+  font-size: 20px;
+}
+
+.document_add_text_btn_wrap {
+  position: absolute;
+  left: 55px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 11px;
+  width: 50px;
+  line-height: 1;
+  margin-top: -7px;
+}
+.ico-text-add {
+  font-size: 25px;
+}
+
+.draggable_input_wrap {
+  position: absolute;
+  top: 0;
+}
+.draggable_input_title {
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.e_contract_partner_area {
+  box-sizing: border-box;
+  height: 500px;
+  padding: 20px 30px;
+}
+
+.e_contract_partner_sign_create {
+  margin-top: 10px;
+}
+
+.e_contract_partner_sign_text_area {
+  margin: 10px 0;
+}
+
+.e_contract_partner_sign_text {
+  margin-bottom: 5px;
+}
+
+.e_contract_partner_sign_input input {
+  width: calc(100% - 50px);
+}
+
+.e_contract_partner_sign_btn {
+  width: 160px;
+  display: block;
+  margin: 15px auto 0;
+}
+
+.e_contract_partnersign_area {
+  box-sizing: border-box;
+  height: 250px;
+  border-top: 1px solid #555555;
+  padding: 15px;
+}
+
+.e_contract_partnersign_img_area {
+  width: 100px;
+  z-index: 250;
+  margin: 20px auto 0;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.e_contract_setting_area {
+  background-color: #fff;
+  padding: 30px 40px 100px;
+}
+
+.e_contract_step_area {
+  height: 30px;
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.e_contract_step_area img {
+  width: auto;
+  height: 30px;
+}
+
+.e_contract_step_active {
+  color: #fff;
+  background-color: #ff7f00;
+  line-height: 30px;
+  width: 220px;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.e_contract_step {
+  color: #fff;
+  background-color: #5a5a5a;
+  line-height: 30px;
+  width: 220px;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.e_contract_step_number {
+  font-size: 12px;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 50%;
+  background-color: #b4b4b4;
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.e_contract_title_area {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.e_contract_title_area h2 {
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.e_contract_title_area p {
+  color: #555;
+}
+
+.e_contract_download_btn {
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+
+.e_contract_download_btn a {
+  display: inline-block;
+  font-size: 16px;
+  color: #fff;
+  background-color: #FFAA00;
+  text-align: center;
+  width: 160px;
+  height: 38px;
+  line-height: 38px;
+  border-radius: 2px;
+}
+
+.e_contract_download_btn a:hover {
+  opacity: 0.8;
+}
+
+.e_contract_sign_area {
+  margin-top: 40px;
+}
+
+.e_contract_sign_label {
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.e_contract_sign_count_area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #E9E8E7;
+  padding: 0 10px 10px 10px;
+}
+
+.e_contract_sign_count {
+  color: #333;
+  font-size: 24px;
+}
+
+.e_contract_sign_count_area .reject_btn {
+  color: #fff;
+  text-align: center;
+  background-color: #DF6A6E;
+  width: 120px;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 4px;
+}
+
+.e_contract_sign_count_area .reject_btn:hover {
+  opacity: 0.8;
+}
+
+.e_contract_table {
+  width: 100%;
+  border-top: 1px solid #ccc;
+}
+
+.e_contract_table tr {
+  color: #555;
+  border-bottom: 1px solid #ccc;
+}
+
+.e_contract_table tr th {
+  border-right: 1px solid #ccc;
+  width: 178px;
+}
+
+.e_contract_table tr td.mi_tabel_content {
+  height: 40px;
+}
+
+.e_contract_table tr td.mi_tabel_content input {
+  height: 28px;
+  width: calc(100% - 40px);
+  margin: 10px;
+  padding: 0 10px;
+}
+
+.e_contract_table tr td.mi_tabel_content #document_drop_area {
+  margin: 10px;
+}
+
+/*----------------------------------------------------------------
+  ダッシュボード電子契約画面のcss
+-----------------------------------------------------------------*/
+
+.table-pagenation{
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  margin: 24px 0 12px 0;
+}
+
+.mi_pagenation_result mi_flt-r{
+  float: left;
+  vertical-align: middle;
+}
+
+.table_list_wrap{
+  width: 100%;
+  height: 48px;
+}
+
+.button_wrap{
+  width: 100%;
+  height: 50px;
+  display: flex;
+  margin-top: 60px;
+}
+
+.button-box-confirming{
+  width: 200px;
+  height: 45px;
+  border:solid 1px #DDDDDD;
+  background: white;
+  position: relative;
+}
+
+.button-box-confirming:hover{
+  background: #FFE1A0;
+}
+
+.button-box-complete{
+  width: 200px;
+  height: 45px;
+  border:solid 1px #DDDDDD;
+  background: white;
+  position: relative;
+}
+
+.button-box-complete:hover{
+  background: #FFE1A0;
+}
+
+.button-box-rejection{
+  width: 200px;
+  height: 45px;
+  border:solid 1px #DDDDDD;
+  background: white;
+  position: relative;
+}
+
+.button-box-rejection:hover{
+  background: #FFE1A0;
+}
+
+.confirming-button{
+  width: 100%;
+  height: 30px;
+}
+
+.complete_button{
+  width: 100%;
+  height: 30px;
+}
+
+.rejection_button{
+  width: 100%;
+  height: 30px;
+}
+
+.button_text-confirming{
+  line-height: 45px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
+  margin-left: 15px;
+}
+
+.button_text-confirming:hover{
+  color: #222;
+}
+
+.button_text-complete{
+  line-height: 45px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
+  margin-left: 15px;
+}
+
+.button_text-complete:hover{
+  color: #222;
+}
+
+.button_text-rejection{
+  line-height: 45px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
+  margin-left: 15px;
+}
+
+.button_text-rejection:hover{
+  color: #222;
+}
+
+.main-table-item{
+  width: 800px;
+  height: 120px;
+  background: white;
+}
+
+.table-title-box{
+  display: flex;
+}
+
+.table-item-name{
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: -15px;
+  float: left;
+}
+
+.table-item-sign{
+ float: right;
+}
+
+.table-item-sign span {
+  font-size: 18px;
+}
+
+.table-item-update{
+  float: left;
+  position: absolute;
+  margin-top: 10px;
+}
+
+.table-item-icon{
+  width: 60px;
+  height: 50px;
+  float: right;
+}
+
+.mi_table_main .mi_table_item_1 {
+  width: 55px;
+  min-width: 55px;
+  padding: 0;
+}
+
+table.document_list td:nth-child(2).mi_table_item_2 {
+  width: 660px;
+  padding: 0 20px;
+  position: relative;
+}
+
+table.document_list td:nth-child(3).mi_table_item_3 {
+  width: 0;
+}
+
+table.document_list td:nth-child(4).mi_table_item_4 {
+  width: 0;
+}
+
+.mi_table_main tbody tr:hover {
+  background-color: #fff4e1;
+}
+
+.mi_table_main td input[type="checkbox"] {
+  vertical-align: 0;
+}
+
+.mi_table_main td .mi_edit_icon {
+  width: 16px;
+  height: 16px;
+  margin: 11px 0;
+}
+
+.table-item_text{
+  width: 100%;
+  line-height: 40px;
+  font-weight: bold;
+}
+
+/** パートナー登録フォーム **/
+.partner_setting_form_area {
+}
+
+.partner_setting_table {
+  width: 100%;
+}
+
+.partner_setting_template_row {
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #E9E8E7;
+}
+
+.partner_setting_template_row td {
+  padding: 0 20px;
+}
+
+.partner_setting_table_label {
+  font-size: 14px;
+  font-weight: normal;
+  color: #333;
+  width: 140px;
+  text-align: left;
+  padding: 10px;
+  border-right: 1px solid #E9E8E7;
+}
+
+.partner_setting_table_label .require {
+  font-size: 10px;
+  color: #fff;
+  background-color: #DF6A6E;
+  margin-left: 10px;
+  padding: 2px 5px;
+}
+
+.partner_setting_table_label_partner {
+  font-size: 14px;
+  font-weight: normal;
+  color: #333;
+  text-align: left;
+  padding: 10px 20px;
+}
+
+.partner_setting_title_input {
+  width: 374px;
+  height: 40px;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  padding: 0 10px;
+}
+
+.partner_setting_template_row input[type="date"] {
+  color: #333;
+  width: 374px;
+  height: 40px;
+  position: relative;
+  border: 1px solid #B1B1B1;
+  border-radius: 4px;
+  padding: 0 10px;
+}
+
+.partner_setting_template_row input[type="date"]::before{
+content: '';
+  width: 6px;
+  height: 6px;
+  border: 0;
+  border-bottom: solid 2px #707070;
+  border-right: solid 2px #707070;
+  position: absolute;
+  top: 50%;
+  right: 0.9em;
+  margin-top: -6px;
+  transform: rotate(45deg);
+}
+
+.partner_setting_template_row input[type="date"]::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+}
+
+.partner_setting_template_row input[type="date"]::-webkit-clear-button{
+  -webkit-appearance: none;
+}
+
+.partner_setting_template_row input[type=date]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.partner_setting_table_date {
+  display: flex;
+}
+
+.partner_setting_table_date_item {
+  margin-right: 10px;
+}
+
+.partner_setting_table_date_item span {
+  margin-right: 5px;
+}
+
+.partner_setting_template_row input[type="date"].partner_setting_table_date_item {
+  width: 140px;
+}
+
+.partner_setting_template_select {
+  overflow: hidden;
+  width: 251px;
+  text-align: center;
+  position: relative;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+}
+
+.partner_setting_template_select select {
+  color: #707070;
+  width: 100%;
+  padding-right: 1em;
+  cursor: pointer;
+  text-indent: 0.01px;
+  text-overflow: ellipsis;
+  border: none;
+  outline: none;
+  background: transparent;
+  background-image: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0 38px 0 10px;
+}
+
+.partner_setting_template_select select::-ms-expand {
+  display: none;
+}
+
+.partner_setting_template_select::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border: 0;
+  border-bottom: solid 2px #707070;
+  border-right: solid 2px #707070;
+  position: absolute;
+  top: 50%;
+  right: 0.9em;
+  margin-top: -6px;
+  transform: rotate(45deg);
+}
+
+.partner_setting_partner_row td {
+  padding-top: 20px;
+
+}
+
+.partner_setting_item {
+  margin-bottom: 20px;
+}
+
+.partner_setting_item_header {
+  color: #B18D47;
+  height: 37px;
+  line-height: 37px;
+  border-radius: 4px 4px 0 0;
+  background-color: #FFE1A0;
+  padding: 0 20px;
+  position: relative;
+}
+
+.partner_setting_item_remove {
+  font-size: 22px;
+  color: #fff;
+  text-align: center;
+  line-height: 24px;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  cursor: pointer;
+  background: #DEBC79 0% 0% no-repeat padding-box;
+  border-radius: 4px;
+  width:35px;
+  height:28px;
+  margin-top:5px;
+}
+
+.partner_setting_item_count {
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.partner_setting_input_area {
+  border-radius: 0 0 4px 4px;
+  background-color: #FFF4E0;
+  padding: 15px 20px 10px;
+}
+
+.partner_setting_input_row {
+  margin-bottom: 10px;
+}
+
+.partner_setting_input_row label {
+  font-size: 12px;
+  color: #333;
+  display: block;
+}
+
+.partner_setting_input_row .require {
+  font-size: 10px;
+  color: #fff;
+  background-color: #DF6A6E;
+  margin-left: 5px;
+  padding: 2px 5px;
+}
+
+.partner_setting_input_name {
+  width: 223px;
+  height: 32px;
+  border: 1px solid #bbbbbb;
+  border-radius: 2px;
+  padding: 0 10px;
+}
+
+.partner_setting_input_name.lastname {
+  margin-right: 10px;
+}
+
+
+.partner_setting_input {
+  width: 480px;
+  height: 32px;
+  border: 1px solid #bbbbbb;
+  border-radius: 2px;
+  padding: 0 10px;
+}
+
+.partner_setting_item_lifting {
+  margin: 15px 0 10px;
+}
+
+.partner_setting_item_lifting_label {
+  font-size: 12px;
+  color: #333;
+  display: block;
+}
+
+.partner_setting_item_lifting_btnarea {
+  display: flex;
+}
+
+.partner_setting_item_lifting_btn {
+  color: #FFAA00;
+  text-align: center;
+  background-color: #FFE1A0;
+  width: 135px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 2px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.partner_setting_item_lifting_btn:hover {
+  opacity: 0.7;
+}
+
+.partner_setting_send_code {
+  color: #FFAA00;
+  font-weight: bold;
+  text-align: center;
+  width: 132px;
+  height: 32px;
+  line-height: 32px;
+  display: inline-block;
+  background-color: #fff;
+  border: 1px solid #FFAA00;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.partner_setting_send_code:hover {
+  opacity: 0.7;
+}
+
+.partner_setting_partner_add {
+  color: #FFAA00;
+  font-weight: bold;
+  text-align: center;
+  width: 107px;
+  height: 32px;
+  line-height: 32px;
+  background-color: #fff;
+  border: 1px solid #FFAA00;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.partner_setting_partner_add:hover {
+  opacity: 0.7;
+}
+
+.form_setting_file_area {
+  margin-top: 20px;
+}
+
+.form_setting_table {
+  width: 100%;
+}
+
+.form_setting_label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form_setting_table_label {
+  color: #333;
+  font-weight: normal;
+  width: 160px;
+  height: 36px;
+  line-height: 36px;
+  text-align: left;
+  border-bottom: 1px solid #E9E8E7;
+  padding: 0 10px;
+}
+
+.form_setting_table_item {
+  color: #707070;
+  height: 36px;
+  line-height: 36px;
+  text-align: left;
+  border-bottom: 1px solid #E9E8E7;
+  padding: 0 10px;
+}
+
+.form_setting_table_item_date {
+  color: #707070;
+  height: 36px;
+  line-height: 36px;
+  text-align: left;
+  border-bottom: 1px solid #E9E8E7;
+  padding: 0 10px;
+  display: flex;
+}
+
+.form_setting_table_date {
+  margin-right: 40px;
+}
+
+.form_setting_table_date span {
+  margin-right: 10px;
+}
+
+.form_setting_parts_text {
+  border: 1px solid #888;
+  cursor: move;
+  width: 200px;
+  height: 80px;
+  opacity: 0.8;
+}
+
+.form_setting_parts_sign {
+  border: 1px solid #888;
+  cursor: move;
+  width: 200px;
+  height: 80px;
+  opacity: 0.8;
+}
+
+.form_setting_parts_checkbox {
+  border: 1px solid #888;
+  cursor: move;
+  width: 200px;
+  height: 80px;
+  opacity: 0.8;
+}
+
+.form_template-name{
+  position: relative;
+  width: 720px;
+  height: 50px;
+  background: #FFF4E0;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #F4DBAA;
+  margin-top: 2%;
+}
+
+.form_template-name-change{
+  position: relative;
+  width: 720px;
+  height: 50px;
+  background: #FFF4E0;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #F4DBAA;
+  margin-top: 2%;
+  content: "(　選択中　)"
+}
+
+/* .form_template-name-change:after{
+  margin-top: 2%;
+  margin-left: 15px;
+  font-weight: bold;
+  content: "(表示中)"
+} */
+
+.file_target{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
+}
+
+.template-name_text{
+  font-size: 15px;
+  line-height: 50px;
+  padding-left: 5%;
+}
+
+.form_setting_file_display_area {
+  background-color: #FFF9EF;
+  padding: 20px 30px;
+}
+
+.form_setting_file_display_template {
+  margin-bottom: 20px;
+}
+
+.form_setting_file_display_label {
+  color: #DEBC79;
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.form_setting_file_display_item {
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.form_setting_parts_area{
+  width: 720px;
+  height: 150px;
+  background: #FFF9EF;
+  border-radius: 7px;
+  margin-top: 3%;
+}
+
+.form_setting_parts_text_area{
+  font-weight: bold;
+  margin-left: 2%;
+  padding-top: 1%;
+}
+
+.form_setting_parts_area_main{
+  display: flex;
+}
+
+.form_setting_title_area{
+  margin-bottom: 3%;
+}
+
+.form_setting_error {
+  color: #E16A6C;
+}
+
+p.form_setting_error  {
+  color: #E16A6C;
+}
+
+.form_setting_parts_text{
+  width: 190px;
+  height: 50px;
+  background: #F4DBAA;
+  border-radius: 5px;
+  border: none;
+  padding-top: 11px;
+}
+
+.parts_inner_text{
+  width: 140px;
+  height: 35px;
+  background: white;
+  border: 1px solid #A2A2A2;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.form_setting_parts_sign_area{
+  margin-left: 5%;
+  margin-top: 1%;
+}
+
+.form_setting_parts_sign{
+  width: 80px;
+  height: 50px;
+  background: #F4DBAA;
+  border-radius: 5px;
+  border: none;
+  padding-top: 10px;
+}
+
+.dot-logo-text{
+  margin-left: 85%;
+  margin-top: -17%;
+}
+
+.dot-logo-sign{
+  margin-left: 74%;
+  margin-top: -43%;
+}
+
+.dot-logo-checkbox{
+  margin-left: 74%;
+  margin-top: -40%;
+}
+
+.parts_inner_sign{
+  width: 40px;
+  height: 40px;
+  background: white;
+  border: 1px solid #A2A2A2;
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-top: -1px;
+}
+
+.form_setting_parts_checkbox_area{
+  margin-left: 5%;
+  margin-top: 1%;
+}
+
+.form_setting_parts_checkbox{
+  width: 80px;
+  height: 50px;
+  background: #F4DBAA;
+  border-radius: 5px;
+  border: none;
+  padding-top: 10px;
+}
+
+.parts_inner_checkbox{
+  width: 35px;
+  height: 35px;
+  background: white;
+  border: 1px solid #A2A2A2;
+  margin-left: 10px;
+  margin-top: 1px;
+  border-radius: 5px;
+}
+
+.form_setting_document_operation_area {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
+}
+
+.form_setting_document_operation_area2 {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.form_setting_document_operation_left {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form_setting_document_status_area {
+  margin-right: 60px;
+}
+
+.form_setting_document_operation_label {
+  font-size: 14px;
+  color: #4C4C4C;
+  line-height: 0.5;
+}
+
+.form_setting_document_operation_text {
+  font-size: 28px;
+  color: #4C4C4C;
+}
+
+.form_setting_document_operation_right {
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  padding-top: 10px;
+}
+
+.form_setting_document_page_area {
+  width: 140px;
+  display: flex;
+  margin-top: 10px;
+}
+
+.form_setting_document_count_area {
+  width: 100px;
+  display: flex;
+}
+
+.page-text {
+  margin-top: 10%;
+  margin-right: 10%;
+}
+
+.count-text {
+  margin-top: 10%;
+  margin-left: -30%;
+  padding-right: 10%;
+  width: 40px;
+}
+
+.form_setting_document_pager_prev{
+  border: 1px solid #A2A2A2;
+  font-size: 25px;
+  border-radius: 5px;
+  color: #A2A2A2;
+  cursor: pointer;
+}
+
+.form_setting_document_pager_next{
+  border: 1px solid #A2A2A2;
+  font-size: 25px;
+  border-radius: 5px;
+  color: #A2A2A2;
+  cursor: pointer;
+}
+
+.form_setting_file_pager_prev{
+  border: 1px solid #A2A2A2;
+  font-size: 25px;
+  border-radius: 5px;
+  color: #A2A2A2;
+  cursor: pointer;
+}
+
+.form_setting_file_pager_next{
+  border: 1px solid #A2A2A2;
+  font-size: 25px;
+  border-radius: 5px;
+  color: #A2A2A2;
+  cursor: pointer;
+}
+
+.form-wrapper {
+  margin-top: 40px;
+}
+
+.sign-text-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+}
+
+.sign-text-note {
+  font-size: 11px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.authorization-code-note {
+  font-size: 11px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.tel-note {
+  font-size: 11px;
+  color: #555;
+  margin-top: 5px;
+}
+
+.sign-text-label .note {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.sign-text-label .required {
+  margin-left: 8px;
+  padding: 2px 5px;
+  font-size: 12px;
+  line-height: 1.0;
+  color: #fff;
+  background: #df6b6e;
+}
+
+.sign-text-field {
+  width: 283px;
+  height: 40px;
+  border-radius: 3px;
+  border: solid 1px #afafaf;
+  background-color: #ffffff;
+  padding: 0 14px;
+}
+
+.button-wrapper{
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.return-button-box{
+  width: 160px;
+  height: 40px;
+  background: #A2A2A2;
+  color: white;
+  font-weight: bold;
+  margin-right: 3%;
+  border-radius: 3px;
+  text-align: center;
+  line-height: 40px;
+  position: relative;
+}
+
+.return-button-box a{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
+}
+
+.form_setting_document_img{
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+
+.form_setting_file_img {
+  position: relative;
+  border: 1px solid #888;
+}
+
+.form_setting_file_img_text {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(100% + 124px);
+}
+
+.form_setting_file_img_sign {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(100% + 54px);
+}
+
+.form_setting_file_img img {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.signup-button-box {
+  width: 160px;
+  height: 40px;
+  background:#FFAA00;
+  color: white;
+  font-weight: bold;
+  border-radius: 3px;
+  text-align: center;
+  line-height: 40px;
+  position: relative;
+}
+
+.signup-button-box a,
+.signup-button-box button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
+}
+
+.only_once_button:disabled {
+  background-color: #EFEFEF !important;
+  color: #fff !important;
+  border: none !important;
+  cursor: default;
+  opacity: 1.0;
+}
+
+.upload_message {
+  text-align: center;
+  margin-top: 15px;
+  visibility: hidden;
+}
+.setting_message {
+  text-align: center;
+  margin-top: 15px;
+  margin-left: 210px;
+  visibility: hidden;
+}
+
+/** 契約書上に表示するダミーフォーム **/
+/** テキストフォーム（1行） **/
+.form_setting_parts_text_dammy {
+  border-radius: 2px;
+  background-color: #FFF4E0;
+  display: flex;
+  position: relative;
+  padding: 10px;
+}
+
+.form_setting_parts_text_dammy.input {
+  width: 330px;
+}
+
+.form_setting_parts_text_dammy .done {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  min-width: 70px;
+  color: #B18D47;
+  font-size: 10px;
+  background-color: #FFDE96;
+  border-radius: 2px 2px 0 0;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.parts_inner_text_dammy_area {
+  display: flex;
+}
+
+.parts_inner_text_dammy {
+  font-size: 14px;
+  line-height: 1.1;
+  height: 24px;
+  color: #A2A2A2;
+  border: 1px solid #DEBC79;
+  border-radius: 2px;
+  width: 300px;
+  background: #fff;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+input.parts_inner_text_dammy {
+  padding: 0 2px;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 100;
+}
+
+.form_setting_parts_text_dammy_confirm {
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 10px;
+}
+
+/** テキストフォーム（複数行） **/
+.form_setting_parts_textarea_dammy {
+  border-radius: 2px;
+  background-color: #FFF4E0;
+  display: flex;
+  position: relative;
+  padding: 10px;
+}
+
+.form_setting_parts_textarea_dammy.input {
+  width: 330px;
+}
+
+.form_setting_parts_textarea_dammy .done {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  min-width: 70px;
+  color: #B18D47;
+  font-size: 10px;
+  background-color: #FFDE96;
+  border-radius: 2px 2px 0 0;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.parts_inner_textarea_dammy_area {
+  display: flex;
+}
+
+.parts_inner_textarea_dammy {
+  font-size: 14px;
+  line-height: 1.1; /* PDFにしたときこうなると見せる必要がある PDFの行間にする */
+  height: 24px;
+  color: #A2A2A2;
+  border: 1px solid #DEBC79;
+  border-radius: 2px;
+  width: 300px;
+  background: #fff;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  resize: none;
+}
+
+textarea.parts_inner_textarea_dammy {
+  padding: 2px 2px;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 100;
+  white-space: pre-wrap;
+}
+
+.form_setting_parts_textarea_dammy_confirm {
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 10px;
+}
+
+/** 押印 **/
+.form_setting_parts_sign_dammy {
+  border-radius: 2px;
+  background-color: #FFF4E0;
+  display: flex;
+  position: relative;
+  padding: 10px;
+}
+
+.form_setting_parts_sign_dammy .done {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  min-width: 70px;
+  color: #B18D47;
+  font-size: 10px;
+  background-color: #FFDE96;
+  border-radius: 2px 2px 0 0;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.parts_inner_sign_dammy {
+  border: 1px solid #DEBC79;
+  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  background: #fff;
+}
+
+.form_setting_parts_sign_dammy_confirm {
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 5px;
+}
+
+/** チェックボックス **/
+.form_setting_parts_checkbox_dammy {
+  border-radius: 2px;
+  background-color: #FFF4E0;
+  display: flex;
+  position: relative;
+  padding: 10px;
+}
+
+.form_setting_parts_checkbox_dammy .done {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  min-width: 70px;
+  color: #B18D47;
+  font-size: 10px;
+  background-color: #FFDE96;
+  border-radius: 2px 2px 0 0;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.form_setting_parts_checkbox_input {
+  width: 64px;
+  height: 52px;
+  border-radius: 2px;
+  background-color: #FFF4E0;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.form_setting_parts_checkbox_input .done {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  min-width: 70px;
+  color: #B18D47;
+  font-size: 10px;
+  background-color: #FFDE96;
+  border-radius: 2px 2px 0 0;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.parts_inner_checkbox_dammy {
+  border: 1px solid #DEBC79;
+  border-radius: 2px;
+  width: 32px;
+  height: 32px;
+  background: #fff;
+}
+
+.parts_inner_checkbox_dammy.input {
+  cursor: pointer;
+}
+
+.parts_inner_checkbox_dammy img.gray {
+  text-align: center;
+  width: 60%;
+  height: auto;
+  margin: 20%;
+}
+
+.form_setting_parts_checkbox_dammy_confirm {
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 10px;
+}
+
+.parts_inner_fontsize {
+  font-size: 10px;
+  width: 50px;
+  height: 26px;
+  text-align: center;
+  position: relative;
+	border: 4px solid #DEBC79;
+	border-radius: 2px;
+  background: #ffffff;
+  margin-left: 12px;
+}
+.parts_inner_fontsize select {
+  width: 100%;
+  line-height: 26px;
+	padding-right: 1em;
+	cursor: pointer;
+	text-indent: 0.01px;
+	text-overflow: ellipsis;
+	border: none;
+	outline: none;
+	background: transparent;
+	background-image: none;
+	box-shadow: none;
+	-webkit-appearance: none;
+  appearance: none;
+  color: #666666;
+  margin-left: 4px;
+}
+.parts_inner_fontsize select::-ms-expand {
+    display: none;
+}
+.parts_inner_fontsize::before {
+	position: absolute;
+	top: 1.1em;
+	right: 0.4em;
+	width: 0;
+	height: 0;
+	padding: 0;
+	content: '';
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-top: 6px solid #666666;
+	pointer-events: none;
+}
+
+.parts_inner_remove {
+  font-size: 24px;
+  color: #fff;
+  text-align: center;
+  background-color: #DEBC79;
+  width: 32px;
+  height: 32px;
+  line-height: 30px;
+  border-radius: 2px;
+  margin-left: 12px;
+  cursor: pointer;
+}
+
+.form_setting_parts_text_dammy img, .form_setting_parts_textarea_dammy img, .form_setting_parts_sign_dammy img, .form_setting_parts_checkbox_dammy img {
+  border: none;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  margin-left: 12px;
+}
+
+.form_setting_partner_select {
+  width: 294px;
+  height: 80px;
+  background-color: #FFF4E0;
+  border-radius: 2px;
+  position: absolute;
+  right: 0;
+  top: -80px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  display: none;
+  font-size: 13px;
+  z-index: 200;
+}
+
+.form_setting_partner_select.checkbox {
+  height: 97px;
+  top: -107px;
+}
+
+.form_setting_partner_select.checkbox label {
+  font-size: 12px;
+}
+
+.form_setting_partner_select_label {
+  font-size: 12px;
+  color: #333;
+}
+
+.form_setting_partner_select_label .require {
+  font-size: 10px;
+  color: #fff;
+  background-color: #E16A6C;
+  border-radius: 1px;
+  margin-left: 5px;
+  padding: 0 5px;
+}
+
+.form_setting_partner_select select {
+  width: 256px;
+  height: 32px;
+  color: #333;
+}
+
+.form_setting_partner_select_confirm {
+  width: 294px;
+  height: 80px;
+  background-color: #FFF4E0;
+  border-radius: 2px;
+  position: absolute;
+  left: 0;
+  top: -80px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  z-index: 200;
+}
+
+.form_setting_partner_select_confirm.sign {
+  top: -80px;
+}
+
+.form_setting_partner_select_confirm.checkbox {
+  top: -90px;
+  height: 90px;
+}
+
+.partner_select_confirm {
+  width: 256px;
+  height: 32px;
+  line-height: 32px;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #B1B1B1;
+  border-radius: 4px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.form_setting_partner_sign {
+  width: 200px;
+  height: 180px;
+  background-color: #FFF4E0;
+  border-radius: 2px;
+  position: absolute;
+  right: 0;
+  top: -180px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  display: none;
+  z-index: 200;
+}
+
+.form_setting_partner_sign.partner {
+  display: block;
+}
+
+.form_setting_partner_sign input {
+  width: 160px;
+  height: 28px;
+  color: #333;
+  box-sizing: border-box;
+  margin-bottom: 5px;
+  padding: 0 10px;
+}
+
+.form_setting_partner_sign button {
+  font-size: 14px;
+  width: 160px;
+  height: 28px;
+  color: #fff;
+  background-color: #ffaa00;
+  border-radius: 2px;
+}
+
+.form_setting_partner_sign button:hover {
+  opacity: 0.7;
+}
+
+/** パートナーエリア **/
+.form_setting_partner_area {
+  margin: 60px 0;
+}
+
+.form_setting_partner_area#partnerArea {
+  display: none;
+}
+
+.form_setting_partner_title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form_setting_partner_description {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.form_setting_partner_item {
+  border: 1px #A2A2A2 solid;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+}
+
+.form_setting_partner_item.approval {
+  background-color: #F0F5EA;
+  border: 1px #63932B solid;
+}
+
+.form_setting_partner_number {
+  color: #fff;
+  text-align: center;
+  background-color: #FFAA00;
+  width: 38px;
+  height: 36px;
+  line-height: 38px;
+  border-radius: 50%;
+  margin-right: 32px;
+}
+
+.form_setting_partner_item.approval .form_setting_partner_number {
+  background-color: transparent;
+}
+
+.form_setting_partner_name {
+  color: #333;
+  width: 120px;
+}
+
+.form_setting_partner_number img {
+  width: 37px;
+  height: auto;
+}
+
+.form_setting_partner_organization {
+  color: #333;
+  width: 210px;
+}
+
+.form_setting_partner_email {
+  color: #333;
+  width: 275px;
+  word-wrap: break-word;
+  margin-left: 5px;
+}
+
+.form_setting_partner_resend {
+  height: 38px;
+}
+
+.form_setting_partner_resend a {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 72px;
+  height: 38px;
+  line-height: 38px;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  background-color: #FFAA00;
+  border-radius: 2px;
+}
+
+.form_setting_partner_resend a:hover {
+  opacity: 0.8;
+}
+
+.form_setting_partner_unapproved {
+  margin: 0 25px 10px 0;
+}
+
+.form_setting_partner_resend {
+  box-sizing: border-box;
+  width: 72px;
+  height: 38px;
+  line-height: 38px;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  background-color: #A2A2A2;
+  border-radius: 2px;
+}
+
+/** メッセージエリア **/
+.form_setting_message_area {
+  margin: 60px 0;
+}
+
+.form_setting_message_area#messageArea {
+  display: none;
+}
+
+.form_setting_partner_description {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.form_setting_partner_textarea {
+  color: #333;
+  width: 100%;
+  height: 128px;
+  resize: none;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #A2A2A2;
+}
+
+.e_contract_loading {
+  position: absolute;
+  width: auto;
+  height: 30px;
+  display: none;
+}
+
+.mi_mgn-left40 {
+  margin-left: 40px;
+}
+
+/** 送信完了画面 **/
+#done {
+  display: none;
+  padding-bottom: 80px;
+}
+
+#contracted {
+  display: none;
+  padding-bottom: 80px;
+}
+
+.e_contract_center{
+  text-align: center;
+  margin-top: 80px;
+}
+
+.e_contract_img__section{
+  margin-bottom: 20px
+}
+
+.e_contract_item__medium{
+  font-family: HiraginoSans-W4;
+  font-size: 32px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #4c4c4c;
+}
+
+.e_contract_item__small {
+  font-family: HiraginoSans-W4;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #4c4c4c;
+  margin: 5px 0 20px
+}

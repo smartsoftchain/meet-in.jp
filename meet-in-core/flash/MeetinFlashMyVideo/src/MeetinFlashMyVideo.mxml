@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2008-2011 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+Author: Jozsef Vass
+-->
+
+<!-- Adobe labs limit width to 520 pixels. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="init()" backgroundColor="0xffffff" width="520" height="300">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayList;
+			
+			// rtmfp server address (Adobe Cirrus or FMS)
+			[Bindable] private var connectUrl:String = "rtmfp://p2p.rtmfp.net";
+			
+			// developer key, please insert your developer key here
+//			private const DeveloperKey:String = "e2e9b15b330b9744779cfb1f-ebb4e7542f48";
+			
+			// available camera deviced
+			[Bindable] private var cameraNames:ArrayList = new ArrayList();
+			private var cameraIndex:int = 0;
+			
+			// user name is saved in local shared object
+			private var localSO:SharedObject;
+			
+			// called when application is loaded            		
+			private function init():void
+			{		
+				localSO = SharedObject.getLocal("videoPhoneSettings");
+				
+				var cameras:Array = Camera.names;
+				if (cameras)
+				{
+					cameraNames.source = cameras;
+				}
+				else
+				{
+				}
+				
+				// selected camera device
+				if (localSO.data.hasOwnProperty("cameraIndex"))
+				{
+					cameraIndex = localSO.data.cameraIndex;
+				}
+				
+				// configure audio and video
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				if (camera)
+				{
+					camera.addEventListener(ActivityEvent.ACTIVITY, onDeviceActivity);
+					
+					cameraChanged();
+				}
+			}
+			
+			private function startVideo():void
+			{
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				if (camera)
+				{
+					localVideoDisplay.attachCamera(camera);
+				}
+			}
+			
+			private function onDeviceActivity(e:ActivityEvent):void
+			{
+				//				status("Device activity: " + e.activating + "\n");
+			}
+			
+			private function cameraChanged(event:Event = null):void
+			{
+				//				cameraIndex = cameraSelection.selectedIndex;
+				
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				
+				if (camera)
+				{
+					camera.setMode(320, 240, 15);
+					camera.setQuality(0, 80);
+				}
+				
+				// when user changes video device, we want to show preview
+				localVideoDisplay.attachCamera(camera);
+				
+				//				localSO.data.cameraIndex = cameraIndex;
+				try
+				{
+					localSO.flush();
+				}
+				catch (e:Error)
+				{
+				}
+			}
+			
+			private function videoQualityChanged(e:Event = null):void
+			{
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				if (camera)
+				{
+					camera.setQuality(0, 80);
+				}
+			}
+		]]>
+	</fx:Script>
+	
+		<fx:Style>
+		.buttonStyle {
+			color: "0x000000";
+			textRollOverColor: "0x000000";
+			textSelectedColor: "0x000000";
+		}
+		
+		.checkboxStyle
+		{
+			color: "0xffffff";
+			textRollOverColor: "0xffffff";
+			textSelectedColor: "0xffffff";
+		}
+	</fx:Style>
+	
+	<s:BorderContainer cornerRadius="10" backgroundColor="0x303030" borderStyle="solid">
+		<s:layout>
+			<s:VerticalLayout paddingTop="5" paddingLeft="5" paddingBottom="5" paddingRight="5"/>
+		</s:layout>
+		
+		<s:HGroup>
+			<mx:VideoDisplay id="localVideoDisplay" width="320" height="240" />
+		</s:HGroup>
+	</s:BorderContainer>
+</s:Application>

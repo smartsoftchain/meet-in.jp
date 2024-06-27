@@ -1,0 +1,277 @@
+@charset "UTF-8";
+
+/*
+*   Title:「 チャット 」要素CSS
+*   File Nmae: chat_board.css
+*/
+.chat_board_area{
+	height: calc(90vh - 100px);
+	width: 300px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+/*	top: 80px;*/
+/*	left: 70px;*/
+	z-index: 250;
+	display: none;
+	border: 1px solid rgba(192, 192, 192, 0.8);
+	background: rgba(192, 192, 192, 0.8);
+/*	box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;*/
+}
+.split_area .chat_board_contents {
+	height: calc(50%);
+}
+
+/********************/
+/* チャットの外側部分 */
+/********************/
+.chat_board_contents {
+	height: 100%;	/*chat_board_areaに対して100%になる */
+	width: 100%;	/*chat_board_areaに対して100%になる */
+}
+
+/***************/
+/* ヘッダー部分 */
+/***************/
+.chat_board_head {
+	width: 90%;
+	border-bottom: solid 1px #B2B2B2;
+	margin : auto;
+	padding-top : 10px;
+	padding-bottom : 5px;
+	font-size: 11px;
+/*	color: rgba(192, 192, 192, 0.5);*/
+}
+.chat_board_head_left{
+	float: left;
+}
+.chat_board_head_right{
+	float: right;
+}
+.chat_board_head_right:hover{
+	cursor: pointer;
+}
+.chat_board_title{
+	margin-left: 10px;
+}
+.chat_board_close{
+	background-color : #B2B2B2;
+	color : #FFF;
+	border-radius: 50%;
+}
+
+/******************/
+/* タイムライン部分 */
+/******************/
+.chat_board_timeline {
+	overflow: auto;				/* スクロールを効かせつつ、メッセージがタイムラインの外に出ないようにする */
+	height:calc(100% - 65px);	/*テキストエリアが下に張り付く様にする(ヘッダ＋テキストエリア)*/
+/*	background-color: rgba(232, 232, 232, 0.5);*/
+	overflow-y: scroll;
+	position: relative;
+}
+.chat_board_messages {
+	position: absolute;	/* チャットメッセージを下から上に流れるようにするため下に張り付く様にする */
+	bottom: 0px;		/* 同条 */
+/*	background-color: rgba(232, 232, 232, 0.5);*/
+	width: 100%;		/*chat_board_areaに対して100%になる */
+}
+.chat_board_messages_scroll {
+/*	background-color: rgba(232, 232, 232, 0.5);*/
+	width: 100%;		/*chat_board_areaに対して100%になる */
+}
+
+/* メッセージ全般のスタイル */
+.chat_board_message {
+	margin: 0px;
+	padding: 0 2px;/*吹き出しがタイムラインの側面にひっつかない様に隙間を開ける(吹き出しの開始)*/
+	font-size: 11px;
+
+	word-break: break-all;	/* 吹き出し内で自動で改行 */
+/***
+	word-wrap: break-word;
+***/
+	white-space: normal;/*指定widthに合わせて、文字を自動的に改行*/
+/*
+	position: absolute;
+	bottom: 0px;
+*/
+}
+.chat_board_message_box{
+	margin-top: 5px;/*上下の吹き出しがひっつかない様に隙間を入れる*/
+	max-width: 100%;/*文字が長くなった時に吹き出しがタイムラインからはみ出さない様にする*/
+	font-size: 11px;
+}
+.chat_board_message_content{
+	padding: 5px;/*文字や画像（コンテンツ）の外側に隙間を入れる*/
+}
+
+/* メッセージ１（左側） */
+.chat_board_left {
+	float: left;/*吹き出しをchat_board_messagesに対して左寄せ*/
+	line-height: 1.3em;
+
+	position: relative;
+	margin-left: 15px;
+}
+.chat_board_userimg_left {
+/***
+	position: absolute;
+	bottom: 0;
+***/
+	left: 20px;
+	float: left;
+}
+
+.chat_board_userimg_wrap_left {
+	width: 30px!important;
+	height: 30px!important;
+
+	transform: translate(-50%,0)!important;
+	margin-top: 5%!important;
+/**
+	background: #eeeeee;
+	border: 1px solid #fff;
+**/
+	border-radius: 1000px;
+	overflow: hidden;
+}
+.chat_board_userimg_wrap_left:before {
+	content: "";
+	display: block;
+	padding-top: 100%;
+}
+.chat_board_userimg_wrap_left_inner{
+	height:87%;
+	width:87%;
+	overflow: hidden;
+	position: absolute;
+	top: 50%!important;
+	left: 50%!important;
+	transform: translate(-50%,-50%)!important;
+	border: 1px solid #fff;
+	border-radius: 1000px;
+}
+.chat_board_userimg_wrap_left img {
+	width: auto!important;
+	height: auto!important;
+	position: static;
+/***
+	position: absolute;
+***/
+	top: 50%!important;
+	left: 50%!important;
+	transform: translate(-50%,-50%)!important;
+	max-width: 100%;
+	max-height: 100%;
+	background: #fff;
+}
+/* 一言 */
+.chat_board_left .chat_board_message_box {
+	color: rgba(0, 0, 0, 1);/*テキストを黒にする*/
+	background: rgba(238, 238, 238, 1);
+	border: 2px solid rgba(238, 238, 238, 1);
+	border-radius: 15px 15px 15px 15px;/*左下だけ尖らせて吹き出し感を出す*/
+	margin-right: 20px;/*左側の発言だとわかる様に、吹き出し右側に隙間を入れる*/
+	margin-left: 18px;/*画像だとわかる様に、吹き出し左側に隙間を入れる*/
+}
+/* １番目 */
+.chat_board_left .chat_board_message_box_start {
+	color: rgba(0, 0, 0, 1);/*テキストを黒にする*/
+	background: rgba(238, 238, 238, 1);
+	border: 2px solid rgba(238, 238, 238, 1);
+	border-radius: 15px 15px 15px 0px;/*左下だけ尖らせて吹き出し感を出す*/
+	margin-top: 5px;
+	margin-right: 20px;/*左側の発言だとわかる様に、吹き出し右側に隙間を入れる*/
+	margin-left: 18px;/*画像だとわかる様に、吹き出し左側に隙間を入れる*/
+}
+/* 続き */
+.chat_board_left .chat_board_message_box_next {
+	color: rgba(0, 0, 0, 1);/*テキストを黒にする*/
+	background: rgba(238, 238, 238, 1);
+	border: 2px solid rgba(238, 238, 238, 1);
+	border-radius: 0px 15px 15px 0px;/*左上下だけ尖らせて吹き出し感を出す*/
+	margin-top: 2px;
+	margin-right: 20px;/*左側の発言だとわかる様に、吹き出し右側に隙間を入れる*/
+	margin-left: 18px;/*画像だとわかる様に、吹き出し左側に隙間を入れる*/
+}
+/* 最後 */
+.chat_board_left .chat_board_message_box_end {
+	color: rgba(0, 0, 0, 1);/*テキストを黒にする*/
+	background: rgba(238, 238, 238, 1);
+	border: 2px solid rgba(238, 238, 238, 1);
+	border-radius: 0px 15px 15px 15px;/*左上だけ尖らせて吹き出し感を出す*/
+	margin-top: 2px;
+	margin-right: 20px;/*左側の発言だとわかる様に、吹き出し右側に隙間を入れる*/
+	margin-left: 18px;/*画像だとわかる様に、吹き出し左側に隙間を入れる*/
+}
+
+/* メッセージ２（右側） */
+.chat_board_right {
+	float: right;/*吹き出しをbms_messagesに対して右寄せ*/
+	line-height: 1.3em;
+	position: relative;
+	margin-right: 0px;
+}
+
+.chat_board_right .chat_board_message_box {
+	color: #fff;/*テキストを白にする*/
+	background: #ffaa00;
+	border: 2px solid #ffaa00;
+	border-radius: 15px 15px 15px 15px;/*楕円の形状*/
+	margin-left: 20px;/*右側の発言だとわかる様に、吹き出し左側に隙間を入れる*/
+	margin-right: 0px;/*画像だとわかる様に、吹き出し右側に隙間を入れる*/
+}
+.chat_board_right .chat_board_message_box_start {
+	color: #fff;/*テキストを白にする*/
+	background: #ffaa00;
+	border: 2px solid #ffaa00;
+	border-radius: 15px 15px 0px 15px;/*右下だけ尖らせて吹き出し感を出す*/
+	margin-top: 5px;
+	margin-left: 20px;/*右側の発言だとわかる様に、吹き出し左側に隙間を入れる*/
+	margin-right: 0px;/*画像だとわかる様に、吹き出し右側に隙間を入れる*/
+}
+.chat_board_right .chat_board_message_box_next {
+	color: #fff;/*テキストを白にする*/
+	background: #ffaa00;
+	border: 2px solid #ffaa00;
+	border-radius: 15px 0px 0px 15px;/*右上下だけ尖らせて吹き出し感を出す*/
+	margin-top: 2px;
+	margin-left: 20px;/*右側の発言だとわかる様に、吹き出し左側に隙間を入れる*/
+	margin-right: 0px;/*画像だとわかる様に、吹き出し右側に隙間を入れる*/
+}
+.chat_board_right .chat_board_message_box_end {
+	color: #fff;/*テキストを白にする*/
+	background: #ffaa00;
+	border: 2px solid #ffaa00;
+	border-radius: 15px 0px 15px 15px;/*右上だけ尖らせて吹き出し感を出す*/
+	margin-top: 2px;
+	margin-left: 20px;/*右側の発言だとわかる様に、吹き出し左側に隙間を入れる*/
+	margin-right: 0px;/*画像だとわかる様に、吹き出し右側に隙間を入れる*/
+}
+
+/* 回り込みを解除 */
+.chat_board_clear {
+	clear: both; /* 左メッセージと右メッセージの回り込み(float)の効果の干渉を防ぐために必要（これが無いと、自分より下のメッセージにfloatが影響する） */
+}
+
+/***************************/
+/* テキストエリア(送信ボタン)*/
+/***************************/
+#chat_board_send {
+	background-color: #fff;	/*タイムラインの色と同じにする*/
+    height: 32px;
+/*	padding: 2px;*/
+	background: rgba(192, 192, 192, 0.1);
+}
+#chat_board_send_message {
+	width: 100%;
+	line-height: 16px;
+	font-size: 11px;
+	height: 32px;
+	padding: 3px 0px 0px 2px;	/*文字がテキストエリアの中心になる様に隙間調整*/
+/*	border-radius: 4px;*/			/*角丸*/
+	text-align: left;			/*文字を左寄せ*/
+/*	box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.2) inset;*//*内側に影を入れてテキストエリアらしくした*/
+	box-sizing: border-box;		/*paddingとborderの要素の高さと幅の影響をなくす（要素に高さと幅を含める）*/
+}

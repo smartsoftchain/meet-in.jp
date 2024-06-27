@@ -1,0 +1,1680 @@
+const GUEST_DATACONNECTION_RETRY_WAIT = 10000;
+const GUEST_DATACONNECTION_RETRY_WAIT_2 = 5000;
+const CHECK_ONLINE_STATE_INTERVAL = 5000;
+var mDataConnectionTimeout = null;
+var mDataConnectionTryCounter = 0;
+
+const TARGET_NOT_FOUND_RETRY_MAX = 5;
+const TARGET_NOT_FOUND_RETRY_WAIT = 5000;
+var mTargetNotFoundRetryCounter = 0;
+var mTargetNotFoundRetryTimeout = null;
+
+var mMeetinConnection = (typeof MeetinConnectionManager !== 'undefined') ? new MeetinConnectionManager.MeetinConnection() : null;
+var mMeetinWebSocket = (typeof MeetinWebSocketManager !== 'undefined') ? new MeetinWebSocketManager.MeetinWebSocket() : null;
+
+var mConnectionTimeout = null;
+var mNotification = null;
+var mCallConnectionInfoId = null;
+var mCallConnectNo = null;
+var mCallClientId = null;
+var mTargetPeerId = null;
+var mScreenType = 1;
+var mUserId = 0;
+var mReconnectBeginDialogId = null;
+var mDialToConnectNo = null;
+var mWaitConnectTable = {};
+
+var mReady = false;
+var mReady2 = true;
+var mBandwidth = null;
+var mUploadBandwidth = null;
+var mReceivedJsonCommandTable = {};
+var mChangeToNegotiatioin = false;
+var mPreventClick = false; //true;
+
+var mPeerId = null;
+
+var mOldConnectionInfoId = null;
+var mOldPeerId = null;
+
+var mPingTimeout = null;
+var mSendPingTimeout = null;
+
+// ブラウザの接続状態
+var mLastOnlineState = window.navigator.onLine;
+var mCheckLastOnlineStateInterval = null;
+
+/*
+$(window).bind('online', function(e) {
+	if (mReady) {
+		if (mPeerId && mPeerId.length > 0) {
+			initWebSocket("S" + mPeerId);
+		} else {
+			if (!mMeetinConnection) {
+				initWebSocket(null);
+			}
+		}
+	}
+});
+*/
+
+$(window).on('unload', function(e) {
+	if (mNotification) {
+		mNotification.close();
+	}
+
+	mReady = false;
+	mReady2 = false;
+	if (mMeetinConnection) {
+		mMeetinConnection.destroy();
+	}
+
+	if (mCheckLastOnlineStateInterval) {
+		clearInterval(mCheckLastOnlineStateInterval);
+		mCheckLastOnlineStateInterval = null;
+	}
+	
+	if (mMeetinWebSocket) {
+		mMeetinWebSocket.destroy();
+	}
+	
+	if (mOldConnectionInfoId && mOldConnectionInfoId.length > 0 && mOldPeerId && mOldPeerId.length) {
+		removePeerIdFromConnectionInfo(
+			mOldConnectionInfoId,
+			mOldPeerId,
+			null, 
+			null, 
+			null
+		);
+	}
+});
+
+$(document).ready(function(){
+	$('#mi_wrap').on('click', function(e){
+		if (mPreventClick) {
+		    e.stopPropagation();
+		    e.preventDefault();
+		    e.stopImmediatePropagation();
+		    return false;
+		}
+	});	
+
+	var client_id = $('#client_id').val();
+	var staff_type = $('#staff_type').val();
+	var staff_id = $('#staff_id').val();
+
+	var deniedCallback = function() {
+		createModalOkDialog("お知らせ", 'ブラウザがMeet-inのデスクトップ通知をブロックしています。デスクトップ通知を許可しないと、着信通知機能が使えません。');
+//		var url = "https://support.google.com/chrome/answer/3220216?hl=ja";
+//		window.open(url);
+	};
+	
+	checkAndAskForNotificationPermission(deniedCallback);
+
+//	if ((client_id && client_id > 0) || (staff_type == "AA")) {
+	if ((client_id && client_id > 0)) {
+		window.addEventListener(
+			"message",
+			function(event){
+			    if (event.data.type == 'CALL_BY_DIAL') {
+					showConnectionRequestSendingDialog("");
+
+					var run = function() {
+						initPeer();
+			    		mDialToConnectNo = event.data.connect_no.replace(/-/g, '');
+			    		mTargetNotFoundRetryCounter = 0;
+			    	}
+
+					if (mOldConnectionInfoId && mOldConnectionInfoId.length > 0 && mOldPeerId && mOldPeerId.length) {
+						var completeCallback = function(XMLHttpRequest, textStatus) {
+							run();
+						};
+						
+						removePeerIdFromConnectionInfo(
+							mOldConnectionInfoId,
+							mOldPeerId,
+							null, 
+							null, 
+							completeCallback
+						);
+					} else {
+						run();
+					}
+					
+					return;
+				}
+			},
+			false
+		);
+
+		var connect_no = $('#connect_no').val();
+		if (checkConnectNo(connect_no)) {
+			getOrCreateConnectionInfo(connect_no);
+		}
+	} else {
+		mPreventClick = false;
+	}
+	
+	if (typeof initMenu === "function") {
+		initMenu();
+	}
+	
+	if (DEFAULT_AUTO_DETECT_BANDWIDTH) {
+		var callback = function(timings) {
+			mBandwidth = timings.throughput * 8;
+			mUploadBandwidth = timings.uploadBandwidth * 8;
+			for (var key in mReceivedJsonCommandTable) {
+				runCommandCallback(mReceivedJsonCommandTable[key]);
+			}
+			mReceivedJsonCommandTable = {};
+			if (mChangeToNegotiatioin) {
+				enterNegotiation();
+				mChangeToNegotiatioin = false;
+			}
+	//		createModalOkDialog("帯域幅(kbps)", '上り：' + mUploadBandwidth + '(kbps), 下り：' + mBandwidth + '(kbps)');
+		};
+		
+		// 帯域幅を調べる
+		detectSpeed.startSpeedCheck("https://" + location.host + "/img/login_img-1.jpg", callback);
+	} else {
+		mBandwidth = 1;
+		mUploadBandwidth = 1;
+	}
+});
+
+//////////////////////////////////////////////////////////
+// WebRTCコールバック
+//////////////////////////////////////////////////////////
+
+// PeerServerへの接続が確立した時
+function peerOpenCallback(peer, peerId) {
+	mReady = true;
+	
+	mPeerId = peerId;
+	
+	updateUnexpireConnectionInfoPeerIdProc(peerId);
+
+	var data = {
+		peer_id : peerId,
+	};
+	
+	saveWebRtcParam(
+		data,
+		null,
+		null, 
+		null
+		);
+/*
+	var successCallback = function(data, textStatus, XMLHttpRequest) {
+		if ("1" == data.result) {
+			var wait_connect_table_string = data.params.wait_connect_table_string;
+			if (wait_connect_table_string && wait_connect_table_string.length > 0) {
+				var json = JSON.parse(decodeURIComponent(wait_connect_table_string));
+				var total = Object.keys(json).length;
+				if (total > 0) {
+					var data = {
+						wait_connect_table_string : null
+					};
+					
+					var completeCallback2 = function(xhr, status) {
+						for (var key in json) {
+							if (17 == key.length) {
+							} else {
+								var dataConnectionOpenCallbackWork = function(dataConnection, myPeerId, targetPeerId, connectionId) {
+									var data = {
+										command : "RESEND_REQUEST_CHANGE_TO_NEGOTIATION"
+									};
+									
+									mMeetinConnection.sendCommandToSpecificTargetPeerData(
+										targetPeerId,
+										JSON.stringify(data)
+									);
+								
+									mPreventClick = false;
+								};
+								
+								mMeetinConnection.connectDataConnection(
+									key, 
+									null,
+									null,
+									dataConnectionOpenCallbackWork,
+									null,
+									null
+								);
+							}
+						}
+					};
+					
+					saveWebRtcParam(
+						data,
+						null,
+						null, 
+						completeCallback2
+					);
+				} else {
+					mPreventClick = false;
+				}
+			} else {
+				mPreventClick = false;
+			}
+		} else {
+			mPreventClick = false;
+		}
+	};
+	
+	var errorCallback = function(xhr, status, error) {
+		mPreventClick = false;
+	};
+	
+	getWebRtcParam(
+		successCallback,
+		errorCallback, 
+		null
+	);
+*/
+	initWebSocket("S" + peerId);
+}
+
+// 接続先のピアと接続が確立した時
+function peerConnectionCallback(peer, dataConnection) {
+}
+
+// 接続先が自分に発信してきた時
+function peerCallCallback(peer, mediaConnection) {
+}
+
+// ピアとの接続がdestroyedとなった時
+function peerCloseCallback(peer) {
+}
+
+function peerDisconnectedCallback(peer) {
+	mMeetinConnection.peerDataReconnect();
+}
+
+// ピアのエラーが起きた時
+function peerErrorCallback(peer, err) {
+//	$(document).unbind('click');
+	mPreventClick = false;
+	
+	if (mDataConnectionTimeout) {
+		clearTimeout(mDataConnectionTimeout);
+		mDataConnectionTimeout = null;
+	}
+	if (mConnectionTimeout) {
+		clearTimeout(mConnectionTimeout);
+		mConnectionTimeout = null;
+	}
+	if (mTargetNotFoundRetryTimeout) {
+		clearTimeout(mTargetNotFoundRetryTimeout);
+		mTargetNotFoundRetryTimeout = null;
+	}
+	
+	if (!mReady) {
+		return;
+	}
+
+	$('#connection_info_not_published').show();
+	$('#connection_info_published').hide();
+	$("#call_proc_dialog").hide();
+	var call_audio = document.getElementById('call_audio');
+	call_audio.pause();
+	call_audio.currentTime = 0;
+	
+	mMeetinConnection.destroy();
+
+	var buttonNameAndFunctionArray = {};
+	buttonNameAndFunctionArray["OK"] = function() {
+		// 再接続
+		var timer = null;
+		var run = function() {
+			if (window.navigator.onLine) {
+				if (timer) {
+					clearInterval(timer);
+				}
+				initPeer();
+			}
+		};
+		timer = setInterval(run, 1000);
+	};
+	if (err.type === 'peer-unavailable') {
+		createModalDialogWithButtonFunction("お知らせ", "担当の方が席を外しております。", buttonNameAndFunctionArray);
+	} else if (err.type === 'unavailable-id') {
+		buttonNameAndFunctionArray["OK"] = function() {
+			window.open('about:blank','_self').close();
+		};
+
+		createModalDialogWithButtonFunction("お知らせ", "Meetinがすでにほかのタブまたはウィンドウに開かれています。", buttonNameAndFunctionArray);
+	} else {
+		createModalDialogWithButtonFunction("お知らせ", "接続エラー\n(" + err.type + ")", buttonNameAndFunctionArray);
+	}
+};
+
+// データ受信時
+function dataConnectionDataCallback(dataConnection, data, myPeerId, targetPeerId, connectionId) {
+	var json = JSON.parse(data);
+	
+	if (json && json.command) {
+		runCommandCallback(json);
+	}
+};
+
+// コネクションが利用可能となった時
+function dataConnectionOpenCallback(dataConnection, myPeerId, targetPeerId, connectionId) {
+	var run = function() {
+		commandCallback();
+	};
+	setTimeout(run, 1000);
+};
+
+// 自分がクローズした、または接続先にクローズされた時
+function dataConnectionCloseCallback(dataConnection, myPeerId, targetPeerId, connectionId) {
+	if (mReady2) {
+		if (targetPeerId in mWaitConnectTable) {
+			delete mWaitConnectTable[targetPeerId];
+	
+			for (var key in mWaitConnectTable) {
+				var json = mWaitConnectTable[key];
+				delete mWaitConnectTable[key];
+				runCommandCallback(json);
+				break;
+			}
+		
+			var data = {
+				wait_connect_table_string : encodeURIComponent(JSON.stringify(mWaitConnectTable))
+			};
+			
+			saveWebRtcParam(
+				data,
+				null,
+				null, 
+				null
+			);
+		}
+	}
+	
+//	$('#connection_info_not_published').show();
+//	$('#connection_info_published').hide();
+//	$("#call_proc_dialog").hide();
+	var call_audio = document.getElementById('call_audio');
+	call_audio.pause();
+	call_audio.currentTime = 0;
+};
+
+// DataConnectionのエラーが起きた時
+function dataConnectionErrorCallback(dataConnection, err, myPeerId, targetPeerId, connectionId) {
+};
+
+//////////////////////////////////////////////////////////
+// WebSocketコールバック
+//////////////////////////////////////////////////////////
+
+function webSocketOpenCallback(peerId) {
+	mReady = true;
+	
+	if (typeof MeetinConnectionManager === 'undefined') {
+		updateUnexpireConnectionInfoPeerIdProc(peerId);
+	}
+/*	
+	var successCallback = function(data, textStatus, XMLHttpRequest) {
+		if ("1" == data.result) {
+			var wait_connect_table_string = data.params.wait_connect_table_string;
+			if (wait_connect_table_string && wait_connect_table_string.length > 0) {
+				var json = JSON.parse(decodeURIComponent(wait_connect_table_string));
+				var total = Object.keys(json).length;
+				if (total > 0) {
+					var data = {
+						wait_connect_table_string : null
+					};
+					
+					var completeCallback2 = function(xhr, status) {
+						for (var key in json) {
+							if (17 == key.length) {
+								var data = {
+									command : "RESEND_REQUEST_CHANGE_TO_NEGOTIATION",
+									from_peer_id : peerId,
+									target_peer_id : key
+								};
+								
+								mMeetinWebSocket.sendMessage(JSON.stringify(data));
+							
+								mPreventClick = false;
+							}
+						}
+					};
+					
+					saveWebRtcParam(
+						data,
+						null,
+						null, 
+						completeCallback2
+					);
+				} else {
+					mPreventClick = false;
+				}
+			} else {
+				mPreventClick = false;
+			}
+		} else {
+			mPreventClick = false;
+		}
+	};
+	
+	var errorCallback = function(xhr, status, error) {
+		mPreventClick = false;
+	};
+	
+	getWebRtcParam(
+		successCallback,
+		errorCallback, 
+		null
+	);
+*/
+	sendPing();
+	
+	// 画面遷移する前にほかの着信があった場合の処理
+	var wait_connect_table_string = $('#wait_connect_table_string').val();
+	if (wait_connect_table_string && wait_connect_table_string.length > 0) {
+		var json = JSON.parse(decodeURIComponent(wait_connect_table_string));
+		var total = Object.keys(json).length;
+		if (total > 0) {
+			for (var key in json) {
+				if (MEETIN_WEBRTC_PEER_ID_LENGTH == target_peer_id.length) {
+					if (mMeetinConnection) {
+						var dataConnectionOpenCallbackWork = function(dataConnection, myPeerId, targetPeerId, connectionId) {
+							var data = {
+								command : "RESEND_REQUEST_CHANGE_TO_NEGOTIATION"
+							};
+							
+							mMeetinConnection.sendCommandToSpecificTargetPeerData(
+								targetPeerId,
+								JSON.stringify(data)
+							);
+						};
+						
+						mMeetinConnection.connectDataConnection(
+							key, 
+							null,
+							null,
+							dataConnectionOpenCallbackWork,
+							null,
+							null
+						);
+					}
+				} else {
+					if (mMeetinWebSocket) {
+						var data = {
+							command : "RESEND_REQUEST_CHANGE_TO_NEGOTIATION",
+							from_peer_id : mMeetinWebSocket.getPeerId(),
+							to_peer_id : key
+						};
+						mMeetinWebSocket.sendMessage(JSON.stringify(data));
+					}
+				}
+			}
+/*			
+			var data = {
+				wait_connect_table_string : null
+			};
+			
+			saveWebRtcParam(
+				data,
+				null,
+				null, 
+				null
+			);
+*/
+		}
+	}
+
+	mPreventClick = false;
+}
+
+function sendPing() {
+	if (mMeetinWebSocket) {
+		if (mSendPingTimeout) {
+			clearTimeout(mSendPingTimeout);
+			mSendPingTimeout = null;
+		}
+
+		if (mPingTimeout) {
+			clearTimeout(mPingTimeout);
+			mPingTimeout = null;
+		}
+
+		var data = {
+			command : "PING",
+			from_peer_id : mMeetinWebSocket.getPeerId()
+		};
+	
+		mMeetinWebSocket.sendMessage(JSON.stringify(data));
+		
+		var run = function() {
+			if (mMeetinConnection) {
+				initWebSocket("S" + mPeerId);
+			} else {
+				initWebSocket(null);
+			}
+		};
+		mPingTimeout = setTimeout(run, DEFAULT_PING_TIMEOUT);
+	}
+}
+
+function webSocketMessageCallback(event, json) {
+	if (json && json.command) {
+		runCommandCallback(json);
+	}
+}
+
+function webSocketErrorCallback(event) {
+	mPreventClick = false;
+	
+	if (mDataConnectionTimeout) {
+		clearTimeout(mDataConnectionTimeout);
+		mDataConnectionTimeout = null;
+	}
+	if (mConnectionTimeout) {
+		clearTimeout(mConnectionTimeout);
+		mConnectionTimeout = null;
+	}
+
+	if (mPingTimeout) {
+		clearTimeout(mPingTimeout);
+		mPingTimeout = null;
+	}
+	
+	if (!mReady) {
+		return;
+	}
+
+	$('#connection_info_not_published').show();
+	$('#connection_info_published').hide();
+	$("#call_proc_dialog").hide();
+	var call_audio = document.getElementById('call_audio');
+	call_audio.pause();
+	call_audio.currentTime = 0;
+	
+	if (mMeetinConnection) {
+		mMeetinConnection.destroy();
+	}
+
+	if (mMeetinConnection) {
+		var buttonNameAndFunctionArray = {};
+		buttonNameAndFunctionArray["OK"] = function() {
+			// 再接続
+			var timer = null;
+			var run = function() {
+				if (window.navigator.onLine) {
+					if (timer) {
+						clearInterval(timer);
+					}
+					if (mMeetinConnection) {
+						initWebSocket("S" + mPeerId);
+					} else {
+						initWebSocket(null);
+					}
+				}
+			};
+			timer = setInterval(run, 1000);
+		};
+		createModalDialogWithButtonFunction("お知らせ", "接続エラー", buttonNameAndFunctionArray);
+	} else {
+//		initWebSocket(null);
+	}
+}
+
+function webSocketCloseCallback(event) {
+/*
+	if (mPingTimeout) {
+		clearTimeout(mPingTimeout);
+		mPingTimeout = null;
+	}
+
+	if (mReady) {
+		if (mPeerId && mPeerId.length > 0) {
+			initWebSocket("S" + mPeerId);
+		} else {
+			if (!mMeetinConnection) {
+				initWebSocket(null);
+			}
+		}
+	}
+*/
+}
+
+function webSocketConnectionFailCallback(exception, requestPeerId) {
+	createModalOkDialog("お知らせ", "サーバーに接続できません。");
+}
+
+function initWebSocket(peerId) {
+	if (mCheckLastOnlineStateInterval) {
+		clearInterval(mCheckLastOnlineStateInterval);
+		mCheckLastOnlineStateInterval = null;
+	}
+	mMeetinWebSocket.destroy();
+	mMeetinWebSocket.init(
+		peerId,
+		null,
+		false,
+		webSocketOpenCallback,
+		webSocketMessageCallback,
+		null,
+		webSocketErrorCallback,
+		webSocketCloseCallback,
+		webSocketConnectionFailCallback
+	);
+
+	var checkLastOnlineStateInterval = function() {
+		var nowState = window.navigator.onLine;
+		if ((!mLastOnlineState && nowState)
+			|| (mMeetinWebSocket && !mMeetinWebSocket.isReady())) {
+			if (mReady) {
+				if (mPeerId && mPeerId.length > 0) {
+					initWebSocket("S" + mPeerId);
+				} else {
+					if (!mMeetinConnection) {
+						initWebSocket(null);
+					}
+				}
+			}
+		}
+		mLastOnlineState = nowState;
+	};
+	mCheckLastOnlineStateInterval = setInterval(checkLastOnlineStateInterval, CHECK_ONLINE_STATE_INTERVAL);
+}
+
+function meetinGeneralConnection_sendCommandToSpecificTargetPeerData(target_peer_id, data) {
+	if (!target_peer_id || MEETIN_WEBRTC_PEER_ID_LENGTH == target_peer_id.length) {
+		if (mMeetinConnection) {
+			return mMeetinConnection.sendCommandToSpecificTargetPeerData(target_peer_id, JSON.stringify(data));
+		}
+	} else {
+		data.from_peer_id = mMeetinWebSocket.getPeerId();
+		data.to_peer_id = target_peer_id;
+		if (mMeetinWebSocket) {
+			return mMeetinWebSocket.sendMessage(JSON.stringify(data));
+		}
+	}
+	return null;
+}
+
+//////////////////////////////////////////////////////////
+// コネクションが利用可能となったとき
+//////////////////////////////////////////////////////////
+
+function commandCallback() {
+	if (mDataConnectionTimeout) {
+		clearTimeout(mDataConnectionTimeout);
+		mDataConnectionTimeout = null;
+	}
+	sendRequestChangeToNegotiation(mTargetPeerId);
+}
+
+//////////////////////////////////////////////////////////
+// コマンド受信
+//////////////////////////////////////////////////////////
+
+function runCommandCallback(json) {
+	if (json.command === "REQUEST_CHANGE_TO_NEGOTIATION") {
+		if (!mBandwidth) {
+			mReceivedJsonCommandTable[json.from_peer_id] = json;
+		} else {
+			mWaitConnectTable[json.from_peer_id] = json;
+			
+			var completeCallback = function(XMLHttpRequest, textStatus) {
+			};
+			
+			var data = {
+				wait_connect_table_string : encodeURIComponent(JSON.stringify(mWaitConnectTable))
+			};
+	
+			if ($('#call_proc_dialog').css('display') == 'block' 
+				&& $("#call_proc_dialog_title").html() == '着信中'
+				&& json.page != "negotiation") {
+	//			sendCancelConnection(json.from_peer_id, "こちらの番号は只今ご使用できません。担当者にお問い合わせください。");
+			} else {
+				if (mConnectionTimeout) {
+					clearTimeout(mConnectionTimeout);
+					mConnectionTimeout = null;
+				}
+	
+				mTargetPeerId = json.from_peer_id;
+				mCallConnectionInfoId = json.connection_info_id;
+				mCallConnectNo = json.connect_no;
+				mCallClientId = json.client_id;
+				
+				var connect_no = $('#connect_no').val();
+				var client_id = $('#client_id').val();
+				var callConnectNo = mCallConnectNo.replace(/-/g, '');
+	
+				if (0 == json.screen_type || 1 == json.screen_type) {
+					mScreenType = json.screen_type;
+				}
+				mUserId = json.user_id;
+				
+				if (json.without_dialog) {
+					acceptConnectionRequest(json.is_operator);
+				} else {
+					var allowReceive = true;
+					if ((connect_no != callConnectNo) && (client_id != mCallClientId)) {
+						allowReceive = false;
+					}
+					
+					if (allowReceive) {
+						if (document.hasFocus()) {
+						    showConnectionRequestComingDialog(json.user_info,json.staff_type, json.staff_id, json.client_id);
+						} else {
+							var desktop_notify_flg = $('#desktop_notify_flg').val();
+							if (desktop_notify_flg == 1) {
+								var onclickCallback = function() {
+														window.focus();
+														showConnectionRequestComingDialog(json.user_info,json.staff_type, json.staff_id, json.client_id);
+														if (mNotification) {
+															mNotification.close();
+														}
+													};
+								if (mNotification) {
+									mNotification.close();
+								}
+								mNotification = sendNotification("着信中", json.user_info, '../img/favicon.ico', onclickCallback);
+							}
+						    showConnectionRequestComingDialog(json.user_info,json.staff_type, json.staff_id, json.client_id);
+						}
+					} else {
+						denyConnectionRequest(json.from_peer_id, "担当の方が不在です。");
+					}
+				}
+			}
+		
+			saveWebRtcParam(
+				data,
+				null,
+				null, 
+				completeCallback
+				);
+			
+			sendRequestChangeToNegotiationReceived(json.from_peer_id, json);
+		}
+	} else if (json.command === "REFUSE_CHANGE_TO_NEGOTIATION") {
+		if (mTargetPeerId == json.from_peer_id) {
+			if (mConnectionTimeout) {
+				clearTimeout(mConnectionTimeout);
+				mConnectionTimeout = null;
+			}
+			if (json.error_message && json.error_message.length > 0) {
+				createModalOkDialog("お知らせ", json.error_message);
+			}
+			denyConnectionRequestSub();
+		} else {
+			if (json.from_peer_id in mWaitConnectTable) {
+				delete mWaitConnectTable[json.from_peer_id];
+
+				for (var key in mWaitConnectTable) {
+					var json = mWaitConnectTable[key];
+					delete mWaitConnectTable[key];
+					runCommandCallback(json);
+					break;
+				}
+			
+				var data = {
+					wait_connect_table_string : encodeURIComponent(JSON.stringify(mWaitConnectTable))
+				};
+				
+				saveWebRtcParam(
+					data,
+					null,
+					null, 
+					null
+				);
+			}
+		}
+	} else if (json.command === "CANCEL_CONNECTION") {
+		if (mTargetPeerId == json.from_peer_id) {
+			if (mConnectionTimeout) {
+				clearTimeout(mConnectionTimeout);
+				mConnectionTimeout = null;
+			}
+			if (json.message && json.message.length > 0) {
+				createModalOkDialog("お知らせ", json.message);
+			}
+			denyConnectionRequestSub();
+			
+			if (mTargetPeerId in mWaitConnectTable) {
+				delete mWaitConnectTable[mTargetPeerId];
+			}
+		
+			for (var key in mWaitConnectTable) {
+				var json = mWaitConnectTable[key];
+				delete mWaitConnectTable[key];
+				runCommandCallback(json);
+				break;
+			}
+		
+			var data = {
+				wait_connect_table_string : encodeURIComponent(JSON.stringify(mWaitConnectTable))
+			};
+			
+			saveWebRtcParam(
+				data,
+				null,
+				null, 
+				null
+			);
+		} else {
+			if (json.from_peer_id in mWaitConnectTable) {
+				delete mWaitConnectTable[json.from_peer_id];
+
+				for (var key in mWaitConnectTable) {
+					var json = mWaitConnectTable[key];
+					delete mWaitConnectTable[key];
+					runCommandCallback(json);
+					break;
+				}
+			
+				var data = {
+					wait_connect_table_string : encodeURIComponent(JSON.stringify(mWaitConnectTable))
+				};
+				
+				saveWebRtcParam(
+					data,
+					null,
+					null, 
+					null
+				);
+			}
+		}
+	} else if (json.command === "CANCEL_CONNECTION_2") {
+		if (mConnectionTimeout) {
+			clearTimeout(mConnectionTimeout);
+			mConnectionTimeout = null;
+		}
+		if (mTargetNotFoundRetryTimeout) {
+			clearTimeout(mTargetNotFoundRetryTimeout);
+			mTargetNotFoundRetryTimeout = null;
+		}
+		
+		if (json.message && json.message.length > 0) {
+			createModalOkDialog("お知らせ", json.message);
+		}
+		denyConnectionRequestSub();
+	} else if (json.command === "REQUEST_CHANGE_TO_NEGOTIATION_TIMEOUT") {
+		if (mTargetPeerId == json.from_peer_id) {
+			denyConnectionRequestSub();
+		}
+		if (json.from_peer_id in mWaitConnectTable) {
+			delete mWaitConnectTable[json.from_peer_id];
+
+			for (var key in mWaitConnectTable) {
+				var json = mWaitConnectTable[key];
+				delete mWaitConnectTable[key];
+				runCommandCallback(json);
+				break;
+			}
+		
+			var data = {
+				wait_connect_table_string : encodeURIComponent(JSON.stringify(mWaitConnectTable))
+			};
+			
+			saveWebRtcParam(
+				data,
+				null,
+				null, 
+				null
+			);
+		}
+	} else if (json.command === "RESEND_REQUEST_CHANGE_TO_NEGOTIATION") {
+		showConnectionRequestSendingDialog("");
+//		initPeer();
+		if (mMeetinConnection) {
+			initPeer();
+		} else {
+			initWebSocket(null);
+		}
+	}
+	else if (json.command === "TARGET_NOT_FOUND") {	// 送信先が見つからない場合
+		var oldJson = JSON.parse(json.message);
+
+TraceLog(json.connection_info_id ,json.connect_no ,11 ,'---[TARGET_NOT_FOUND] oldJson='+oldJson, json.command, json.from_peer_id, json.to_peer_id);
+
+		// 接続要求を出したが,要求したピアIDがいない(もしくはピアIDが変わっている)
+		if ( oldJson.command === "REQUEST_CHANGE_TO_NEGOTIATION" )
+//		  || oldJson.command === "REQUEST_CLOSE_CONNECTION_BY_CONNECTION_ID" )
+		{
+			if (mTargetNotFoundRetryCounter < TARGET_NOT_FOUND_RETRY_MAX) {
+				++mTargetNotFoundRetryCounter
+
+				var run = function() {
+					if (mDialToConnectNo) {
+						connectWithConnectNo(mMeetinWebSocket.getPeerId(), mDialToConnectNo);
+					}
+				};
+				mTargetNotFoundRetryTimeout = setTimeout(run, TARGET_NOT_FOUND_RETRY_WAIT);
+			}
+			else {
+				var err = new Error('担当の方が席を外しております。');
+				err.type = 'peer-unavailable';
+				peerErrorCallback(null, err);
+			}
+		}
+
+	} else if (json.command === "PING_RECEIVED") {
+		if (mPingTimeout) {
+			clearTimeout(mPingTimeout);
+			mPingTimeout = null;
+		}
+		if (mSendPingTimeout) {
+			clearTimeout(mSendPingTimeout);
+			mSendPingTimeout = null;
+		}
+		
+		mSendPingTimeout = setTimeout(
+			function() {
+				sendPing();
+			}, 
+			DEFAULT_SEND_PING_WAIT
+		);
+	}
+}
+
+
+//////////////////////////////////////////////////////////
+// コマンド送信
+//////////////////////////////////////////////////////////
+
+function sendRequestChangeToNegotiationSub(target_peer_id, connection_info_id, connect_no, client_id) {
+	var data = {
+		command : "REQUEST_CHANGE_TO_NEGOTIATION",
+		connection_info_id : connection_info_id,
+		connect_no : connect_no,
+		client_id : client_id,
+		user_info : $('#operator_name').val(),
+		without_dialog : false,
+		from_peer_id : mMeetinConnection ? mMeetinConnection.getPeerDataId() : mMeetinWebSocket.getPeerId(),
+		user_id : 0,
+		page : "header",
+		from_browser : USER_PARAM_BROWSER,
+		staff_type : $('#staff_type').val(),
+		staff_id : $('#staff_id').val()
+	};
+
+	return meetinGeneralConnection_sendCommandToSpecificTargetPeerData(target_peer_id, data);
+}
+
+function sendRequestChangeToNegotiation(target_peer_id) {
+	sendRequestChangeToNegotiationSub(target_peer_id, mCallConnectionInfoId, mCallConnectNo, mCallClientId);
+}
+
+function sendRequestChangeToNegotiation2(target_peer_id, user_id) {
+	var data = {
+		command : "REQUEST_CHANGE_TO_NEGOTIATION",
+		connection_info_id : mCallConnectionInfoId,
+		connect_no : mCallConnectNo,
+		client_id : mCallClientId,
+		without_dialog : true,
+		is_operator : 0,
+		screen_type : 0,
+		user_id : user_id,
+		page : "header",
+		from_browser : USER_PARAM_BROWSER
+	};
+	
+	return meetinGeneralConnection_sendCommandToSpecificTargetPeerData(target_peer_id, data);
+};
+
+function sendRequestChangeToNegotiationReceived(target_peer_id, json) {
+	var data = {
+		command : "REQUEST_CHANGE_TO_NEGOTIATION_RECEIVED",
+		data : json
+	};
+
+	return meetinGeneralConnection_sendCommandToSpecificTargetPeerData(target_peer_id, data);
+}
+
+function sendCancelConnection(target_peer_id, message) {
+	var data = {
+		command : "CANCEL_CONNECTION",
+		from_peer_id : mMeetinConnection ? mMeetinConnection.getPeerDataId() : mMeetinWebSocket.getPeerId(),
+		message : message
+	};
+	
+	return meetinGeneralConnection_sendCommandToSpecificTargetPeerData(target_peer_id, data);
+}
+
+///////////////////////////////////
+// ピア関連処理
+///////////////////////////////////
+
+function initPeer() {
+	if (!mMeetinConnection) {
+		initWebSocket(null);
+		return null;
+	}
+	
+	var peer_id = $('#peer_id').val();
+	if (peer_id && peer_id.length < 1) {
+		peer_id = null;
+	}
+
+	mReady = true;
+	mMeetinConnection.destroy();
+	
+	// セッションに保存されたピアIDでピアを作ってみる
+	var peer = mMeetinConnection.init(
+		peer_id,
+		peerOpenCallback,
+		peerConnectionCallback,
+		peerCallCallback,
+		peerCloseCallback,
+		peerDisconnectedCallback,
+		peerErrorCallback,
+		dataConnectionDataCallback,
+		null,
+		dataConnectionCloseCallback,
+		dataConnectionErrorCallback,
+		null,
+		null,
+		null
+	);
+	
+	// セッションに保存されたピアIDでピアが作れない場合、新しいピアIDでピアを作る
+	if (!peer) {
+		mMeetinConnection.init(
+			null,
+			peerOpenCallback,
+			peerConnectionCallback,
+			peerCallCallback,
+			peerCloseCallback,
+			peerDisconnectedCallback,
+			peerErrorCallback,
+			dataConnectionDataCallback,
+			null,
+			dataConnectionCloseCallback,
+			dataConnectionErrorCallback,
+			null,
+			null,
+			null
+		);
+	}
+}
+
+//////////////////////////////////////////////////////////
+// その他
+//////////////////////////////////////////////////////////
+
+function checkConnectNo(connect_no) {
+	if (!connect_no) {
+		return false;
+	}
+	
+	if (connect_no.length < 2) {
+		return false;
+	}
+	
+	return true;
+}
+
+function getOrCreateConnectionInfo(connect_no) {
+	var successCallback = function(data, textStatus, XMLHttpRequest) {
+		if ("1" == data.result) {
+//			$('#connection_info_id').val(data.connection_info.id);
+			mCallConnectionInfoId = data.connection_info.id;
+			mCallConnectNo = data.connection_info.connect_no;
+			mCallClientId = data.connection_info.operator_client_id
+			initPeer();
+		} else if ("3" == data.result) {
+			createEmptyConnectionInfoProc(connect_no);
+		} else {
+			createModalOkDialog("お知らせ", data.error);
+		}
+	};
+
+	var errorCallback = function(XMLHttpRequest, textStatus, errorThrown, errorMessage) {
+//		alert(errorMessage);
+//		alert(XMLHttpRequest);
+//		alert(textStatus);
+//		alert(errorThrown);
+	};
+
+	var completeCallback = function(XMLHttpRequest, textStatus) {
+	};
+
+/*
+	getConnectionInfoByConnectNo(
+		connect_no,
+		successCallback,
+		errorCallback, 
+		completeCallback
+		);
+*/
+	var client_id = $('#client_id').val();
+	var staff_type = $('#staff_type').val();
+	var staff_id = $('#staff_id').val();
+	
+	createNewConnectionInfo(
+		null,
+		null,
+		client_id,
+		staff_type,
+		staff_id,
+		connect_no,
+		successCallback,
+		errorCallback, 
+		completeCallback
+		);
+}
+
+function createEmptyConnectionInfoProc(connect_no) {
+	var successCallback = function(data, textStatus, XMLHttpRequest) {
+		if ("1" == data.result) {
+//			$('#connection_info_id').val(data.connection_info.id);
+			initPeer();
+		} else {
+			createModalOkDialog("お知らせ", data.error);
+		}
+	};
+
+	var errorCallback = function(XMLHttpRequest, textStatus, errorThrown, errorMessage) {
+//		alert(errorMessage);
+//		alert(XMLHttpRequest);
+//		alert(textStatus);
+//		alert(errorThrown);
+	};
+
+	var completeCallback = function(XMLHttpRequest, textStatus) {
+	};
+	
+	var client_id = $('#client_id').val();
+	var staff_type = $('#staff_type').val();
+	var staff_id = $('#staff_id').val();
+	
+	createEmptyConnectionInfo(
+		connect_no,
+		client_id,
+		staff_type,
+		staff_id,
+		successCallback,
+		errorCallback, 
+		completeCallback
+		);
+}
+
+function connectWithConnectNo(my_peer_id, connect_no) {
+
+	var successCallback = function(data, textStatus, XMLHttpRequest) {
+		if ("1" == data.result) {
+			if ((MEETIN_MAIN_MAX_PEOPLE < 1 || (data.connection_info.operator_peer_id && data.connection_info.operator_peer_id.length > 0))
+				&& (MEETIN_MAIN_MAX_PEOPLE < 2 || (data.connection_info.user_peer_id_1 && data.connection_info.user_peer_id_1.length > 0))
+				&& (MEETIN_MAIN_MAX_PEOPLE < 3 || (data.connection_info.user_peer_id_2 && data.connection_info.user_peer_id_2.length > 0))
+				&& (MEETIN_MAIN_MAX_PEOPLE < 4 || (data.connection_info.user_peer_id_3 && data.connection_info.user_peer_id_3.length > 0))
+				&& (MEETIN_MAIN_MAX_PEOPLE < 5 || (data.connection_info.user_peer_id_4 && data.connection_info.user_peer_id_4.length > 0))
+				&& (MEETIN_MAIN_MAX_PEOPLE < 6 || (data.connection_info.user_peer_id_5 && data.connection_info.user_peer_id_5.length > 0))
+				&& (MEETIN_MAIN_MAX_PEOPLE < 7 || (data.connection_info.user_peer_id_6 && data.connection_info.user_peer_id_6.length > 0))
+				&& (MEETIN_MAIN_MAX_PEOPLE < 8 || (data.connection_info.user_peer_id_7 && data.connection_info.user_peer_id_7.length > 0))
+				&& (MEETIN_MAIN_MAX_PEOPLE < 9 || (data.connection_info.user_peer_id_8 && data.connection_info.user_peer_id_8.length > 0))
+				) {
+				$('#connection_info_not_published').show();
+				$('#connection_info_published').hide();
+				$("#call_proc_dialog").hide();
+				
+				createModalOkDialog("お知らせ", "現在満員の為、接続できません。");
+			} else {
+				mCallConnectionInfoId = data.connection_info.id;
+				mCallConnectNo = data.connection_info.connect_no;
+				mCallClientId = data.connection_info.operator_client_id;
+				mTargetPeerId = data.connection_info.operator_peer_id;
+	
+				if (mMeetinConnection) {
+					mMeetinConnection.connectDataConnection(
+						mTargetPeerId, 
+						null,
+						dataConnectionDataCallback,
+						dataConnectionOpenCallback,
+						dataConnectionCloseCallback,
+						dataConnectionErrorCallback
+					);
+				} else {
+					commandCallback();
+				}
+				
+				if (mConnectionTimeout) {
+					clearTimeout(mConnectionTimeout);
+					mConnectionTimeout = null;
+				}
+				var run = function() {
+					denyConnectionRequest(data.connection_info.operator_peer_id, null);
+					createModalOkDialog("お知らせ", "こちらの番号は只今ご使用できません。");
+				}
+				mConnectionTimeout = setTimeout(run, 30000);
+			}
+		} else {
+			if (mDataConnectionTimeout) {
+				clearTimeout(mDataConnectionTimeout);
+				mDataConnectionTimeout = null;
+			}
+
+			$('#connection_info_not_published').show();
+			$('#connection_info_published').hide();
+			$("#call_proc_dialog").hide();
+			var call_audio = document.getElementById('call_audio');
+			call_audio.pause();
+			call_audio.currentTime = 0;
+			
+			// alert(data.error);
+			createModalOkDialog("お知らせ", "無効な番号です。");
+		}
+	};
+
+	var errorCallback = function(XMLHttpRequest, textStatus, errorThrown, errorMessage) {
+//		alert(errorMessage);
+//		alert(XMLHttpRequest);
+//		alert(textStatus);
+//		alert(errorThrown);
+	};
+
+	var completeCallback = function(XMLHttpRequest, textStatus) {
+	};
+	
+	getConnectionInfoByConnectNo(
+		connect_no,
+		successCallback,
+		errorCallback, 
+		completeCallback
+		);
+}
+
+function updateUnexpireConnectionInfoPeerIdProc(id) {
+	var successCallback = function(data, textStatus, XMLHttpRequest) {
+		if ("1" == data.result) {
+			if (mDialToConnectNo) {
+	    		connectWithConnectNo(id, mDialToConnectNo);
+
+				++mDataConnectionTryCounter;
+				
+				if (mDataConnectionTimeout) {
+					clearTimeout(mDataConnectionTimeout);
+					mDataConnectionTimeout = null;
+				}
+				var run = function() {
+					if (mDataConnectionTryCounter > 3) {
+						if (mConnectionTimeout) {
+							clearTimeout(mConnectionTimeout);
+							mConnectionTimeout = null;
+						}
+
+						mDialToConnectNo = null;
+
+						$('#connection_info_not_published').show();
+						$('#connection_info_published').hide();
+						$("#call_proc_dialog").hide();
+						
+						initPeer();
+						
+						createModalOkDialog("お知らせ", "担当の方に接続できません。");
+					} else {
+						initPeer();
+					}
+				}
+				if (mDataConnectionTryCounter <= 1) {
+					mDataConnectionTimeout = setTimeout(run, GUEST_DATACONNECTION_RETRY_WAIT);
+				} else {
+					mDataConnectionTimeout = setTimeout(run, GUEST_DATACONNECTION_RETRY_WAIT_2);
+				}
+			}
+		} else {
+//			alert(data.error);
+		}
+	};
+
+	var errorCallback = function(XMLHttpRequest, textStatus, errorThrown, errorMessage) {
+//		alert(errorMessage);
+//		alert(XMLHttpRequest);
+//		alert(textStatus);
+//		alert(errorThrown);
+	};
+
+	var completeCallback = function(XMLHttpRequest, textStatus) {
+	};
+
+	var client_id = $('#client_id').val();
+	var staff_type = $('#staff_type').val();
+	var staff_id = $('#staff_id').val();
+	
+	updateUnexpireConnectionInfoPeerId(
+		client_id,
+		staff_type,
+		staff_id,
+		id,
+		successCallback, 
+		errorCallback, 
+		completeCallback
+		);
+}
+
+//////////////////////////////////////////////////////////
+// UI関連
+//////////////////////////////////////////////////////////
+
+function showConnectionRequestComingDialog(user_info, staff_type, staff_id, client_id) {
+
+//	console.log('▲▲▲送信データ:staff_type=(' + user_info +') staff_id=('+staff_id+') client_id=('+client_id+')');
+//	console.log(document.cookie);
+
+	$("#call_proc_dialog").show();
+	$("#accept_connection_request").show();
+	$("#call_proc_dialog_title").html("着信中");
+	$("#call_proc_dialog_message").html("ゲストがコンタクトを求めています。");
+	$("#deny_connection_request_operator").show();
+	$("#deny_connection_request_guest").hide();
+	var call_audio = document.getElementById('call_audio');
+	call_audio.play();
+	// テンプレート生成
+	if (user_info) {
+		user_info = user_info.trim();
+	}
+	if (!user_info || user_info.length < 1) {
+		user_info = "匿名ユーザー";
+	}
+	$("div#user_info").text(user_info);
+	// モーダルを表示する為のクリックイベントを発生させる
+	$('.modal-open').trigger("click");
+	
+	// 暫定でstaff情報をcookieへ格納
+	$.cookie("connection_staff_type",staff_type,{path: '/negotiation'});
+	$.cookie("connection_staff_id"  ,staff_id  ,{path: '/negotiation'});
+	$.cookie("connection_client_id" ,client_id ,{path: '/negotiation'});
+}
+
+function showConnectionRequestSendingDialog(user_info) {
+	$("#call_proc_dialog").show();
+	$("#accept_connection_request").hide();
+	$("#call_proc_dialog_title").html("発信中");
+	$("#call_proc_dialog_message").html("オペレータにコンタクトを求めています。");
+	$("#deny_connection_request_operator").hide();
+	$("#deny_connection_request_guest").show();
+	var call_audio = document.getElementById('call_audio');
+	call_audio.play();
+	// テンプレート生成
+	$("div#user_info").text(user_info);
+	// モーダルを表示する為のクリックイベントを発生させる
+	$('.modal-open').trigger("click");
+}
+
+function changeToNegotiation(connectionInfoId, userId, peerId) {
+	if (userId != 0) {
+		if (mMeetinConnection) {
+			mMeetinConnection.destroy();
+		}
+
+		if (mCheckLastOnlineStateInterval) {
+			clearInterval(mCheckLastOnlineStateInterval);
+			mCheckLastOnlineStateInterval = null;
+		}
+	
+		if (mMeetinWebSocket) {
+			mMeetinWebSocket.destroy();
+		}
+		mReady = false;
+		mReady2 = false;
+		var url = "https://" + location.host + "/negotiation/negotiation";
+		window.location.href = url;
+	} else {
+		var updateConnectionInfoPeerIdSuccessCallbackWork = function(data, textStatus, XMLHttpRequest) {
+			if ("1" == data.result) {
+				sendRequestChangeToNegotiation2(mTargetPeerId, 1);
+				if (mMeetinConnection) {
+					mMeetinConnection.destroy();
+				}
+				if (mCheckLastOnlineStateInterval) {
+					clearInterval(mCheckLastOnlineStateInterval);
+					mCheckLastOnlineStateInterval = null;
+				}
+				if (mMeetinWebSocket) {
+					mMeetinWebSocket.destroy();
+				}
+				mReady = false;
+				mReady2 = false;
+				var url = "https://" + location.host + "/negotiation/negotiation";
+				window.location.href = url;
+			} else {
+				createModalOkDialog("お知らせ", 'ゲスト情報を保存できませんでした。');
+			}
+		}
+		
+		var updateConnectionInfoPeerIdErrorCallbackWork = function(XMLHttpRequest, textStatus, errorThrown) {
+			createModalOkDialog("お知らせ", 'ゲスト情報の保存にエラーが起きました。');
+		};
+	
+		var updateConnectionInfoPeerIdCompleteCallbackWork = function(XMLHttpRequest, textStatus) {
+		};
+	
+		// ピアIDをデータベースに保存
+		updateConnectionInfoPeerId(
+			connectionInfoId,
+			userId,
+			null,
+			updateConnectionInfoPeerIdSuccessCallbackWork,
+			updateConnectionInfoPeerIdErrorCallbackWork, 
+			updateConnectionInfoPeerIdCompleteCallbackWork
+		);
+	}
+}
+
+function enterNegotiation() {
+	var saveWebRtcParamSuccessCallback = function(data, textStatus, XMLHttpRequest) {
+		if ("1" == data.result) {
+			// 商談会時にセッションストレージの初期化を行う
+			sessionStorage.clear();
+
+			if (mMeetinConnection) {
+				mMeetinConnection.destroy();
+			}
+			if (mCheckLastOnlineStateInterval) {
+				clearInterval(mCheckLastOnlineStateInterval);
+				mCheckLastOnlineStateInterval = null;
+			}
+			if (mMeetinWebSocket) {
+				mMeetinWebSocket.destroy();
+			}
+			mReady = false;
+			mReady2 = false;
+			var url = "https://" + location.host + "/negotiation/negotiation";
+			window.location.href = url;
+		} else {
+			createModalOkDialog("お知らせ", data.error);
+		}
+		
+		$('#connection_info_not_published').show();
+		$('#connection_info_published').hide();
+		$("#call_proc_dialog").hide();
+	};
+
+	var getConnecttionInfoByConnectNoSuccessCallback = function(data, textStatus, XMLHttpRequest) {
+		if(data.result == "1") {
+			var connect_info_data = new Object();
+			connect_info_data.is_operator = 1;
+			connect_info_data.screen_type = 1;
+			connect_info_data.user_id = 0;
+			connect_info_data.user_info = $('#operator_name').val();
+			connect_info_data.connection_info_id = data.connection_info.id;
+			connect_info_data.connect_no = data.connection_info.connect_no;
+			connect_info_data.client_id = data.connection_info.operator_client_id;
+			connect_info_data.wait_connect_table_string = encodeURIComponent(JSON.stringify(mWaitConnectTable));
+			connect_info_data.send_bandwidth = mBandwidth;
+			connect_info_data.receive_bandwidth = mUploadBandwidth;
+			mCallConnectionInfoId = data.connection_info.id;
+			mCallConnectNo = data.connection_info.connect_no;
+			mCallClientId = data.connection_info.operator_client_id;
+			initPeer();
+			saveWebRtcParam(
+				connect_info_data,
+				saveWebRtcParamSuccessCallback,
+				null, 
+				null
+			);
+		} else if ("3" == data.result) {
+			createEmptyConnectionInfoProc(connect_no);
+		} else {
+			createModalOkDialog("お知らせ", data.error);
+		}
+	}
+	
+	if (mBandwidth) {
+	getConnectionInfoByConnectNo(
+		$("input[id=connect_no]").val(),
+		getConnecttionInfoByConnectNoSuccessCallback,
+		null,
+		null
+	);
+	} else {
+		mChangeToNegotiatioin = true;
+	}
+}
+
+function acceptConnectionRequest(is_operator) {
+	if (mTargetPeerId) {
+		if (mTargetPeerId in mWaitConnectTable) {
+			delete mWaitConnectTable[mTargetPeerId];
+		}
+	}
+	
+	var successCallback = function(data, textStatus, XMLHttpRequest) {
+		if ("1" == data.result) {
+			// 商談会時にセッションストレージの初期化を行う
+			sessionStorage.clear();
+
+			changeToNegotiation(mCallConnectionInfoId, mUserId, mTargetPeerId);
+		} else {
+			createModalOkDialog("お知らせ", data.error);
+		}
+		
+		$('#connection_info_not_published').show();
+		$('#connection_info_published').hide();
+		$("#call_proc_dialog").hide();
+		var call_audio = document.getElementById('call_audio');
+		call_audio.pause();
+		call_audio.currentTime = 0;
+	};
+
+	var errorCallback = function(XMLHttpRequest, textStatus, errorThrown, errorMessage) {
+//		alert(errorMessage);
+//		alert(XMLHttpRequest);
+//		alert(textStatus);
+//		alert(errorThrown);
+	};
+
+	var completeCallback = function(XMLHttpRequest, textStatus) {
+	};
+	
+	var data = {
+		connection_info_id : mCallConnectionInfoId,
+		connect_no : mCallConnectNo,
+		client_id : mCallClientId,
+		peer_id : mMeetinConnection ? mMeetinConnection.getPeerDataId() : mMeetinWebSocket.getPeerId(),
+		target_peer_id : mTargetPeerId,
+		is_operator : is_operator,
+		screen_type : mScreenType,
+		user_id : mUserId,
+		user_info : $('#operator_name').val(),
+		wait_connect_table_string : encodeURIComponent(JSON.stringify(mWaitConnectTable)),
+		send_bandwidth : mBandwidth,
+		receive_bandwidth : mUploadBandwidth
+		};
+	
+	saveWebRtcParam(
+		data,
+		successCallback,
+		errorCallback, 
+		completeCallback
+		);
+}
+
+function denyConnectionRequest2(message) {
+	mOldConnectionInfoId = mCallConnectionInfoId;
+	mOldPeerId = mPeerId;
+	
+	if (mTargetPeerId in mWaitConnectTable) {
+		delete mWaitConnectTable[mTargetPeerId];
+	}
+
+	denyConnectionRequest(mTargetPeerId, message);
+
+	for (var key in mWaitConnectTable) {
+		var json = mWaitConnectTable[key];
+		delete mWaitConnectTable[key];
+		runCommandCallback(json);
+		break;
+	}
+
+	var data = {
+		wait_connect_table_string : encodeURIComponent(JSON.stringify(mWaitConnectTable))
+	};
+	
+	saveWebRtcParam(
+		data,
+		null,
+		null, 
+		null
+	);
+}
+
+function denyConnectionRequest(target_peer_id, message) {
+	sendCancelConnection(target_peer_id, message);
+	denyConnectionRequestSub();
+}
+
+function denyConnectionRequestSub() {
+	mOldConnectionInfoId = mCallConnectionInfoId;
+	mOldPeerId = mPeerId;
+	
+	if (mNotification) {
+		mNotification.close();
+	}
+	if (mConnectionTimeout) {
+		clearTimeout(mConnectionTimeout);
+		mConnectionTimeout = null;
+	}
+	if (mTargetNotFoundRetryTimeout) {
+		clearTimeout(mTargetNotFoundRetryTimeout);
+		mTargetNotFoundRetryTimeout = null;
+	}
+	
+	$('#connection_info_not_published').show();
+	$('#connection_info_published').hide();
+	$("#call_proc_dialog").hide();
+	var call_audio = document.getElementById('call_audio');
+	call_audio.pause();
+	call_audio.currentTime = 0;
+/*
+	mTargetPeerId = null;
+	mCallConnectionInfoId = null;
+	mCallConnectNo = null;
+	mCallClientId = null;
+*/
+	if (mMeetinConnection) {
+		mMeetinConnection.closeConnectionByPeerId(mTargetPeerId);
+	}
+}
+
+// 接続
+$('#accept_connection_request').click(function(){
+	acceptConnectionRequest(1);
+});
+
+/* Meetin録画のインストール有無 */
+function isInstalledTabCapture() {
+	if (!((typeof (window.TabCaptureExtentionExists) === 'boolean') && (window.TabCaptureExtentionExists))) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+/* Meetin画面共有のインストール有無 */
+function isInstalledScreenShare() {
+	if (!((typeof (window.ScreenShareExtentionExists) === 'boolean') && (window.ScreenShareExtentionExists))) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+

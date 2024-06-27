@@ -1,0 +1,8 @@
+1.
+composer require twilio/sdk
+
+2, system.ini
+;Twilio SMS API
+smsSendApi.apiKey = 'AC7fbde02bd06a10521adb7e3318e87378'
+smsSendApi.apiSecret = '5aed76eb96e5de2d6c3b729f2bc47300'
+smsSendApi.twilio_number = '+14158493778'

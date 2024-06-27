@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2008-2011 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+Author: Jozsef Vass
+-->
+
+<!-- Adobe labs limit width to 520 pixels. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="init()" backgroundColor="0xffffff" width="640" height="480">
+	<fx:Script>
+		<![CDATA[
+			import flash.media.Camera;
+			import flash.media.Microphone;
+			import mx.core.FlexGlobals;
+			import mx.collections.ArrayList;
+			import flash.external.ExternalInterface;
+			
+			// rtmfp server address (Adobe Cirrus or FMS)
+			[Bindable] private var connectUrl:String = "rtmfp://p2p.rtmfp.net";
+			
+			// available camera deviced
+			[Bindable] private var cameraNames:ArrayList = new ArrayList();
+			[Bindable] private var micNames:ArrayList = new ArrayList();
+			private var cameraIndex:int = 0;
+			private var micIndex:int = 0;
+			
+			// user name is saved in local shared object
+//			private var localSO:SharedObject;
+			
+			private var mCameraWidth:int = 640;
+			private var mCameraHeight:int = 480;
+			private var mCameraFramerate:int = 10;
+			private var mCameraBandwidth:int = 0;
+			private var mCameraQuality:int = 80;
+
+			// called when application is loaded            		
+			private function init():void
+			{
+				cameraIndex = FlexGlobals.topLevelApplication.parameters.cameraIndex;
+				micIndex = FlexGlobals.topLevelApplication.parameters.micIndex;
+				mCameraWidth = FlexGlobals.topLevelApplication.parameters.cameraWidth;
+				mCameraHeight = FlexGlobals.topLevelApplication.parameters.cameraHeight;
+				mCameraFramerate = FlexGlobals.topLevelApplication.parameters.cameraFramerate;
+				mCameraBandwidth = FlexGlobals.topLevelApplication.parameters.cameraBandwidth;
+				mCameraQuality = FlexGlobals.topLevelApplication.parameters.cameraQuality;
+/*				
+				// Debug
+				mCameraWidth = 640;
+				mCameraHeight = 480;
+				mCameraFramerate = 10;
+				mCameraBandwidth = 0;
+				mCameraQuality = 80;
+*/				
+				initSub();
+				
+//				localVideoDisplay.addEventListener(MouseEvent.RIGHT_CLICK, function(e:MouseEvent):void{});
+				
+				ExternalInterface.addCallback("initSub", initSub);
+				ExternalInterface.addCallback("startCamera", startCamera);
+				ExternalInterface.addCallback("stopCamera", stopCamera);
+				ExternalInterface.addCallback("changeSize", changeSize);
+//				ExternalInterface.addCallback("changeSizeWithOriginalAspect", changeSizeWithOriginalAspect);
+				ExternalInterface.addCallback("getCameraNames", getCameraNames);
+				ExternalInterface.addCallback("changeCamera", changeCamera);
+			}
+			
+			public function initSub():void {
+//				localSO = SharedObject.getLocal("videoPhoneSettings");
+				
+				var cameras:Array = Camera.names;
+				if (cameras)
+				{
+					cameraNames.source = cameras;
+				}
+				else
+				{
+				}
+				
+				// selected camera device
+//				if (localSO.data.hasOwnProperty("cameraIndex"))
+//				{
+//					cameraIndex = localSO.data.cameraIndex;
+//				}
+				
+				// configure audio and video
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				var cameraIsOn:Boolean = false;
+				var cameraMuted:Boolean = false;
+				var cameraIsCanUse:Boolean = false;
+				
+				if (camera)
+				{
+					camera.addEventListener(ActivityEvent.ACTIVITY, onDeviceActivity);
+					
+					cameraChanged();
+					cameraIsOn = true;
+					cameraMuted = camera.muted;
+					cameraIsCanUse = true;
+				}
+
+				var mics:Array = Microphone.names;
+				if (mics)
+				{
+					micNames.source = mics;
+				}
+				else
+				{
+				}
+				
+				var micIsOn:Boolean = false;
+				var mic:Microphone = Microphone.getMicrophone(micIndex);
+				var micMuted:Boolean = false;
+				var micIsCanUse:Boolean = false;
+				if (mic)
+				{
+					micIsOn = true;
+					micMuted = mic.muted;
+					micIsCanUse = true;
+				}
+				
+				ExternalInterface.call("meetinFlashMyVideo_initSub_finish", cameraIsOn, micIsOn, cameraNames, micNames, cameraMuted, micMuted, cameraIsCanUse, micIsCanUse);
+			}
+			
+			private function onDeviceActivity(e:ActivityEvent):void
+			{
+				//				status("Device activity: " + e.activating + "\n");
+			}
+			
+			private function cameraChanged(event:Event = null):void
+			{
+				var cameraIsOn:Boolean = false;
+				//				cameraIndex = cameraSelection.selectedIndex;
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				
+				if (camera)
+				{
+					camera.setMode(mCameraWidth, mCameraHeight, mCameraFramerate);
+					camera.setQuality(mCameraBandwidth, mCameraQuality);
+					cameraIsOn = true;
+
+					// when user changes video device, we want to show preview
+					localVideoDisplay.attachCamera(camera);
+					camera.addEventListener(StatusEvent.STATUS, cameraStatusHandler);
+
+					localVideoDisplay.width = camera.width;
+					localVideoDisplay.height = camera.height;
+				}
+				
+				//				localSO.data.cameraIndex = cameraIndex;
+//				try
+//				{
+//					localSO.flush();
+//				}
+//				catch (e:Error)
+//				{
+//				}
+
+				ExternalInterface.call("meetinFlashMyVideo_cameraChanged_finish", cameraIsOn);
+			}
+			
+			private function cameraStatusHandler(e:StatusEvent):void {
+				ExternalInterface.call("meetinFlashMyVideo_cameraStatusHandler", e.code);
+			}
+			
+			private function videoQualityChanged(e:Event = null):void
+			{
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				if (camera)
+				{
+					camera.setQuality(0, 80);
+				}
+			}
+			
+			public function startCamera():void {
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				
+				if (camera)
+				{
+//					camera.setMode(640, 480, 10);
+//					camera.setQuality(0, 80);
+
+					localVideoDisplay.attachCamera(camera);
+					camera.addEventListener(StatusEvent.STATUS, cameraStatusHandler);
+				}
+			}
+			
+			public function stopCamera():void {
+				localVideoDisplay.attachCamera(null);
+			}
+			
+			public function changeSize(width:int, height:int):void {
+/*
+				mCameraWidth = width;
+				mCameraHeight = height;
+				
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				if (camera)
+				{
+					camera.setMode(width, height, mCameraFramerate);
+
+					// when user changes video device, we want to show preview
+					localVideoDisplay.attachCamera(camera);
+					camera.addEventListener(StatusEvent.STATUS, cameraStatusHandler);
+				}
+*/
+				var aspect:Number = mCameraWidth / mCameraHeight;
+				var aspect2:Number = width / height;
+				var newWidth:int = width;
+				var newHeight:int = height;
+	
+				if (aspect2 > aspect) {
+					newHeight = width / aspect;
+				} else if (aspect2 < aspect) {
+					newWidth = height * aspect;
+				}
+
+////////////////////////////
+				localVideoDisplay.width = newWidth;
+				localVideoDisplay.height = newHeight;
+			}
+/*			
+			public function changeSizeWithOriginalAspect(width:int, height:int):void {
+				mCameraWidth = width;
+				mCameraHeight = height;
+				
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				if (camera)
+				{
+					camera.setMode(width, height, mCameraFramerate);
+
+					// when user changes video device, we want to show preview
+					localVideoDisplay.attachCamera(camera);
+					camera.addEventListener(StatusEvent.STATUS, cameraStatusHandler);
+				}
+
+				changeSize(width, height);
+			}
+*/			
+			public function getCameraNames():void {
+				ExternalInterface.call("meetinFlashMyVideo_getCameraNames", Camera.names);
+			}
+			
+			public function changeCamera(
+				newCameraIndex:int, 
+				cameraWidth:int, 
+				cameraHeight:int, 
+				cameraFramerate:int,
+				cameraBandwidth:int,
+				cameraQuality:int
+				):void {
+				cameraIndex = newCameraIndex;
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				var cameraIsOn:Boolean = false;
+
+				mCameraWidth = cameraWidth;
+				mCameraHeight = cameraHeight;
+				mCameraFramerate = cameraFramerate;
+				mCameraBandwidth = cameraBandwidth;
+				mCameraQuality = cameraQuality;
+				
+				if (camera)
+				{
+					camera.setMode(cameraWidth, cameraHeight, cameraFramerate);
+					camera.setQuality(cameraBandwidth, cameraQuality);
+					cameraIsOn = true;
+
+					// when user changes video device, we want to show preview
+					localVideoDisplay.attachCamera(camera);
+					camera.addEventListener(StatusEvent.STATUS, cameraStatusHandler);
+
+//					localVideoDisplay.width = camera.width;
+//					localVideoDisplay.height = camera.height;
+				}
+				
+				ExternalInterface.call("meetinFlashMyVideo_changeCamera_finish", cameraIsOn);
+			}
+			
+			private function debug():void {
+//				changeSizeWithOriginalAspect(300, 400);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:HGroup>
+		<mx:VideoDisplay id="localVideoDisplay" width="640" height="480" />
+		<s:VGroup visible="false">
+			<s:Button label="DEBUG" click="debug()" styleName="buttonStyle" />
+		</s:VGroup>
+	</s:HGroup>
+</s:Application>

@@ -1,0 +1,13 @@
+node_modules/
+package-lock.json
+websocket-server/node_modules/
+websocket-server/package-lock.json
+websocket-server/package.json
+*.log
+/application/smarty/templates_c/*
+/application/smarty/templates_c_sp/*
+.DS_Store
+application/configs/system.ini
+public/negotiation_document/*
+vendor
+public/tmp_audio/*.mp3

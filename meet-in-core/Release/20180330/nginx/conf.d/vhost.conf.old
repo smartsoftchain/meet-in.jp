@@ -1,0 +1,49 @@
+server {
+	listen       443 ssl;
+	server_name  delphinus.sense.co.jp;
+	root   /var/www/html_meet/public;
+	index index.php index.html index.htm;
+
+	ssl                  on;
+	ssl_certificate      /etc/httpd/conf.d/cert/meet-in2.crt;
+	ssl_certificate_key  /etc/httpd/conf.d/cert/meet-in.key;
+
+	ssl_protocols  SSLv2 TLSv1;
+	ssl_ciphers  HIGH:!aNULL:!MD5;
+	ssl_prefer_server_ciphers   on;
+
+### Zend ###
+    location / {
+      if (!-e $request_filename) {
+        rewrite ^.*$ /index.php last;
+      }
+    }
+
+    location ~ \.php$ {
+        root           /var/www/html_meet/public;
+        fastcgi_pass   unix:/var/run/php-fpm/php-fpm.sock;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  /var/www/html_meet/public$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+
+}
+#########################################################
+# Meet-in
+#########################################################
+server {
+    listen 3000;
+    server_name delphinus2.sense.co.jp;
+
+    ssl on;
+    ssl_certificate /etc/httpd/conf.d/cert/meet-in2.crt;
+    ssl_certificate_key /etc/httpd/conf.d/cert/meet-in.key;
+
+    location / {
+      proxy_pass http://127.0.0.1:4567;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+    }
+}
+

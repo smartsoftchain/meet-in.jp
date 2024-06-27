@@ -1,0 +1,1026 @@
+/**
+* オペレータもしくはゲストが商談画面にログインもしくは再読み込みした際に
+* 共有メモ・ホワイトボード・資料のデータを同期する。
+* その他、同期を行う処理を記述する。
+*
+*/
+
+var syncRetryCount = 0;				// 他ユーザーとの接続完了待ちを行ったか回数
+var syncDbRetryCount = 0;			// メンバー取得(DB)接続待ちを行ったか回数
+var syncValRetryCount = 0;
+
+const SYNC_RETRY_TIMER = 1000;			// 他ユーザーとの接続完了待ちを行うタイマー
+const SYNC_RETRY_MAX_COUNT = 60;		// 接続完了待ちを行う最大回数
+
+const SYNC_DB_RETRY_TIMER = 2000;		// リトライ時間(DB)
+const SYNC_DB_RETRY_MAX_COUNT = 5;		// 接続完了待ちを行う最大回数(DB)
+
+const SYNC_HIDE_MESSAGE_TIMER = 3000;	// 同期メッセージ表示時間
+const SYNC_MAX_MESSAGE_TIMER = 20000;	// メッセージ最大表示時間
+
+const SYNC_GUEST_TIMER = 10000;			// ゲストが入室した際に待つ時間(msec)
+
+const SYNC_SHARE_MEMO_STATUS = 1;		// 共有メモの同期が完了したときのステータス
+const SYNC_WHITE_BOARD_STATUS = 2;		// ホワイトボードの同期が完了したときのステータス
+const SYNC_DOCUMENT_STATUS = 4;			// 資料の同期が完了したときのステータス
+const SYNC_HIDE_MESSAGE_STATUS = 7;		// 初期化の同期メッセージを削除するステータス
+
+var beforeUnload=0;
+var getOldestUserIdTimer = null;		// 同期ユーザID取得タイムアウト
+
+var chat_next_cnt = 0;
+
+// ===============================================
+// この処理が読み込まれた際に同期処理を実行する
+// ===============================================
+$(function () {
+
+	// フラグ取得
+	beforeUnload = sessionStorage.getItem("beforeUnload");
+
+	// 同期開始のメッセージを表示
+	initSyncSetting();
+
+	syncValRetryCount=0;
+	var initSyncVariable = setInterval(function() {
+		// 同期で参照している必要な変数がセットされるまで待機
+		var peerId = $("#peer_id").val();	// 自分のpeerId
+		var connectionInfoId = $("#connection_info_id").val();
+//console.log("initSyncVariable peerId=("+peerId+") connectionInfoId=("+connectionInfoId+") cnt=("+syncValRetryCount+")");
+		syncValRetryCount++;
+		//終了条件
+		if( peerId || syncValRetryCount >= 5) {
+			clearInterval(initSyncVariable);
+//console.log("initSyncVariable END");
+			// 同期
+			syncDbRetryCount = 0;
+			initSyncDb();
+			var secretMemo = sessionStorage.getItem("secretMemo");
+			if(secretMemo){
+				// ストレージにデータが存在すれば設定する
+				$("textarea.secret_memo_text").val(secretMemo);
+			}
+		}
+	}, 500);
+
+	// ========================================================
+	// シークレットメモの同期処理を行うための処理
+	// ========================================================
+	// シークレットメモにメッセージを書き込んだ場合のイベント処理
+	$(document).on('keyup', 'textarea.secret_memo_text', function(){
+		try{
+			// ストレージにデータを保存する
+			sessionStorage.setItem("secretMemo", $("textarea.secret_memo_text").val());
+		}catch (e) {
+			// 同期メッセージの表示領域にメッセージを表示
+			$("#no_save_document_message_area").show();
+			setTimeout(function (){
+				// 3秒後にメッセージを削除
+				$("#no_save_document_message_area").hide();
+			} , NO_SAVE_TIMER);
+		}
+	});
+});
+
+/**
+ * 同期を行う前にボタンの制御とメッセージ表示を行う
+ * @returns
+ */
+function initSyncSetting(){
+	// 同期開始のメッセージを表示
+	viewMessageInit("");
+	// 共有メモボタンを押せなくする
+	$("#button_share_memo").prop("disabled", true);
+	// ホワイトボードのボタンを押せなくする
+	$("#button_white_board").prop("disabled", true);
+
+	//DBに保存していない値.
+	// 文字起こしボタンを押せなくする.
+	$("#button_audio_text").prop("disabled", true);
+}
+
+/**
+ * オペレータとゲストで初期化のタイミングを変えるため関数化
+ * @returns
+ */
+function initSyncDb(){
+	// 再接続などでも使用するのでinitStateを初期化する
+	initState = 0;
+	// DBを参照し、商談ルームに何人いるのかを取得する
+	var peerId = $("#peer_id").val();	// 自分のpeerId
+	var syncConnectionInfoId = $("#connection_info_id").val();
+
+/*
+	$.ajax({
+		url: "https://" + location.host + "/negotiation/get-room-member-count",
+		type: "GET",
+		data: {peerId : peerId, connectionInfoId : syncConnectionInfoId},
+		success: function(roomMemberCount) {
+	});
+*/
+	let roomMemberCount = 0;
+	let room = getPublisherRoom();
+	if (room) {
+		roomMemberCount = room.members.length + 1;
+	}
+/**
+ * ルームメンバー取得処理
+ * ※DBから取得するルームのメンバ数は自分以外の数
+ *
+ * ルームのメンバ = 0 の初期入室者(同期は不要！)
+ * ルームのメンバ > 1 の場合は1以上(同期あり)
+ * リトライ間隔はSYNC_DB_RETRY_TIMER(2sec:2000)で最大:SYNC_DB_RETRY_MAX_COUNT(5回)
+ *
+ */
+	{
+			if(roomMemberCount == 0){
+//console.log("initSyncDb roomMemberCount == 0");
+				// 共有メモのデフォルト文字を追加
+				initShareMemo();
+				// ルームへの最初の入室者はセッションストレージを初期化する
+				sessionStorage.clear();
+
+				// チャットボード初期化
+				initChatBoard();
+
+				// 同期メッセージを削除
+				hideSyncResuponceMessage();
+				// 共有メモボタンを押せるようにする
+				$("#button_share_memo").prop("disabled", false);
+				// ホワイトボードのボタンを押せるようにする
+				$("#button_white_board").prop("disabled", false);
+			}
+			else if(roomMemberCount > 0){
+//console.log("initSyncDb roomMemberCount > 0 Count=("+roomMemberCount+")");
+				// 新規接続時の初期化処理
+				syncRetryCount=0;
+				// ルームへの最初の入室者はセッションストレージを初期化する
+				sessionStorage.clear();
+
+				// チャットボード初期化
+				initChatBoard();
+
+				initSync(roomMemberCount);
+			}
+			/**
+			 * ※通常はありえないが、最大回数まったが(2sec * 5回 = 10秒)秒数待った後に再帰する
+			 */
+			else if(syncDbRetryCount == SYNC_DB_RETRY_MAX_COUNT){
+//console.log("initSyncDb roomMemberCount == SYNC_DB_RETRY_MAX_COUNT");
+				// 新規接続時の初期化処理(強制:1)
+				syncRetryCount=0;
+				// ルームへの最初の入室者はセッションストレージを初期化する
+				sessionStorage.clear();
+
+				// チャットボード初期化
+				initChatBoard();
+
+				initSync(1);
+			}
+			else {
+//console.log("initSyncDb etc... syncDbRetryCount=("+syncDbRetryCount+")");
+				syncDbRetryCount++;
+				// 取得リトライ(オペレータのピアIDが未設定の場合は設定されるまでリトライする)
+				syncDbDocumentTimeoutId = setTimeout(function (){
+					// SYNC_DB_RETRY_TIMERの(2sec)秒数待った後に再帰する
+					initSyncDb();
+				} , SYNC_DB_RETRY_TIMER);
+			}
+
+
+			// 文字起こしのボタンを押せるようにする.
+			$("#button_audio_text").prop("disabled", false);
+
+		}
+//	});
+}
+
+/**
+ * 新規接続時の初期化処理
+ * 再帰処理を行うので関数化
+ * リトライ間隔はSYNC_RETRY_TIMER(1sec:1000)で最大:SYNC_RETRY_MAX_COUNT(60回)
+ *
+ * 許可の待ち合わせ
+ * @returns
+ */
+function initSync(roomMemberCount){
+	// 初期化処理のカウントを増加する
+	syncRetryCount++;
+	// 現在peerの接続が確立しているユーザー数を取得する
+	var connectionUserCount = 0;
+	try{
+		// 初期化が終わっている場合のみカウントを取得する
+//	MCU
+//		connectionUserCount = Object.keys(mUserIdAndUserInfoArray).length;
+		connectionUserCount = getPublisherRoom().members.length + 1;
+	}catch(e){
+		// 本来であれば mUserIdAndUserInfoArrayを初期化すればいい話だが、
+		// 私が作っていないので、カウントを取得し例外が発生した場合はここでキャッチする。
+		// ※例外を正常系とするありえない作りだが、まぁこれを見た他の方は察してください。
+	}
+console.log("initSync roomMemberCount[DB]=("+roomMemberCount+") connectionUserCount=("+connectionUserCount+") syncRetryCount=("+ syncRetryCount +")");
+	// DBの値と同じであれば初期化処理を実施若しくは、最大回数待ったが(1sec * 20回=20秒)接続が完了しない場合も実施する
+// MCU
+	if(roomMemberCount == connectionUserCount || syncRetryCount == SYNC_RETRY_MAX_COUNT){
+		// 入室の一番古いユーザーに共有メモ・ホワイトボード・資料のデータを要求する
+		requestInitData();
+
+		// 初期化処理のカウントを初期化する
+		hideSyncMessage(0, SYNC_HIDE_MESSAGE_STATUS);
+		syncRetryCount = 0;
+	} else {
+		// DBの値と数が違う場合はpeerの接続を待つ
+		syncDocumentTimeoutId = setTimeout(function (){
+			// SYNC_RETRY_TIMERの1秒数待った後に再帰する
+			initSync(roomMemberCount);
+		} , SYNC_RETRY_TIMER);
+	}
+}
+
+/**
+ * 入室の一番古いユーザーに共有メモ・ホワイトボード・資料のデータを要求する
+ * @returns
+ */
+function requestInitData(){
+	// 現在の接続ユーザーの中で入室が一番古いユーザーのIDを取得する
+	var successCallback = function(responceUserId) {
+		// 同期先ユーザIDが取得タイマークリア
+//console.log("initSync successCallback:["+getOldestUserIdTimer+"]");
+		if (getOldestUserIdTimer) {
+			clearTimeout(getOldestUserIdTimer);
+			getOldestUserIdTimer = null;
+		}
+		let room = getPublisherRoom();
+		if (!room) {
+			console.error('getPublisherRoom is null');
+			return;
+		}
+		let oldest_peer_id = getOldestJoinedPeerId();
+		if (oldest_peer_id != room.myId) {
+		// 入室が古いユーザーが自分だった場合も初期化要求は行わない(通常はありえない)
+//		if(responceUserId != $('#user_id').val()){
+console.log("initSync successCallback:ストレージ初期化");
+			// 資料で使用しているストレージの初期化を行う
+			syncInitDocumenSessionStoraget();
+			// 共有メモ・ホワイトボード・資料のデータ同期要求を行う
+			var data = {
+					command : "INIT_SYNC",
+					type : "REQUEST_SYNC",
+					requestUserId : $('#user_id').val(),
+					request_peer_id: room.myId,
+					oldest_peer_id: oldest_peer_id,
+			};
+			sendCommandByUserId(responceUserId, data);
+			// 自分が同期を行っているメッセージを出す(同期相手の名前を入れる)
+			viewMessageInit(mUserIdAndUserInfoArray[responceUserId]);
+		}
+		else {
+console.log("initSync successCallback:ストレージ初期化なし");
+			// 資料のサムネイル表示を行う
+			syncViewThumbnail();
+			// 同期メッセージを削除
+			hideSyncResuponceMessage();
+			// 共有メモボタンを押せるようにする
+			$("#button_share_memo").prop("disabled", false);
+			// ホワイトボードのボタンを押せるようにする
+			$("#button_white_board").prop("disabled", false);
+			// 文字起こしのボタンを押せるようにする.
+			$("#button_audio_text").prop("disabled", false);
+		}
+		// ビューティーモードの情報を入室ユーザー全員に通知する
+		var data = {
+				command : "BEAUTY_MODE",
+				requestUserId : $('#user_id').val(),
+				beautyMode : localStorage.getItem('beauty_mode')
+		};
+		sendCommand(SEND_TARGET_ALL, data);
+	}
+
+	console.log("initSync requestInitData:getOldestUserId() START");
+	getOldestUserId(successCallback);
+
+	// 指定さされた秒数で同期処理が終了しない場合、エラーメッセージを表示し、ユーザへ再度入室を促す
+	var run = function() {
+		console.log("initSync 失敗");
+		clearOldestUserId();
+
+//		$("#negotiation_sync_message_area").show();
+//		hideSyncMessage(0, 0);
+
+		// // 同期メッセージを削除
+		// hideSyncResuponceMessage();
+
+		// 共有メモボタンを押せるようにする
+		$("#button_share_memo").prop("disabled", false);
+		// ホワイトボードのボタンを押せるようにする
+		$("#button_white_board").prop("disabled", false);
+		// 文字起こしのボタンを押せるようにする.
+		$("#button_audio_text").prop("disabled", false);
+	};
+	getOldestUserIdTimer = setTimeout(run, SYNC_GUEST_TIMER);	// 10秒
+}
+
+/**
+ * 自分が同期中のメッセーを表示する
+ * @returns
+ */
+function viewMessageInit(responceUserName){
+	var message = "";
+	if(!responceUserName){
+		message = "初期化を開始します。<br>共有メモ初期化中...<br>ホワイトボード初期化中...<br>資料初期化中...";
+	}
+	else{
+		message = "データの同期中です。<br>共有メモ同期中...<br>資料同期中...";
+	}
+	$(".negotiation_sync_message").html(message);
+	$("#negotiation_sync_message_area").show();
+}
+
+/**
+ * 共有メモの初期化処理
+ * @returns
+ */
+function initShareMemo(){
+	if ($("textarea.share_memo_text").val() == "") {
+		// デフォルトテンプレート追加
+		var now = new Date();
+		var bigenDate = "開始日時：" + now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日\n";
+		$("textarea.share_memo_text").val(bigenDate);
+	}
+}
+
+function initChatBoard(){
+	var connectionInfoId = $("#connection_info_id").val();
+
+	$.ajax({
+		type: "POST",
+		url: "https://" + location.host + "/negotiation/get-chat-message-list",
+		dataType: "json",
+		data: {
+			"connection_info_id" : connectionInfoId
+		}
+	}).done(function(result) {
+		// jsonをオブジェクトに変換
+//console.log("data_cnt=("+result.length+")");
+		if( result.length != 0 ) {
+			// 確認
+			var chatMessageList = [];
+			chat_next_cnt = 0;
+			for(var iCnt = 0; iCnt < result.length; iCnt++){
+				result[iCnt]["id"] = Number(result[iCnt]["id"]);
+				result[iCnt]["user_id"] = Number(result[iCnt]["user_id"]);
+				result[iCnt]["uu_id"] = result[iCnt]["uuid"];
+				result[iCnt]["message"] = result[iCnt]["message"];
+
+				var template = createOthersTemplate(result[iCnt]["id"], result[iCnt]["user_id"], result[iCnt]["uuid"]);
+				$('#chat_board_messages').append(template);
+
+				// 入力文字を出力((サニタイジング済み))
+				$('#chat_board_message_text'+result[iCnt]["id"]).html(result[iCnt]["message"]);
+			}
+		}
+		else {
+//console.log("データなし");
+		}
+	}).fail(function(data) {
+	});
+
+}
+
+function createOthersTemplate(chatCnt, userid, uuid) {
+	if( chat_userid == userid && chat_uuid == uuid ) {
+		chat_next_cnt++;
+	}
+	else {
+		chat_next_cnt = 0;
+	}
+	chat_userid = userid;
+	chat_uuid = uuid;
+
+	var message = '';
+	message += '<div class="chat_board_message">';
+
+	if( chat_next_cnt == 0 ) {
+		message += '<div class="chat_board_left_img">';
+		message += '<div class="chat_board_userimg_left">';
+		message += '<div class="chat_board_userimg_wrap_left">';
+		message += '<div class="chat_board_userimg_wrap_left_inner">';
+		message += '<img id="image'+ chatCnt +'" src="/img/icon_face.png" style="position:absolute; width:100%; height:66%; object-fit:scale-down;\">';
+		message += '</div></div></div>';
+			// 初回(１件のみのメッセージ)
+		message += '<div class="chat_board_message_box">';
+	}
+	else {
+		// 連続２件目以降
+		message += '<div class="chat_board_left">';
+		if( chat_next_cnt == 1 ) {
+			// ２件目(初回メッセージを開始吹き出しへ)
+			$("div.chat_board_message_box:last").removeClass("chat_board_message_box").addClass("chat_board_message_box_start");
+		}
+		else {
+			// ３件目以降(メッセージ、終了吹き出しを継続吹き出しへ)
+			$("div.chat_board_message_box_end:last").removeClass("chat_board_message_box_end").addClass("chat_board_message_box_next");
+		}
+		// 2件目以降(終了吹き出し出力)
+		message += '<div class="chat_board_message_box_end">';
+	}
+	message += '<div class="chat_board_message_content">';
+	message += '<div id="chat_board_message_text'+ chatCnt +'" class="chat_board_message_text">';
+	message += '</div></div></div>';
+
+	message += '</div>';
+	message += '</div>';
+	message += '<div class="chat_board_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->';
+	return message;
+}
+
+/**
+ * 相手から送信された初期化処理の情報を受取る関数
+ * @param json
+ */
+var initState = 0;
+var syncDocumentScrollTop = 0;		// 資料の同期時にスクロール値を設定する
+var syncDocumentScrollLeft = 0;
+function receiveSyncJson(json){
+	if(json.type == "REQUEST_SYNC"){
+		let room = getPublisherRoom();
+		if (json.oldest_peer_id != room.myId) {
+			return;
+		}
+		// ====================================
+		// 同期要求が来た際の処理
+		// ====================================
+		// 同席者ではない場合のみメッセージを表示する
+		if(json.from_room_mode == 1){
+			// 他のユーザーが自分と同期を始めたメッセージを出す
+			showSyncResuponceMessage(json.requestUserId);
+		}
+		// 共有メモの情報を要求者へ返す
+		responceShareMemoSync(json.requestUserId);
+		// ホワイトボードの情報を要求者へ返す
+		responceWhiteBoardSync(json.requestUserId);
+		// 資料の情報を要求者へ返す
+		responceDocumentSync(json.requestUserId);
+		// 文字起こしデータを要求者に送る(有効期限がある機能なので同期中と表示はしない).
+		responceShareAudioTextSync(json.requestUserId);
+		// 電子契約書の情報を要求者へ返す
+		responceEContractSync(json.requestUserId);
+		// 文字起こし、音声解析ステータスを要求者へ返す
+		responceAudioOrSentimentStatusSync(json.requestUserId);
+		// 必要なデータを返し終えたらメッセージを閉じる
+		hideSyncResuponceMessage();
+	}
+	else if(json.type == "RESUPONCE_SHARE_MEMO"){
+		// 共有メモの内容が送信されたので、反映する。
+		$("textarea.share_memo_text").val(json.shareMemo);
+		// initStateを変更
+		initState += SYNC_SHARE_MEMO_STATUS;
+		// 初期化同期メッセージの制御
+		hideSyncMessage(json.responceUserId, initState);
+
+		// 共有メモボタンを押せるようにする
+		$("#button_share_memo").prop("disabled", false);
+		// 共有メモの位置を設定
+		$("#share_memo_area").css("top", json.top);
+		$("#share_memo_area").css("left", json.left);
+		// 共有メモの大きさを設定
+		$('div#share_memo_area').css("height", json.height);
+		$('div#share_memo_area').css("width", json.width);
+		// 共有メモが表示されている場合は表示する
+		if(json.showFlg){
+			$("#share_memo_area").show();
+			// ホワイトボードのスクロール位置を設定
+			$("div#share_memo_area").scrollTop(json.scrollTop);
+			$("div#share_memo_area").scrollLeft(json.scrollLeft);
+		}
+
+		// 新レイアウトで追加された関数の呼び出し
+		swapToggleHide(NEGOTIATION.rightAreaDom,RIGHT_AREA_SHARE_MEMO);
+
+		for (var key in mMeetinFlashSecurityPanelUserIdTable) {
+			$('#negotiation_target_video_' + key).find('.video_big_icon').trigger("click");
+			break;
+		}
+	}
+	else if(json.type == "RESUPONCE_WHITE_BOARD"){
+		// ホワイトボードの内容が送信されたので、反映する。
+		var img = new Image();
+		img.onload = function(){
+			// キャンバスのオブジェクトを取得
+			var element = document.getElementById("white_board");
+			// context取得
+			var context = element.getContext('2d');
+			// 画像を描画
+			context.drawImage(img, 0, 0, whiteBoardWidth, whiteBoardHeight);
+			// initStateを変更
+			initState += SYNC_WHITE_BOARD_STATUS;
+			// 初期化同期メッセージの制御
+			hideSyncMessage(json.responceUserId, initState);
+			// ホワイトボードのボタンを押せるようにする
+			$("#button_white_board").prop("disabled", false);
+			// ホワイトボードの位置を設定
+			$("#white_board_area").css("top", json.top);
+			$("#white_board_area").css("left", json.left);
+			// ホワイトボードの大きさを設定
+			$('div#white_board_area').css("height", json.height);
+			$('div#white_board_area').css("width", json.width);
+			// ホワイトボードが表示されている場合は表示する
+			if(json.showFlg){
+				$("#white_board_area").show();
+				// ホワイトボードのスクロール位置を設定
+				$(".canvas_area").scrollTop(json.scrollTop);
+				$(".canvas_area").scrollLeft(json.scrollLeft);
+			}
+		};
+		// ホワイトボード画像の読み込み
+		var uuid = UUID.generate();
+		var uniqueStr = uuid.replace(/\-/g, '');
+		img.src = "/negotiation_document/negotiation_"+ $("#connection_info_id").val() + "/white_board.png" + '?' + uniqueStr;
+	}
+	else if(json.type == "RESUPONCE_DOCUMENT"){
+		// json化した資料をオブジェクト化する
+		var materialDict = $.parseJSON(json.materialDictJson);
+		// サーバーから資料の情報を取得する
+		var materialIds = [];
+		for(var keyName in materialDict){
+			// materialId_xxx の形式なので_でsplitして1番目を保持する
+			var keyNames = keyName.split("_");
+			materialIds.push(keyNames[1]);
+		}
+
+		// サーバーから資料共有のファイル情報を取得する
+		$.ajax({
+			url: "https://" + location.host + "/negotiation/get-material-list",
+			type: "GET",
+			data: {materialIds : JSON.stringify(materialIds)},
+			success: function(resultJson) {
+				var myUUID = localStorage.UUID;
+				var resultMaterialList = $.parseJSON(resultJson);
+				for (var i = 0; i < resultMaterialList.length; i++) {
+					var keyName = "materialId_" + resultMaterialList[i]["material_basic"]["material_id"];
+					materialDict[keyName][keyName] = $.extend(materialDict[keyName][keyName], resultMaterialList[i]);
+					materialDict[keyName][keyName]["canvas_document"] = {};
+					materialDict[keyName][keyName]["canvas_document"]["hashKey"] = resultMaterialList[i]["material_basic"]["md5_file_key"];
+					materialDict[keyName][keyName]["canvas_document"]["maxCount"] = resultMaterialList[i]["material_detail"].length;
+					materialDict[keyName][keyName]["canvas_document"]["document"] = {};
+					// 資料データを保存するための領域を作成する
+					for (var j = 0; j < resultMaterialList[i]["material_detail"].length; j++) {
+						var pageKey = "page" + resultMaterialList[i]["material_detail"][j]["material_page"];
+						materialDict[keyName][keyName]["canvas_document"]["document"][pageKey] = {};
+						materialDict[keyName][keyName]["canvas_document"]["document"][pageKey]["img"] = "";
+						materialDict[keyName][keyName]["canvas_document"]["document"][pageKey]["fileName"] = resultMaterialList[i]["material_detail"][j]["material_filename"];
+						materialDict[keyName][keyName]["canvas_document"]["document"][pageKey]["orgHeight"] = 0;
+						materialDict[keyName][keyName]["canvas_document"]["document"][pageKey]["orgWidth"] = 0;
+					}
+					// 資料のデータをセッションストレージに保存
+					sessionStorage.setItem(keyName, JSON.stringify(materialDict[keyName]));
+					// 資料のキーをセッションストレージに保存
+					if( sessionStorageKeys.indexOf(keyName) >= 0 ) {
+						continue;
+					}else{
+						sessionStorageKeys.push(keyName);
+						sessionStorage.setItem("mtSessionStorageKeys", JSON.stringify(sessionStorageKeys));
+					}
+
+					// 資料データを同期後、自分でアップした資料が存在する場合はルームへの再入室なので
+					// 再表示フラグをON(1)にする。
+					// 自身がUPした資料の判定はUUIDの値により判定する
+					if( myUUID ) {
+						if( myUUID === materialDict[keyName][keyName]["UUID"] ) {
+//console.log("MY資料データ::UUID["+ materialDict[keyName][keyName]["UUID"] +"]");
+							beforeUnload = 1;
+							sessionStorage.setItem("beforeUnload", beforeUnload);
+						}
+					}
+				}	// for_end
+
+				// 資料のサムネイル表示を行う
+				syncViewThumbnail();
+				// initStateを変更
+				initState += SYNC_DOCUMENT_STATUS;
+				// 初期化同期メッセージの制御
+				hideSyncMessage(json.responceUserId, initState);
+				// 現在の拡大値を設定する
+				codumentViewState = json.codumentViewState;
+				if(codumentViewState == MAX_EXPANSION_VALUE){
+					$("li.left_icon_size div#icon-expansion").hide();
+					$("li.left_icon_size div#icon-reduction").show();
+				}else{
+					$("li.left_icon_size div#icon-expansion").show();
+					$("li.left_icon_size div#icon-reduction").hide();
+				}
+				// 資料が表示されている場合は表示する
+				if(json.showFlg){
+					// 表示する資料のIDとページを保存する
+					currentDocumentId = json.currentDocumentId;
+					currentPage = json.currentPage;
+					// MCUではmargin-topを設定する
+					$(window).trigger('resize');
+					// 資料を表示する
+					showDocumentCommon(json.documentCanvasLeft, json.documentUrlFlg, json.documentUserId, json.documentUuId, json.documentMaterialId);
+					// 現在のスクロール位置を設定する
+					syncDocumentScrollTop = json.scrollTop;
+					syncDocumentScrollLeft = json.scrollLeft;
+				}
+			}	// success_end
+		});
+
+	} else if(json.type == "RESUPONCE_AUDIO_TEXT"){
+
+		// 文字起こしのボタンを押せるようにする.
+		$("#button_audio_text").prop("disabled", false);
+		// 文字起こしを同期する.
+		syncAudioTextInterFace(json);
+	}
+	roomConnectionEvent.click();
+}
+
+/**
+ * 他のユーザーが自分と同期を開始したときのメッセージを表示
+ * @param responceUserId
+ * @returns
+ */
+function showSyncResuponceMessage(requestUserId){
+	var message = "データの同期を開始しました。<br>再接続や画面更新をお控えください。";
+	$(".negotiation_sync_message").html(message);
+	$("#negotiation_sync_message_area").show();
+
+	// 特定時間で消えない場合は、強制的にメッセージを非表示にする(20秒)
+	setTimeout(function (){
+		hideSyncResuponceMessage();
+	} , SYNC_MAX_MESSAGE_TIMER);
+}
+
+/**
+ * 他のユーザーが自分と同期を開始したときのメッセージを非表示
+ * @param requestUserId
+ * @returns
+ */
+function hideSyncResuponceMessage(){
+	setTimeout(function (){
+		// 一瞬で消える可能性があるので最少でも3秒表示する
+		$(".negotiation_sync_message").html("");
+		$("#negotiation_sync_message_area").hide();
+	} , SYNC_HIDE_MESSAGE_TIMER);
+}
+
+/**
+ * 共有メモの情報を要求者へ送信する
+ * @returns
+ */
+function responceShareMemoSync(requestUserId){
+	// 共有メモの内容を要求者へ送信する
+	var data = {
+			command : "INIT_SYNC",
+			type : "RESUPONCE_SHARE_MEMO",
+			shareMemo : $("textarea.share_memo_text").val(),
+			showFlg : $("#share_memo_area").is(':visible'),
+			top : $("#share_memo_area").css("top"),
+			left : $("#share_memo_area").css("left"),
+			height : $("#share_memo_area").css('height'),
+			width : $("#share_memo_area").css("width"),
+			scrollTop : $("#share_memo_area").scrollTop(),
+			scrollLeft : $("#share_memo_area").scrollLeft(),
+			responceUserId : $('#user_id').val()
+	};
+	sendCommandByUserId(requestUserId, data);
+}
+
+/**
+ * ホワイトボードの情報を要求者へ送信する
+ * @param requestUserId
+ * @returns
+ */
+function responceWhiteBoardSync(requestUserId){
+	// ホワイトボードのキャンバス情報を取得
+	var canvas = document.getElementById("white_board");
+	var canvasData = canvas.toDataURL("image/png");
+	var connectionInfoId = $("#connection_info_id").val();
+	// サーバーに画像を転送する
+	$.ajax({
+		url: "https://" + location.host + "/negotiation/sync-white-board",
+		type: "POST",
+		data: {canvasData : canvasData, connectionInfoId : connectionInfoId},
+		success: function(resultJson) {
+			// ホワイトボード内容を要求者へ送信する
+			var data = {
+					command : "INIT_SYNC",
+					type : "RESUPONCE_WHITE_BOARD",
+					showFlg : $("#white_board_area").is(':visible'),
+					top : $("#white_board_area").css("top"),
+					left : $("#white_board_area").css("left"),
+					height : $("#white_board_area").css('height'),
+					width : $("#white_board_area").css("width"),
+					scrollTop : $(".canvas_area").scrollTop(),
+					scrollLeft : $(".canvas_area").scrollLeft(),
+					responceUserId : $('#user_id').val()
+			};
+			sendCommandByUserId(requestUserId, data);
+		}
+	});
+}
+
+/**
+ * 資料の情報を要求者へ送信する
+ */
+function responceDocumentSync(requestUserId){
+	// 戻り値
+	var result = {};
+	for (var i = 0; i < sessionStorageKeys.length; i++) {
+		// セッションストレージから資料データを取得する
+		var mtSessionStorage = $.parseJSON(sessionStorage.getItem(sessionStorageKeys[i]));
+//		// 表示権限を全て無しに変更する
+//		mtSessionStorage[sessionStorageKeys[i]]["viewFlg"] = 0;
+		// データ量が多すぎるとpeerでデータを送信できないため削る
+		mtSessionStorage[sessionStorageKeys[i]]["material_basic"] = {};
+		mtSessionStorage[sessionStorageKeys[i]]["material_detail"] = {};
+		mtSessionStorage[sessionStorageKeys[i]]["canvas_document"] = {};
+		result[sessionStorageKeys[i]] = mtSessionStorage;
+	}
+
+	// 現在資料を表示している場合はURLのフラグを取得する
+	var documentUrlFlg = 0;
+	if($("div#mi_docment_area").is(':visible') && currentDocumentId != 0){
+		// データを取得する為のキーを作成する
+		var keyName = "materialId_" + currentDocumentId;
+		// ブラウザのセッションストレージからデータ取得
+		var mtSessionStorage = $.parseJSON(sessionStorage.getItem(keyName));
+		// URLの場合はダウンロード等を削除する
+		if(mtSessionStorage[keyName]["material_basic"]["material_url"]){
+			documentUrlFlg = 1;
+		}
+	}
+
+	// 資料の内容を要求者へ送信する
+	var data = {
+			command : "INIT_SYNC",
+			type : "RESUPONCE_DOCUMENT",
+			materialDictJson : JSON.stringify(result),
+			currentDocumentId : currentDocumentId,
+			currentPage : currentPage,
+			documentCanvasLeft : LayoutCtrl.apiGetSubLength(),
+			documentUrlFlg : documentUrlFlg,
+			codumentViewState : codumentViewState,
+			scrollTop : $("div#mi_docment_area").scrollTop(),
+			scrollLeft : $("div#mi_docment_area").scrollLeft(),
+			responceUserId : $('#user_id').val(),
+			showFlg : $("div#mi_docment_area").is(':visible'),
+
+			documentMaterialId : $('#document_material_id').val(),
+			documentUserId : $('#document_user_id').val(),
+			documentUuId : $('#document_uuid').val()
+	};
+	sendCommandByUserId(requestUserId, data);
+}
+
+/**
+ * 文字起こしの情報を要求者へ送信する
+ * @returns
+ */
+function responceShareAudioTextSync(requestUserId)
+{
+	if($("#room_mode").val() == 2){
+		return;
+	}
+
+	// 文字起こし中（「停止」中や「非表示」の状態も含む）の場合 以外は共有する.
+	let negotiationAudioTextHostId = getAudioTextHostPeerid();
+	if(negotiationAudioTextHostId == undefined) {
+		return;
+	}
+
+	// 文字起こしの内容を要求者へ送信する
+	var data = sendShareAudioTextSync();
+	sendCommandByUserId(requestUserId, data);
+}
+
+/**
+ * 電子契約書の情報を要求者へ送信する
+ * @param requestUserId
+ * @returns
+ */
+function responceEContractSync(requestUserId){
+	// 電子契約書の入力情報を取得
+	var partner = $("#partner-area").find('.partner_setting_input_area');
+
+	var lastname = [];
+	var firstname = [];
+	var organization_name = [];
+	var title = [];
+	var email = [];
+	$('.partner_setting_item').each(function(i, partner) {
+		lastname[i] = $(partner).find('.partner_setting_input_name.lastname').val();
+		firstname[i] = $(partner).find('.partner_setting_input_name.firstname').val();
+		organization_name[i] = $(partner).find('.partner_setting_input.organization_name').val();
+		title[i] = $(partner).find('.partner_setting_input.title').val();
+		email[i] = $(partner).find('.partner_setting_input.email').val();
+	});
+
+	var data = {
+		command: "E_CONTRACT",
+		type: "TOGGLE_E_CONTRACT",
+		display: $("#e_contract_area").css('display'),
+
+		id:                     $('#caseId').val(),
+		client_id:              $('#client_id').val(),
+		staff_type:             $('#staff_type').val(),
+		staff_id:               $('#staff_id').val(),
+		case_title:             $('#case_title').val(),
+		e_contract_document_id: $('#e_contract_document_id option:selected').val(),
+		have_amount:            $('#have_amount:checked').val(),
+		amount:                 $('#amount').val(),
+		agreement_date:         $('#agreement_date').val(),
+		effective_date:         $('#effective_date').val(),
+		expire_date:            $('#expire_date').val(),
+		auto_renewal:           $('#auto_renewal:checked').val(),
+		management_number:      $('#management_number').val(),
+		comment:                $('#comment').val(),
+		partner:				partner,
+		lastname:               lastname,
+		firstname:              firstname,
+		organization_name:      organization_name,
+		title:                  title,
+		email:                  email,
+	};
+	sendCommand(SEND_TARGET_ALL, data);
+}
+
+/**
+ * 文字起こし、音声解析のステータスを送信する
+ * @param {*} requestUserId 
+ */
+function responceAudioOrSentimentStatusSync(requestUserId){
+	let data = {
+		command : "AUDIO_OR_SENTIMENT_STATUS",
+		type : "SYNC_STATUS",
+		audioTextFlg: audioTextFlg, 
+		sentimentAnalysisFlg : sentimentAnalysisFlg
+	};
+	sendCommandByUserId(requestUserId, data);
+}
+
+/**
+ * 資料の同期を行う場合は初期化を行う
+ * @returns
+ */
+function syncInitDocumenSessionStoraget(){
+	if(sessionStorageKeys.length > 0){
+		var thumbnailviewCount = 0;
+		for ( var i = 0; i < sessionStorageKeys.length; i++) {
+			// 資料本体のsessionStorage初期化を行う
+			sessionStorage.removeItem(sessionStorageKeys[i]);
+		}
+		// keyのsessionStorage初期化を行う
+		sessionStorage.removeItem("mtSessionStorageKeys");
+		sessionStorageKeys = [];
+	}
+}
+
+/**
+ * 初期化時に同期されたデータを元に資料サムネイルを表示する
+ * @returns
+ * ※類いロジックが「material.js[getThumbnailCount()]」にも存在するので修正した場合は確認する事！！
+ */
+function syncViewThumbnail(){
+
+	var uuid = localStorage.UUID;
+	if( !uuid ) {	// 空
+		uuid = UUID.generate();
+		localStorage.UUID = uuid;
+	}
+
+	// サムネイル領域の初期化
+	$("div.mi_document_select ul").empty();
+
+	if( beforeUnload == 1 ) {
+		/**
+		 * 再表示
+		 * ※初回以外は同期データを
+		 */
+		//資料がある場合のみdisplay:noneを解除する
+		$('div.document_addition_wrap').css('display','block');
+		$('footer.mi_video').css('text-align','left');
+		$('div.remove_material').css('text-align','center');
+
+		if( sessionStorageKeys.length > 0 ) {
+			var thumbnailviewCount = 0;
+			for ( var i = 0; i < sessionStorageKeys.length; i++) {
+				var keyName = sessionStorageKeys[i];
+				// セッションストレージから資料データを取得する
+				var mtSessionStorage = $.parseJSON(sessionStorage.getItem(keyName));
+				if( mtSessionStorage ){
+					// 自分の資料のサムネイルを再表示
+					if( uuid == mtSessionStorage[keyName]["UUID"] ) {
+						// サムネイル画像のパスを作成
+						var ext = (mtSessionStorage[keyName]["material_basic"]["material_ext"] == '') ? 'jpg' : mtSessionStorage[keyName]["material_basic"]["material_ext"];
+						var filePath = "/cmn-data/" + mtSessionStorage[keyName]["material_basic"]["md5_file_key"] + "-1." + ext;
+						// サムネイルのタグを作成
+						var thumbnailTag = '<li class="thumbnail_image"><img src="'+filePath+'" alt="'+ mtSessionStorage[keyName]["material_basic"]["material_name"] +'" class="mi_document_icon"  id="'+mtSessionStorage[keyName]["material_basic"]["material_id"]+'" draggable="true" ondragstart="materialDragStart(event)"  ontouchmove="TouchEvent(event)" /></li>';
+						// サムネイル画像の追加
+						$("div.mi_document_select ul").append(thumbnailTag);
+						// サムネイルの表示数をカウントアップする
+						thumbnailviewCount++;
+					}
+				}
+			} // for_end
+			// サムネイルの表示領域を変更する
+			showMoveThumbnailIcon(thumbnailviewCount);
+		}
+	}
+	else {
+		// 初期表示(初回入室時の処理:初回以外は上記再表示処理へ)
+		if( sessionStorageKeys.length > 0 ) {
+			var thumbnailviewCount = 0;
+			var del_keyName = [];
+			var del_material_id = [];
+			for ( var i = 0; i < sessionStorageKeys.length; i++) {
+				var keyName = sessionStorageKeys[i];
+				// セッションストレージから資料データを取得する
+				var mtSessionStorage = $.parseJSON(sessionStorage.getItem(keyName));
+				if( mtSessionStorage ){
+					if( uuid == mtSessionStorage[keyName]["UUID"] ) {
+						var material_id = mtSessionStorage[keyName]["material_basic"]["material_id"];
+						 // サムネイル削除をゲストへ通知する（メモリー上の資料を削除する）
+						 var data = {
+							 command : "DOCUMENT",
+							 type : "DELETE_DOCUMENT",
+							 keyName : keyName,
+							 localMaterialId : material_id
+						 };
+						 sendCommand(SEND_TARGET_ALL, data);
+						 del_keyName.push(keyName);
+						 del_material_id.push(material_id);
+					}	// if_END
+				}
+			}	// for_END
+
+			// ストレージの資料削除実行
+			for ( var i = 0; i < del_keyName.length; i++) {
+				removeMaterialCommon(del_keyName[i], del_material_id[i]);
+			}
+
+			// サーバのキャンバス削除実行(存在しないとは思われるが)
+			var connectionInfoId = $("#connection_info_id").val();
+			$.ajax({
+					url: "https://" + location.host + "/negotiation/delete-canvas-material",
+					type: "POST",
+					dataType: "json",
+					data: {connectionInfoId: connectionInfoId, materialIds : del_material_id},
+				}).done(function(res) {
+			});
+
+		}	// if_END
+		beforeUnload = 1;
+		sessionStorage.setItem("beforeUnload", beforeUnload);	// true:リロードON
+	}	//	else_END
+}
+
+/**
+ * 初期化同期メッセージの非表示処理
+ * @param initState
+ * @returns
+ */
+function hideSyncMessage(responceUserId, initState){
+	if(SYNC_HIDE_MESSAGE_STATUS == initState){
+		// 同期が一瞬で終わるとモーダルが出て消えるのが一瞬なため、同期成功後でも3秒は表示する
+		setTimeout(function (){
+			// 削除ステータスになったので、初期化の同期メッセージを初期化し非表示にする
+			$(".negotiation_sync_message").text("");
+			$("#negotiation_sync_message_area").hide();
+		} , SYNC_HIDE_MESSAGE_TIMER);
+	}else{
+		// 初期化途中なのでメッセージを作成する
+		var syncMessage = getSyncMessage(responceUserId, initState);
+		$(".negotiation_sync_message").html(syncMessage);
+	}
+}
+
+/**
+ * 現在の同期状態によりメッセージを変更する。
+ * @param responceUserId		// 同期対象のユーザーID
+ * @param initState				// 現在の同期状態
+ * @returns
+ */
+function getSyncMessage(responceUserId, initState){
+	var message = "";
+	if(responceUserId in mUserIdAndUserInfoArray){
+		if(SYNC_SHARE_MEMO_STATUS == initState){
+			message = "データの同期中です。<br>ホワイトボード同期中...<br>資料同期中...";
+		}else if((SYNC_SHARE_MEMO_STATUS + SYNC_WHITE_BOARD_STATUS) == initState){
+			message = "データの同期中です。<br>資料同期中...";
+		}else if((SYNC_SHARE_MEMO_STATUS + SYNC_DOCUMENT_STATUS) == initState){
+			message = "データの同期中です。<br>ホワイトボード同期中...";
+		}else if(SYNC_WHITE_BOARD_STATUS == initState){
+			message = "データの同期中です。<br>共有メモ同期中...<br>資料同期中...";
+		}else if((SYNC_WHITE_BOARD_STATUS + SYNC_DOCUMENT_STATUS) == initState){
+			message = "データの同期中です。<br>共有メモ同期中...";
+		}else if(SYNC_DOCUMENT_STATUS == initState){
+			message = "データの同期中です。<br>共有メモ同期中...<br>ホワイトボード同期中";
+		}
+	}else{
+		// MCU
+//		message = "同期対象ユーザーとの接続が切れたので、同期に失敗しました。<br>一度退室し再度入室してください。";
+		message = "データの同期中です。";
+	}
+	return message;
+}

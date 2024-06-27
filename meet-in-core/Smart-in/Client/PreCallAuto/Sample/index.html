@@ -1,0 +1,112 @@
+<html>
+<head>
+<title>Smart-in 認証サンプル</title>
+
+
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#send").click(function(){
+        $("#done").hide();
+        $("#fail").hide();
+        callSmartin();
+    });
+});
+
+/* AjaxでSmart-inサーバへリクエストを送信 */
+function callSmartin(){
+    data_tel_no = $("#tel_no").val();
+    data_timeout = $("#timeout").val();
+    req_url = "smartin.php?mode=request";
+    $.ajax({
+        url: req_url,
+        type:'POST',
+        data: { tel_no: data_tel_no, timeout: data_timeout },
+    }).done(function( result ) {
+        if(result.length == 32){
+	        $("#progress").show();
+
+	        // Smart-inサーバからのコールバックを確認開始
+	        checkSmartin( result );
+		}
+		else{
+	        $("#fail").show();
+	        $("#fail").html("認証依頼エラー ("+result+")");
+	        $("#progress").hide();
+		}
+    }).fail(function( data ) {
+        $("#fail").show();
+        $("#fail").html("ネットワークエラー (0)");
+        $("#progress").hide();
+    });
+}
+
+/* AjaxでSmart-inサーバからのコールバックを確認 
+   5秒間隔で結果が得られるまで繰り返し
+*/
+function checkSmartin( token_str ){
+    req_url = "smartin.php?mode=check";
+    timer = setInterval(function(){
+        $.ajax({
+            url: req_url,
+            type:'POST',
+            data: { token: token_str },
+        }).done(function( result ) {
+
+            // 認証成功
+            if(result == "true"){
+                $("#done").show();
+                $("#progress").hide();
+                clearInterval(timer);
+
+            // 認証中
+            }else if(result == "waiting"){
+                
+            // 認証失敗
+            }else{
+                $("#fail").show();
+                $("#fail").html("認証失敗 (" + result + ")");
+                $("#progress").hide();
+                clearInterval(timer);
+            }
+        }).fail(function( data ) {
+            $("#fail").show();
+            $("#fail").html("ネットワークエラー (1)");
+            $("#progress").hide();
+            clearInterval(timer);
+        });
+    }, 5000);  　　 // 5秒間隔で確認
+}
+</script>
+<body>
+
+<div id="container">
+
+    認証電話番号<br/>
+    <input type="text" name="tel_no" id="tel_no"><br/>
+    <br/>
+    タイムアウト時間（秒）<br />
+    <input type="text" name="timeout" id="timeout" value="30"><br/>
+    <br/>
+    <input type="button" id="send" value="Smart-in認証"><br/>
+    <br/>
+
+    <div id="progress" style="display:none">
+        03-****-****に電話してください<br />
+        <img id="calling" src="calling.gif"><br/>
+        本人確認中
+    </div>
+
+    <div id="done" style="display:none">
+        認証成功
+    </div>
+
+    <div id="fail" style="display:none">
+    </div>
+
+</div>
+
+</body>
+
+</html>

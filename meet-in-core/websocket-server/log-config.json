@@ -1,0 +1,60 @@
+{
+  "appenders": {
+    "access": {
+      "type":     "dateFile",
+      "filename": "/var/log/websocket-server/access.log",
+      "pattern": "-yyyy-MM-dd",
+      "backups": 7,
+      "compress":true
+    },
+    "error": {
+      "type":     "dateFile",
+      "filename": "/var/log/websocket-server/error.log",
+      "pattern": "-yyyy-MM-dd",
+      "backups": 7,
+      "compress":true
+    },
+    "system": {
+      "type":     "dateFile",
+      "filename": "/var/log/websocket-server/system.log",
+      "pattern": "-yyyy-MM-dd",
+      "backups": 7,
+      "compress":true
+    },
+    "console": {
+      "type": "console"
+    },
+    "stdout": {
+      "type": "stdout"
+    }
+  },
+
+  "categories": {
+    "default": {
+       "appenders": [
+         "access"
+       ]
+       ,"level": "INFO"
+    },
+    "access": {
+      "appenders": [
+        "access"
+      ]
+      ,"level": "INFO"
+    },
+    "system": {
+      "appenders": [
+        "system"
+      ]
+    ,"level": "INFO"
+    },
+    "error": {
+      "appenders": [
+        "error"
+      ]
+    ,"level": "WARN"
+    }
+  },
+
+  "replaceConsole": true
+}

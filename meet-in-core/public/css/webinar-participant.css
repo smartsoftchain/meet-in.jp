@@ -1,0 +1,181 @@
+@import "./webinar-variables.css";
+/* 参加者側新画面共通CSS */
+/* テーマカラーで着色する */
+.wp-text_color {
+	color: var(--webinar-text-color);
+}
+.wp-theme_text_color {
+	color: var(--webinar-theme-color);
+}
+.wp-theme_background_color {
+	background-color: var(--webinar-theme-color);
+}
+.wp-theme_button {
+	color: var(--webinar-text-color) !important;
+	background-color: var(--webinar-theme-color);
+}
+/* 動的にボタンの色を変える箇所があるので、 !importantだと困るので似たクラスを作成*/
+.wp-theme_button_no_important {
+	color: var(--webinar-text-color);
+	background-color: var(--webinar-theme-color);
+}
+.wp-theme_svg path {
+	stroke: var(--webinar-theme-color);
+}
+.wp-theme_svg_small svg {
+	height: 48px;
+}
+
+body {
+	background-color: var(--bg-color);
+}
+
+/* 見出し */
+.wp-heading_area {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	text-align: center;
+}
+.wp-heading_message_area{
+	width: 75%;
+	margin: auto;
+}
+.wp-heading_area h1,h2 {
+	color: var(--webinar-theme-color);
+	font-weight: bold;
+}
+@media (max-width: 576px) {
+	.wp-heading_area h1,h2 {
+		font-size: 1.25rem;
+	}
+}
+.wp-heading_area .wp-thanks_message {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+/* メインコンテンツ部分 */
+/* Grid Layout */
+main .wp-grid_container {
+	padding: 32px;
+	background-color: white;
+}
+/* Grid Layout theme_img_area contents */
+.wp-theme_img_area .wp-theme_img_wrapper {
+	height: auto;
+}
+.wp-theme_img_area .wp-theme_img_wrapper img {
+	max-height: 260px;
+	width: 100%;
+	object-fit: contain;
+}
+/* Grid Layout client_info_area contents */
+@media (max-width: 576px) {
+	.wp-client_info_area {
+		padding-top: 2rem;
+		border-top: 2px solid #DBDBDB;
+	}
+}
+/* Grid Layout caption_area contents */
+.wp-caption_area{
+	color: #333333;
+}
+.wp-caption_area .wp-caption_title {
+	font-size: 18px;
+	font-weight: bold;
+}
+.wp-caption_area .wp-caption_holding_date {
+	font-weight: bold;
+}
+.wp-caption_area .wp-caption_holding_time {
+	font-weight: bold;
+}
+.wp-caption_area .wp-caption_capacity {
+	font-weight: bold;
+}
+.wp-caption_area .wp-caption_outline {
+	font-size: 12px;
+	white-space: pre-wrap;
+}
+/* Grid Layout form_area contents */
+.wp-form_area .wp-form_email_input {
+	max-width: 480px;
+	width: 80%;
+	text-align: center;
+	border: 1px solid #B1B1B1;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font-size: 24px;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: 1px;
+}
+.wp-form_area .wp-form_reservation_number_input {
+	max-width: 300px;
+	width: 80%;
+	text-align: center;
+	border: 1px solid #B1B1B1;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font-size: 24px;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: 2px;
+}
+.wp-form_area .wp-form_enter_button.ended {
+	cursor: default;
+	color: white;
+	background-color: #a2a2a2;
+}
+
+/* contactFormModal */
+#contactFormModal textarea {
+	min-height: 200px;
+}
+
+table.wp-reservation_form th {
+	font-weight: normal;
+	padding-left: 30px;
+	vertical-align: middle;
+}
+@media (max-width: 576px) {
+	table.wp-reservation_form th {
+		font-size: 80%;
+		padding: .25rem; 
+	}
+}
+.error_webinar_inquiry_area{
+	margin-bottom: 10px;
+}
+.error_cancel_reservation{
+	display: none;
+}
+
+.wp_head_line_area{
+	height: 60px;
+	background-color: #ffaa00;
+}
+.img_wp_head_line{
+	margin-top: 14px;
+	margin-left: 10px;
+	height: 32px;
+}
+.wp-caption_contents{
+	margin-top: 19px;
+}
+.fontsize_12{
+	font-size: 12px;
+}
+.postcode1_width{
+	width: 30%;
+}
+.postcode2_width{
+	width: 50%;
+}
+.wp-complete_message{
+	width: 80%;
+	margin: auto;
+	font-size: 14px;
+}

@@ -1,0 +1,359 @@
+@charset "UTF-8";
+/*
+*	設定関連で使用するCSS
+*/
+
+
+.justify-content-center {
+    justify-content: center !important;
+}
+
+/* 非表示にする共通CSS */
+.display_hide{
+	display: none !important;
+}
+.textalign_center{
+	text-align: center;
+}
+
+/* 設定モーダル共通表示領域 */
+
+.modal_content{
+    max-height: calc(100% - 2rem);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+
+.modal_content .ui-widget-header {
+    background: #fa0;
+    border: 1px solid #fa0;
+    border: none;
+    line-height: 23px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.modal_content .ui-dialog {
+    
+}
+
+.modal_body {
+    position: relatives;
+    flex: 1 1 auto;
+    padding: 1rem;
+    overflow-y: scroll;
+}
+
+.modal_setting_detail_area{
+	margin-left: 15px;
+	margin-bottom: 10px;
+}
+
+.modal_footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0.75rem;
+    border-top: 1px solid #dee2e6;
+    box-sizing: border-box;
+    /* flex-shrink: 0; */
+}
+
+.modal_footer > * {
+    margin: 0.25rem;
+}
+
+.modal_footer_btn {
+    border-radius: 0.25rem;
+}
+
+.modal_footer_btn:hover {
+    opacity: 0.7;
+    transition: 0.2s;
+}
+
+/* エラーメッセージ領域 */
+.modal_setting_error_area{
+	color: red;
+}
+
+/* ラジオボタンラベル領域 */
+.label_setting_radio_area{
+	width: 100%;
+}
+/* ラジオボタン横のメッセージ */
+.radio_setting_text{
+	float: left;
+	width: 95%;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	margin-top: -5px;
+}
+
+/* bootstrap標準モーダルから指定デザインへ変更するためのスタイル begin */
+.setting_modal_content{
+	border-radius: unset !important;
+}
+.setting_modal_header_list{
+	border-bottom: unset !important;
+	padding-bottom: unset !important;
+}
+.setting_modal_header_detail{
+}
+.setting_modal_title{
+	margin-top: 10px !important;
+	margin-left: 15px !important;
+	font-weight: bold !important;
+}
+.modal_setting_search_area{
+	margin-left: 2rem !important;
+	margin-top: 10px !important;
+	margin-right: 1rem !important;
+	margin-bottom: 0.5rem !important;
+}
+.setting_modal_footer{
+	border-top: unset !important;
+	justify-content: center !important;
+}
+.setting_btn_footer_white{
+	background-color: #fff !important;
+	border-color: #ced4da !important;
+	border-radius: unset !important;
+	color: #ced4da !important;
+	padding-left: 2rem !important;
+	padding-right: 2rem !important;
+}
+/* bootstrap標準モーダルから指定デザインへ変更するためのスタイル end */
+
+.setting_navigation_area{
+    font-size: 9px;
+    color: red;
+    vertical-align: middle;
+}
+
+
+input[type=range] {
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    margin: 0;
+    width: 100%;
+}
+
+input[type=range]:focus {
+    background: #cccccc;
+}
+
+/* 溝のスタイル */
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;   /* 12->6 */
+    cursor: pointer;
+    /* animate: 0.2s; */
+    /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
+    background: #eeeeee;    /* #cccccc-> */
+    border-radius: 1.3px;
+    /* border: 1px solid #010101; */
+}
+input[type=range]::-moz-range-track {
+    -moz-appearance:none;
+    /* appearance: none; */
+    height: 6px;
+    /* border: 1px solid #cccccc; */
+    border-radius: 3px;
+    background: #eeeeee;
+    /* margin-top: -9px; */
+}
+
+/* つまみのスタイル #b2b2b2;*/
+input[type=range]::-webkit-slider-thumb {
+    /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
+    border: 1px solid #cccccc;  /* #000000-> #cccccc*/
+    height: 24px;   /* 36->24 */
+    width: 8px;    /* 16->8 */
+    border-radius: 3px;
+    background: #eeeeee;    /* #ffffff->#eeeeee; */
+    cursor: pointer;
+    -webkit-appearance: none;
+    /* 以下は つまみの縦位置調整 */
+    margin-top: -9px;  /* -14-> -9 (つまみの高さ - トラックの高さ) / 2 (つまみの高さは border を含む) */
+}
+
+
+input[type=range]::-moz-range-thumb {
+    /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
+    border: 1px solid #cccccc;  /* #000000-> #cccccc*/
+    height: 24px;   /* 36->24 */
+    width: 8px;    /* 16->8 */
+    border-radius: 3px;
+    background: #eeeeee;    /* #ffffff->#eeeeee; */
+    cursor: pointer;
+    -webkit-appearance: none;
+    /* 以下は つまみの縦位置調整 */
+    margin-top: -9px;  /* -14-> -9 (つまみの高さ - トラックの高さ) / 2 (つまみの高さは border を含む) */
+}
+
+/* focus時のスタイル */
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #cccccc;    /*#999999->#cccccc*/
+}
+input[type=range]:focus::-moz-range-track {
+    background: #cccccc;
+}
+
+/* ToolTipのスタイル*/
+.tooltip_ster{
+    width: 180px;
+}
+
+.setting_range_flash {
+    padding-bottom: 17px;
+    width: 280px;
+    border: none;
+}
+
+.setting_table {
+    /* width: 100%; */
+    border-collapse: collapse;  /* 隣り合うセルの線を結合 */
+    border: 1px solid #eeeeee;   /* 外側は青色の実線2px */
+    background-color: white;
+}
+.setting_td {
+    height: 42px;
+    padding-left: 10px;
+    padding-right: 10Px;
+    border: 1px solid #eeeeee;    /* 内側は青色の実線1px */
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.setting_th {
+    width: 260px;
+    height: 42px;
+    border: 1px solid #eeeeee;    /* 内側は青色の実線1px */
+    white-space: nowrap;
+    vertical-align: middle;
+    font-weight: normal;
+}
+
+/* INPUT */
+.setting_input_select {
+    border: 1px solid #cccccc;  /* 枠線 */
+    border-radius: 0.32em;        /* 角丸 */
+    background-color: white;    /* 背景色 */
+
+    width: 347px;                 /* 横幅 */
+    box-sizing: border-box;
+
+    height: 30px;                 /* 高さ */
+}
+.setting_input_select:focus {
+    border-color:#cccccc;       /* 枠線の色 */
+    background-color:white;     /* 背景色 */
+    outline: none;                /* ※ブラウザが標準で付加する線を消したいとき */
+}
+
+.text-meetin-color-off {
+    color:#cccccc;
+}
+
+.text-meetin-color {
+    color: #fa0;
+  }
+
+/* Flexbox */
+.container {
+    display: flex;
+    /* justify-content: space-between; */
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.icn_audio_pley {
+    width: 50px;
+    color: #cccccc;
+    font-size: 0.5em;
+}
+
+.bnt_audio_pley {
+    background-color: white;
+    border-color: #cccccc;
+    border-width: 1px;
+    border-radius: 0.25em;
+}
+
+.bg-ber-on {
+    background-color: #fa0 !important;
+}
+.bg-ber-off {
+    background-color: #cccccc !important;
+}
+
+.ml-1, .mx-1 {
+    margin-left: 0.25rem !important;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.h-100 {
+    height: 100% !important;
+}
+/* 音声スライダー */
+.base-visualize-render {
+    width: 100%;
+    height: 20px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.cal-visualize-render {
+    width: 1.5%;
+    margin-left: 2px;
+    border-radius: 0.50em;
+}
+
+/* button */
+.btn_icon {
+    width: auto;
+    height: auto;
+    color: #b4b4b4;
+    background-color: transparent;
+    vertical-align: middle;
+    font-size: 10px;
+}
+
+/* .btn_icon:before {
+    background: transparent;
+} */
+.btn-seminar-setting-cancel{
+    width:120px;
+}
+.btn-seminar-setting-save{
+    width:120px;
+}
+.header-menu-btn--nolabel {
+    font-size: 20px;
+    color: #b2b2b2;
+}
+.btn-secondary {
+    color: #fff;
+    background-color: #b1b1b1;
+    border: 1px solid #DCDCDC;
+}
+
+.icon_line:before {
+    background: transparent;
+}
+
+
+#setting-camera-dialog-speaker-select-area {
+    display: none;
+}
+
+#setting-camera-dialog-speaker-select-area.active {
+    display: contents;
+}

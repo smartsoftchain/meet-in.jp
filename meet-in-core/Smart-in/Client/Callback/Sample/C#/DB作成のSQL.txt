@@ -1,0 +1,5 @@
+CREATE TABLE [dbo].[tokens](
+	[token] [varchar](60) NOT NULL,
+	[status] [bigint] NOT NULL,
+	[updated] datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+)

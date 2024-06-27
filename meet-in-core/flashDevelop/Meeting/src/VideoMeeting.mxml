@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This sample is a modified version of the Meeting Sample application available here : http://www.adobe.com/devnet/adobe-media-server/articles/real-time-collaboration.html (Original author: Jozsef Vass)
+-->
+
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="640" minHeight="480" applicationComplete="init()" backgroundColor="0x303030">
+	<fx:Script>
+		<![CDATA[
+			import flash.events.Event;
+			
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.core.FlexGlobals;
+			import mx.core.IFlexDisplayObject;
+			import mx.logging.ILogger;
+			import mx.logging.LogEventLevel;
+			import mx.managers.PopUpManager;
+			import flash.external.ExternalInterface;
+			
+			private var connectionManager:ConnectionManager = null;
+			private var sessionManager:SessionManager = null;
+			
+			// this is the name of the Mona Application
+			private var ApplicationDefault:String = "test/Meeting";
+			private var ServiceDefault:String = "59.106.209.249";
+			private var UserDefault:String = "user";
+			private var MeetingDefault:String = "meeting";
+			private var UserId:int = 0;
+			private var TargetUserId:int = 0;
+			private var cameraIndex:int = 0;
+			private var micIndex:int = 0;
+			private var mWidth:int = 640;
+			private var mHeight:int = 480;
+			private var mCameraWidth:int = 640;
+			private var mCameraHeight:int = 480;
+			private var mCameraFramerate:int = 10;
+			private var mCameraBandwidth:int = 0;
+			private var mCameraQuality:int = 80;
+			private var mSpeexQuality:int = 10;
+			private var mNellymoserRate:int = 22;
+			private var mCheckSpriteTimer:Timer = null;
+			private const CheckSpriteTimeout:int = 1000;
+			private var mMicGain:Number = 80;
+			private var mMuteAudio:Boolean = false;
+
+
+//			private var localSO:SharedObject = null;
+//			private static const logger:ILogger = Logger.getLogger("main");
+//			participant list, updated when user added or removed
+			
+			// we need this list so the display can bind to it, but we should be able to bind to SessionManager.participants
+			[Bindable] private var participants:ArrayList = new ArrayList();
+			
+			// available devices
+			[Bindable] private var micNames:ArrayList = new ArrayList();
+			[Bindable] private var cameraNames:ArrayList = new ArrayList();
+			
+			// before Salt
+			private const DefaultMacCamera:String = "USB Video Class Video";
+
+/*			
+			private const NellymoserRates:ArrayList = new ArrayList(["5", "8", "11", "16", "22", "44"]);
+			// charts
+			private const StatisticsLength:int = 30;
+			private var audioRate:Array = new Array();
+			[Bindable] private var audioRateDisplay:ArrayList = new ArrayList();
+			private var videoRate:Array = new Array();
+			[Bindable] private var videoRateDisplay:ArrayList = new ArrayList();
+			private var srtt:Array = new Array();
+			[Bindable] private var srttDisplay:ArrayList = new ArrayList();
+			private var activityTimer:Timer = null;
+			
+			[Bindable] private var loginWindow:LoginWindow = null;
+*/
+
+			// Send Data From JS To FLASH
+			private function init():void {
+				// Initiate parameters
+				ApplicationDefault = FlexGlobals.topLevelApplication.parameters.pathname;
+				ServiceDefault = FlexGlobals.topLevelApplication.parameters.host;
+				MeetingDefault = FlexGlobals.topLevelApplication.parameters.room;
+//				UserDefault = FlexGlobals.topLevelApplication.parameters.username;
+				UserId = FlexGlobals.topLevelApplication.parameters.userId;
+				TargetUserId = FlexGlobals.topLevelApplication.parameters.targetUserId;
+				mWidth = FlexGlobals.topLevelApplication.parameters.width;
+				mHeight = FlexGlobals.topLevelApplication.parameters.height;
+				cameraIndex = FlexGlobals.topLevelApplication.parameters.cameraIndex;
+				mCameraWidth = FlexGlobals.topLevelApplication.parameters.cameraWidth;
+				mCameraHeight = FlexGlobals.topLevelApplication.parameters.cameraHeight;
+				mCameraFramerate = FlexGlobals.topLevelApplication.parameters.cameraFramerate;
+				mCameraBandwidth = FlexGlobals.topLevelApplication.parameters.cameraBandwidth;
+				mCameraQuality = FlexGlobals.topLevelApplication.parameters.cameraQuality;
+				mSpeexQuality = FlexGlobals.topLevelApplication.parameters.speexQuality;
+				mNellymoserRate = FlexGlobals.topLevelApplication.parameters.nellymoserRate;
+				mMicGain = FlexGlobals.topLevelApplication.parameters.micGain;
+
+/*			
+				//debug
+				ApplicationDefault = "test/Meeting";
+				ServiceDefault = "delphinus.sense.co.jp";
+				MeetingDefault = "1";
+				UserId = 0;
+				mWidth = 640;
+				mHeight = 480;
+				mCameraWidth = 640;
+				mCameraHeight = 480;
+				mCameraFramerate = 10;
+				mCameraBandwidth = 0;
+				mCameraQuality = 80;
+				mSpeexQuality = 6;
+				mNellymoserRate = 8;
+*/
+				var now:Date = new Date();
+				var timestamp:String = now.valueOf().toString();
+				UserDefault = UserId + "_" + timestamp;
+				
+				var mics:Array = Microphone.names;
+				var micMuted:Boolean = false;
+				if (mics) {
+					micNames.source = mics;
+					
+					var microphone:Microphone = Microphone.getMicrophone();
+					if (microphone) {
+						micMuted = microphone.muted;
+					}					
+					microphone.gain = mMicGain;
+				}
+				
+				var cameras:Array = Camera.names;
+				var cameraMuted:Boolean = false;
+				if (cameras) {
+					cameraNames.source = cameras;
+					
+					var camera:Camera = Camera.getCamera();
+					if (camera) {
+						localVideoDisplay.attachCamera(camera);
+						camera.addEventListener(StatusEvent.STATUS, cameraStatusHandler);
+						cameraMuted = camera.muted;
+					}
+				}
+				
+				toReady();
+				
+				register(null);
+				
+				
+				mCheckSpriteTimer = new Timer(CheckSpriteTimeout, 0);
+				mCheckSpriteTimer.addEventListener(TimerEvent.TIMER, checkSpriteTimeoutHandler);
+				mCheckSpriteTimer.start();
+				
+//				stage.addEventListener(MouseEvent.RIGHT_CLICK,function(e:MouseEvent):void{});
+
+				ExternalInterface.addCallback("startCamera", startCamera);
+				ExternalInterface.addCallback("startMic", startMic);
+				ExternalInterface.addCallback("stopCamera", stopCamera);
+				ExternalInterface.addCallback("stopMic", stopMic);
+				ExternalInterface.addCallback("muteAudio", muteAudio);
+				ExternalInterface.addCallback("changeSize", changeSize);
+				ExternalInterface.addCallback("changeCamera", changeCamera);
+				ExternalInterface.addCallback("changeMic", changeMic);
+				ExternalInterface.addCallback("endSession", endSession);
+				ExternalInterface.addCallback("reRegister", reRegister);
+				ExternalInterface.addCallback("showNewestVideo", showNewestVideo);
+								
+				ExternalInterface.call("meetinFlashTargetVideo_init_finish", MeetingDefault, UserDefault, UserId, TargetUserId, cameraNames, micNames, cameraMuted, micMuted);
+			}
+			
+			private function checkSpriteTimeoutHandler(event:TimerEvent):void {
+				showNewestVideo();
+			}
+			
+			private function initSettings():void
+			{
+//				var mics:Array = Microphone.names;
+				
+//				var cameras:Array = Camera.names;
+/*				
+				// set Mac default camera
+				var defaultFound:Boolean = false;
+				if (Capabilities.os.search("Mac") != -1)
+				{
+					for (cameraIndex = 0; cameraIndex < cameras.length; cameraIndex++)
+					{
+						if (cameras[cameraIndex] == DefaultMacCamera)
+						{
+							defaultFound = true;
+							break;
+						}
+					}	
+				}
+				
+				if (defaultFound)
+					sessionManager.settings.cameraIndex = cameraIndex;
+				else
+					sessionManager.settings.cameraIndex = 0;
+*/
+				sessionManager.settings.cameraIndex = cameraIndex;
+				sessionManager.settings.action = Settings.SET_CAMERA;
+				sessionManager.updateSettings();
+				sessionManager.settings.action = Settings.SET_CODEC;
+				sessionManager.updateSettings();
+				sessionManager.settings.action = Settings.SET_MICROPHONE;
+				sessionManager.updateSettings();
+			}
+			
+			private function cancelRegister(e:Event):void {
+				
+				if (connectionManager) {
+					connectionManager.unregister();
+					connectionManager = null;
+				}
+				
+				toReady("Registration cancelled.");
+			}
+			
+			private function register(e:Event):void {
+				var now:Date = new Date();
+				var timestamp:String = now.valueOf().toString();
+				UserDefault = UserId + "_" + timestamp;
+				
+				connectionManager = new ConnectionManager();
+				connectionManager.addEventListener(ConnectionManager.ERROR, registerFailed);
+				connectionManager.addEventListener(ConnectionManager.SUCCESS, registerSuccess);
+				connectionManager.addEventListener(ConnectionManager.FAILED, registerFailed);
+				connectionManager.addEventListener(ConnectionManager.CHANGE, registerChange);
+				connectionManager.host = ServiceDefault;
+				connectionManager.application = ApplicationDefault;
+				connectionManager.user = UserDefault;
+				connectionManager.meeting = MeetingDefault;
+				
+//				connectionManager.register(loginWindow.rtmpSelection.selected);
+				connectionManager.register(true);
+				
+//				loginWindow.currentState = "Registering";
+//				loginWindow.registerStatusLabel.text = "Connecting to " + (loginWindow.rtmpSelection.selected ? "rtmp" : "rtmfp") + "://" +  loginWindow.serviceInput.text + "/" + ApplicationDefault;
+//				loginWindow["cancelButton"].addEventListener("click", cancelRegister);
+/*
+				var camera:Camera = Camera.getCamera();
+				if (camera) {
+					localVideoDisplay.visible = true;
+					localVideoDisplay.attachCamera(camera);
+				} else {
+					localVideoDisplay.attachCamera(null);
+					localVideoDisplay.visible = false;
+				}
+*/
+			}
+
+			private function cameraStatusHandler(e:StatusEvent):void {
+				sessionManager.sendMessage(e.code);
+				ExternalInterface.call("meetinFlashTargetVideo_cameraStatusHandler", MeetingDefault, UserDefault, UserId, TargetUserId, e.code);
+			}
+			
+			private function registerFailed(e:Event):void {
+//				status("Registration failed: " + e.type, LogEventLevel.DEBUG);
+				
+				callLater(toReady, ["Registration failed."]);
+			}
+			
+			private function registerSuccess(e:Event):void
+			{
+				// save meeting information to shared object
+//				localSO.data.user = loginWindow.userInput.text;
+//				localSO.data.meeting = loginWindow.meetingInput.text;
+//				localSO.data.service = loginWindow.serviceInput.text;
+//				localSO.flush();
+				
+				// state change
+				callLater(toMeeting);
+
+				sessionManager = new SessionManager(MeetingDefault, UserDefault, UserId, TargetUserId, mWidth, mHeight);
+				sessionManager.addEventListener(SessionManager.TOPOLOGY_CHANGE, sessionChange);
+				sessionManager.addEventListener(ParticipantEvent.ADD, participantAdd);
+				sessionManager.addEventListener(ParticipantEvent.REMOVE, participantRemove);
+				sessionManager.addEventListener(ParticipantEvent.CHANGE, participantChange);
+				sessionManager.addEventListener(ParticipantEvent.NEED_RESET, participantNeedReset);
+				sessionManager.addEventListener(MessageEvent.MESSAGE, messageReceived);
+				sessionManager.connection = connectionManager.connection;
+				sessionManager.sendAudio = true;
+				sessionManager.sendVideo = true;
+				
+				sessionManager.settings.cameraWidth = mCameraWidth;
+				sessionManager.settings.cameraHeight = mCameraHeight;
+				sessionManager.settings.cameraFramerate = mCameraFramerate;
+				sessionManager.settings.cameraBandwidth = mCameraBandwidth;
+				sessionManager.settings.cameraQuality = mCameraQuality;
+				sessionManager.settings.speexQuality = mSpeexQuality;
+				sessionManager.settings.nellymoserRate = mNellymoserRate;
+			}
+			
+			private function registerChange(e:Event):void {
+//				loginWindow.registerStatusLabel.text = "Connecting to " + "rtmp://" +  loginWindow.serviceInput.text + "/" + Application;
+			}
+			
+			private function sessionChange(e:Event):void {
+//				status("Media type: " + sessionManager.getMediaType(), LogEventLevel.INFO);
+				
+//				if (mediaTopologyLabel)
+//					mediaTopologyLabel.text = sessionManager.getMediaType();
+			}
+			
+			private function participantAdd(e:ParticipantEvent):void {	
+//				trace("[DEBUG] participantAdd : e.participant.userName = " + e.participant.userName);
+				
+				participants.addItem(e.participant);
+				
+				showNewestVideo();
+			}
+			
+			private function participantRemove(e:ParticipantEvent):void
+			{
+//				trace("[DEBUG] participantRemove : e.participant.userName = " + e.participant.userName);
+				
+				if (remoteVideoDisplay.contains(e.participant.video)) {
+					remoteVideoDisplay.removeChild(e.participant.video);
+				}
+
+				participants.removeItem(e.participant);
+				
+				showNewestVideo();
+			}
+			
+			private function participantChange(e:ParticipantEvent):void
+			{
+			}
+			
+			private function participantNeedReset(e:ParticipantEvent):void
+			{
+				ExternalInterface.call("meetinFlashTargetVideo_debug", "VideoMeeting participantNeedReset");
+				
+				sessionManager.sendMessage("REQUEST_RESET");
+				endSession();
+				reRegister(MeetingDefault);
+			}
+
+			private function messageReceived(e:MessageEvent):void {
+//				messageOutput.text += e.from + ": " + e.message + "\n";
+				ExternalInterface.call("meetinFlashTargetVideo_debug", e.from + ": " + e.message);
+
+				if ("Camera.Unmuted" == e.message) {
+					for (var i:int = 0; i < participants.length; i++)
+					{
+						var item:Participant = participants.getItemAt(i) as Participant;
+						if (e.from == item.userName) {
+							item.checkStream();
+						}
+					}
+				} else if ("REQUEST_RESET" == e.message) {
+					endSession();
+					reRegister(MeetingDefault);
+				}
+			}
+			
+			private function toReady(msg:String = null):void
+			{		
+/*
+				if (loginWindow) {
+					PopUpManager.removePopUp(loginWindow);
+					loginWindow = null;
+				}
+				
+				loginWindow = LoginWindow(PopUpManager.createPopUp(this, LoginWindow, true));
+				loginWindow.closeButton.visible = false;
+				if (msg && msg.length > 0)
+					loginWindow.registerStatusLabel.text = msg;
+
+				loginWindow["registerButton"].addEventListener("click", register);
+				
+				if (localSO.data.hasOwnProperty("service"))
+					loginWindow.serviceInput.text = localSO.data.service;
+				else
+					loginWindow.serviceInput.text = ServiceDefault;
+
+				if (localSO.data.hasOwnProperty("meeting"))
+					loginWindow.meetingInput.text = localSO.data.meeting;
+				else
+					loginWindow.meetingInput.text = MeetingDefault;
+				
+				if (localSO.data.hasOwnProperty("user"))
+					loginWindow.userInput.text = localSO.data.user;
+				else
+					loginWindow.userInput.text = UserDefault;
+				
+				PopUpManager.centerPopUp(loginWindow);
+*/
+				currentState = "Ready";
+			}
+			
+			private function toMeeting():void {	
+//				PopUpManager.removePopUp(loginWindow);
+				
+				currentState = "Meeting";
+				
+				initSettings();
+			}
+			
+			public function endSession():void
+			{
+				for (var i:int = 0; i < participants.length; i++)
+				{
+					if (participants.getItemAt(i).video && remoteVideoDisplay.contains(participants.getItemAt(i).video))
+						remoteVideoDisplay.removeChild(participants.getItemAt(i).video);	
+				}
+				
+				sessionManager.close();
+				
+				sessionManager = null;
+				
+				connectionManager.unregister();
+				connectionManager = null;
+				
+//				sendAudioCheckbox.selected = false;
+//				sendVideoCheckbox.selected = false;
+
+//				localVideoDisplay.attachCamera(null);
+//				localVideoDisplay.visible = false;
+//				receiveVideoCheckbox.enabled = true;
+//				receiveAudioCheckbox.enabled = true;
+				
+				participants.removeAll();
+				
+//				messageOutput.text = "";
+//				messageInput.text = "";
+				
+//				statusArea.text = "";
+				
+				toReady("Meeting ended.");
+			}
+			
+			public function reRegister(room:String):void 
+			{
+				if (!connectionManager) {
+					MeetingDefault = room;
+					
+					var now:Date = new Date();
+					var timestamp:String = now.valueOf().toString();				
+					UserDefault = UserId + "_" + timestamp;
+					
+					register(null);
+				}
+			}
+
+/*			
+			private function sendAudio():void
+			{
+				if (sessionManager)
+					sessionManager.sendAudio = sendAudioCheckbox.selected;
+			}
+			
+			private function sendVideo():void {
+				if (sessionManager)
+					sessionManager.sendVideo = sendVideoCheckbox.selected;
+				
+				if (sendVideoCheckbox.selected)
+				{
+					var camera:Camera = Camera.getCamera();
+					if (camera) {
+						localVideoDisplay.visible = true;
+						localVideoDisplay.attachCamera(camera);
+					}
+//					else
+//						status("No camera available", LogEventLevel.INFO);
+				}
+				else {
+					localVideoDisplay.visible = false;
+					localVideoDisplay.attachCamera(null);
+				}
+			}
+			
+			private function receiveAudio():void {
+				var p:Participant = participantsList.selectedItem;
+				if (p)
+					p.receiveAudio = receiveAudioCheckbox.selected;
+			}
+			
+			private function receiveVideo():void {
+				var p:Participant = participantsList.selectedItem;
+				if (p)
+					p.receiveVideo = receiveVideoCheckbox.selected;
+			}
+*/			
+			private function userListChange():void
+			{
+				// remove all video
+				for (var i:int = 0; i < participants.length; i++)
+				{
+					if (participants.getItemAt(i).video && remoteVideoDisplay.contains(participants.getItemAt(i).video))
+					{
+						remoteVideoDisplay.removeChild(participants.getItemAt(i).video);	
+					}
+				}
+				
+				var p:Participant = participantsList.selectedItem;
+				if (p)
+				{
+					if (!p.self)
+					{
+						remoteVideoDisplay.addChild(p.video);
+					}
+					
+//					receiveAudioCheckbox.selected = p.receiveAudio;
+//					receiveAudioCheckbox.enabled = !p.self;
+					
+//					receiveVideoCheckbox.selected = p.receiveVideo;
+//					receiveVideoCheckbox.enabled = !p.self;
+				}
+				else
+				{
+//					receiveAudioCheckbox.selected = false;
+//					receiveAudioCheckbox.enabled = true;
+					
+//					receiveVideoCheckbox.selected = false;
+//					receiveVideoCheckbox.enabled = true;
+				}
+			}
+
+//////////////////////////
+			public function startCamera():void {
+				if (sessionManager) {
+					sessionManager.sendVideo = true;
+				}
+			}
+			
+			public function startMic():void {
+				if (sessionManager) {
+					sessionManager.sendAudio = true;
+				}
+			}
+			
+			public function stopCamera():void {
+				if (sessionManager) {
+					sessionManager.sendVideo = false;
+				}
+			}
+			
+			public function stopMic():void {
+				if (sessionManager) {
+					sessionManager.sendAudio = false;
+				}
+			}
+
+			public function muteAudio(muted:Boolean):void 
+			{
+				if (sessionManager) {
+					sessionManager.muteAudio(muted);
+					mMuteAudio = true;
+				}
+			}
+			public function changeSize(width:int, height:int):void {
+				mWidth = width;
+				mHeight = height;
+				if (sessionManager) {
+					sessionManager.changeSize(width, height);
+				}
+			}
+
+			public function changeCamera(
+				newCameraIndex:int, 
+				cameraWidth:int, 
+				cameraHeight:int, 
+				cameraFramerate:int,
+				cameraBandwidth:int,
+				cameraQuality:int
+				):void
+			{
+//				cameraIndex = cameraSelection.selectedIndex;
+				cameraIndex = newCameraIndex;
+
+				mCameraWidth = cameraWidth;
+				mCameraHeight = cameraHeight;
+				mCameraFramerate = cameraFramerate;
+				mCameraBandwidth = cameraBandwidth;
+				mCameraQuality = cameraQuality;
+
+				if (sessionManager) {
+					sessionManager.settings.action = Settings.SET_CAMERA;
+					sessionManager.settings.cameraIndex = cameraIndex;
+					sessionManager.settings.cameraWidth = cameraWidth;
+					sessionManager.settings.cameraHeight = cameraHeight;
+					sessionManager.settings.cameraFramerate = cameraFramerate;
+					sessionManager.settings.cameraBandwidth = cameraBandwidth;
+					sessionManager.settings.cameraQuality = cameraQuality;
+					sessionManager.updateSettings();
+				}
+
+//				ExternalInterface.call("meetinFlashTargetVideo_changeCamera_finish_" + UserId, cameraIsOn);
+			}
+
+			public function changeMic(
+				newMicIndex:int
+				):void
+			{
+				micIndex = newMicIndex;
+
+				if (sessionManager) {
+					sessionManager.settings.microphoneIndex = micIndex;
+					sessionManager.settings.action = Settings.SET_MICROPHONE;
+					sessionManager.updateSettings();
+				}
+			}
+
+			public function showNewestVideo():void 
+			{
+				var targetItem:Participant = null;
+				var timestamp:Number = 0;
+				for (var i:int = 0; i < participants.length; i++)
+				{
+					var item:Participant = participants.getItemAt(i) as Participant;
+					var params:Array = item.userName.split("_", 2);
+					var userId:int = parseInt(params[0], 10);
+					if (UserId != userId) {
+						var timestampTemp:Number = Number(params[1]);
+						if (timestampTemp > timestamp) {
+							targetItem = item;
+							timestamp = timestampTemp;
+						}
+					}
+				}
+				if (targetItem) {
+					if (participantsList.selectedItem != targetItem) {
+						participantsList.selectedItem = targetItem;
+						userListChange();
+					}
+				}
+			}
+			
+			private function debug():void {
+				changeCamera(
+					0, 
+					160, 
+					120, 
+					2,
+					0,
+					80
+				)
+			}
+						
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="Ready"/>
+		<s:State name="Meeting"/>
+	</s:states>
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	<s:VGroup>
+		<s:HGroup>
+			<mx:Canvas>
+				<mx:VideoDisplay id="remoteVideoDisplay" width="640" height="480" />
+				<mx:VideoDisplay id="localVideoDisplay" width="0" height="0" />
+			</mx:Canvas>
+			<s:VGroup visible="false">
+				<s:List id="participantsList" width="100" height="380" dataProvider="{participants}" itemRenderer="ParticipantListRenderer" change="userListChange()"/>
+				<s:Button label="DEBUG" click="debug()" styleName="buttonStyle" />
+			</s:VGroup>
+		</s:HGroup>
+	</s:VGroup>
+</s:Application>

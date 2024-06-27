@@ -1,0 +1,150 @@
+@charset "UTF-8";
+
+/*
+*	Title:「 MEETIN  」LP_事例ページのCSS
+*	File Nmae: base.css
+*	Last Modified: 2019-03-19
+*/
+/*----------------------------------------------------------------
+	LP_事例ページのCSS
+-----------------------------------------------------------------*/
+
+/*  */
+.mi_case_section {
+  padding: 40px 0px;
+  margin: 0 auto;
+  width: 880px;
+}
+
+/*-----------------------------------------------------------
+  事例ヘッダー
+------------------------------------------------------------*/
+
+/*  事例タイトル */
+.mi_case_section_title {
+  display: block;
+  font-size: 35px;
+  line-height: 1.5;
+  margin: 0 auto 25px;
+  text-align: center;
+}
+.mi_case_section_title:after {
+  background: #ffaa00;
+  content: "";
+  display: block;
+  margin: 25px auto 0;
+  height: 3px;
+  width: 330px;
+}
+/*  事例サブタイトル */
+.mi_case_section_subTitle {
+  display: block;
+  font-size: 20px;
+  padding-bottom: 25px;
+}
+/*  事例メインビジュアル */
+.mi_case_mainVisual {
+  margin-bottom: 50px;
+}
+.mi_case_mainVisual_img { width: 100%;}
+
+
+/*-----------------------------------------------------------
+  事例コンテンツ
+------------------------------------------------------------*/
+
+/*  事例インタビューコンテンツ
+------------------------------------------*/
+.mi_caseContents_interview_area {
+  float: left;
+  width: 540px;
+}
+
+/*  事例インタビューコンテンツブロック */
+.mi_interview_block {
+  margin-bottom: 40px;
+}
+/*  事例インタビューコンテンツタイトル */
+.mi_interview_block_title {
+  font-size: 28px;
+  font-weight: normal;
+  line-height: 1.43;
+  margin-bottom: 25px;
+}
+.mi_interview_block_title::before {
+  background: #222222;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  vertical-align: middle;
+  width: 120px;
+}
+/*  事例インタビューコンテンツ回答 */
+.mi_interview_block_answer {
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1.43;
+  margin-bottom: 26px;
+}
+.mi_interview_block_answer::after {
+  background: #ffaa00;
+  content: "";
+  display: block;
+  margin-top: 20px;
+  height: 3px;
+  width: 150px;
+}
+/*  事例インタビューコンテンツテキスト */
+.mi_interview_block_text {
+  font-size: 16px;
+  line-height: 1.75;
+  margin-bottom: 25px;
+}
+/*  事例インタビューコンテンツ画像 */
+.mi_interview_block_img {
+  width: 100%
+}
+
+
+
+/*  事例会社情報コンテンツ
+------------------------------------------*/
+.mi_caseContents_info_area {
+  border: solid 4px #f0f0f0;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  padding: 25px 20px 70px 25px;
+  float: right;
+  width: 300px;
+}
+
+/*  事例会社情報 社名 */
+.mi_caseInfo_title {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+/*  事例会社情報 ディスクリプション */
+.mi_caseInfo_introduction {
+  font-size: 16px;
+  line-height: 1.75;
+  margin-bottom: 35px;
+}
+/*  事例会社情報 リストタイトル */
+.mi_caseInfo_list_title {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.5;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+.mi_caseInfo_list_title:first-child {
+  margin-top: 0;
+}
+/*  事例会社情報 リストテキスト */
+.mi_caseInfo_list_text {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}

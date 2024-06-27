@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>共通/1px/login</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="safari-home-screen-copy-54" transform="translate(-34.000000, -430.000000)" fill="#000000">
+            <g id="Group" transform="translate(0.000000, 410.000000)">
+                <g id="共通/1px/login" transform="translate(34.000000, 20.000000)">
+                    <g id="meet-in/1px/login">
+                        <g id="icon" fill-rule="nonzero">
+                            <g id="Group">
+                                <path d="M19.5,7.807 L15.441,7.807 L15.441,5.436 C15.442,2.439 13.004,0 10.007,0 C7.01,0 4.573,2.439 4.573,5.436 L4.573,7.807 L0.5,7.807 C0.224,7.807 0,8.031 0,8.307 L0,19.5 C0,19.776 0.224,20 0.5,20 L19.5,20 C19.776,20 20,19.776 20,19.5 L20,8.307 C20,8.03 19.776,7.807 19.5,7.807 Z M5.573,5.436 C5.573,2.99 7.563,1 10.007,1 C12.451,1 14.441,2.99 14.441,5.436 L14.441,7.807 L5.573,7.807 L5.573,5.436 Z M19,19 L1,19 L1,8.807 L19,8.807 L19,19 Z" id="Shape"></path>
+                                <path d="M10.02,10.549 C8.833,10.549 7.87,11.512 7.87,12.699 C7.87,13.616 8.447,14.393 9.255,14.702 L9.255,17.295 C9.255,17.68 9.57,17.994 9.954,17.994 L10.086,17.994 C10.471,17.994 10.785,17.679 10.785,17.295 L10.785,14.702 C11.593,14.393 12.17,13.616 12.17,12.699 C12.17,11.512 11.207,10.549 10.02,10.549 Z" id="Shape"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

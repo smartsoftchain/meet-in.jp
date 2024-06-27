@@ -1,0 +1,13 @@
+# composer の require に追加.
+$ vim /var/www/html_meet/composer.json
+        "setasign/tfpdf": "1.31.*",
+        "setasign/fpdi": "2.3.6"
+
+# composer でパッケージをインストール.
+$ composer update
+
+# Fpdi を使うと存在しないFPDF(旧型)を呼ぼうとしてコケることからextendsしているクラスをtFPDF(新型)に書換える.
+$ vim /var/www/html_meet/vendor/setasign/fpdi/src/FpdfTpl.php +18
+- class FpdfTpl extends \FPDF
++ class FpdfTpl extends \tFPDF
+

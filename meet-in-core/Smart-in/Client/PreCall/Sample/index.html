@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Narrow Jumbotron Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="header clearfix">
+        <h3 class="text-muted">プレコール認証デモ</h3>
+    </div>
+
+    <div class="jumbotron" id="step1">
+        <h1>ログイン</h1>
+        <p class="lead">ユーザ名とパスワードを入力し、ログインボタンを押してください。</p>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-8">
+            <form>
+                <table style="width:100%;">
+                    <tr><td>ユーザ名</td><td><input type="text" id="userid" class="form-control form-inline" /></td></tr>
+                    <tr><td>パスワード</td><td><input type="password" id="password" class="form-control form-inline" /></td></tr>
+                </table>
+                <br />
+                <p class="text-center">
+                    <btn id="btn_login" class="btn btn-lg btn-success" role="button">ログイン</btn>
+                </p>
+            </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron" id="step2" style="display:none;">
+        <h1>プレコール認証</h1>
+        <p class="lead">ご入力の <span id="step2_tel"></span> から、<span id="step2_precalltelno"></span> 宛に電話し、「認証」ボタンを押してください。</p>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-8">
+                <form>
+                    <p id="step2_btn" class="text-center">
+                        <btn id="btn_auth" class="btn btn-lg btn-success" role="button">認証</btn>
+                    </p>
+                    <p id="step2_auth" class="text-center" style="display:none;">
+                        <span id="progress_txt">認証中</span>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row marketing">
+        <div class="col-lg-6">
+            <h4>Subheading</h4>
+            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+            <h4>Subheading</h4>
+            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+            <h4>Subheading</h4>
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+
+        <div class="col-lg-6">
+            <h4>Subheading</h4>
+            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+            <h4>Subheading</h4>
+            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+            <h4>Subheading</h4>
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2017 Company, Inc.</p>
+    </footer>
+
+</div> <!-- /container -->
+
+
+</body>
+
+<script type="text/javascript">
+
+    // 発信先電話番号
+    var precall_telno = "050-1111-2222";
+
+    // smart-in本体のURL（相対パス）
+    var auth_url = "./getauthresult.php";
+
+    // ログイン成功時URL
+    var menu_url = "./menu.html";
+
+    $(function(){
+
+        //////////////////////////
+        // ログインボタン押下時
+        $('#btn_login').click(function(){
+            var errmsg = '';
+            // 入力チェック
+            if($('#userid').val() == '' || $('#password').val() == ''){
+                alert('認証情報を入力してください');
+                return;
+            }
+
+            // 文言の差し込み
+            $('#step2_tel').text($('#password').val());
+            $('#step2_precalltelno').text(precall_telno);
+
+            // 表示切り替え
+            $('#step1').hide();
+            $('#step2').show();
+        });
+
+
+        //////////////////////////
+        // 認証ボタン押下時
+        $('#btn_auth').click(function(){
+
+            // 表示切り替え
+            $('#step2_btn').hide();
+            $('#step2_auth').show();
+
+            var telno = $('#password').val().replace(/-/g, '');
+
+            $.ajax({
+                url: "getauthcode.php",
+                data: {
+                    telno: telno,
+                },
+                type: "GET",
+                cache: false,
+                success: function (data) {
+                    authenticate(data);
+                }
+            });
+        });
+    });
+
+    /**
+     * 認証をおこなう
+     */
+    function authenticate(authcode){
+        var auth_cnt = 15;
+
+        var timer = setInterval(function(){
+            $.ajax({
+                url: auth_url,
+                data: {
+                    authcode : authcode
+                },
+                type: "POST",
+                dataType: 'json',
+                xhrFields: { withCredentials: true },
+                cache: false,
+                success: function(json){
+                    if(json.result == "0"){
+                        // 認証OK
+                        location.href= menu_url;
+                        clearInterval(timer);
+                        return;
+                    }
+                    else{
+                        //if(json.result == "9"){
+                        auth_cnt-=1;
+                        if(auth_cnt == 0){
+                            // 認証タイムアウト
+                            $("#progress_txt").html("<p class='big'>認証がタイムアウトしました。<br /><a href='./'>再ログイン</a></p>");
+                            clearInterval(timer);
+                            return;
+                        }
+                        $("#progress_txt").append("・");
+                        //}
+                    }
+                },
+                error: function () {
+                    alert('接続に失敗しました。');
+                    clearInterval(timer);
+                    return;
+                }
+            });
+        },2000);
+    }
+
+
+</script>
+
+</html>

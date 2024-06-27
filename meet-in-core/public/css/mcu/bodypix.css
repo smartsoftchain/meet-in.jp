@@ -1,0 +1,212 @@
+@charset "UTF-8";
+/*
+*	Title:「 bodypix 」用のCSS
+*	File Nmae: bodypix.css
+*	Last Modified: 2020-6-14
+*/
+
+/* ダイアログのタイトル */
+#dialog_title {
+	color: #fa0;
+	font-size: 20px;
+	margin-top: 19px;
+	margin-left: 44px;
+	margin-bottom: 10px;
+	float: left;
+}
+/* ダイアログタイトルの並びにある背景画像追加ボタン */
+.btn_add_background_image{
+	float: right;
+	background-color: #fa0;
+	color: #fff;
+	margin-top: 18px;
+	margin-right: 24px;
+	padding: 10px 22px 10px 12px;
+	cursor: pointer;
+}
+/* ダイアログタイトルの並びにある背景画像削除ボタン */
+.btn_del_background_image{
+	float: right;
+	background-color: #fa0;
+	color: #fff;
+	margin-top: 18px;
+	margin-right: 24px;
+	padding: 10px 22px 10px 12px;
+	cursor: pointer;
+	display: none;
+}
+/* ダイアログの説明テキスト */
+#dialog_desc {
+	color: #33333A;
+	font-size: 14px;
+	line-height: 22px;
+	margin-left: 44px;
+	margin-bottom: 15px;
+}
+
+/* 詳細設定の見出し */
+#setting-bodypix-detail-title {
+	color: #949494;
+	margin-top: 9px;
+	margin-left: 44px;
+	margin-bottom: 10px;
+	display: none;/* 詳細設定機能はマスクする*/
+}
+
+/* 詳細設定の見出しのプルダウンボタン */
+#setting-bodypix-detail-title .icon-menu-down {
+	margin-left: 10px;
+}
+
+/* 詳細設定 */
+#setting-bodypix-detail {
+	margin-left: 26px;
+	margin-right: 26px;
+}
+
+/* 画像リスト */
+#gallery-contents {
+	margin-left: 29px;
+}
+
+/* ダイアログのコンテンツ */
+#setting-bodypix-dialog {
+	padding-left: 0px;
+	padding-right: 0px;	
+}
+/* 背景画像登録モーダル */
+/* モーダルコンテンツ */
+.modal-content {
+	display: none;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0%;
+	left: 0%;
+	z-index: 501;
+}
+.modal-content .bodypix-inner-wrap {
+	z-index: 503;
+	height: 76%;
+	width: 50%;
+	background: #fff;
+	overflow-y: auto;
+}
+/* 背景画像選択のフッター領域 */
+.setting-bodypix-footer{
+	text-align: center;
+	padding-top: 20px;
+	border-top: solid 1px #e8e8e8;
+}
+/* 背景画像選択モーダルの横幅 */
+.modal_content_setting_bodypix_area{
+	width: 600px !important;
+}
+/* 背景画像選択モーダルコンテンツエリア */
+.setting_bodypix_contents_area{
+	height: calc(100% - 220px) !important;
+	border-top: solid 1px #e8e8e8;
+}
+
+/* 背景画像登録モーダル */
+/* モーダルコンテンツ */
+.modal-content-add-bodypix {
+	display: none;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0%;
+	left: 0%;
+	z-index: 501;
+}
+.modal-content-add-bodypix .inner-wrap-add-bodypix{
+	z-index: 503;
+	height: 80%;
+	width: 50%;
+	background: #fff;
+	overflow-y: auto;
+}
+/* 背景画像登録モーダルヘッダー領域 */
+.add_bodypix_header{
+	border-bottom: solid 1px #e8e8e8;
+}
+/* ヘッダータイトル */
+.abh_title{
+	color: #fa0;
+	font-size: 20px;
+	margin-top: 20px;
+	margin-left: 44px;
+	margin-bottom: 20px;
+	font-weight: bold;
+}
+/* 背景画像登録モーダルコンテンツ領域 */
+.add_bodypix_contents{
+	margin: 40px;
+}
+/* 背景画像アップロード領域 */
+.upload_bodypix_image_area{
+	padding: 40px;
+	border: 2px dashed #E9E8E7;
+	border-radius: 6px;
+}
+/* 背景画像アップロード領域へファイルをドラッグした際のデザイン */
+.hover_upload_bodypix_image{
+	border: 2px dashed #fa0;
+}
+/* file input 領域 */
+.file_bodypix_image_area{
+	padding: 5px 15px;
+	background: #D8D8D8 0% 0% no-repeat padding-box;
+	opacity: 1;
+	color: #fff;
+	cursor: pointer;
+	float: left;
+}
+/* アップロードファイル名 */
+.upload_file_bodypix_name{
+	float: left;
+	margin-top: 5px;
+	margin-left: 20px;
+}
+/* file input 内メッセージ */
+.document_drop_message{
+	margin-bottom: 30px;
+}
+/* 背景画像登録モーダルフッター領域 */
+.add_bodypix_footer{
+	border-top: solid 1px #e8e8e8;
+	text-align: center;
+	padding-bottom: 20px;
+}
+/* 背景画像登録ボタン */
+.btm_add_bodypix_image{
+	margin-top: 20px;
+}
+/* ファイルアップロード時のエラーメッセージ領域 */
+.upload_file_bodypix_message{
+	margin-top: 30px;
+}
+.display_none{
+	display: none;
+}
+/* 画像切り出しモーダル */
+.modal_content_add_bodypix_area{
+	min-width: 780px;
+}
+/* 画像切り抜き領域 */
+.bodypix_cutting_area{
+	margin-top: 20px;
+	display: none;
+}
+/* 画像のサイズ変更バー */
+.scal_bodypix_image{
+	width: 700px;
+}
+/* 画像切り出しボタン */
+.btn_crop{
+	margin-top: 20px;
+}
+/* 切り出された画像canvas */
+.canvas_after_bodypix_image{
+	margin-top: 20px;
+}
