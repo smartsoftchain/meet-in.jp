@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="25.041" height="19.887" viewBox="0 0 25.041 19.887">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #0081cc;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: #e21e1e;
+      }
+    </style>
+  </defs>
+  <g id="orange_camera_error" transform="translate(0.5)">
+    <g id="グループ_1327" data-name="グループ 1327" transform="translate(-0.5 5.568)">
+      <path id="パス_866" data-name="パス 866" class="cls-1" d="M9.82.5H.5V13.63H2.65"/>
+      <path id="パス_867" data-name="パス 867" class="cls-1" d="M7.33,13.63h6.23V9.83l5.94,3.8V.5L13.56,4.7V3.33"/>
+      <line id="線_7" data-name="線 7" class="cls-1" x1="8.17" y2="13.13" transform="translate(4.65 0.5)"/>
+    </g>
+    <g id="グループ_1329" data-name="グループ 1329" transform="translate(-223 -7.004)">
+      <path id="パス_868" data-name="パス 868" class="cls-2" d="M625.15,377.7l-2.892-5.857a.683.683,0,0,0-1.267,0L618.1,377.7a.984.984,0,0,0,0,.855.721.721,0,0,0,.633.428h5.785a.721.721,0,0,0,.634-.428A.984.984,0,0,0,625.15,377.7Z" transform="translate(-379.031 -363.401)"/>
+      <g id="グループ_1328" data-name="グループ 1328" transform="translate(237.46 7)">
+        <path id="パス_869" data-name="パス 869" class="cls-3" d="M627.943,378.9l-4.022-6.967a1.017,1.017,0,0,0-1.762,0l-4.022,6.967a1.017,1.017,0,0,0,.881,1.526h8.045a1.017,1.017,0,0,0,.881-1.526Zm-4.9.38a.63.63,0,1,1,.63-.63.63.63,0,0,1-.63.63Zm.388-2.016a.388.388,0,0,1-.776,0l-.242-2.849a.63.63,0,0,1,1.26,0Z" transform="translate(-618 -371.42)"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,140 @@
+WebSocketサーバーのインストール手順のメモ
+
+1. EPELリポジトリを追加
+# sudo rpm -ivh http://ftp.iij.ad.jp/pub/linux/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm
+
+2. nodejsとnpmをインストール
+# sudo yum -y install nodejs npm --enablerepo=epel
+
+3. Node.jsで動作するMVCフレームワークをインストール
+# npm install -g express
+
+4. Socketモジュールをインストール
+# npm install socket.io
+
+5. WebSocketモジュールをインストール
+# npm install websocket --force
+
+6. デーモン化するツールをインストール
+# npm install forever --global
+
+
+===== NEW 
+npm uninstall forever --global
+npm uninstall websocket
+npm uninstall socket.io
+npm uninstall -g express
+npm uninstall rimraf
+npm uninstall mysql
+npm uninstall log4js
+
+node.js 入替
+ yum erase nodejs
+ yum erase npm
+
+ rm -rf node_modules
+ rm -rf .npm
+
+ rm -rf /usr/lib/node_modules
+
+
+yum -y install nodejs npm --enablerepo=epel
+
+■ERRORの場合
+npm config set strict-ssl false
+
+■N
+nのインストール
+# npm install -g n
+
+npm config set strict-ssl true
+
+
+Node.jsのバージョンの確認
+・Stableの確認
+# n --stable
+
+・Latestの確認
+# n --latest
+
+Latestのインストール
+# n latest
+
+■モジュール
+# npm install express
+# npm install websocket
+# npm install forever --global
+
+# npm install rimraf
+# npm install mysql
+# npm install log4js
+
+■Apache(OFF)
+
+ chkconfig  httpd off
+
+ chkconfig --list httpd
+
+
+7. iptablesを編集し、3000ポートをあける
+# vi /etc/sysconfig/iptables
+
+次のように3000ポートをあける
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 3000 -j ACCEPT
+
+iptablesを再起動する
+# /etc/init.d/iptables restart
+
+8. websocket-server.jsのSSL証明書と秘密鍵を設定
+SSL証明書と秘密鍵の設定を現在のサーバーに合わせて変更
+
+変更場所：
+var mOpts = {
+  // SSL証明書と秘密鍵を準備する（開発環境）（delphinus.sense.co.jp）
+  key: mFs.readFileSync('/etc/httpd/conf.d/cert/201611_wild_sense.co.jp.key').toString(),
+  cert: mFs.readFileSync('/etc/httpd/conf.d/cert/201611_wild_sense.co.jp.crt').toString()
+  // SSL証明書と秘密鍵を準備する（ステージング）（stage.meet-in.jp）
+//  key: mFs.readFileSync('/etc/httpd/conf.d/cert/2016_stage.meet-in.jp.key').toString(),
+//  cert: mFs.readFileSync('/etc/httpd/conf.d/cert/2016_stage.meet-in.jp.crt').toString()
+  // SSL証明書と秘密鍵を準備する（本番）（meet-in.jp）
+//  key: mFs.readFileSync('/etc/httpd/conf.d/cert/2016_meet-in.jp.key').toString(),
+//  cert: mFs.readFileSync('/etc/httpd/conf.d/cert/2016_meet-in.jp.crt').toString()
+};
+
+開発環境：
+key: mFs.readFileSync('/etc/httpd/conf.d/cert/201611_wild_sense.co.jp.key').toString(),
+cert: mFs.readFileSync('/etc/httpd/conf.d/cert/201611_wild_sense.co.jp.crt').toString()
+
+ステージング：
+key: mFs.readFileSync('/etc/httpd/conf.d/cert/2016_stage.meet-in.jp.key').toString(),
+cert: mFs.readFileSync('/etc/httpd/conf.d/cert/2016_stage.meet-in.jp.crt').toString()
+
+本番：
+key: mFs.readFileSync('/etc/httpd/conf.d/cert/2016_meet-in.jp.key').toString(),
+cert: mFs.readFileSync('/etc/httpd/conf.d/cert/2016_meet-in.jp.crt').toString()
+
+
+9. WebSocketサーバーを起動
+# export NODE_PATH=/usr/lib/node_modules
+# NPM_PATH=/usr/bin/npm
+# export PATH=/usr/bin:~/bin:$NPM_PATH:$NODE_PATH:$PATH
+# cd /var/www/html/websocket-server/
+# node websocket-server.js
+
+デーモンで起動する場合
+# forever stop /var/www/html/websocket-server/websocket-server.js
+# forever start /var/www/html/websocket-server/websocket-server.js
+
+※参考記事
+http://qiita.com/moonphase/items/a9183ffcec2b185c4c6e
+
+
+■直接npmをUPDATE
+npmのアップデート
+# npm update -g npm
+
+Globalパッケージをアップデート
+# npm update -g
+
+古いGlobalパッケージの確認方法
+# npm outdated -g

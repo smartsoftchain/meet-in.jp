@@ -1,0 +1,162 @@
+[production]
+systemUser.id = "admin"
+systemUser.password = "aD9r54x0tPQ2w"
+phpSettings.display_startup_errors = 0
+phpSettings.display_errors = 0
+includePaths.library = APPLICATION_PATH "/../library"
+bootstrap.path = APPLICATION_PATH "/Bootstrap.php"
+bootstrap.class = "Bootstrap"
+appnamespace = "Application"
+resources.frontController.controllerDirectory = APPLICATION_PATH "/controllers"
+resources.frontController.params.displayExceptions = 0
+
+datasource.adapter = Pdo_MySQL
+datasource.params.host = localhost
+datasource.params.username = root
+datasource.params.password = 90kon6Fmysql
+datasource.params.dbname = meetin_db
+datasource.isDefaultTableAdapter = true
+datasource.key = "VW2KlB5Dpy5Qt2FzVxsrl0O974otf7"
+datasource.params.profiler  = true
+datasource.params.driver_options.1001 = 1
+
+log.controller.output       = "on"
+log.controller.filename     = "/mnt/datastore/tmp/weblog/web.log"
+log.controller.priority     = 4
+log.controller.mode         = "a"
+log.controller.fileMaxSize  = 1048576   ; 1Mbyte
+log.controller.fileMaxCount = 10
+
+log2.controller.output       = "on"
+log2.controller.filename     = "/mnt/datastore/tmp/weblog/web_client.log"
+log2.controller.priority     = 7
+log2.controller.mode         = "a"
+log2.controller.fileMaxSize  = 5242880   ; 5Mbyte
+log2.controller.fileMaxCount = 10
+
+log.client.output       = "on"
+log.client.filename     = "/var/log/client/web.log"
+log.client.priority     = 7
+log.client.mode         = "a"
+log.client.fileMaxSize  = 1048576   ; 1Mbyte
+log.client.fileMaxCount = 3
+;log.client.formatterName  = "Simple"
+;log.client.format = "%priorityName% (%priority%): %message% %info% on %module%/%controller%/%action%" PHP_EOL
+log.client.formatterParams.format = "%priorityName% (%priority%): %message% %info% on %module%/%controller%/%action%" PHP_EOL
+
+
+file.uploadtmpdir = '/var/www/tmp/'
+file.uploadscriptdir = '/var/www/script/'
+file.consumerloaddir = '/var/www/tmp/'
+file.masterdb.path = '/var/www/tmp/masterdb'
+file.masterdb.name = 'masterdb.sql'
+file.clientdb.path = '/var/www/tmp/clientdb'
+file.clientdb.name = 'clientdb.sql'
+file.uploadcsv.path = '/var/www/tmp/uploadcsv'
+file.forbidden_approach.path = '/var/www/tmp/forbidden_approach'
+file.forbidden_approach.name = 'forbidden_approach.sql'
+file.migration.path = '/var/www/tmp/migration'
+file.migration.name = 'consumer_migration.sql'
+file.gojson.path = '/var/www/tmp/gojson'
+file.gocmd.path = '/var/www/html/library/GoModule/validator/cmd/'
+file.negotiation_document.path = '/var/www/html/public/negotiation_document/'
+file.original_document.path = '/var/www/html/public/cmn-data/'
+mail.admin_mail = "tmo_support@aidma-hd.jp"
+mail.support_mail = "tmo_appoint@aidma-hd.jp"
+mail.keiyaku_mail = "keiyaku@meet-in.jp"
+
+monitoring.port = 8443
+
+chat.port = 3001
+chat.log.controller.output       = "on"
+chat.log.controller.filename     = "/var/www/logs/chat.log"
+chat.log.controller.priority     = 4
+chat.log.controller.mode         = "a"
+chat.log.controller.fileMaxSize  = 1048576   ; 1Mbyte
+chat.log.controller.fileMaxCount = 3
+
+client.staff.daysActiveDeemedAfterLogin = 7
+client.contract.daysToBeAlertedContractExpiration = 7
+
+trial.clientId = ""
+
+mentenance.allow_ip = ""
+mentenance.message = "只今メンテナンス中です。<br>ご迷惑をおかけし誠に申し訳ありませんが、今しばらくお待ちください。<br>作業予定時間　22:00 ～23:00"
+
+asterisk.info="218.251.249.102:9051/008.srv01-webrtc-asterisk.net"
+
+meet.room.connectMaxCount = 6
+
+; ログインユーザのチェックを行わないローム
+; 指定されたKEY分反映されます。
+; 注意:KEY名はかならず配列([])で記載する事(meet.freeroom[])　※値名(ローム名)に関しては連番である必要はないです。
+meet.freeroom[] = 'sense1i'
+meet.freeroom[] = 'ohta'
+meet.freeroom[] = 'test'
+meet.freeroom[] = 'sense4'
+
+free_room.notification_mail = "ohta.morio@sense.co.jp"
+
+eContractApi.apiKey    = 'hBoDqoNIuW0N3RlnaBzkA4jtZMH1hHSW'
+eContractApi.apiSecret = 'cgpRNT8ktDXy0nZkA02v4ezpGidyFa30cVEUPuiaQ8HGT6aVeKU9h8NSQJW5Fy8D'
+eContractApi.exception.AuthCE1onCE2 = ''
+
+; Google Cloud Storage
+; ルーム内で画面録画した動画ファイルの拡張子を webm → mp4 に変換するためにファイルをアップロードする際に使用。
+
+; Google Developer'sConsole から取得したサービスアカウント認証情報を格納したjsonファイルのパス。
+; 各モデルなどで APP_DIR."{$this->config->googleCloudStorage->credentials->path}" と定義してアクセスする。
+googleCloudStorage.credentials.path = 'configs/gcs-credentials.json'
+; 変換サーバがアップロードを検知するバケットの名前
+googleCloudStorage.bucket_name      = 'conv-test'
+; チャンク化したメディアを結合する前に保持しておく一時的なバケットの名前
+googleCloudStorage.tmp_bucket_name  = 'temporary-chunked-media'
+
+systemUser.id = "admin"
+systemUser.password = "aD9r54x0tPQ2w"
+
+media.meetin.url = 'https://stage.media.meet-in.jp/wp/wp-admin/admin-ajax.php?action=load_contents' 
+
+[staging : production]
+
+[testing : production]
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors = 1
+
+[development : production]
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors = 1
+
+log.controller.priority     = 7
+
+mail.admin_mail = ""
+mail.support_mail = "soi.yoshinari@sense.co.jp"
+mail.keiyaku_mail = "keiyaku@meet-in.jp"
+
+file.negotiation_document.path = '/var/www/html/public/negotiation_document/'
+file.original_document.path = '/var/www/html/public/cmn-data/'
+
+screen_capture.path = '/var/www/html/public/screen_capture/'
+screen_capture.filename = 'screen.jpg'
+
+
+;sentiment_db.endPoint = 'https://tk2-208-13997.vs.sakura.ne.jp/dynamo/api/meet'
+;skyway.recorder.gcs.filePath = https://storage.googleapis.com/skyway-recorder-service/f6523ba3-a0e9-44e9-9a6e-e724b0a76782/%s/audio.ogg
+;
+sentiment_db.endPoint = 'https://sentimentdb.aidma-hd.jp/api/meet'
+skyway.recorder.gcs.filePath = 'https://storage.googleapis.com/meetin-skyway-recorder-prod/mp3'
+
+media.meetin.url = 'https://stage.media.meet-in.jp/wp/wp-admin/admin-ajax.php?action=load_contents'
+
+;Twilio SMS API
+smsSendApi.apiKey = 'ACdd9c14cb3361cf335f4907bda9e2d2a0'
+smsSendApi.apiSecret = 'ac637a76d1f26dac435931ac5d254bd9'
+smsSendApi.twilio_number = '+18596953600'
+
+
+; ビジネスｄアカウント.
+docomo.businessDAccount.clientId = 'd10_0019_0012_00'
+docomo.businessDAccount.clientSecret = 'nBD9D7ab2VtjgDsxc5wqLJGDedyCVbxL'
+docomo.businessDAccount.redirectUriLogin = 'https://stagedx.aidma-hd.jp/index/d-account-login'
+docomo.businessDAccount.redirectUriStaffInvitation = 'https://stagedx.aidma-hd.jp/index/invitation-staff'
+

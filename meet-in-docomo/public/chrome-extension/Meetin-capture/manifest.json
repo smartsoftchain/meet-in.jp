@@ -1,0 +1,51 @@
+{
+  "name": "Meetin画面キャプチャ",
+  "short_name": "Meetin画面キャプチャ",
+  "version": "1.4",
+  "manifest_version": 2,
+  "description": "Meetin画面キャプチャ",
+  "browser_action": {
+    "default_icon": "icon48.png"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "permissions": [
+    "desktopCapture",
+    "tabs",
+    "storage",
+    "https:///negotiation/negotiation",
+    "https://delphinus2.sense.co.jp/negotiation/negotiation",
+    "https://delphinus3.sense.co.jp/negotiation/negotiation",
+    "https://delphinus4.sense.co.jp/negotiation/negotiation",
+    "https://delphinus5.sense.co.jp/negotiation/negotiation",
+    "https://*.meet-in.jp/negotiation/negotiation",
+    "https://meet-in.jp/negotiation/negotiation"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://delphinus.sense.co.jp/*",
+        "https://delphinus2.sense.co.jp/*",
+        "https://delphinus3.sense.co.jp/*",
+        "https://delphinus4.sense.co.jp/*",
+        "https://delphinus5.sense.co.jp/*",
+        "https://*.meet-in.jp/*",
+        "https://meet-in.jp/*"
+      ],
+      "js": ["content.js"],
+      "all_frames": true,
+      "run_at": "document_end"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="15" viewBox="0 0 20 15">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #0081cc;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <g id="orange_camera_on" transform="translate(0.5 0.5)">
+    <g id="レイヤー_1" data-name="レイヤー 1" transform="translate(-0.5 -0.5)">
+      <g id="グループ_6" data-name="グループ 6">
+        <g id="グループ_4" data-name="グループ 4">
+          <path id="合体_1" data-name="合体 1" class="cls-1" d="M13.56,10.44V14.5H.5V.5H13.56V5L19.5.5v14Z"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/arrow_down</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="parts/header" transform="translate(-970.000000, -18.000000)" fill="#636363">
+            <g id="icon/arrow_down">
+                <g transform="translate(970.000000, 18.000000)">
+                    <path d="M0.116923108,0.166284258 L0.116923108,0.166284258 C-0.0389743695,0.350322708 -0.0389743695,0.648267307 0.116923108,0.83183507 L3.42234938,4.72394233 C3.73454407,5.09201922 4.241011,5.09201922 4.5532057,4.72394233 L7.88301593,0.803593876 C8.03731446,0.621438173 8.03931315,0.327259066 7.8870133,0.14274993 C7.73151556,-0.0455246987 7.47528407,-0.0478781315 7.3173879,0.137572377 L4.27059155,3.72561611 C4.11429434,3.90965456 3.86126074,3.90965456 3.70496352,3.72561611 L0.6821514,0.166284258 C0.526253922,-0.017754191 0.273220323,-0.017754191 0.116923108,0.166284258" id="arrow_down-[#338]"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

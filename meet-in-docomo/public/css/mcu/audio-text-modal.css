@@ -1,0 +1,384 @@
+.audio-text-area {
+    width: 284px;
+    height: 510px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 30px;
+    left: 70px;
+    visibility: hidden;
+    box-shadow: 0px 3px 6px #00000029;
+    z-index: 120000000;
+    cursor: default !important;
+    min-height: 192px;
+    box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;
+}
+
+.audio-text-content {
+    width: 100%;
+    height: calc(100% - 30px);
+}
+
+.audio_text_img {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.audio-text-header-text {
+    margin-left: 5px;
+}
+
+.audio-text-header {
+    height: 32px;
+    width: 100%;
+    border-bottom: 1px solid #DCDCDC;
+    opacity: 1;
+    font: W3 11px/18px Hiragino Sans;
+    font-size: 11px;
+    color: #585858;
+    text-align: left;
+    line-height: 32px;
+    cursor: move;
+}
+
+.audio-text-header-close-button {
+    float: right;
+    cursor: pointer !important;
+    margin-top: 1px;
+}
+
+.audio-text-header-close-button {
+    margin-right: 10px;
+}
+
+.audio-text-button-area {
+    display: flex;
+    justify-content: space-between;
+
+
+    margin-top: 11px;
+    margin-bottom: 11px;
+}
+
+#audio-text-time-countdown-coron {
+    margin: 0 -2px;
+    font-weight: 800;
+}
+
+.audio-text-button-area>div:first-of-type{
+    display: flex;
+}
+
+.audio-text-time {
+    font-size: 11px;
+    margin-right: 15px;
+}
+
+
+.monitoring_mode #audio-text-setting-area {
+    display: none;
+}
+
+
+.time_up .audio-text-start-button {
+    visibility: hidden;
+}
+
+.time_up .audio-text-stop-button {
+    visibility: hidden;
+}
+
+.audio-text-start-button {
+    width: 72px;
+    height: 24px;
+    background: #5DB197;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-left: 11px;
+
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.audio-text-start-button.inactive {
+   background: #B4B4B4;
+   pointer-events: none;
+}
+
+.audio-text-stop-button {
+    width: 72px;
+    height: 24px;
+    background: #FF7777;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-left: 2%;
+
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.audio-text-stop-button.inactive {
+    background: #B4B4B4;
+    pointer-events: none;
+}
+
+.audio-text-boxarea {
+    width: 91%;
+    height: calc(100% - 150px);
+    bottom: 30px;
+    margin: 11px auto;
+}
+
+#audio-text-boxarea:empty::before {
+    content: "\0020音声から文字起こしを行います。\A「マイク」を確認し「開始」を押してください。\A \0020開始後「停止」を押すと文字を編集できます。";
+    font-size: 11px;
+    display: block;
+    white-space: pre;
+    border-radius: 4px;
+    border: 1px solid #DCDCDC;
+    height: 100%;
+}
+
+.audio-text-boxarea textarea {
+    display: none;
+}
+
+.audio-text-boxarea .current {
+    display: block;
+}
+
+.audio-text-boxarea-page {
+    height: 100%;
+    width: 100%;
+    border: 1px solid #DCDCDC;
+    border-radius: 4px;
+    overflow: scroll;
+
+    outline: none;
+    padding: 7px 10px 7px 10px;
+    resize: none;
+    pointer-events : auto;
+    box-sizing: border-box;
+}
+
+.audio-text-boxarea-page.readonly {
+    pointer-events : none;
+}
+
+/*
+.audio-text-download-area {
+    width: 100px;
+    height: 10px;
+    font-size: 10px;
+    color: #A2A2A2;
+    margin-top: 10px;
+}
+*/
+
+.audio-text-download-button {
+    cursor: pointer !important;
+    position: absolute;
+    right: 33px;
+    padding-top: 1px;
+}
+
+.audio-text-download-button-label {
+    font-size: 10px;
+    color: #585858;
+}
+
+.audio-text-download-button-label::before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-image: url("/img/doc-save.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.audio-text-download-button-label:hover::before {
+    background-image: url("/img/doc-save-hover.png");
+}
+
+
+#audio-text-setting-area {
+    margin-left: 13px;
+    margin-bottom: 10px;
+}
+#audio-text-setting-area label {
+    font-size: 12px;
+    color: #333;
+}
+
+/*
+.audio-text-footer {
+    height: 34px;
+    width: 286px;
+}
+*/
+
+#audio-text-pagenation-area {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 30px;
+    border-top: 1px solid #DCDCDC;
+    border-bottom: 1px solid #DCDCDC;
+    padding-top: 8px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.audio-text-pagenation {
+  width: 240px;
+  margin: 0 auto;
+}
+
+#audio-text-pagenation:empty::before {
+    content: "1";
+    color: #0081CC;
+    margin-left: 15px;
+}
+
+#icon-menu-left {
+    position: absolute;
+    font-size: 25px;
+    left: 6px;
+    color: #B4B4B4;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#icon-menu-right {
+    position: absolute;
+    top: 89px;
+    right: -32px;
+    font-size: 25px;
+    margin-right: 30px;
+    color: #B4B4B4;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/*
+.audio-text-pagenation-number {
+    margin-left: 5px;
+    color: #B4B4B4;
+}
+
+.audio-text-pagenation-number:hover {
+    color: #B4B4B4;
+}
+*/
+
+.audio-text-page-number {
+    display: none;
+    margin-left: 15px;
+    color: #B4B4B4;
+}
+
+.audio-text-page-number.view{
+    display: inline-block;
+}
+
+.audio-text-page-number.current{
+    color: #0081CC;
+}
+
+.audio-text-page-number:hover {
+    color: #B4B4B4;
+}
+
+/*
+.number-icon {
+    background: #E1E1E1;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.page-wrap {
+    padding-right: 1px;
+}
+
+#text-download-icon {
+    margin-right: 5px;
+}
+*/
+
+/*
+.audio-text-footer-area {
+    height: 45px;
+    width: 100%;
+    border-top: solid 1px #DBDBDB;
+    margin-top: 10px;
+}
+*/
+
+.audio-text-download-span {
+    position: absolute;
+    right: 30px;
+
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    padding: 7px;
+    text-align: center;
+    vertical-align: bottom;
+}
+
+.audio-text-download-span a {
+    color: #A2A2A2;
+    font-size: 11px;
+}
+.audio-text-download-span a:hover {
+    color: #0081CC;
+}
+
+/*
+.audio-text-download-img {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 1px;
+}
+*/
+
+.guest_mode .audio-text-button-area {
+   display: none;
+}
+
+.guest_mode .audio-text-header {
+   border-bottom: 0;
+}
+
+.guest_mode #audio-text-setting-area {
+    display: none;
+}
+
+.guest_mode #audio-text-start {
+    visibility: hidden;
+}
+.guest_mode #audio-text-start{
+    visibility: hidden;
+}
+.guest_mode #audio-text-stop{
+    visibility: hidden;
+}
+.guest_mode #audio-text-time{
+    visibility: hidden;
+}
+.guest_mode .audio-text-download-span{
+    right : 0px;
+}
+.guest_mode #audio-text-header-close{
+    visibility: hidden;
+}
+.guest_mode #icon-menu-left{
+    visibility: hidden;
+}
+.guest_mode #icon-menu-right{
+    visibility: hidden;
+}
+.guest_mode .audio-text-page-number {
+   pointer-events: none;
+}

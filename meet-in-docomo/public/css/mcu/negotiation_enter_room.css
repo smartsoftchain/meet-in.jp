@@ -1,0 +1,131 @@
+/*-------------------------------------
+	（モーダル）基本型
+--------------------------------------*/
+
+.enter_room_dialog {
+  display: none;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0%;
+  left: 0%;
+	z-index: 51;
+	border: none;
+	box-shadow: -10px 10px 11px 1px rgba(128, 128, 128, 0.51);
+}
+
+.enter_room_dialog_mi_modal_default {
+	height: 400px;
+	width: 300px;
+	min-width: 300px;
+	min-height: 400px;
+	line-height: 1.2;
+	background: #fff;
+	padding: 20px 30px;
+	margin: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	position: absolute;
+	top:
+}
+
+.enter_room_dialog_mi_modal_default .mi_content_title {
+  height: auto;
+}
+.enter_room_dialog_mi_modal_default .mi_content_title h2 {
+  font-size: 20px;
+  line-height: 50px;
+  font-weight: bold;
+}
+.enter_room_dialog_mi_modal_default .modal_search {
+  width: auto;
+  margin: 0;
+}
+.enter_room_dialog_mi_modal_default .modal_search input {
+  width: 385px;
+}
+.enter_room_dialog_mi_modal_default .modal_search .search_close_button {
+  left: auto;
+  right: 59px;
+}
+.enter_room_dialog_mi_modal_default .mi_table_main_wrap {
+  height: calc(100% - 180px);
+  min-height: 150px;
+}
+
+.enter_room_dialog_mi_modal_default .mi_close_icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45px;
+  height: 25px;
+  padding: 10px 0;
+  cursor: pointer;
+  text-align: center;
+  background: #f5f5f5;
+}
+.enter_room_dialog_mi_modal_default .mi_close_icon:hover { background: #e1e1e1; }
+.enter_room_dialog_mi_modal_default .mi_close_icon:active { background: #e1e1e1; }
+
+.enter_room_dialog_mi_modal_default .mi_close_icon span {
+  font-size: 25px;
+  color: #6e6e6e;
+}
+.enter_room_dialog_mi_modal_default .mi_close_icon:hover span { color: #fff; }
+.enter_room_dialog_mi_modal_default .mi_close_icon:active span { color: #fff; }
+
+/*-----------------------
+	モーダル領域
+------------------------*/
+.enter_room_dialog_btn_refuse:active,
+.enter_room_dialog_btn_refuse:hover {
+	color: #6e6e6e;
+}
+
+
+/*-----------------------
+	オペレーター着信モーダル領域
+------------------------*/
+
+.enter_room_dialog_title {
+	color:#0081CC;
+}
+
+/*-----------------------------------------------------------
+	オペレータ呼出モーダル
+------------------------------------------------------------*/
+.model_call_operator{
+	text-align: center;
+}
+
+.model_call_operator .sub_title{
+	margin-top: 20px;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.model_call_operator .sub_message{
+	margin-top: 20px;
+	font-size: 14px;
+}
+
+.model_call_operator .call_operator_icon {
+	position: relative;
+	display: inline-block;
+	background: #f5f5f5;
+  border: 1px solid #f5f5f5;
+	border-radius: 50%;
+	width: 130px;
+	height: 130px;
+	margin-top: 25px;
+}
+
+.model_call_operator .call_operator_icon .icon-parsonal{
+	font-size: 60px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+}

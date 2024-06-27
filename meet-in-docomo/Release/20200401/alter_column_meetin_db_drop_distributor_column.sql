@@ -1,0 +1,20 @@
+ALTER TABLE `master_staff_new` DROP COLUMN enter_login_date;
+
+ALTER TABLE `master_client_new` DROP COLUMN `client_type`;
+ALTER TABLE `master_client_new` DROP COLUMN `distribution_channel_client_id`;
+ALTER TABLE `master_client_new` DROP COLUMN `purchasing_client_account_cnt`;
+ALTER TABLE `master_client_new` DROP COLUMN `distributor_salesstaff_name`;
+ALTER TABLE `master_client_new` DROP COLUMN `distributor_salesstaff_email`;
+ALTER TABLE `master_client_new` DROP COLUMN `distributor_salesstaff_ccemail`;
+ALTER TABLE `master_client_new` DROP COLUMN `contract_money`;
+ALTER TABLE `master_client_new` DROP COLUMN `first_payout_staff_cnt`;
+ALTER TABLE `master_client_new` DROP COLUMN `max_payout_staff_cnt`;
+ALTER TABLE `master_client_new` DROP COLUMN `contract_file`;
+ALTER TABLE `master_client_new` DROP COLUMN `billing_address`;
+ALTER TABLE `master_client_new` DROP COLUMN `order_date`;
+ALTER TABLE `master_client_new` DROP COLUMN `contract_period_start_date`;
+ALTER TABLE `master_client_new` DROP COLUMN `contract_period_end_date`;
+ALTER TABLE `master_client_new` DROP COLUMN `start_use_date`;
+ALTER TABLE `master_client_new` DROP COLUMN `billing_staff_name`;
+ALTER TABLE `master_client_new` DROP COLUMN `billing_staff_email`;
+ALTER TABLE `master_client_new` DROP COLUMN `follow_call_date`;

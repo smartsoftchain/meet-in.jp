@@ -1,0 +1,28 @@
+@import "./webinar-variables.css";
+
+.wp-header {
+    background-color: var(--webinar-theme-color);
+    position: fixed;
+    top: 0;
+    height: 60px;
+    width: 100%;
+    line-height: 60px;
+    min-width: 1247px;
+    border: 1px solid #e8e8e8;
+    z-index: 500;
+}
+/* ヘッダー左寄せ */
+.wp-float_left {
+    height: 100%;
+    float: left;
+}
+.wp-logo_outer {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+.wp-logo {
+    height: 80%;
+}

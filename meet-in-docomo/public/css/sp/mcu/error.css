@@ -1,0 +1,98 @@
+@charset "UTF-8";
+body.error_body {
+  margin: 0;
+  background-color: #FFA902;
+}
+
+.error_content_area {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+}
+
+.error_logo_img {
+  text-align: center;
+}
+
+.error_logo_img img {
+  width: 40%;
+  height: auto;
+}
+
+.error_text {
+  color: #FFF;
+  text-align: center;
+}
+
+.error_text1 {
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 40px 0 15px;
+}
+
+.error_text2 {
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin: 15px 0 40px;
+}
+
+.error_recommend_area {
+  color: #fff;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.error_recommend_label {
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.error_recommend_text {
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0 0 20px 0;
+}
+
+.error_url_copy {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.error_url_copy a {
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #FFA902;
+  text-decoration: none;
+  background-color: #FFF;
+  border: none;
+  border-radius: 2px;
+  padding: 12px 30px;
+}
+
+.error_procedure_area {
+  color: #fff;
+  line-height: 1.6;
+  margin: 60px 0;
+}
+
+.error_procedure_area p {
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.error_procedure_area table {
+  font-size: 14px;
+  margin: 0 auto;
+}
+
+.pdg_btm10 {
+  padding-bottom: 10px;
+}
+
+.pdg_btm30 {
+  padding-bottom: 30px;
+}

@@ -1,0 +1,159 @@
+@charset "UTF-8";
+
+/*
+*   Title:「 共有メモ 」要素CSS
+*   File Nmae: share_memo.css
+*/
+.split_area .share_memo_contents {
+  height: calc(50%);
+}
+/*
+.share_memo_area{
+	height: 100%;
+	width: 300px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 230;
+	display: none;
+	background-color: #ffffff;
+}
+*/
+.share_memo_area{
+	height: 428px;
+    width: 284px;
+    position: absolute;
+    top: 80px;
+    left: 70px;
+    z-index: 230;
+    display: none;
+    background-color: #ffffff;
+	box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;
+	border: none;
+}
+
+.share_memo_contents{
+	/*height: calc(100% - 50px);*/
+	height: 100%;
+	width: 100%;
+	background-color: #ffffff;
+}
+
+.share_memo_head{
+	width: 100%;
+    border-bottom: solid 1px #DBDBDB;
+    height: 32px;
+    line-height: 32p;
+    margin: auto;
+    font-size: 11px;
+    color: #B2B2B2;
+}
+
+.share_memo_head_left{
+	float: left;
+	margin-left: 16px;
+	margin-top: 7px;
+}
+
+.share_memo_head_right{
+	float: right;
+	margin-top: 7px;
+    margin-right: 9px;
+}
+
+.share_memo_head_right:hover{
+	cursor: pointer;
+}
+
+.share_memo_title{
+	margin-left: 10px;
+	color: #333333;
+}
+
+.share_memo_close{
+	color: #B2B2B2;
+    font-size: 12px;
+}
+
+.share_memo_text_area{
+	height: calc(100% - 110px);
+    width: 90%;
+    margin: auto;
+    padding-top: 10px;
+}
+
+textarea.share_memo_text{
+	width: 98%;
+	height: 100%;
+	background-color: #fff;
+	resize: none;
+	border:none;
+	font-size: 11px;
+	outline: none;
+
+	-webkit-user-select: auto;  /* Chrome or Safari */
+	-moz-user-select: text;     /* FireFox */
+	-ms-user-select: text;      /* IE */
+	-o-user-select: text;       /* Opera */
+	user-select: text;
+}
+
+div.icon_area{
+	width: 100%;
+    margin-top: 20px;
+    border-top: solid 1px #DBDBDB;
+}
+div.icon_area span{
+    border: 1px solid #DCDCDC;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    padding: 8px 7px 7px;
+    width: 25px;
+    text-align: center;
+    vertical-align: bottom;
+	color: #a7a7a7;
+	float: left;
+}
+
+div.icon_area span img{
+	width: 20px;
+	height: 20px;
+}
+
+span.icon_download{
+	padding: 10px 10px;
+	border-radius: 4px;
+	margin-right: 10px;
+}
+
+span.share_memo_fontsize{
+	font-size : 20px;
+	cursor: pointer;
+}
+span.share_memo_fontsize:HOVER{
+	color: #0081CC;
+}
+span.share_memo_change_fontsize_small{
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+span.share_memo_change_fontsize_large{
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.left_icon_area{
+	float: left;
+    margin-top: 6px;
+    margin-left: 9px;
+}
+
+.right_icon_area{
+	float: right;
+	margin-right: 40px;
+}
+
+.clear_both{
+	clear: both;
+}

@@ -1,0 +1,273 @@
+@charset "UTF-8";
+
+/*
+*   Title:「資料共有 」要素CSS
+*   File Nmae: material.css
+*/
+
+/* 資料共有モーダルのデザイン */
+div.material_modal_area div.modal_material_header {
+	padding: 20px;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+div.material_modal_area div.modal_material_header span {
+	font-weight: bold;
+  color: #0081CC;
+}
+
+div.material_modal_area div.modal_material_list_area{
+	width: calc(100% - 40px);
+	height: calc(100% - 200px);
+	padding: 20px;
+	border-top: 1px solid #e8e8e8;
+	border-bottom: 1px solid #e8e8e8;
+	overflow: auto;
+}
+
+div.material_modal_area div.modal_material_list_area div.modal_material{
+	margin-top: 10px;
+	padding: 10px;
+}
+div.material_modal_area div.modal_material_list_area div.modal_material:hover {
+	background: #A8DBFF;
+}
+
+div.material_modal_area div.modal_material_list_area div.modal_material_icon{
+	font-size: 50px;
+	text-align: center;
+	vertical-align: middle;
+	float: left;
+}
+
+div.material_modal_area div.modal_material_list_area div.modal_material_info{
+	font-size: 18px;
+	padding: 10px 0px 10px 30px;
+	float: left;
+	width: calc(100% - 80px);
+}
+
+.document_header_icon{
+	min-width: 170px;
+	z-index: 25;
+	display: none;
+}
+
+.document_canvas_contents{
+	z-index: 19;
+	position: relative;
+	margin: auto;
+}
+
+/* サムネイル巨大化のスタイル */
+.bottom_arrow {
+	background-color:#fff;
+	border-radius:5px;
+	position:relative;
+	box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;
+}
+
+.bottom_arrow:before {
+	border:10px solid transparent;
+	border-top-color:#fff;
+	border-bottom-width:0;
+	bottom:-9px;
+	content:"";
+	display:block;
+	left:55px;
+	position:absolute;
+	width:0;
+	z-index:1;
+}
+
+.bottom_arrow:after {
+	border:10px solid transparent;
+
+	border-bottom-width:0;
+	bottom:-10px;
+	content:"";
+	display:block;
+	left:55px;
+	position:absolute;
+	width:0;
+}
+
+div.big_thumbnail_area{
+	position: fixed;
+	bottom: 55px;
+	margin-left: -42px;
+}
+
+.big_thumbnail_image{
+	width: 126px;
+	height: 90px;
+}
+
+/* サムネイルを削除する為のゴミ箱アイコン */
+.remove_material{
+	margin: 5px 0px 10px 5px;
+	height: 40px;
+	width : 50px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	border: solid 1px white;
+	font-size: 22px;
+	color: white;
+	cursor: pointer;
+	padding-top: 2px;
+}
+.remove_material div.del_message{
+	font-size: 11px;
+}
+
+/*資料のヘッダー領域に表示するアイコン*/
+div.document_canvas_area{
+	position: relative;
+}
+
+div#document_header_icon{
+	position: fixed;
+	font-size: 32px;
+}
+
+
+/* 左メニューアイコン押下時のデザイン */
+.on_left_icon {
+	position: relative;
+}
+.on_left_icon:before {
+	background: #0081CC;
+	content: "";
+	display: block;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width:4px;
+}
+
+/* コメントとダウンロードアイコンホバー時のカーソル */
+div#document_header_icon img.img_document_comment:hover,
+div#document_header_icon span.icon-download:hover{
+	cursor : pointer;
+}
+
+div#document_header_icon img.img_document_comment{
+	width: 40px;
+	height: 40px;
+	vertical-align: middle;
+}
+
+div.document_comment{
+	line-height : 30px !important;
+}
+
+div.document_comment img.img_document_comment{
+	width: 20px !important;
+	height: 20px !important;
+}
+
+/* 目次アイコン */
+.display_none{
+	display: none;
+}
+
+/* 目次の付箋アイコン */
+.document_tag:after {
+	content: "";
+	width: 0;
+	height: 0;
+	position: absolute;
+	border-style: solid;
+	border-width: 20px;
+	border-color: #0081CC #0081CC transparent transparent;
+	right: 0;
+}
+/* 目次のコメントアイコン */
+.document_comment {
+	width: auto !important;
+	position: absolute;
+	padding-left: 10px;
+	color: #000000 !important;
+}
+
+/* 資料アップロード時のメッセージ */
+div.upload_document_message_area{
+	top: 150px;
+	right: 0;
+	width: 200px;
+	height: 50px;
+	position: fixed;
+	background-color: #ffffff;
+	box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;
+	display: none;
+	z-index: 350;
+}
+div.upload_document_message{
+	width: 200px;
+	height: 50px;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+/* 資料がこれ以上保存できない時のメッセージ */
+div.no_save_document_message_area{
+	top: 200px;
+	right: 0;
+	width: 300px;
+	height: 120px;
+	position: absolute;
+	background-color: #ffffff;
+	box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;
+	display: none;
+	z-index: 350;
+}
+div.no_save_document_message{
+	width: 300px;
+	height: 120px;
+	display: table-cell;
+	text-align: left;
+	vertical-align: middle;
+	padding-left: 10px;
+}
+/*-----------------------------------------------------------
+	同期メッセージ
+------------------------------------------------------------*/
+.negotiation_sync_message_area{
+	top: 200px;
+	right: 0;
+	width: 300px;
+	height: 120px;
+	position: absolute;
+	background-color: #ffffff;
+	box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;
+	display: none;
+	z-index: 350;
+}
+.negotiation_sync_message{
+	width: 300px;
+	height: 120px;
+	display: table-cell;
+	text-align: left;
+	vertical-align: middle;
+	padding-left: 10px;
+}
+
+/*-----------------------------------------------------------
+	新仕様キャンバス用のデザイン設定
+------------------------------------------------------------*/
+.document_img{
+	z-index: 15;
+	position: absolute;
+	display: none;
+}
+.document_canvas{
+	z-index: 20;
+	position: absolute;
+}
+.mi_arrow{
+	z-index: 25;
+	display: none;
+}

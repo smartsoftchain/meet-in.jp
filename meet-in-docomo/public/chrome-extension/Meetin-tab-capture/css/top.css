@@ -1,0 +1,376 @@
+@charset "UTF-8";
+
+/*
+*	Title:「 MEETIN 」lp用のtopのCSS
+*	File Nmae: top.css
+*	Last Modified: 2016-02-10
+*/
+/*----------------------------------------------------------------
+	lp用
+-----------------------------------------------------------------*/
+
+
+body {
+  font-family: "游ゴシック", "Yu Gothic", "YuGothic","Roboto Condensed",'ヒラギノ角ゴ Pro', "Hiragino Kaku Gothic ProN", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ ゴシック", sans-serif;
+  color: #333;
+}
+
+a {
+  color: #333;
+}
+
+ul {
+    list-style: none;
+}
+
+.mi_text_purple:visited,
+.mi_text_purple {
+  color: #caa7d8;
+}
+.mi_text_orange:visited,
+.mi_text_orange {
+  color: #0081CC;
+}
+
+.mi_bg_purple {
+  background: #caa7d8;
+}
+.mi_bg_orange {
+  background: #0081CC;
+}
+
+
+.mi_btn_bg_purple {
+  background: #caa7d8;
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -o-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+.mi_btn_bg_orange {
+  background: #0081CC;
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -o-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+.mi_btn_bg_purple:hover {
+  background: #aa89b7;
+}
+.mi_btn_bg_orange:hover {
+  background: #ed9e00;
+}
+.mi_btn_bg_purple:active {
+  background: #836b8d;
+}
+.mi_btn_bg_orange:active {
+  background: #d18b00;
+}
+
+
+
+.mi_Robotofont {
+  font-family: 'Roboto Slab', serif;
+}
+.mi_mintyofont {
+  font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+}
+
+
+
+
+.lp_wrap {
+  background: #fff;
+  min-width: 991px;
+  overflow: hidden;
+}
+
+
+
+.lp_header {
+  background: #000;
+  border: none;
+  height: auto;
+  position: static;
+  line-height: 1;
+}
+
+.lp_header_logo {
+  padding:16px 14px;
+}
+
+.lp_header_button_wrap {
+    margin-right: 15px;
+}
+
+a.lp_header_button {
+  border: 1px solid #fff;
+  border-radius: 5px; 
+  color: #fff;
+  height: 30px;
+  line-height: 30px;
+  margin: 14px 0 0 9px;
+  text-align: center;
+  width: 92px
+}
+a.lp_header_button {
+  color: #fff;
+}
+a.lp_header_login_button {
+  border: 1px solid #0081CC;
+  color: #0081CC;
+}
+
+
+
+
+.mi_circle_base {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding-top: 50px;
+  z-index: 500;
+}
+
+.mi_connect_from {
+  text-align: center;
+  margin: auto;
+  position: relative;
+  color: #fff;
+  font-size: 14px;
+}
+
+.mi_connect_from_inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  padding: 20px 0;
+}
+
+.mi_connect_from_inner > * {
+  display: block;
+  margin: 0 auto;
+}
+
+.mi_connect_from_inner .mi_input_text{
+  font-size: 12px;
+  color: #14b056;
+}
+
+.mi_connect_from .mi_logo_image {
+  margin-bottom: 25px;
+  width: 35%;
+}
+
+.mi_connect_from .mi_atentsion_text {
+  font-size: 16px;
+  line-height: 1;
+  margin-bottom: 25px;
+  text-align:center;
+}
+
+.mi_connect_from .mi_main-copy_image {
+  margin-bottom:50px;
+  width: 100%;
+  margin-bottom:20px;
+}
+
+.mi_connect_from .mi_main-copy_image_sp{
+  display: none;
+}
+
+
+.mi_connect_from input.mi_default_input {
+  height: 32px;
+  margin-bottom: 8px;
+}
+
+.mi_connect_from .mi_conect_button {
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 40px;
+  margin-top: 24px;
+  width: 320px;
+  height: 45px;
+}
+.mi_connect_from .mi_conect_button,
+.mi_connect_from input.mi_default_input{
+  width:30%;
+}
+
+.mi_connect_from .mi_conect_button:active {
+  color: #fff;
+}
+.login_wrap {
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/*-- 画面サイズによってデザイン変更 --*/
+@media screen and (max-width: 1500px) {
+  .login_wrap #login_header,
+  #mi_wrap.login_wrap {
+    min-width: 320px;
+  }
+  .mi_connect_from_inner {
+    width: 640px;
+  }
+  .mi_connect_from .mi_atentsion_text {
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .mi_connect_from .mi_conect_button,
+  .mi_connect_from input.mi_default_input {
+    width: 85%;
+    max-width: 300px;
+  }
+}
+@media screen and (max-width: 1251px) {
+  .login_wrap #login_header,
+  #mi_wrap.login_wrap {
+    min-width: 320px;
+   }
+  .mi_connect_from_inner {
+    width: 620px;
+  }
+}
+@media screen and (max-width: 960px) {
+  .mi_connect_from_inner {
+     width: 600px;
+  }
+
+}
+
+
+@media screen and (max-width: 600px) {
+  .mi_connect_from .mi_logo_image {
+    width: 50%;
+  }
+  .mi_connect_from .mi_main-copy_image {
+    display:none;
+  }
+  .mi_connect_from_inner {
+    width: 65%;
+    padding: 20px 0;
+  }
+  .mi_connect_from .mi_main-copy_image_sp{
+    display: block;
+    width: 100%;
+    margin-bottom:24px;
+  }
+
+  .mi_connect_from .mi_atentsion_text {
+    width:70%;
+    line-height: 1.5;
+  }
+
+  .mi_connect_from .mi_conect_button,
+  .mi_connect_from input.mi_default_input {
+    width:60%;
+    height: 40px;
+  }
+}
+
+
+
+
+.mi_top_visual {
+  position: relative;
+}
+
+.mi_connect_from {
+    text-align: center;
+    margin: auto;
+    position: absolute;
+    color: #fff;
+    font-size: 14px;
+    height: calc(100vh - 127px);
+    min-height: 500px;
+    width: 100%;
+    top: 0;
+}
+
+.mi_connect_from_inner {
+    width: 885px;
+}
+
+
+.mi_top_visual_inner {
+  background: #000;
+}
+
+.mi_top_visual_img_wrap {
+  background: url(/images/img-top.png) no-repeat center;
+  background-size: cover;
+  text-align: center;
+  position: relative;
+  height: calc(100vh - 127px);
+  min-height: 500px;
+}
+.mi_top_visual_img {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,0%);
+  bottom: 0;
+  margin: 0 auto;
+}
+
+.mi_cach_subtext {
+  font-size: 18px;
+	font-weight: bold;
+  margin-bottom: 17px;
+}
+
+.mi_cach_text {
+  font-size: 38px;
+	font-weight: bold;
+  margin-bottom: 29px;
+}
+
+.mi_js_resize_img992 {
+  display: inline-block;
+}
+.mi_js_resize_img1200 {
+  display: none;
+}
+
+.mi_tokkyo_text {
+  background: #d66666;
+  width: 112px;
+	height: 24px;
+  line-height: 24px;
+  margin-bottom: 57px;
+}
+
+.mi_connect_from_inner .mi_atentsion_text {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 26px;
+}
+
+.mi_connect_from_inner .mi_input_text {
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.mi_connect_from_inner input.mi_default_input {
+  font-size: 13px;
+  width:180px;
+  margin-bottom: 17px;
+}
+
+.mi_connect_from_inner .mi_conect_button {
+  font-size: 18px;
+  font-weight: bold;
+  height: 58px;
+  margin-top: 32px;
+  width: 180px;
+  word-spacing: 6px;
+}

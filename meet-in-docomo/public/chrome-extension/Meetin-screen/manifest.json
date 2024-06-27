@@ -1,0 +1,41 @@
+{
+  "name": "オンライン画面共有",
+  "short_name": "オンライン画面共有",
+  "version": "1.4",
+  "manifest_version": 2,
+  "description": "オンライン画面共有",
+  "browser_action": {
+    "default_icon": "icon48.png"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "permissions": [
+    "desktopCapture",
+    "tabs",
+    "storage",
+    "https://*.docomodx.aidma-hd.jp/room/*",
+    "https://docomodx.aidma-hd.jp/room/*"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.docomodx.aidma-hd.jp/*",
+        "https://docomodx.aidma-hd.jp/*"
+      ],
+      "js": ["content.js"],
+      "all_frames": true,
+      "run_at": "document_end"
+    }
+  ]
+}

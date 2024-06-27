@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+/*
+*   Title:「 ホワイトボード 」要素CSS
+*   File Nmae: white_board.css
+*/
+
+.white-bord_top_icon_content {
+	float: left;
+	margin-left: 16px;
+	margin-top: 7px;
+}
+
+.white_board_area{
+	position:fixed !important;
+	top: 80px;
+	left: 70px;
+	background: white !important;
+	box-shadow : none !important;
+	display: none;
+	z-index: 110;
+	height: 428px;
+    width: 284px;
+	box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;
+	border: none;
+}
+
+.canvas_area{
+	margin : 40px 10px 10px 10px;
+	overflow : scroll;
+	height: calc(100% - 140px);
+	background-color: white;
+}
+
+.white_board{
+	background-color: white;
+	touch-action: none;
+}
+
+div.white_board_titke{
+	font-size: 11px;
+    margin-top: 7px;
+    display: flex;
+    height: 25px;
+    width: 100%;
+    border-bottom: solid 1px #DBDBDB;
+}
+
+div.white_board_header_icon_area{
+	position:absolute;
+	top: 5px;
+	right: 5px;
+	text-align: center;
+	padding-right: 3px;
+	font-size: 12px;
+	cursor: pointer;
+	color: #a7a7a7;
+}
+
+.white-bord_top_text {
+	margin-left: 10px;
+}
+
+.btn_reset{
+	margin-top: 4px;
+    margin-right: 20px;
+    float: left;
+    font-size: 18px;
+}
+
+#icon-reset-whitebord {
+	margin-top: 2px;
+	margin-left: 4px;
+}
+
+.btn_close{
+	margin-top: 1px;
+    float: left;
+}
+.clear_both{
+	clear:both;
+}
+
+div.white_board_bottom_icon_area{
+	bottom: 0;
+	margin: 10px 0px 10px 10px;
+}
+
+div.btn_reset:HOVER{
+	color: #0081CC;
+}
+
+span.icon-memo:HOVER{
+	color: #0081CC;
+}
+
+.left_icon_area_whitebord {
+	float: left;
+    margin-top: 6px;
+    margin-left: 9px;
+}

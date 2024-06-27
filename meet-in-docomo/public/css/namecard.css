@@ -1,0 +1,567 @@
+@charset "UTF-8";
+
+/*----------------------------------------------------------------
+	名刺表示
+-----------------------------------------------------------------*/
+
+/* 名刺領域 */
+/*
+.split_area .mi_namecard_area {
+}
+*/
+.mi_namecard_area {
+  display: none;
+  height: 100%;
+  width: 78%;
+  max-width: 80em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 100000001;
+}
+
+/* 名刺領域_表示時 */
+.mi_namecard_area.mi_onview {
+  display: block;
+}
+#mi_video_area.namecard_on {
+  width: calc(100% - 320px);
+}
+
+.mi_namecard_contents {
+   height: 100%;
+   background: #f5f5f5;
+   border-radius: 6px;
+}
+
+/* 名刺の閉じるボタン領域 */
+.namecard_close_area{
+  position: absolute;
+  right: 2px;
+  font-size: 24px;
+  display: none;
+}
+
+.mi_namecard_area:hover .namecard_close_area{
+  display: block;
+}
+
+/* 名刺の閉じるボタン */
+.namecard_close{
+  background-color: #B2B2B2;
+  color: #FFFFFF;
+  border-radius: 50%;
+}
+
+/* 名刺の閉じるボタンホバー時 */
+.namecard_close:hover{
+  cursor: pointer;
+}
+
+/* 名刺表示時のバックレイアウト */
+.namecard_overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 100000002;
+}
+
+.mi_namecard_title {
+  text-align: left;
+  padding-top: 0.2em;
+  padding-left: 1.4em;
+}
+
+.mi_pdf_dl_button {
+  height: 26px;
+  width: 10em;
+  border: solid 1px #e9e8e7;
+  background: #fff;
+  color: #b4b4b4;
+  font-size: 11px;
+  margin: 1.2em 10% 8px 12%;
+}
+
+.mi_pdf_dl_button_icon {
+  height: 16px;
+  width: 16px;
+  margin-right: 8px;
+  color: #b4b4b4;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.mi_namecard_face_img {
+  /* height: 10em; */
+  width: 10em;
+  margin: 0 6%;
+}
+
+.mi_namecard_detail .feature-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.namecard-text-area {
+  white-space: pre-wrap;
+}
+
+.namecard_introduction_area {
+  width: 100%;
+  height: 280px;
+  border:none;
+  white-space: pre-wrap;
+  resize: none;
+}
+
+.namecard_introduction_area:focus {
+  outline: none;
+}
+
+/* 画面サイズが960px以下の時は一列に表示 */
+.mi_namecard_detail .feature-item {
+  flex: 0 0 48%;
+  max-width: 48%; /* IE11バグ対応 */
+  min-height: 17.6em;
+  background: #ffffff;
+  margin-left: 1em;
+  margin-bottom: 0.6em;
+}
+
+.mi_namecard_detail_header {
+	background: #0081CC;
+	color: white;
+  padding: 0 0.8em !important;
+  font-size: 14px;
+}
+.mi_namecard_detail_content {
+  display: flex;
+  margin: 1.2em;
+  line-height: 1.6em;
+  word-break: break-all;
+  overflow-break: break-all;
+}
+.mi_namecard_detail_content .left{
+  width: 35%;
+}
+.mi_namecard_detail_content .center{
+  width: 50%;
+}
+.mi_namecard_detail_content .contents{
+  flex: 1;
+}
+#namecard_staff_info{
+  margin: 0.6em;
+}
+.namecard_user_icon{
+  position: relative;
+  border-radius: 50%;
+  height: 6em;
+  width: 6em;
+  margin: 0 19%;
+}
+.contents_client_name{
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.contents_staff_executive{
+  margin-top: -3px;
+}
+.contents_staff_name{
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 0.4rem;
+}
+.contents_staff_nameph{
+  font-size: 12px;
+  margin-top: 0.1rem;
+}
+.contents_small{
+  font-size: 90%;
+  line-height: 1.5em;
+  margin-top: 0.7rem;
+}
+.namecard_download_title{
+  color: #0081CC;
+}
+.mi_facebook {
+  height: 30px;
+  width: 30px;
+  margin-left: 6px;
+}
+.mi_facebook_icon {
+  height: 25px;
+  width: 25px;
+  border-radius: 2px;
+}
+#namecard_table{
+  margin: 0.6em 2em;
+}
+.namecard-table{
+  border-collapse: collapse;
+  line-height: 32px;
+  width: 98%;
+  margin-top: 0.8em;
+}
+.namecard-table-tr{
+  border-bottom:2px solid #e2e2e2;
+}
+.namecard-table-th{
+  text-align:left;
+  padding-left: 0.4em;
+  width: 32%;
+}
+.mi_namecard_photo{
+  max-height: 9em;
+  min-width: 100%;
+  margin-bottom: 0.4em;
+}
+.center_br{
+  margin: 0.5em;
+}
+.sns-icon{
+  padding-left: 19.5px;
+  margin-top: 40px;
+}
+.namecard-icon{
+  padding-right: 3px;
+}
+.namecard-photo-text{
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}
+#namecard_none{
+    margin: 20.5px 0;
+}
+#namecard-introduction{
+  width: 402px;
+  height: 220px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.namecard-profile-contain {
+  display: inline-block;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: auto;
+  max-width: 180px;
+  max-height: 100px;
+  background-size: contain;
+}
+.namecard-photo-contain {
+  display: inline-block;
+  background-position: center center;
+  background-repeat: no-repeat;
+  max-width: 236px;
+  max-height: 126px;
+  background-size: contain;
+}
+.namecard-photo-contain-preview {
+  display: inline-block;
+  background-position: center center;
+  background-repeat: no-repeat;
+  max-width: 236px;
+  min-width: 100%;
+  height: 126px;
+  background-size: contain;
+}
+
+/* タブレット */
+@media (max-width: 1024px) {
+
+  #namecard_close_icon {
+    float: right;
+  }
+  .mi_namecard_title {
+    display: inline-block;
+  }
+  
+  .modal-content-preview .inner-wrap {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+  }
+
+  .mi_namecard_detail .feature-item {
+    max-width: 47%;
+    min-height: 17.6em;
+    background: #ffffff;
+  }
+}
+
+@media (max-width: 959px) {
+  
+  .mi_namecard_area {
+    width: 52% !important;
+  }
+
+  .mi_namecard_contents {
+    height: 100%;
+    border-radius: 6px;
+  }
+
+  .mi_namecard_detail .feature-item {
+    max-width: 100%;
+    min-height: 17.6em;
+    background: #ffffff;
+    flex: 0 0 95%;
+  }
+
+  .mi_namecard_contents {
+    font-size: 13px;
+    color: #444444;
+    border-radius: 6px;
+  }
+
+  .mi_namecard_detail {
+    overflow: scroll;
+	  overflow-x: hidden;
+    height: 88%;
+  }
+
+  .mi_namecard_title {
+    margin-bottom: 0 !important;
+  }
+  
+  #mi_namecard_detail .left {
+    float: left;
+    margin-top: -10px;
+    margin-right: 16px;
+  }
+  
+  #mi_namecard_detail .contents {
+    float: right;
+  }
+  
+  .namecard_user_icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+  }
+  
+  .mi_namecard_detail_header {
+    padding: 0.1em 1em !important;
+    background-color: #0081CC;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  
+  .namecard_download {
+    width: 100px;
+    height: 24px;
+    margin-top: 12px;
+  }
+  
+  .namecard_download_title {
+    font-size: 10px;
+  }
+  
+  .contents_client_name {
+    font-weight: bold;
+  }
+  
+  .contents_staff_name {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .contents_staff_nameph {
+    font-size: 11px;
+  }
+  
+  .contents_small div {
+    padding: 5px 0;
+  }
+  
+  .contents_small {
+    font-size: 11px;
+  }
+  
+  .namecard_table {
+    background-color: #fff;
+  }
+  
+  .namecard_table .namecard-table {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .namecard_table .namecard-table tr {
+    border-bottom: solid 1px #e2e2e2;
+  }
+  
+  .mi_namecard_detail_content .center {
+    width: 49%;
+    word-break: break-all;
+  }
+  
+  .mi_namecard_detail_content {
+    height: auto;
+    display: flex;
+    background-color: #fff;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .namecard-photo-contain-preview {
+    width: 100%;
+    height: 60px;
+    display: inline-block;
+    background-position: center center;
+    background-repeat: no-repeat;
+    max-width: 155px;
+    min-width: 140px;
+    max-height: 60px;
+  }
+
+  .mi_pdf_dl_button {
+    margin: 0;
+    width: 9em;
+  }
+}
+
+/* スマホ */
+@media (max-width: 559px) {
+  /* 画面サイズが559px以下の時はスクロール付与 */
+  .mi_namecard_detail {
+    overflow: scroll;
+	  overflow-x: hidden;
+    height: 88%;
+  }
+  
+  .mi_namecard_area {
+    width: 52% !important;
+  }
+
+  .mi_namecard_contents {
+    height: 100%;
+    border-radius: 6px;
+  }
+
+  .mi_namecard_detail .feature-item {
+    max-width: 95%;
+    min-height: 17.6em;
+    background: #ffffff;
+    flex: 0 0 94%;
+  }
+
+  .mi_namecard_contents {
+    font-size: 13px;
+    color: #444444;
+    border-radius: 6px;
+  }
+
+  .mi_namecard_detail {
+    overflow: scroll;
+	  overflow-x: hidden;
+    height: 88%;
+  }
+
+  .mi_namecard_title {
+    margin-bottom: 0 !important;
+  }
+  
+  #mi_namecard_detail .left {
+    float: left;
+    margin-top: -10px;
+    margin-right: 16px;
+  }
+  
+  #mi_namecard_detail .contents {
+    float: right;
+  }
+  
+  .namecard_user_icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+  }
+  
+  .mi_namecard_detail_header {
+    padding: 0.1em 1em !important;
+    background-color: #0081CC;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  
+  .namecard_download {
+    width: 100px;
+    height: 24px;
+    margin-top: 12px;
+  }
+  
+  .namecard_download_title {
+    font-size: 10px;
+  }
+  
+  .contents_client_name {
+    font-weight: bold;
+  }
+  
+  .contents_staff_name {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .contents_staff_nameph {
+    font-size: 11px;
+  }
+  
+  .contents_small div {
+    padding: 5px 0;
+  }
+  
+  .contents_small {
+    font-size: 11px;
+  }
+  
+  .namecard_table {
+    background-color: #fff;
+  }
+  
+  .namecard_table .namecard-table {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .namecard_table .namecard-table tr {
+    border-bottom: solid 1px #e2e2e2;
+  }
+  
+  .mi_namecard_detail_content .center {
+    word-break: break-all;
+  }
+  
+  .mi_namecard_detail_content {
+    height: auto;
+    display: flex;
+    background-color: #fff;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .namecard-photo-contain-preview {
+    width: 100%;
+    height: 60px;
+    display: inline-block;
+    background-position: center center;
+    background-repeat: no-repeat;
+    max-height: 60px;
+  }
+
+  .mi_pdf_dl_button {
+    margin: 0;
+  }
+}

@@ -1,0 +1,132 @@
+#mi_content_area {
+  width: 940px;
+}
+.mi_table_main_wrap {
+  min-width: 940px;
+}
+.mi_table_main {
+  table-layout: auto;
+  width: aut
+}
+.mi_table_input_right .mi_tabel_title {
+  min-width: 185px;
+}
+.required {
+  padding: 0px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #fff;
+  background: #df6b6e;
+  float: right;
+  height: 18px;
+  margin-top: 20px;
+}
+.text_medium {
+  width: 443px;
+  height: 100%;
+  padding: 0 10px;
+  display: inline-block;
+  border: 1px solid #E9E8E7;
+  border-radius: 4px;
+}
+input,
+textarea {
+  border: 1px solid #E9E8E7;
+  border-radius: 4px;
+}
+
+input:read-only,
+textarea:read-only {
+  border: none;
+}
+
+textarea {
+  width: -webkit-fill-available;
+  height: 400px;
+}
+.mail_template_create div.trumbowyg-editor {
+  width: 670px;
+}
+.file-list {
+  min-height: 35px;
+  border: 1px solid #DCDCDC;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.drag-drop {
+  text-align: center;
+  margin-top:15px;
+  width: 540px;
+  height: 100px;
+  border: 1px dashed #B1B1B1;
+  border-radius: 4px;
+}
+.drag-drop p {
+  line-height: 60px;
+  color: #C7C7C7;
+}
+.drag-drop #file_up {
+  color: #999999;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.caution {
+  margin-top: 15px;
+  color: #999999;
+  font-weight: bold;
+}
+.file_up_button {
+  display: none;
+}
+.up_file_tag {
+  width: 117px;
+  background-color: #F0F0F0;
+  border-radius: 15px;
+  display: inline-block;
+  padding: 8px 13px 8px 13px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-right: 10px;
+}
+.up_file_name {
+  text-overflow: ellipsis;
+  vertical-align: top;
+  width: 95px;
+  overflow: hidden;
+  display: inline-block;
+}
+.up_file_del {
+  margin-left: 10px;
+}
+.mail_body_option_wrapper {
+  display: flex;
+  justify-content: flex-start;
+  background-color: #E5F4FF;
+  padding: 15px;
+}
+.mail_body_options {
+  flex-grow: 1;
+}
+.mail_body_options p {
+  color: #999999;
+  font-size: 11px;
+}
+.mail_body_options select {
+  width: 240px;
+  color: #C7C7C7;
+  border: 1px solid #DCDCDC;
+  border-radius: 4px;
+  padding: 10px 15px;
+}
+.test_btn {
+  background-color: #999999;
+  margin-right: 20px;
+}
+.test_btn:hover {
+  background-color: #DCDCDC;
+}
+.mi_table_main th {
+  position: static;
+}

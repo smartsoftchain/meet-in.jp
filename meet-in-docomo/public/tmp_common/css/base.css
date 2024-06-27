@@ -1,0 +1,1337 @@
+@charset "UTF-8";
+
+/*
+*	Title:「 MEETIN 」共通CSS
+*	File Nmae: base.css
+*	Last Modified: 2016-12-29
+*/
+/*----------------------------------------------------------------
+	基本色
+-----------------------------------------------------------------*/
+/* 背景色 */
+.mi_background-color {
+  background-color: #fff;
+}
+/* 文字色 */
+.mi_character-color {
+  color: #6e6e6e;
+}
+/* 薄い文字色 */
+.mi_thin-character-color {
+  color: #c8c8c8;
+}
+/* グレー */
+.mi_gray-color {
+  background-color: #f5f5f5;
+}
+/* オレンジ */
+.mi_orange-color {
+  background-color: #0081CC;
+}
+/* 黒 */
+.mi_brack-color {
+  background-color: #373228;
+}
+
+
+/* カラーピック */
+.mi_blue { background-color: #3498db}
+.mi_red { background-color: #c0392b}
+.mi_yellow { background-color: #f1c40f}
+.mi_green { background-color: #2ecc71}
+.mi_black { background-color: #333333}
+.mi_white { background-color: #fff}
+
+
+/* BACKGROUND TRANSITIONS */
+/* Fade */
+.hvr-fade {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  overflow: hidden;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+
+/* Underline From Center */
+.hvr-underline-from-center {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  position: relative;
+  overflow: hidden;
+}
+.hvr-underline-from-center:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  background: #0081CC;
+  height: 2px;
+  -webkit-transition-property: left, right;
+  transition-property: left, right;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-underline-from-center:hover:before, .hvr-underline-from-center:focus:before, .hvr-underline-from-center:active:before {
+  left: 20px;
+  right: 20px;
+}
+
+
+
+/*----------------------------------------------------------------
+	基本定義
+-----------------------------------------------------------------*/
+#mi_wrap {
+  min-width: 960px;
+}
+
+body {
+	font-size: 12px;  /* デフォルトフォントサイズ */
+	    font-family: 'Roboto Condensed', 'ヒラギノ角ゴシック Pro','Hiragino Kaku Gothic Pro',游ゴシック体,'Yu Gothic',YuGothic,メイリオ,Meiryo,Osaka,'ＭＳ Ｐゴシック','MS PGothic',sans-serif;
+  color: #6e6e6e;
+	background-color: #fff;
+}
+
+.mi_font-s { font-size: 85%; }
+.mi_font-m { font-size: 100%; }
+.mi_font-l { font-size: 115%; }
+
+/* Font face */
+input,
+select,
+textarea,
+th,
+td {
+	    font-family: 'Roboto Condensed', 'ヒラギノ角ゴシック Pro','Hiragino Kaku Gothic Pro',游ゴシック体,'Yu Gothic',YuGothic,メイリオ,Meiryo,Osaka,'ＭＳ Ｐゴシック','MS PGothic',sans-serif;
+}
+
+/*--------------------------------------
+	リンク要素
+---------------------------------------*/
+a {
+	/* Hides from IE-mac \*/
+	 overflow: hidden;
+	/* End hide from IE-mac */
+	text-decoration: none;
+  color: #6e6e6e;
+	font-size: 1em;
+}
+img,
+a img {
+	border: 0;
+	vertical-align: bottom;
+}
+
+a:visited {
+	text-decoration: none;
+  color: #6e6e6e;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #df6b6e;
+	cursor: pointer;
+}
+
+a:active {
+	text-decoration: none;
+	color: #1b75b1;
+}
+
+
+
+/*--------------------------------------
+	補足設定
+---------------------------------------*/
+/* float指定 */
+.mi_flt-l { float: left; }
+
+.mi_flt-r { float: right; }
+
+/* --- float周りこみ回避 --- */
+.mi_clearfix:after {
+	content: ".";
+	display: block;
+	visibility: hidden;
+	clear: both;
+	height: 0;
+}
+
+.mi_clearfix {
+	display: inline-block;
+}
+
+/* Hides from IE-mac \*/
+*html .mi_clearfix {
+	height: 1%;
+}
+.mi_clearfix {
+	display: block;
+}
+/* End hide from IE-mac */
+
+/*----------------------------------------------------------------
+	全体枠
+-----------------------------------------------------------------*/
+#mi_wrap {
+	margin: 0 auto;
+	width: 100%;
+}
+
+/*----------------------------------------------------------------
+	ヘッダー領域
+-----------------------------------------------------------------*/
+header {
+  position: fixed;
+  top: 0;
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+  min-width: 960px;
+  background-color: #373228;
+  color: #fff;
+  z-index: 20;
+}
+
+header a, header a:visited {
+  color: #fff;
+}
+
+header .mi_flt-l > * {
+  float: left;
+}
+header .mi_flt-r > * {
+  float: right;
+}
+  
+#mi_header_title > * {
+    float: left;
+}
+
+#mi_header_logo {
+  margin: 10px 5px 11px 15px;
+  width: 120px;
+}
+
+#mi_header_logo_text {
+  line-height: 26px;
+  padding: 0 19px 0 4px;
+  font-size: 14px;
+  margin: 12px 0px 12px 0;
+}
+
+#mi_login_icon {
+  font-size: 14px;
+  width: 16px;
+  height: 17px;
+  margin: 15px 7px;
+  float: right;
+}
+
+#mi_login_text {
+  color: #fff;
+  margin-right: 32px;
+  float: right;
+  font-size: 16px;
+}
+
+.mi_login_btn a {
+  color: #fff;
+  display: block;
+  width: 150px;
+  background: #0081CC;
+}
+
+.mi_login_btn a:hover {
+  color: #fff;
+  background: #0B318F;
+}
+
+
+.mi_header_link_list {
+  list-style: none;
+}
+
+.mi_header_link_list li{
+  position: relative;
+  float: left;
+  height: 50px;
+  width: 160px;
+  font-size: 14px;
+}
+.mi_header_link_list li * {
+  float: left;
+  -webkit-transition: color 200ms;
+  transition: color 200ms;
+}
+
+.mi_header_link_list a:visited {
+  color: #fff;
+}
+
+.mi_header_link_list a:hover {
+  color: #0081CC;
+}
+
+.mi_header_link_list .active {
+  color: #fff;
+  background-color: #0081CC;
+}
+.mi_header_link_list .active:hover {
+  color: #fff;
+}
+
+.mi_header_link_list a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+}
+.mi_user_detail .user_icon {
+  margin: 15px 10px 15px 20px;
+}
+.mi_default_label_icon {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  padding: 15px 10px 15px 20px;
+  cursor: pointer;
+}
+.mi_default_label_icon.tel_btn:hover {
+  color: #0081CC;
+}
+
+.mi_default_label_icon_2 {
+  font-size: 20px;
+  margin-right: 10px;
+  vertical-align: sub;
+  cursor: pointer;
+}
+
+.mi_header_select {
+  width: 240px;
+  height: 50px;
+  position: relative;
+  cursor: pointer;
+}
+
+.mi_header_select:hover {
+  color: #0081CC;
+}
+
+.mi_header_select .mi_header_arrow_icon {
+  float: right;
+  font-size: 12px;
+  padding: 19px 10px 11px 20px;
+}
+
+.mi_header_select *{
+  float: left;
+}
+
+.mi_header_select > div {
+  width: 100%;
+}
+
+.mi_header_select ul.mi_select_option {
+  visibility: hidden;
+  opacity: 0;
+  width: 100%;
+  list-style: none;
+  box-shadow: 0px 4px 6px 2px rgba(128, 128, 128, 0.24);
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+  margin-top: -10px;
+}
+.mi_header_select:hover ul.mi_select_option {
+  margin-top: 0px;
+  visibility: visible;
+  opacity: 1;
+}
+
+.mi_header_select ul.mi_select_option li{
+  width: 100%;
+  height: 50px;
+  background-color: #373228;
+  text-align: center;
+}
+
+.mi_header_select ul.mi_select_option a{
+  width: 100%;
+  height: 50px;
+  color: #fff;
+}
+.mi_header_select ul.mi_select_option a:hover{
+  color: #0081CC;
+}
+.mi_header_select ul.mi_select_option a:active{
+  color: #fff;
+  background-color: #0081CC;
+}
+
+.mi_user_detail {
+  width: 200px;
+  margin-left: 10px;
+}
+
+.mi_elapsed_time {
+  width: 160px;
+  text-align: center;
+}
+
+.mi_header_status_icon {
+  width: 300px;
+  text-align: center;
+}
+.mi_header_status_icon .mi_default_label_icon_2 {
+  margin: 0 0 0 5px;
+}
+.mi_header_status_icon .mi_default_label_icon_2:hover{
+  color: #0081CC;
+}
+
+.mi_header_status {
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+.mi_header_status:hover {
+  color: #0081CC;
+}
+.mi_active {
+  color: #0081CC;
+}
+
+.mi_space {
+  width: 16px;
+  height: 50px;
+}
+
+.mi_guest_head_controller {
+  margin-right: 100px;
+}
+
+/*----------------------------------------------------------------
+	コンテンツ領域
+-----------------------------------------------------------------*/
+#mi_content_area {
+	margin: 0 auto;
+	display: block;
+	width: 960px;
+	padding: 30px 0 25px 0;
+}
+
+.mi_content_title {
+  width: 100%;
+  height: 50px;
+  margin-bottom: 20px;
+}
+.mi_second_title {
+  margin-top: 100px;
+}
+.mi_content_title h1 {
+  float: left;
+  font-size: 20px;
+  line-height: 50px;
+  font-weight: bold;
+}
+.mi_content_title_icon {
+  margin: 15px 10px 15px 0;
+  height: 20px;
+  width: 20px;
+  font-size: 20px;
+  float: left;
+  color: #0081CC;
+}
+.mi_content_title_option span {
+  width: 50px;
+  height: 1em;
+  position: absolute;
+  top: 25px;
+  left: 0px;
+  text-align: center;
+}
+.mi_content_title_option span:first-child {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  top: 7px;
+  left: 15px;
+}
+
+.mi_content_title_option .mi_title_action_btn {
+  position: relative;
+  float: left;
+  width: 50px;
+  height: 50px;
+  margin-left: 8px;
+  border-radius: 25px;
+  color: #b4b4b4;
+  cursor: pointer;
+  display: block;
+}
+
+.mi_content_title_option .mi_title_action_btn:hover {
+  color: #6e6e6e;
+  background: #e1e1e1;
+}
+
+.mi_content_title_option .mi_title_action_btn:active {
+  color: #fff;
+  background-color: #0081CC;
+}
+
+
+/* ページネーション
+------------------------------------ */
+
+.mi_pagenation {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  margin: 20px 0 16px 0;
+}
+.mi_pagenation_result {
+  float: left;
+  margin-left: 40px;
+  vertical-align: middle;
+}
+.mi_pagenation_option {
+  float: right;
+  margin-right: 20px;
+  vertical-align: middle;
+}
+.mi_page_select {
+  float: right;
+  margin-left: 40px;
+}
+.mi_page_select a.mi_page_number{
+  margin: 2.5px 4px;
+  background: none;
+  padding: 0;
+  border: none;
+  font-size: 14px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  outline: none;
+  font-weight: bold;
+  color: #6e6e6e;
+  display: inline-block;
+  text-align: center;
+}
+.mi_page_select a.mi_page_number:hover {
+  background: #e1e1e1;
+}
+.mi_page_select a.mi_page_number.active,
+.mi_page_select a.mi_page_number:active {
+  background: #0081CC;
+  color: #fff;
+}
+
+.mi_page_select .mi_page_arrow_icon {
+  cursor: pointer;
+  font-size: 26px;
+  color: #6e6e6e;
+  height: 25px;
+  line-height: 25px;
+  display: inline-block;
+}
+
+
+
+/* メインコンテンツ
+------------------------------------ */
+#mi_main_contents {
+  min-height: calc(100vh - 150px);
+  line-height: 1.8;
+  padding: 50px 0;
+}
+
+#mi_top_nav {
+  height: 50px;
+  width: 100%;
+}
+
+#mi_top_nav .mi_default_label_icon {
+  padding: 25px 5px 5px 17px;
+  font-size: 12px;
+}
+
+#mi_top_nav li {
+  position: relative;
+  float: left;
+  list-style: none;
+  width: 160px;
+  height: 50px;
+}
+#mi_top_nav li a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+}
+#mi_top_nav li a:visited {
+  color: #b4b4b4;
+}
+#mi_top_nav li a {
+  color: #b4b4b4;
+}
+#mi_top_nav li a:hover {
+  color: #b4b4b4;
+  background-color: #f5f5f5;
+}
+#mi_top_nav li a:active {
+  color: #6e6e6e;
+  font-weight: bold;
+  background-color: #f5f5f5;
+}
+#mi_top_nav li a > * {
+  float: left;
+}
+#mi_top_nav li a > div {
+  height: 50px;
+  line-height: 60px;
+}
+#mi_top_nav li.mi_select:after {
+  content: "";
+  position: absolute;
+  width: 80%;
+  height: 2px;
+  background-color: #0081CC;
+  bottom: 0;
+  left: 10%;
+}
+#mi_top_nav li.mi_select span {
+  color: #0081CC;
+}
+
+#mi_top_nav li.mi_select a,
+#mi_top_nav li.mi_select a:hover {
+  color: #6e6e6e;
+  font-weight: bold;
+  background-color: #f5f5f5;
+}
+
+#mi_top_nav .mi_breadcrumb_list {
+  width: 960px;
+  margin: 0 auto;
+  text-align: right;
+  padding-top: 20px;
+  color: #b4b4b4;
+}
+#mi_top_nav .mi_breadcrumb_list a { color: #b4b4b4; }
+#mi_top_nav .mi_breadcrumb_list a:hover { color: #6e6e6e;}
+
+
+/*----------------------------------------------------------------
+	テーブル領域
+-----------------------------------------------------------------*/
+
+/* テーブル基本設定
+-------------------------------------------------*/
+.mi_table_main {
+  margin: 0 auto;
+  height: auto;
+  width: 960px;
+}
+
+.mi_table_main_wrap {
+  width: 960px;
+  max-width: 960px;
+  overflow: auto;
+}
+
+.mi_table_main th {
+  height: 40px;
+  color: #fff;
+  background-color: #0081CC;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.mi_table_main td {
+  width: auto;
+  height: 40px;
+  padding: 0 20px;
+  color: #6e6e6e;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 1px solid #e1e1e1;
+  vertical-align: middle;
+}
+
+.mi_table_main .mi_table_item_1 {
+  width: 50px;
+  min-width: 50px;
+  padding: 0;
+}
+
+.mi_table_main tbody tr:first-child {
+  border-top: 1px solid #e1e1e1;
+}
+
+.mi_table_main tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.mi_table_main td input[type="checkbox"] {
+  vertical-align: 0;
+}
+
+.mi_table_main td .mi_edit_icon {
+  width: 16px;
+  height: 16px;
+  margin: 11px 0;
+}
+
+
+/* inputありテーブル設定
+-------------------------------------------------*/
+
+.mi_table_input_right .mi_check_td  {
+  width: 50px;
+  min-width: 50px;
+  padding: 0;
+  background: #fff;
+  border-right: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
+  color: #6e6e6e;
+}
+.mi_table_input_right .mi_tabel_title {
+  width: 140px;
+  background: #fff;
+  border-right: 1px solid #e1e1e1;
+  vertical-align: top;
+  line-height: 55px;
+  border-bottom: 1px solid #e1e1e1;
+  color: #6e6e6e;
+}
+.mi_table_input_right .mi_tabel_content {
+  text-align: left;
+  padding: 7px 20px;
+  background: #fff;
+  color: #6e6e6e;
+}
+
+/*-- inputのtd用 --*/
+.mi_table_input_right .mi_default_input.input_hidden:focus,
+.mi_table_input_right .mi_default_input {
+  background: #fff;
+  border: 1px solid 
+  text-align: left;
+  height: 38px;
+  padding: 0 30px;
+  font-size: 12px; 
+}
+.mi_table_input_right .mi_default_input.input_hidden {
+  background: none;
+  border: none;
+  padding: 0;
+}
+.mi_table_input_right textarea.mi_default_input.input_hidden:focus,
+.mi_table_input_right textarea.mi_default_input {
+  padding: 11px 30px;
+  height: 130px;
+  width: 700px;
+  border: 1px solid #e1e1e1;
+}
+.mi_table_input_right textarea.mi_default_input.input_hidden {
+  padding-top: 11px;
+}
+.mi_table_input_right .mi_tabel_title .mi_default_input:focus,
+.mi_table_input_right .mi_tabel_title .mi_default_input {
+  text-align: center;
+  width: 90px;
+  padding: 0 15px;
+}
+.mi_table_input_right .mi_free_title {
+  vertical-align: middle;
+  padding: 0;
+}
+
+/*-- inputテーブルの登録、キャンセルボタン表示 --*/
+
+.mi_tabel_btn_area {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/*-- inputテーブルのモーダル表示ボタン --*/
+.mi_select_person_td .select_person {
+  margin-right: 10px;
+}
+.mi_select_person_td .mi_cancel_btn {
+  width: 70px;
+}
+
+
+
+/*----------------------------------------------------------------
+	フッター領域
+-----------------------------------------------------------------*/
+/* Footer */
+footer {
+  height: 50px;
+  width: 100%;
+  min-width: 960px;
+  background-color: #0081CC;
+  z-index: 20;
+  position: relative;
+}
+
+footer.mi_video {
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+}
+
+/* 商談中フッタ
+------------------------------------ */
+.mi_footer_link_button button {
+  width: 160px;
+  height: 50px;
+  background: #0081CC;
+  padding: 0 20px;
+  font-size: 13px;
+  line-height: 50px;
+}
+
+.mi_footer_link_button button:hover {
+  background:#0B318F;
+}
+.mi_footer_link_button button.active {
+  background:#0B318F;
+}
+
+.mi_memo_icon {
+  font-size: 20px;
+  vertical-align: sub;
+  margin-right: 10px;
+}
+
+/* copyright */
+.mi_copyright {
+  float: right;
+  width: auto;
+  color: #fff;
+  text-align: right;
+  margin-right: 50px;
+  line-height: 35px;
+  margin-top: 15px;
+}
+
+
+.mi_document_select {
+  margin: 10px 30px 10px 60px;
+  padding-right: 40px;
+  height: 50px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.mi_document_select li {
+  list-style: none;
+  float: left;
+  width: 42px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+.mi_document_icon {
+  width: 42px;
+  height: 30px;
+  margin-right: 8px;
+}
+.mi_document_arrow_icon {
+  position: absolute;
+  width: 15px;
+  height: 50px;
+  margin-left: 8px;
+  right: 0;
+  top: 0px;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ゲスト商談中フッタ
+------------------------------------ */
+
+.mi_guest_footer .mi_offview { display: none; }
+.mi_guest_footer .mi_screen_share { width: 210px;}
+.mi_guest_footer .mi_video_toggle { width: 235px;}
+.mi_guest_footer .video_thumbnail {
+  display: inline-block;
+  border: 2px dotted #fff;
+  height: 26px;
+  width: 40px;
+  margin-top: -4px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.mi_guest_footer .mi_reconnect {
+  position: absolute;
+  right: 0;
+}
+
+
+/*----------------------------------------------------------------
+	フォーム部品
+-----------------------------------------------------------------*/
+
+/* フォーム共通デザイン */
+.mi_mtin .mi_input { height: 30; width: 250px; padding:10px; font-size: 16px; border: 1px solid #e1e1e1 }
+
+input.mi_default_input {
+  width: 270px;
+  height: 50px;
+  text-align: center;
+  font-size: 16px;
+  border: 1px solid #e1e1e1;
+}
+input.mi_default_input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+}
+input:placeholder-shown{ color: #d9d9d9; }
+input::-webkit-input-placeholder { color: #d9d9d9; }
+input:-moz-placeholder { color: #d9d9d9; opacity: 1; }
+input::-moz-placeholder { color: #d9d9d9; opacity: 1; }
+input:-ms-input-placeholder { color: #d9d9d9; }
+
+
+/* 共通ボタンデザイン */
+button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  color: #fff;
+  background-color: #0081CC;
+  text-align: center;
+  height: 40px;
+  width: 130px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.mi_mtin .mi_btn {
+  background: #f5f5f5;
+  color: #fff;
+  background: #0081CC;
+  text-align: center;
+ }
+.mi_default_button { width: 180px; }
+.mi_default_button:hover { background-color: #0B318F; }
+.mi_btn_s { height: 30px; width: 100px; }
+.mi_btn_m { height: 40px; width: 130px; }
+.mi_btn_l { height: 45px; width: 360px; }
+.mi_solid_btn { border-bottom: 5px solid #0B318F; }
+
+.mi_cancel_btn {
+  background: #b4b4b4;
+  color: #fff;
+  margin-right: 4px;
+}
+.mi_cancel_btn:hover { 
+  opacity: 0.7; 
+}
+
+.mi_dl_btn {
+  background: #fff;
+  border: 1px solid #c8c8c8;
+  color: #6e6e6e;
+  margin-right: 4px;
+  display: inline-block;
+  font-size: 12px;
+  line-height: 38px;
+  height: 38px;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  vertical-align: middle;
+}
+.mi_dl_btn:hover { background: #c8c8c8; color: #fff; border: 1px solid #c8c8c8; }
+
+/* ログインフォームタイトル */
+img.mi_logo_image {
+  top: 110px;
+  width: 220px;
+  left: 17%;
+}
+.mi_subtitle {
+  top: 80px;
+}
+
+.mi_half_background {
+  width: 50%;
+  min-width: 480px;
+  height: calc(100vh - 100px);
+  min-height: 450px;
+  float: left;
+}
+
+
+/*----------------------------------------------------------------
+	検索ボックス
+-----------------------------------------------------------------*/
+.search_box {
+  line-height: 50px;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.search_box button {
+  line-height: 50px;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 3;
+}
+.search_box input {
+  width: 400px;
+  left: 0;
+  height: 50px;
+  position: absolute;
+  box-sizing: border-box;
+  font-size: 14px;
+  padding: 0 84px 0 20px;
+  outline: none;
+  color: #6e6e6e;
+  border: 1px solid #e1e1e1;
+}
+/* ieで表示されるinputのバツボタンを非表示 */
+.search_box input::-ms-clear {
+  visibility:hidden
+}
+
+.search_close_button {
+  position: absolute;
+  color: #6e6e6e;
+  top: 20px;
+  left: 325px;
+  cursor: pointer;
+}
+
+
+
+/*----------------------------------------------------------------
+	モーダル
+-----------------------------------------------------------------*/
+
+/* モーダル共通
+------------------------------------ */
+
+.mi_modal_wrap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+}
+.mi_modal_shadow {
+  position: absolute;
+  width: 100%;
+  height: 100%;  
+  background: #000;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+}
+.mi_modal_default {
+  position: fixed;
+  margin: auto;
+  width: 600px;
+  height: 310px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.mi_modal_type_m {
+  line-height: 1.5em;
+  font-size: 18px;
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mi_modal_type_m .icon {
+  font-size: 75px;
+  margin-bottom: 35px;
+  display: block;
+}
+
+/* ゲスト終了モーダル
+------------------------------------ */
+
+.mi_modal_default .mi_gest_close_buton {
+  width: 250px;
+  margin-top: 20px;
+}
+
+
+/* 再接続モーダル
+------------------------------------ */
+
+.progress_bar_wrap {
+  position: relative;
+  height: 5px;
+  width: 370px;
+  background: #e1e1e1;
+  margin: 50px auto 0;
+}
+.progress_bar {
+  height: 5px;
+  width: 20%;
+  background: #0081CC;
+}
+
+
+/* 許可モーダル
+------------------------------------ */
+
+.mi_modal_btn_wap {
+  margin-top: 20px;
+}
+
+
+
+
+/* 電話モーダル
+------------------------------------ */
+#mi_tel_modal {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: #f5f5f5;
+  top: 0;
+}
+
+#mi_tel_modal.mi_onview {
+ display: block;
+}
+#mi_tel_modal .mi_tel_modal_inner {
+  background: #f5f5f5;
+  height: 455px;  
+}
+#mi_tel_modal .mi_close_icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45px;
+  height: 25px;
+  padding: 10px 0;
+  cursor: pointer;
+  text-align: center;
+  background: #f5f5f5;
+}
+#mi_tel_modal .mi_close_icon:hover { background: #e1e1e1; }
+#mi_tel_modal .mi_close_icon:active { background: #e1e1e1; }
+  
+#mi_tel_modal .mi_close_icon span {
+  font-size: 25px;
+  color: #6e6e6e;
+}
+#mi_tel_modal .mi_close_icon:hover span { color: #fff; }
+#mi_tel_modal .mi_close_icon:active span { color: #fff; }
+
+#mi_tel_modal .mi_display_title {
+  margin-bottom: 10px;
+  width: 270px;
+  margin: 0 auto;
+  text-align: center;
+  height: 45px;
+  line-height: 45px;
+  font-size: 14px;
+} 
+
+#mi_tel_modal .mi_display_title .mi_title_icon {
+    margin-right: 5px;
+    color: #0081CC;
+}
+
+#mi_tel_modal .mi_number_display {
+  width: 100%;
+  background-color: #fff;
+  padding: 20px 0 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  height: 65px;
+}
+
+#mi_tel_modal .mi_call_number {
+  font-size: 24px;
+  text-align: center;
+  height: 1em;
+  width: 210px;
+  padding: 0 30px;
+  margin: 0 auto;
+  white-space: nowrap;
+}
+
+#mi_tel_modal .mi_number_button {
+  width: 270px;
+  margin: 24px auto;
+}
+
+#mi_tel_modal .mi_number_button td {
+  width: 90px;
+  height: auto;
+  font-size: 26px;
+  height: 45px;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  vertical-align: middle;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+}
+#mi_tel_modal .mi_number_button td:hover {
+  background-color: #f5f5f5;
+}
+#mi_tel_modal .mi_number_button td:active {
+  background-color: #0081CC;
+  color: #fff;
+}
+
+#mi_tel_modal .mi_call_option {
+  width: 270px;
+  margin: 0 auto;
+  height: 40px;
+  text-align: center;
+}
+
+#mi_tel_modal .mi_call_option button {
+  width: 129px;
+  margin-right: 8px;
+  border: 1px solid #e1e1e1;
+  background: #fff;
+  color: #6e6e6e;
+  font-size: 12px;
+  display: inline-block;
+  vertical-align: top;
+}
+#mi_tel_modal .call_option_icon {
+  color: #0081CC;
+  display: inline-block;
+  position: relative;
+}
+#mi_tel_modal .call_option_text {
+  text-align: left;
+  display: inline-block;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+#mi_tel_modal .mi_call_option button:last-child {
+  margin: 0;
+}
+#mi_tel_modal .mi_call_option button:last-child .call_option_icon {
+  top: 1px;
+  left: -5px;
+}
+
+#mi_tel_modal .mi_call_option button:hover {
+  background: #f5f5f5;
+}
+
+#mi_tel_modal .call_option_img {
+  width: 14px;
+  color: #0081CC;
+  display: inline-block;
+  position: relative;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+#mi_tel_modal .mi_call_button {
+  width: 270px;
+  height: 45px;
+  margin: 10px auto 0;
+  display: block;
+  background-color: #0081CC;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  text-align: center;
+}
+#mi_tel_modal .mi_call_button > div {
+  width: auto;
+  height: 41px;
+  line-height: 41px;
+}
+#mi_tel_modal .mi_call_button > div > span {
+  margin: 5px;
+  font-size: 20px;
+  vertical-align: text-bottom;
+}
+
+
+#mi_tel_modal .mi_meetin_c {
+  display: none;
+}
+#mi_tel_modal.meetin_call .mi_call_m {
+  display: none !important;
+}
+#mi_tel_modal.meetin_call .mi_meetin_c {
+  display: inline-block;
+}
+#mi_tel_modal.meetin_call .mi_tel_modal_inner,
+#mi_tel_modal.meetin_call {
+  background: #333;
+}
+#mi_tel_modal.meetin_call  .mi_display_title.mi_meetin_c {
+  color: #fff;
+}
+
+#mi_tel_modal.meetin_call #mi_changeMeetinCallButton {
+  background: #333;
+  border: 1px solid #0081CC;
+  color: #0081CC;
+}
+#mi_tel_modal.meetin_call .mi_close_icon { background: #333; }
+#mi_tel_modal.meetin_call .mi_close_icon:hover { background: #5a5a5a; }
+#mi_tel_modal.meetin_call .mi_close_icon:active { background: #5a5a5a; }
+#mi_tel_modal.meetin_call .mi_close_icon span { color: #fff; }
+
+
+
+
+/*--------------------------------------
+	補足
+---------------------------------------*/
+.mi_mgn-auto { margin: 0 auto }
+.mi_align-l { text-align: left; }
+.mi_align-r { text-align: right; }
+.mi_align-c { text-align: center; }

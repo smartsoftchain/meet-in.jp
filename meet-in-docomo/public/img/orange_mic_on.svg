@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="15.003" height="20" viewBox="0 0 15.003 20">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #0081cc;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <g id="orange_mic_on" transform="translate(0.5 0.5)">
+    <g id="レイヤー_1" data-name="レイヤー 1" transform="translate(-0.499 -0.5)">
+      <g id="グループ_6" data-name="グループ 6">
+        <g id="グループ_5" data-name="グループ 5">
+          <path id="パス_10" data-name="パス 10" class="cls-1" d="M14.5,8.07V9.86a6.37,6.37,0,0,1-6.24,6.51H6.74A6.38,6.38,0,0,1,.5,9.86V8.07"/>
+          <line id="線_7" data-name="線 7" class="cls-1" y2="2.67" transform="translate(7.5 16.54)"/>
+          <line id="線_8" data-name="線 8" class="cls-1" x2="8.78" transform="translate(3.11 19.5)"/>
+          <rect id="長方形_2" data-name="長方形 2" class="cls-1" width="8.12" height="13.05" rx="4.06" transform="translate(3.44 0.5)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

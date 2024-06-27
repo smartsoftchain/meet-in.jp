@@ -1,0 +1,5 @@
+:root {
+    --webinar-theme-color: #0081CC; /* テーマカラー機能で選択した色 */
+    --webinar-text-color: #FFFFFF; /* カラー機能で選択した文字色 */
+    --bg-color: #EEEEEE;
+}

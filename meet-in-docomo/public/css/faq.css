@@ -1,0 +1,897 @@
+@charset "UTF-8";
+
+/*
+*	Title:「 MEETIN 」のfaqのCSS
+*	File Nmae: faq.css
+*	Last Modified: 2018-10-11
+*/
+
+/*----------------------------------------------------------------
+	faw_topの画面css
+-----------------------------------------------------------------*/
+
+.mi_top_section_title_block {
+	padding-top: 80px;
+	text-align: center;
+}
+
+.mi_title_line_orange:after {
+	background: #0081CC;
+	height: 2px;
+	content: " ";
+	display: block;
+	width: 78px;
+	margin: 15px auto 0;
+}
+
+.mi_top_section_title {
+	display: inline-block;
+	font-size: 25px;
+	font-weight: bold;
+	line-height: 1;
+	padding: 0 7px;
+	margin-bottom: 40px;
+}
+
+/* --- ページネーション　start--- */
+
+.mi_pagination {
+	--uiPaginationAlign: var(--paginationAlign);
+	--uiPaginationArrowSize: var(--paginationArrowSize, 22px);
+	--uiPaginationFontSize: var(--paginationFontSize);
+	font-size: var(--uiPaginationFontSize);
+}
+
+.mi_pagination__list {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin: 50px auto;
+	width: 980px;
+	justify-content: center;
+}
+
+.pagination__item:not(.pagination__control_prev):not(.pagination__item_active) {
+	padding-left: .5em;
+}
+
+.pagination__item:not(.pagination__control_next):not(.pagination__item_active) {
+	padding-right: .5em;
+}
+
+.pagination__item {
+	display: inline-block;
+	line-height: 1;
+}
+
+.pagination__control {
+	position: relative;
+}
+
+.pagination__control:before, .pagination__control:after {
+	font-size: var(--uiPaginationArrowSize);
+	line-height: 1;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.pagination__control_prev {
+	padding-left: calc(var(--uiPaginationArrowSize) + 5px);
+}
+
+.pagination__control_prev:before {
+	content: "←";
+	left: 0;
+}
+
+.pagination__control_next {
+	padding-right: calc(var(--uiPaginationArrowSize) + 5px);
+}
+
+.pagination__control_next:after {
+	content: "→";
+	right: 0;
+}
+
+/* --- ページネーション　end--- */
+
+/* -- よくある質問　セクション  start -- */
+
+.mi_faq_list_wrap {
+	width: 800px;
+	margin: 0 auto;
+	padding-bottom: 50px;
+	color: #636363;
+}
+
+.mi_faq_list_wrap li {
+	display: flex;
+	color: #636363;
+	padding: 10px;
+}
+
+.mi_faq_list_text {
+	padding: 6px 16px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+/* -- よくある質問　セクション  end -- */
+
+/* -- カテゴリからQ&Aを探す　セクション  start -- */
+
+.mi_faq_category_wrap {
+	width: 800px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-rows: 280px 280px 280px;
+	grid-template-columns: 1fr 1fr;
+	grid-row-gap: 30px;
+	grid-column-gap: 30px;
+}
+
+.mi_faq_category_block  {
+	border-radius: 8px;
+	border: solid 2px #0081CC;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .3s;
+	transition: all .3s;
+	height: 100%;
+}
+
+.mi_faq_category_block:hover {
+    background-color: #0081CC;
+    color: #ffffff !important;
+}
+
+.mi_faq_category_block:hover .mi_faq_category_list a {
+	color: #ffffff !important;
+}
+
+.mi_faq_category_block:active {
+	background: #0081CC;
+	color: #fff !important;
+}
+
+.mi_faq_category_list {
+	font-size: 20px;
+	text-align: center;
+	padding: 20px;
+}
+
+.mi_faq_caregory_title_block .mi_faq_category_list:hover{
+	color: #fff !important;
+}
+
+/* .mi_faq_category_list a:hover{
+	color: #fff !important;
+} */
+
+/* .mi_faq_caregory_title_block:hover{
+	border-bottom: solid 2px #fff;
+    content: " ";
+    display: block;
+    width: 190px;
+    margin: 15px auto 0;
+} */
+
+.mi_faq_caregory_title_block {
+	padding-top: 40px;
+	text-align: center;
+}
+
+.mi_faq_caregory_title {
+	display: inline-block;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 1;
+	padding: 0 7px;
+	margin-bottom: 30px;
+}
+
+.mi_faq_category_list li {
+	margin: 16px;
+}
+
+/* -- カテゴリからQ&Aを探す　セクション  end -- */
+
+/* -- キーワードからQ&Aを探す　セクション  start -- */
+
+.mi_faq_keyword_wrap {
+	width: 800px;
+	margin: 40px auto;
+	display: flex;
+}
+
+.mi_faq_input {
+	display: block;
+	width: 70%;
+	height: 52px;
+}
+
+.mi_faq_input-style {
+	font-size: 20px;
+	box-sizing: border-box;
+	letter-spacing: 1px;
+	padding: 5px;
+	color: #797979;
+	border-radius: 8px;
+	border: solid 2px #9f9f9f;
+	background: transparent;
+	box-shadow: inset 2px 2px 4px 0 #b2babc;
+}
+
+.mi_faq_btn_search {
+	width: 146px;
+	height: 52px;
+	border-radius: 25.5px;
+	background-color: #0081CC;
+	margin: 0 40px;
+}
+
+/* -- キーワードからQ&Aを探す　セクション  end -- */
+
+/* -- トラブルシューティング セクション start -- */
+
+.mi_faq_trouble_section {
+	height: 290px;
+	background-color: #0081CC;
+}
+
+.mi_faq_trouble_wrap {
+	text-align: center;
+	color: #ffffff;
+	margin: 0 auto;
+	padding: 1.5em;
+}
+
+.mi_trouble_tittle {
+	font-size: 36px;
+	padding: 20px;
+}
+
+.mi_trouble_text {
+	font-size: 16px;
+	padding: 10px;
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+.mi_faq_trouble_btn {
+	width: 370px;
+	height: 60px;
+	border-radius: 8px;
+	background-color: #ffffff;
+	font-size: 26px;
+	font-weight: bold;
+	color: #0081CC;
+	-webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    -o-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s
+}
+
+.mi_faq_trouble_btn:hover {
+    border: 2px solid #fff;
+    color: #fff !important;
+    background: #0081CC;
+}
+
+.mi_faq_trouble_btn:active {
+	background: #fff;
+	color: #0081CC !important;
+}
+
+.mi_faq_btn_detail {
+	font-size: 14px;
+	color: #ffffff;
+	margin: 10px auto;
+	display: grid;
+}
+
+.mi_faq_btn_detail:hover{
+	color: #fff!important;
+    cursor: pointer;
+	text-decoration: underline!important;
+	-webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    -o-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s
+}
+
+/* -- トラブルシューティング セクション end -- */
+
+/*----------------------------------------------------------------
+	faq_answer画面のcss
+-----------------------------------------------------------------*/
+
+/* <!-- コンテンツwrap start --> */
+
+.faq_wrap {
+	background: #ededed;
+	margin: 0 auto;
+	width: 100%;
+}
+
+/* <!-- faqの回答　セクション start --> */
+
+.mi_faq_list_text_answer {
+	font-size: 18px;
+	line-height: 1.6em;
+	font-weight: normal;
+}
+
+.mi_contactUs_btn_detail {
+	color: #1660a2;
+	text-decoration: underline;
+	font-style: normal;
+}
+
+/* <!-- お問い合わせ　セクション start  --> */
+
+.mi_contactUs {
+	padding: 10px;
+}
+
+.mi_contactUs_btn {
+	width: 360px;
+	height: 60px;
+	background-color: #ffffff;
+	font-size: 20px;
+	text-align: center;
+	color: #0081CC;
+	border-radius: 8px;
+	border: solid 1px;
+	display: block;
+	color: #0081CC;
+	margin: 40px auto;
+	margin-bottom: 69px;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    -o-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s
+}
+
+.mi_contactUs_btn:hover {
+	background-color: #0081CC;
+    color: #fff !important;
+}
+
+.mi_contactUs_btn:active {
+	background: #0081CC;
+	color: #fff !important;
+}
+
+.mi_faq_hr {
+	width: 800px;
+	margin: auto;
+	background-color: #979797;
+}
+
+/* ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+共通
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */
+
+/* 画面幅 */
+
+.content__wrap {
+	background-color: #e8e8e8;
+	padding: 70px 80px;
+}
+
+.content__detail {
+	background-color: #ffffff;
+	width: 980px;
+    margin: 0 auto;
+}
+
+/* 画面タイトル */
+
+.mi_faq_agreementPlan_title {
+	text-align: center;
+	font-family: YuGo;
+	font-size: 25px;
+	font-weight: bold;
+	padding-bottom: 46px;
+	padding-top: 70px;
+}
+
+.mi_faq_agreementPlan_title::after {
+	background: #0081CC;
+	height: 2px;
+	content: " ";
+	display: block;
+	width: 78px;
+	margin: 8px auto 0;
+}
+
+/* 質問項目 */
+
+.question_title {
+	padding-bottom: 9px;
+}
+
+.title_description {
+	font-family: YuGo;
+	font-size: 16px;
+	font-weight: 500;
+	padding-bottom: 17px;
+}
+
+.mi_faq_list_text {
+	font-family: YuGo;
+	font-size: 20px;
+	font-weight: bold;
+	color: #636363;
+	line-height: 39px;
+}
+
+/* 推奨環境 */
+
+.mi_faq_PreparationDetailcontent__blockwrap {
+	position: relative;
+	padding-bottom: 20px;
+}
+
+.mi_faq_PreparationDetail__contentWrap {
+	height: 170px;
+	border-radius: 7px;
+	background-color: #f2f2f2;
+}
+
+.mi_faq_PreparationDetail__content {
+	float: left;
+}
+
+.PreparationDetail__leftContent {
+	width: 40%;
+	height: 100%;
+	position: relative;
+}
+
+.mi_faq_PreparationDetail__content__block {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	text-align: center;
+	padding-top: 35px;
+}
+
+.preparation_Proposal-icon {
+	width: auto;
+	height: auto;
+	display: inline-block;
+}
+
+.preparation_Proposal-iconText {
+	width: 180px;
+	display: block;
+	text-align: center;
+	padding-top: 20px;
+	font-family: YuGo;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.mi_faq_PreparationDetailcontent__blockwrap .recommend-icon {
+	position: absolute;
+	left: -20px;
+}
+
+/* 問い合わせボタン */
+
+.contact-btn {
+	width: 367px;
+	height: 59px;
+	border-radius: 8px;
+	border: solid 1px #0081CC;
+	background-color: #ffffff;
+	font-family: YuGo;
+	font-size: 22px;
+	font-weight: bold;
+	text-align: center;
+	color: #0081CC;
+	line-height: 61px;
+	margin: 0 auto;
+	margin-top: 60px;
+}
+
+/* パンくずリスト */
+
+.breadcrumbsContent__wrap {
+	height: 25px;
+	min-width: 980px;
+	width: 1005px;
+	padding: 20px 0 15px 0;
+	margin: 0 auto;
+}
+
+.breadcrumbsContent {
+	float: left;
+	height: 100%;
+	/* line-height: 25px; */
+	padding-right: 25px;
+}
+
+/*----------------------------------------------------------------
+	faq_agreement.cssの画面css
+-----------------------------------------------------------------*/
+
+/* 契約プラン */
+
+.mi_faq_agreementPlan_wrap {
+	padding-bottom: 72px;
+    display: grid!important;
+    width: 800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 30px;
+    grid-column-gap: 30px
+}
+
+.mi_faq_agreementPlan_block {
+	border-radius: 8px;
+	position: relative;
+}
+
+.left-block {
+	border: solid 2px #0081CC;
+}
+
+.right-block {
+	border: solid 2px #D2AEE0;
+}
+
+.ribbon-icon {
+	position: absolute;
+	top: -11px;
+	left: -11px;
+}
+
+.mi_faq_agreementPlan_blockTitle {
+	font-family: YuGo;
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+	padding: 66px 0 15px;
+}
+
+.left-title {
+	color: #0081CC;
+}
+
+.right-title {
+	color: #D2AEE0;
+}
+
+.mi_faq_agreementPlan_fee {
+	text-align: center;
+	padding-bottom: 38px;
+}
+
+.mi_faq_agreementPlan_conditions {
+	font-size: 18px;
+	line-height: 1.5;
+	display: block;
+}
+
+.text-l {
+	font-size: 45px;
+}
+
+.text-s {
+	font-size: 25px;
+}
+
+.descriptText {
+	font-family: YuGo;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	padding-bottom: 77px;
+	line-height: normal;
+}
+
+.mi_faq_agreementPlan_canList__wrap {
+	width: 210px;
+	height: 240px;
+	margin: 0 auto;
+	padding-bottom: 36px;
+}
+
+.mi_faq_agreementPlan_canList {
+	font-family: YuGo;
+	font-size: 16px;
+	font-weight: 500;
+	padding-bottom: 20px;
+}
+
+.mi_faq_agreementPlan_canList input {
+	width: 21px;
+	height: 18px;
+}
+
+.mi_faq_agreementPlan_canList svg {
+	padding-right: 10px;
+	vertical-align: bottom;
+}
+
+.openDetail {
+	font-family: YuGo;
+	font-size: 14px;
+	font-weight: 500;
+	text-align: center;
+	color: #797979;
+	width: 70px;
+	border-bottom: solid 1px #797979;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 21px;
+}
+.openDetail:hover{
+	border-bottom: solid 1px #0081CC;
+	color: #0081CC;
+	cursor: pointer;
+}
+
+.resist-btn {
+	width: 230px;
+	height: 36px;
+	line-height: 36px;
+	background-color: #0081CC;
+	border: 2px solid #0081CC;
+	font-size: 20px;
+	text-align: center;
+	color: #ffffff !important;
+	margin: 0 auto;
+	margin-bottom: 69px;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    -o-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s
+}
+
+.resist-btn:hover {
+    background-color: transparent;
+    color: #0081CC !important;
+}
+
+.resist-btn:active {
+	background: #0081CC;
+	color: #fff !important;
+}
+
+.right-btn {
+	border: 2px solid #CAA7D8;
+	background-color: #CAA7D8;
+}
+
+.right-btn:hover {
+    background-color: transparent;
+    color: #CAA7D8 !important;
+}
+
+.right-btn:active {
+	background: #CAA7D8;
+	color: #fff !important;
+}
+
+/* 契約プランについて */
+
+.planDescriptText {
+	font-family: YuGo;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: normal;
+	letter-spacing: normal;
+	padding-top: 25px;
+}
+
+.planDescriptText a {
+	color: #1660a2;
+}
+
+/* 関連ヘルプ */
+
+.mi_faq_agreement .mi_top_section_title_block {
+	padding-top: 0;
+	margin: 0 auto;
+}
+
+
+/*----------------------------------------------------------------
+	faq_operating_environmentの画面css
+-----------------------------------------------------------------*/
+
+.mi_faq_operating_environment .mi_faq_PreparationDetailcontent__blockwrap {
+	padding-bottom: 27px;
+}
+
+.mi_faq_operating_environment .title_description {
+	padding-bottom: 27px;
+}
+
+.mi_faq_operating_environment{
+	height: 270px;
+}
+
+.mi_faq_PreparationDetail__contentWrap{
+	height: 320px;
+}
+
+.mi_faq_operating_environment .PreparationDetail__rightContent {
+	position: unset;
+	transform: unset;
+}
+
+.mi_faq_operating_environment .PreparationDetail_subText {
+	font-family: YuGo;
+	font-size: 18px;
+	font-weight: 500;
+	padding-bottom: 15px;
+	width: 100%;
+	display: block;
+	margin-left: -33px;
+}
+
+.mi_faq_operating_environment .PreparationDetail__rightContent {
+	font-family: YuGo;
+	font-size: 18px;
+	font-weight: bold;
+	padding-bottom: 25px;
+	width: 100%;
+}
+
+.above {
+	font-size: 14px;
+}
+
+.small {
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.PreparationDetail__rightContent__wrap {
+	height: 100%;
+	box-sizing: border-box;
+	width: 50%;
+	margin-left: 40%;
+	padding-top: 20px;
+}
+
+.secondRightContent__wrap {
+	padding-top: 50px;
+}
+
+.thirdRightContent__wrap {
+	padding-top: 50px;
+}
+
+.mi_faq_operating_environment .mi_faq_PreparationDetail__content__block {
+	padding-top: 0;
+}
+
+/*----------------------------------------------------------------
+	faq_Preparationの画面css
+-----------------------------------------------------------------*/
+
+/* 準備するもの */
+
+.mi_faq_PreparationDetail__wrap {
+	height: 270px;
+	border-radius: 7px;
+	background-color: #f2f2f2;
+}
+
+.mi_faq_PreparationDetail__block {
+	float: left;
+	height: 100%;
+	width: 50%;
+	position: relative;
+}
+
+.leftBlock-leftIcon {
+	padding-right: 25px;
+}
+
+.preparation_Proposal {
+	width: 87px;
+	height: 29px;
+	display: block;
+	font-family: YuGo;
+	font-size: 20px;
+	font-weight: bold;
+	color: #ffffff;
+	text-align: center;
+	line-height: 29px;
+	margin: 27px 0 0 27px;
+}
+
+.preparation_Proposal__block {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	text-align: center;
+	margin-top: 10px;
+}
+
+.recommend {
+	background-color: #0081CC;
+}
+
+.otherwise {
+	background-color: #4b4b4b;
+}
+
+.preparation_ProposalText {
+	height: 15px;
+	font-family: YuGo;
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 28px;
+}
+
+.right-text {
+	padding-top: 32px;
+}
+
+.preparation_ProposalText-sub {
+	display: block;
+	font-family: YuGo;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 12px;
+}
+
+.recommendedReason {
+	font-family: YuGo;
+	font-size: 12px;
+	font-weight: 500;
+	padding: 13px 0 54px 0;
+	line-height: 1.5;
+}
+
+.PreparationDetail__secondContent {
+	height: 231px;
+}
+
+.headSet-icon {
+	padding-right: 15px;
+}
+
+.PreparationDetail__rightContent {
+	padding-left: 35px;
+	font-family: YuGo;
+	font-size: 12px;
+	position: relative;
+	top: 50%;
+	line-height: 1.5;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+.PreparationDetail_subText {
+	font-size: 22px;
+	font-weight: bold;
+	display: block;
+	padding-bottom: 25px;
+}
+
+/* 関連ヘルプ */
+
+.mi_faq_Preparation .mi_top_section_title {
+	padding-top: 55px;
+}
+
+.mi_faq_keyword_section{
+	padding-bottom: 80px;
+}

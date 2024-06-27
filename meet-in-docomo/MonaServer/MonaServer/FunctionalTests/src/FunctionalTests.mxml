@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" layout="absolute" minWidth="955" minHeight="610" applicationComplete="init()" >
+	<fx:Declarations>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import flash.media.Video;
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.controls.Button;
+			import mx.controls.VideoDisplay;
+			import mx.core.FlexGlobals;
+			import mx.utils.URLUtil;
+			import RTMP.*;
+			import HTTP.*;
+			import RTMFP.*;
+			import WebSocket.WebSocketLoad; 
+			import Other.*;
+			
+			private var applicationDefault:String = "127.0.0.1/";
+			private var hostDefault:String = "/FunctionalTests/";
+			
+			private var luaGroup:Test;
+			[Bindable] private var mapTests:Array = null;
+			
+			public var _currentIndex:int = 0;
+			
+			private var _conn:NetConnection = null; // Connection to Mona for getting list of lua tests
+			
+			private var _videoContainer:VideoDisplay;
+			
+			// Console functions
+			public function INFO(message:String):void { console.htmlText += "<p><font color='#000000'>" + message + "</font></p>"; }
+			public function SUCCESS(message:String):void { console.htmlText += "<p><b><font color='#00CC00'>" + message + "</font></b></p>"; }
+			public function ERROR(message:String):void { console.htmlText += "<p><b><i><font color='#CC0000'>ERROR : " + message + "</font></i></b></p>"; }
+			
+			public function showVideo(video:Video):void {
+				_videoContainer = new VideoDisplay();
+				_videoContainer.addChild(video);
+				_videoContainer.width = video.width;
+				_videoContainer.height = video.height;
+				_videoContainer.x = console.width / 2;
+				_videoContainer.y = console.height / 2;
+				addChild(_videoContainer);
+			}
+			
+			public function closeVideo():void {
+				if (_videoContainer) {
+					removeChild(_videoContainer);
+					_videoContainer = null;
+				}
+			}
+			
+			private function init():void {
+				
+				// Initiate parameters
+				var url:String = this.loaderInfo.url;
+				var domainNPath:Array = url.match(/(:\/\/.+\/)/);
+				if (URLUtil.getProtocol(url) != "file") {
+					address.text = "rtmfp" + domainNPath[1];
+				}
+				
+				// Autoconnection (if ?auto is specified)
+				if (loaderInfo.parameters && loaderInfo.parameters.auto)
+					connect();
+			}
+			
+			// Connect to MonaServer and load tests
+			private function connect():void {
+				var domainNPath:Array = address.text.match(/:\/\/(.*)(\/.+)/);
+				if (!domainNPath || domainNPath.length < 3) {
+					ERROR("The address format is incorrect");
+				} else {
+					hostDefault = domainNPath[1];
+					applicationDefault = domainNPath[2];
+					if (applicationDefault.charAt(applicationDefault.length-1)!="/")
+						applicationDefault += "/";
+				}
+				
+				INFO("Connecting to MonaServer...");
+				INFO("Host : " + hostDefault);
+				INFO("Application : " + applicationDefault);
+				
+				listTests.enabled = false;
+				btRun.enabled = false;
+				
+				mapTests = new Array();
+				var group:Test = new Test(this, "HTTP", "List of HTTP tests", true);
+				group.children.push(new HTTPLoad(this, hostDefault, applicationDefault));
+				group.children.push(new HTTPReconnect(this, hostDefault, applicationDefault));
+				group.children.push(new HTTPBadRequests(this, hostDefault));
+				group.children.push(new HTTPAggregated(this, hostDefault, applicationDefault));
+				group.children.push(new HTTPSplitted(this, hostDefault, applicationDefault));
+				group.children.push(new BigDeserialize(this, hostDefault, applicationDefault));
+				group.children.push(new Cookies(this, hostDefault, applicationDefault));
+				group.children.push(new HTTPIndex(this, hostDefault, applicationDefault));
+				group.children.push(new Query(this, hostDefault, applicationDefault));
+				mapTests.push(group);
+				group = new Test(this, "WebSocket", "List of WebSocket tests", true);
+				group.children.push(new WebSocketLoad(this, hostDefault, applicationDefault));
+				mapTests.push(group);
+				group = new Test(this, "RTMP", "List of RTMP tests", true);
+				group.children.push(new RTMPBadRequests(this, hostDefault));
+				group.children.push(new RTMPLoad(this, hostDefault, applicationDefault, "RTMP"));
+				group.children.push(new RTMPLoad(this, hostDefault, applicationDefault, "RTMPE"));
+				group.children.push(new RTMPp2p(this, hostDefault, applicationDefault));
+				group.children.push(new RTMPTests(this, hostDefault, "RTMP"));
+				group.children.push(new RTMPMetadata(this, hostDefault, "RTMP", applicationDefault));
+				group.children.push(new NetStreamData(this, hostDefault, "RTMP", applicationDefault));
+				group.children.push(new RTMPMedia(this, hostDefault, "RTMP", applicationDefault));
+				mapTests.push(group);
+				group = new Test(this, "RTMFP", "List of RTMFP tests", true);
+				group.children.push(new RTMFPLoad(this, hostDefault, applicationDefault));
+				group.children.push(new RTMPTests(this, hostDefault, "RTMFP"));
+				group.children.push(new RTMPMetadata(this, hostDefault, "RTMFP", applicationDefault));
+				group.children.push(new NetStreamData(this, hostDefault, "RTMFP", applicationDefault));
+				group.children.push(new WriterDestruction(this, hostDefault, applicationDefault));
+				group.children.push(new RTMPMedia(this, hostDefault, "RTMFP", applicationDefault));
+				group.children.push(new ConnectionRejected(this, hostDefault, applicationDefault));
+				group.children.push(new RTMFPLongQuery(this, hostDefault, applicationDefault));
+				mapTests.push(group);
+				group = new Test(this, "Other", "List of other tests", true);
+				group.children.push(new DeserializationJSON(this, hostDefault, applicationDefault));
+				group.children.push(new DeserializationXMLRPC(this, hostDefault, applicationDefault));
+				group.children.push(new ParentFunctions(this, hostDefault, applicationDefault));
+				group.children.push(new Publications(this, hostDefault, applicationDefault));
+				mapTests.push(group);
+				
+				luaGroup = new Test(this, "LUA", "List of LUA server tests", true);
+				mapTests.push(luaGroup);
+				
+				_conn = new NetConnection();
+				_conn.addEventListener(NetStatusEvent.NET_STATUS, onStatus);
+				_conn.connect(address.text);
+				_conn.client = this;
+			}
+			
+			// Run selected tests
+			private function run():void {
+				
+				listTests.enabled = false;
+				btRun.enabled = false;
+				_currentIndex = 0;
+				runNext();
+			}
+			
+			// Run current test
+			private function runNext():void {
+				var items:Array = listTests.selectedItems;
+				
+				if (_currentIndex < items.length) {
+					var test:Test = items[_currentIndex];
+					var parent:Test = listTests.getParentItem(test);
+					
+					// Run if parent is not selected (TODO : recursive)
+					if (!parent || !listTests.isItemSelected(parent))
+						test.run(onFinished);
+					else {
+						_currentIndex += 1;
+						runNext();
+					}
+				}
+				else {// End of tests!
+					listTests.enabled = true;
+					btRun.enabled = true;
+				}
+			}
+			
+			// Callback, called from a test finished
+			public function onFinished(test:Test, response:Object):void {
+				
+				// Error : End of tests!
+				if (response.err) {
+					listTests.enabled = true;
+					btRun.enabled = true;
+				} else { // Success => Go to next Test
+					_currentIndex += 1;
+					runNext();
+				}
+			}
+			
+			private function onStatus(event:NetStatusEvent):void {
+				switch(event.info.code) {
+					case "NetConnection.Connect.Success":
+						_conn.call("listTests",new Responder(onListTests));
+						break;
+					default:
+						Alert.show(event.info.code);
+				}
+			}
+			
+			public function onListTests(list:Object):void {
+				for (var name:String in list) {
+					var test:LUATest = new LUATest(this, name, list[name], _conn);
+					luaGroup.children.push(test);
+				}
+				
+				listTests.enabled = true;
+				btRun.enabled = true;
+				SUCCESS("Connection succeed. Ready for testing!");
+			}
+			
+			public function myDataTipFunction(value:Object):String {
+				if (value is Test) {// AS3 Test
+					var as3Test:Test = value as Test;
+					return as3Test.description;
+				} else // LUA Test
+					return value.label + " LUA Test";
+			}
+		]]>
+	</fx:Script>	
+	<mx:VBox x="10" y="10" width="935" height="600">
+		<mx:HBox width="100%">
+			<mx:TextInput x="10" y="10" width="400" text="rtmfp://127.0.0.1/FunctionalTests/" id="address"/>
+			<mx:Button x="430" y="10" label="Connect" click="connect()"/>
+		</mx:HBox>
+		<mx:HBox width="100%" height="520">
+			<mx:TextArea id="console" width="720" height="100%" editable="false"
+						 valueCommit="console.verticalScrollPosition=console.maxVerticalScrollPosition"/>
+			<mx:Tree id="listTests" width="204" height="100%" dataProvider="{mapTests}" allowMultipleSelection="true" 
+					 showDataTips="true" dataTipFunction="myDataTipFunction"></mx:Tree>
+		</mx:HBox>
+		<mx:HBox width="100%">
+			<mx:Spacer width="100%"/>
+			<mx:Button id="btRun" label="Run" click="run()"/>
+		</mx:HBox>
+	</mx:VBox>
+</mx:Application>

@@ -1,0 +1,134 @@
+
+.errMsg {
+    color:red;
+}
+.mi_content_title {
+}
+
+.mi_content_title_option .mi_title_action_btn {
+    border: 1px solid #DBDBDB;
+    border-radius: 4px;
+    line-height: 2;
+    background-color: #fff;
+}
+
+.mi_pagenation_result {
+    float: left;
+    margin-left: 40px;
+    vertical-align: middle;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.mi_pagenation_result_title {
+    line-height: 1;
+    font-size: 10px;
+}
+
+.mi_pagenation_option select {
+    width: 100px;
+    height: 32px;
+    border: 1px solid #E1E1E1;
+}
+
+.mi_page_select {
+    margin: 0;
+}
+
+.edit_btn {
+    width: 50px;
+    height: 27px;
+    display: inline-block;
+    padding: 0;
+    border: 1px solid #DBDBDB;
+    border-radius: 4px;
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+
+.edit_icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.mi_table_main td input[type="checkbox"] {
+    vertical-align: 0;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #979797;
+}
+
+.mi_table_main td {
+    cursor: pointer;
+}
+
+.mi_table_main td:nth-child(3) {
+    text-align: left;
+}
+
+.mi_pagenation {
+    margin-bottom: 19px;
+}
+
+.mi_pagenation_result {
+    margin-left: 0;
+}
+
+.order a span{
+    position: absolute;
+    right: 40px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.order a span.descending {
+    top: 20px;
+
+}
+.order a span.ascending {
+    top: 10px
+}
+.first_arrow {
+    right: 35px;
+}
+
+.order a span.descending::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 50%;
+    width: 7px;
+    height: 7px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: translateX(-50%) rotate(135deg);
+    left: 9px;
+}
+
+.order a span.ascending::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 50%;
+    width: 7px;
+    height: 7px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: translateX(-50%) rotate(-45deg);
+    left: 9px;
+}
+.mi_content_title_option span:first-child {
+    color: #0081CC;
+}
+
+.mi_pagenation_option select {
+    margin-bottom: 4px;
+    width: 100px;
+    height: 32px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #E1E1E1;
+}

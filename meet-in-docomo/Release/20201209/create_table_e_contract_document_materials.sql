@@ -1,0 +1,12 @@
+CREATE TABLE e_contract_document_material_basic LIKE material_basic;
+INSERT INTO e_contract_document_material_basic SELECT * FROM material_basic WHERE material_id IN (SELECT DISTINCT(material_id) FROM e_contract_file);
+CREATE TABLE e_contract_document_material_detail LIKE material_detail;
+INSERT INTO e_contract_document_material_detail SELECT * FROM material_detail WHERE material_id IN (SELECT DISTINCT(material_id) FROM e_contract_file);
+ALTER TABLE e_contract_document_material_basic CHANGE COLUMN material_id e_contract_document_material_id int NOT NULL AUTO_INCREMENT COMMENT '契約書素材ID';
+ALTER TABLE e_contract_document_material_detail CHANGE COLUMN material_id e_contract_document_material_id int NOT NULL COMMENT '契約書素材ID';
+ALTER TABLE e_contract_file CHANGE COLUMN material_id e_contract_document_material_id int NOT NULL;
+ALTER TABLE e_contract_file ADD material_id int NOT NULL;
+UPDATE e_contract_file SET material_id = e_contract_document_material_id;
+DELETE FROM material_basic WHERE material_id IN (SELECT DISTINCT(material_id) FROM e_contract_file);
+DELETE FROM material_detail WHERE material_id IN (SELECT DISTINCT(material_id) FROM e_contract_file);
+flush privileges;

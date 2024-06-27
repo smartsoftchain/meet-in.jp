@@ -1,0 +1,256 @@
+
+@charset "UTF-8";
+/*
+*   Title:「 ルーム共有（コピー、SMS送信） 」要素CSS
+*   File Nmae: room_share.css
+*/
+
+/* メニューTOP  コピー、SMS送信*/
+a.room_copy_btn {
+  width: 180px;
+  height: 32px;
+  border-radius: 3px;
+  border: solid 1px #ffffff;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px 40px;
+  margin: 0 15px;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+a.room_copy_btn:hover {
+  color: #ffaa00;
+}
+
+.copy_message_area, 
+.sms_send_message_area {
+  color: #ffffff;
+}
+
+/* ルーム内　ルーム共有モーダル */
+.negotiation_modal_roomshare {
+  position: fixed;
+  margin: auto;
+	width: 582px;
+  height: 329px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border-radius:6px
+}
+.negotiation_modal_roomshare .title_logo
+{
+	text-align: center;
+	color: #b4b4b4;
+	margin-top: 45px;
+	font-size: 41px;
+}
+.negotiation_modal_roomshare .title_header
+{
+	margin-top: 21px;
+  font-family: Meiryo;
+  font-size: 18px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.39;
+  letter-spacing: normal;
+  text-align: center;
+  color: #0081CC;
+}
+.negotiation_modal_roomshare .message_label
+{
+	margin-top: 8px;
+  font-family: Meiryo;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  text-align: center;
+  color: #333333;
+}
+.negotiation_modal_roomshare .room_url_label
+{
+	margin-top: 20px;
+	font-family: Meiryo;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #0081CC;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.negotiation_modal_close {
+  background: #0081CC url(../img/btn_close.png) no-repeat center center;
+	position: absolute;
+  top: 0px;
+  right: 0px;
+  display: block;
+  width: 40px;
+  height: 40px;
+	}
+	.negotiation_modal_close:hover { background-color: #ffcc66;}
+
+  /*コピーするボタン*/
+  .room_copy_btn_in_room, .sms_send_btn_in_room {
+    width: 160px;
+    height: 40px;
+    background-color: #f5f5f5;
+  }
+  .room_copy_btn_in_room:hover, 
+  .sms_send_btn_in_room:hover { background: #c8c8c8; color: #b2b2b2; }
+
+  .copy_btn_inner{
+    font-family: Meiryo;
+    font-size: 14px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #b2b2b2;
+  }
+  .copy_btn_inner img{
+      vertical-align: middle;
+      padding-right: 10px;
+      width: 20px;
+  }
+
+/* 招待文をコピするために表示するメッセージ文領域 */
+.share_message_area{
+	position: absolute;
+	top: 0;
+	left: -999;
+}
+.share_message{
+	font-size: 0;
+	height: 0;
+	width: 0;
+}
+
+
+/* SMS送信モーダル begin */
+#mi_confirm_dialog_background {
+  z-index: 100000005 !important;
+}
+.modal-content {
+	display: none;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0%;
+	left: 0%;
+}
+
+/* モーダルコンテンツ */
+.sms_modal_content_wrapper {
+	width: 670px;
+	text-align: center;
+}
+.sms_modal_head_text {
+	font-size: 14px;
+	margin: 15px 0 10px 0;
+}
+.sms_input_error_area {
+	display: none;
+	color: #E16A6C;
+	font-size: 14px;
+}
+.sms_input_area {
+	width: 480px;
+	margin: 10px auto;
+}
+.send_contents {
+	border: 1px solid #E7E7E7;
+	border-radius: 4px;
+}
+.input_textarea {
+	display: flex;
+	margin: 10px 30px 10px 110px
+}
+.sms_modal_label_text {
+	font-size: 14px;
+	margin-right: 10px;
+}
+.send_text_label {
+	margin-right: 42px;
+}
+#send_tel_number {
+	width: 360px;
+	height: 32px;
+	padding-left: 16px;
+}
+#send_text {
+	width: 362px;
+	height: 126px;
+	resize: none;
+	line-height: 2.1;
+	padding-left: 16px;
+}
+#send_text::-webkit-scrollbar {
+	all:unset;
+	width: 4px;
+	height: 65px;
+	background: transparent;
+	cursor: pointer !important;
+}
+#send_text::-webkit-scrollbar-track  {
+	all:unset;
+	width: 4px;
+	height: 65px;
+	background: transparent;
+}
+#send_text::-webkit-scrollbar-thumb {
+	all:unset;
+	border-radius: 8px;
+	background-color: #929292;
+}
+#send_text::-webkit-scrollbar-thumb:hover {
+	background-color: #929292;
+	cursor: default !important;
+}
+.sms_caution_message_area {
+	margin: 24px auto 0px;
+}
+.caution_message:nth-child(2) {
+	padding-top: 10px;
+}
+#mi_confirm_dialog_area .sms_dialog_button_area #mi_confirm_dialog_cancel,
+#mi_confirm_dialog_area .sms_dialog_button_area #mi_confirm_dialog_submit {
+	height: 40px !important;
+	width: 160px !important;
+}
+#mi_confirm_dialog_area .sms_dialog_button_area #mi_confirm_dialog_cancel {
+	margin-right: 10px !important;
+}
+/* SMS送信時のメッセージ */
+div.sms_send_message_area_in_room{
+	top: 150px;
+	right: 0;
+	width: 200px;
+	min-height: 50px;
+	position: fixed;
+	background-color: #ffffff;
+	box-shadow: 6px 6px 3px 1px rgba(120, 120, 120, 0.5) !important;
+	display: none;
+	z-index: 350;
+}
+div.sms_send_message_in_room{
+	width: 200px;
+	height: 50px;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+/* SMS送信モーダル end */

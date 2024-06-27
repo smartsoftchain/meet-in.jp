@@ -1,0 +1,506 @@
+@charset "UTF-8";
+
+/*
+*	Title:「 MEETIN 」negotiationCSS
+*	File Nmae: 」negotiationCSS.css
+*	Last Modified: 2016-12-06
+*/
+/*----------------------------------------------------------------
+	基本定義
+-----------------------------------------------------------------*/
+
+/* メインコンテンツ
+------------------------------------ */
+#mi_main_contents {
+  background-color: #f5f5f5;
+}
+
+
+#mi_content_area_negotiation {
+  margin: 0 auto;
+  display: block;
+  height: calc(100vh - 100px);
+  min-height: 450px;
+  width: 100%;
+  margin-bottom: -50px;
+  background: #e1e1e1;
+}
+
+#mi_content_area_negotiation.leftmenu_on {
+  width: calc(100% - 60px);
+  margin-left: 60px;
+}
+
+/* ビデオエリア */
+#mi_video_area {
+  position: relative;
+  height: inherit;
+  min-height: inherit;
+  width: calc(100% - 260px);
+  min-width: 640px;
+  background: #fff;
+  box-shadow: 3px 0 15px 3px #c8c8c8;
+  margin: 0 auto;
+}
+
+#mi_video_area .mi_card_icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 35px;
+  color: #c8c8c8;
+  width: 63px;
+  text-align: center;
+  cursor: pointer;
+}
+#mi_video_area .mi_card_icon:hover {
+  background: #f5f5f5;
+}
+
+
+/* 共有メモ
+------------------------------------ */
+#mi_video_area .mi_memo {
+  color: #c8c8c8;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  border: 1px solid #c8c8c8;;
+  box-shadow: 8px 8px 1px 0px #c8c8c8;
+  max-height: calc(100% - 60px);
+  display: none;
+}
+
+#mi_video_area .mi_memo.mi_onview {
+  display: block;
+}
+#mi_video_area .mi_memo textarea {
+  position: relative;
+  z-index: 0;
+  vertical-align: middle;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding: 15px;
+  padding-bottom: 60px;
+  resize: both;
+}
+#mi_video_area .mi_memo_bottom {
+  position: absolute;
+  z-index: 1;
+  bottom: 0px;
+  left: 11px;
+  width: calc(100% - 30px);
+  box-sizing: border-box;
+  vertical-align: middle;
+  margin: 0 4px;
+  padding: 8px;
+  background-color: #fff;
+}
+#mi_video_area .mi_memo_bottom span {
+  width: 30px;
+  height: 30px;
+  font-size: 15px;
+  border: 1px solid #c8c8c8;
+  margin: 0 4px;
+  line-height: 30px;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+#mi_video_area .mi_memo_bottom span:hover {
+  background: #f5f5f5;
+}
+
+#mi_video_area .mi_memo_bottom span:before {
+  font-size: 15px;
+}
+
+
+/* 相手画面表示
+------------------------------------ */
+#mi_video_area .mi_partner_video {
+  position: absolute;
+  bottom: 40px;
+  left: 30px;
+  width: 200px;
+  height: 120px;
+  border: 1px solid #0081CC;
+  z-index: 2;
+  display: none;
+}
+#mi_video_area .mi_partner_video img {
+  width: 100%;
+  height: 100%;
+}
+#mi_video_area .mi_partner_video.mi_onview {
+  display: block;;
+}
+
+
+/* 目次
+------------------------------------ */
+#mi_contents_display {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  width: calc(100% - 60px);
+  min-width: 900px;
+  margin-left: 60px;
+  margin-bottom: 50px;
+  height: 250px;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  display: none;
+}
+
+/* 目次_表示時 */
+#mi_contents_display.mi_onview {
+  display: block;
+}
+
+#mi_contents_display div.mi_tag_list {
+  height: 250px;
+  width: calc(100% - 160px);
+  margin-left: 80px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+#mi_contents_display ul {
+  max-height: 200px;
+  height: 200px;
+}
+#mi_contents_display div.mi_scroll_arrow_right {
+  position: absolute;
+  top: 85px;
+  right: 10px;
+  color: #fff;
+  font-size: 60px;
+  cursor: pointer;
+}
+#mi_contents_display div.mi_scroll_arrow_left {
+  position: absolute;
+  top: 85px;
+  left: 10px;
+  color: #fff;
+  font-size: 60px;
+  cursor: pointer;
+}
+
+#mi_contents_display li {
+  list-style: none;
+  display: table-cell;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20px 0 0 20px;
+}
+#mi_contents_display li:first-child {
+  padding-left:0px;
+}
+
+#mi_contents_display li img {
+  height: 180px;
+  width: auto;
+}
+#mi_contents_display li div {
+  line-height: 40px;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+}
+
+#mi_docment_area {
+  height: inherit;
+  min-height: inherit;
+  width: calc(100% - 260px);
+  min-width: 640px;
+  background: #fff;
+  box-shadow: 3px 0 15px 3px #c8c8c8;
+  margin: 0 auto;
+}
+
+
+
+/* 資料全画面表示
+------------------------------------ */
+#mi_docment_area .mi_partner_video {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right:40px;
+  width: 200px;
+  height: 120px;
+  border: 1px solid #0081CC;
+  z-index: 2;
+  display: none;
+}
+#mi_docment_area .mi_partner_video img {
+  width: 100%;
+  height: 100%;
+}
+#mi_docment_area .mi_partner_video.mi_onview {
+  display: block;;
+}
+#mi_docment_area .mi_scroll_arrow_left {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  font-size: 60px;
+  cursor: pointer;
+}
+#mi_docment_area .mi_scroll_arrow_right {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  font-size: 60px;
+  cursor: pointer;
+}
+
+
+
+/*----------------------------------------------------------------
+	右側サイドメニュー
+-----------------------------------------------------------------*/
+
+
+/* 行動を選択 */
+.mi_select_action {
+  position: absolute;
+  right: 25px;
+  bottom: 5px;
+  cursor: pointer;
+}
+.mi_select_action .mi_action_button {
+  color: #b4b4b4;
+  background: #fff;
+  width: 100px;
+  height: 100px;
+  box-shadow: 5px 5px 10px 2px rgba(128, 128, 128, 0.48);
+  border-radius: 50px;
+}
+.mi_select_action.mi_active .mi_action_button {
+  background: #373228;
+}
+.mi_select_action.mi_active .mi_add_icon {
+  color: #fff;
+}
+
+.mi_select_action span {
+  width: 100px;
+  height: 1em;
+  position: absolute;
+  left: 0;
+  top: 70px;
+  font-size: 11px;
+}
+.mi_select_action span:first-child {
+  width: 36px;
+  height: 36px;
+  font-size: 32px;
+  left: 32px;
+  top: 23px;
+  color: #0081CC;
+}
+.mi_add_icon {
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  left: 32px;
+  top: 23px;
+}
+.mi_select_action ul {
+  position: absolute;
+  bottom: 100px;
+  margin: 0 10px;
+}
+.mi_select_action li {
+  color: #c8c8c8;
+  position: relative;
+  list-style: none;
+  margin-bottom: 5px;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  background-color: #fff;
+  box-shadow: 5px 5px 10px 0px rgba(128, 128, 128, 0.32);
+}
+.mi_select_action li:hover {
+  background-color: #0081CC;
+}
+.mi_select_action li:hover > span,
+.mi_select_action li:hover > span:first-child {
+  color: #fff;
+}
+.mi_select_action li span {
+  width: 80px;
+  top: 50px;
+}
+.mi_select_action li span:first-child {
+  color: #c8c8c8;
+  width: 25px;
+  height: 25px;
+  font-size: 25px;
+  left: 28px;
+  top: 20px;
+}
+
+
+/*----------------------------------------------------------------
+	左側サイドメニュー
+-----------------------------------------------------------------*/
+
+.mi_left_sidebar {
+  height: calc(100vh - 100px);
+  background-color: #fff;
+  border-right: 1px solid #e1e1e1;
+  width: 60px;
+  min-height: 450px;
+  position: fixed;
+  top: 50px;
+  z-index: 10;
+}
+
+.mi_left_sidebar li {
+  width: 60px;
+  height: 60px;
+  border-top: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
+  margin-bottom: -1px;
+  cursor: pointer;
+}
+.mi_left_sidebar li:hover {
+  background: #f5f5f5;
+}
+.mi_left_sidebar li.mi_active {
+  color: #fff;
+  background-color: #0081CC;
+}
+.mi_left_sidebar span {
+  font-size: 20px;
+  margin: 0px 20px;
+  line-height: 26px;
+  vertical-align: text-top;
+}
+.mi_left_sidebar li div {
+  width: 60px;
+  text-align: center;
+  line-height: 1em;
+  font-size: 11px;
+  height: 30px;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.mi_left_sidebar .mi_bottom_list {
+  position: absolute;
+  bottom: 0;
+}
+
+/* カラーパッド */
+.mi_left_sidebar table {
+  width: 100%;
+  height: 100%;
+}
+.mi_left_sidebar li div.mi_color_pad {
+  display:none;
+  position: absolute;
+  top: 244px;
+  left: 60px;
+  width: 100px;
+  height: 65px;
+  background-color: #fff;
+  padding: 5px 0 5px 5px;
+  border: 1px solid #e1e1e1;
+}
+
+.mi_left_sidebar li div.mi_color_pad.mi_onview {
+  display:block;
+}
+.mi_left_sidebar li div.mi_color_pad td {
+  width: 30px;
+  height: 30px;
+  padding: 0 5px 5px 0;
+  cursor: pointer;
+}
+.mi_left_sidebar li div.mi_color_pad tr {
+  margin-bottom: 5px;
+}
+
+/*----------------------------------------------------------------
+	名刺表示
+-----------------------------------------------------------------*/
+
+
+/* 名刺領域 */
+.mi_namecard_area {
+  float: right;
+  height: calc(100vh - 100px);
+  min-height: 450px;
+  width: 260px;
+  display: none;
+}
+
+/* 名刺領域_表示時 */
+.mi_namecard_area.mi_onview {
+  display: block;
+}
+#mi_video_area.namecard_on {
+  float: left;
+}
+
+.mi_namecard_contents {
+  height: calc(100vh - 140px);
+  min-height: 410px;
+  width: 240px;
+  background: #fff;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.mi_pdf_dl_button {
+  height: 40px;
+  width: 180px;
+  border: solid 1px #e1e1e1;
+  background: #fff;
+  color: #e1e1e1;
+  font-size: 12px;
+  margin: 20px calc(50% - 90px);
+}
+
+.mi_pdf_dl_button_icon {
+  height: 16px;
+  width: 16px;
+  margin-right: 8px;
+  color: #b4b4b4;
+}
+
+.mi_namecard_face_img {
+  height: 50px;
+  width: 50px;
+  margin-left: calc(50% - 25px);
+}
+
+.mi_namecard_detail {
+  height: calc(100% - 205px);
+  width: 210px;
+  margin: 15px;
+  margin-left: 20px;
+  overflow-y: scroll;
+}
+
+.mi_namecard_detail_content {
+  margin-bottom: 21px;
+  word-wrap: break-word;
+}
+
+.mi_facebook {
+  height: 30px;
+  width: 30px;
+  margin-left: 20px;
+}
+
+.mi_facebook_icon {
+  height: 30px;
+  width: 30px;
+}

@@ -1,0 +1,868 @@
+@charset "UTF-8";
+
+/*
+*	Title:「 MEETIN 」ページごとのCSS
+*	File Nmae: base.css
+*	Last Modified: 2016-12-29
+*/
+/*----------------------------------------------------------------
+	資料の編集
+-----------------------------------------------------------------*/
+
+#mi_document_display_area, #mi_document_select_area {
+  height: calc(100vh - 100px);
+  float: left;
+}
+
+#mi_document_display_area {
+  width: 80%;
+  background-color: #fff;
+  position: relative;
+}
+
+#mi_document_select_area {
+  width: 20%;
+  background-color: #e1e1e1;
+  overflow-y: scroll;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+#mi_document_select_area div {
+  position: relative;
+}
+#mi_document_select_area div.mi_select:after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-style: solid;
+  border-width: 20px;
+  border-color: #0081CC #0081CC transparent transparent;
+  right: 0;
+  top: 0;
+}
+#mi_document_select_area div.mi_comment:before {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+#mi_document_select_area ul {
+  list-style: none;
+}
+#mi_document_select_area img.mi_document {
+  width: 100%;
+  height: auto;
+  margin-bottom: 24px;
+}
+
+.mi_select_document {
+  width: 60%;
+  max-height: calc(100vh - 200px);
+  position: absolute;
+  top: 15%;
+  right: 0;
+  left: 0;
+  margin: auto;
+  margin-top: 50px;
+}
+p.mi_document_note {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  background: rgba(255,255,255,0.6);
+  padding: 20px 10%;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  z-index: 350;
+}
+
+#mi_document_display_area .left_tool_box,
+#mi_document_display_area .right_tool_box {
+  width: 20%;
+  max-height: calc(100vh - 100px);
+  position: absolute;
+  top: 15%;
+  margin: auto;
+  box-sizing: border-box;
+  text-align: center;
+}
+#mi_document_display_area .left_tool_box {
+  left: 0;
+}
+
+#mi_document_display_area .right_tool_box {
+  right: 0;
+}
+
+#mi_document_display_area .left_tool_box ul,
+#mi_document_display_area .right_tool_box ul {
+  list-style: none;
+}
+
+#mi_document_display_area li {
+  margin-bottom: 30px;
+}
+
+#mi_document_display_area li:hover,
+#mi_document_display_area li:active {
+  color: #0081CC;
+}
+#mi_document_display_area li:hover img {
+  opacity: 0;
+}
+
+#mi_document_display_area .left_tool_box li div {
+  width: 50px;
+  height: 51px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+#mi_document_display_area .right_tool_box li div {
+  width: 74px;
+  height: 91px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+
+#mi_document_display_area li:hover .doc_save { background: url(../img/doc-save-hover.png)no-repeat center top; }
+#mi_document_display_area li:hover .doc_configuration { background: url(../img/doc-configuration-hover.png)no-repeat center top; }
+#mi_document_display_area li:hover .doc_delete { background: url(../img/doc-delete-hover.png)no-repeat center top; }
+#mi_document_display_area li:hover .doc_comment { background: url(../img/doc-comment-hover.png)no-repeat center top; }
+#mi_document_display_area li:hover .doc_husen { background: url(../img/doc-husen-hover.png)no-repeat center top; }
+
+/*----------------------------------------------------------------
+	ゲストユーザー/商談開始前画面
+-----------------------------------------------------------------*/
+
+#mi_guest_main_contents {
+  line-height: 1.8;
+  background-color: #f5f5f5;
+  position: relative;
+  height: 100vh;
+  min-height: 500px;
+}
+
+.mi_guest_background {
+  width: 100%;
+  height: 100%;
+  float: left;
+}
+.mi_guest_background.left_img {
+  background: url(../img/guestin_img-1.jpg) no-repeat center center;
+  background-size: cover;
+}
+.mi_guest_background.right_img {
+  background: url(../img/guestin_img-2.jpg) no-repeat center center;
+  background-size: cover;
+}
+.mi_guest_background.third_img {
+  background: url(../img/guestin_img-3.jpg) no-repeat center center;
+  background-size: cover;
+}
+
+.mi_circle_base {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding-top: 50px;
+  z-index: 500;
+}
+
+.mi_connect_circle {
+  text-align: center;
+  margin: auto;
+  position: relative;
+  color: #fff;
+  font-size: 14px;
+}
+
+.mi_connect_circle_inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  padding: 20px 0;
+}
+
+.mi_connect_circle_inner > * {
+  display: block;
+  margin: 0 auto;
+}
+
+.mi_connect_circle_inner .mi_input_text{
+  font-size: 12px;
+  color: #14b056;
+}
+
+.mi_connect_circle .mi_logo_image {
+  margin-bottom: 25px;
+  width: 35%;
+}
+
+.mi_connect_circle .mi_atentsion_text {
+  font-size: 16px;
+  line-height: 1;
+  margin-bottom: 25px;
+  text-align:center;
+}
+
+.mi_connect_circle .mi_main-copy_image {
+  margin-bottom:50px;
+  width: 100%;
+  margin-bottom:20px;
+}
+
+.mi_connect_circle .mi_main-copy_image_sp{
+  display: none;
+}
+
+
+.mi_connect_circle input.mi_default_input {
+  height: 32px;
+  margin-bottom: 8px;
+}
+
+.mi_connect_circle .mi_conect_button {
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 40px;
+  margin-top: 24px;
+  width: 320px;
+  height: 45px;
+}
+.mi_connect_circle .mi_conect_button,
+.mi_connect_circle input.mi_default_input{
+  width:30%;
+}
+
+.mi_connect_circle .mi_conect_button:active {
+  color: #fff;
+}
+.login_wrap {
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+
+/*-- 画面サイズによってデザイン変更 --*/
+@media screen and (max-width: 1500px) {
+  .login_wrap #login_header,
+  #mi_wrap.login_wrap {
+    min-width: 320px;
+  }
+  .mi_connect_circle_inner {
+    width: 640px;
+  }
+  .mi_connect_circle .mi_atentsion_text {
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .mi_connect_circle .mi_conect_button,
+  .mi_connect_circle input.mi_default_input {
+    width: 85%;
+    max-width: 300px;
+  }
+}
+@media screen and (max-width: 1251px) {
+  .login_wrap #login_header,
+  #mi_wrap.login_wrap {
+    min-width: 320px;
+   }
+  .mi_connect_circle_inner {
+    width: 620px;
+  }
+}
+@media screen and (max-width: 960px) {
+  .mi_connect_circle_inner {
+     width: 600px;
+  }
+
+}
+
+
+@media screen and (max-width: 600px) {
+  .mi_connect_circle .mi_logo_image {
+    width: 50%;
+  }
+  .mi_connect_circle .mi_main-copy_image {
+    display:none;
+  }
+  .mi_connect_circle_inner {
+    width: 65%;
+    padding: 20px 0;
+  }
+  .mi_connect_circle .mi_main-copy_image_sp{
+    display: block;
+    width: 100%;
+    margin-bottom:24px;
+  }
+
+  .mi_connect_circle .mi_atentsion_text {
+    width:70%;
+    line-height: 1.5;
+  }
+
+  .mi_connect_circle .mi_conect_button,
+  .mi_connect_circle input.mi_default_input {
+    width:60%;
+    height: 40px;
+  }
+}
+
+
+/*----------------------------------------------------------------
+	管理者ログイン画面
+-----------------------------------------------------------------*/
+
+#mi_admin_login_form {
+  height: 100vh;
+  min-height: 400px;
+  line-height: 1.8;
+  background-color: #fff;
+  text-align: center;
+  font-size: 16px;
+  overflow: hidden;
+  min-height: 450px;
+}
+
+#mi_admin_login_form .mi_subtitle {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #6e6e6e;
+}
+
+#mi_admin_login_form .mi_logo_image {
+  margin-bottom: 48px;
+}
+
+#mi_admin_login_form p {
+  margin-bottom: 24px;
+  font-size: 14px;
+  line-height: 1;
+  width: 350px;
+}
+
+#mi_admin_login_form .mi_default_input {
+  margin: 0 auto;
+  margin-bottom: 8px;
+  text-align: left;
+  padding: 0 20px;
+  box-sizing: border-box;
+  width:320px;
+}
+
+#mi_admin_login_form .mi_default_button {
+  margin: 8px auto;
+  width: 320px;
+}
+
+#mi_admin_login_form_innner {
+  position: absolute;
+  right: 0;
+  left: 0%;
+  height: 400px;
+  top: 0;
+  bottom: 0;
+  min-height: 400px;
+  width: 350px;
+  margin: auto;
+  margin-left: 120px;
+  text-align: left;
+  color: #333;
+}
+
+.mi_admin_login_form_wrap.mi_half_background {
+  position: relative;
+}
+.mi_img_slide_wrap.mi_half_background {
+  width: 50%;
+  height: 100vh;
+  position: relative;
+}
+.mi_img_slide_wrap {
+  overflow: hidden;
+}
+.mi_img_slide_wrap_inner {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+}
+.mi_img_slide_list {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  -webkit-transform: scale(1.0);
+  -ms-transform: scale(1.0);
+  transform: scale(1.0);
+}
+.mi_img_slide_list:first-child {
+  opacity: 1;
+}
+.mi_img_slide_list.is-visible {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: opacity 2s,-webkit-transform 8.8s;
+    transition: opacity 2s,-webkit-transform 8.8s;
+    transition: transform 8.8s,opacity 2s;
+    transition: transform 8.8s,opacity 2s,-webkit-transform 8.8s;
+}
+.mi_login_let_img_1{ background: url(../img/login_img-1.png) no-repeat center center; background-size: cover;}
+
+#mi_admin_login_form span {
+  width: 100px;
+  text-align: right;
+  padding-right: 10px;
+  font-size: 12px;
+}
+#mi_admin_login_form .icon-meet-in {
+  font-size: 16px;
+}
+#mi_admin_login_form label {
+  width: 400px;
+  margin-left: -110px;
+}
+#mi_admin_login_form label > * {
+  display: inline-block;
+}
+
+
+/*----------------------------------------------------------------
+	個人情報設定画面
+-----------------------------------------------------------------*/
+
+/* タイトル設定
+-------------------------------------------------*/
+.mi_profile_namecard_display {
+  display: block;
+  vertical-align: middle;
+  margin-left: 230px;
+  font-size: 14px;
+  line-height: 50px;
+}
+
+.mi_profile_namecard_display img {
+  height: 12px;
+  width: 12px;
+  vertical-align: middle;
+  margin: 0 4px;
+}
+
+/* テーブル設定
+-------------------------------------------------*/
+
+/*-- 画像の選択td用 --*/
+.mi_table_input_right .mi_select_img_wrap {
+  margin: 10px 0;
+  vertical-align: middle;
+  display: inline-block;
+  padding: 0px 0px 0px 20px;
+}
+.mi_profile_chage_link {
+  border: none;
+  background: none;
+  color: #b4b4b4;
+  margin-left: 20px;
+  margin: 10px 15px 0 0;
+  display: inline-block;
+  float: right;
+  cursor: pointer;
+}
+.mi_profile_chage_link:hover {
+  color: #6e6e6e;
+}
+
+.mi_table_profile_img_edit_btn {
+  float: none;
+}
+
+
+/*----------------------------------------------------------------
+	パスワード変更画面
+-----------------------------------------------------------------*/
+
+.input_info_text {
+  margin-top: 10px
+}
+
+
+/*-----------------------------------------------------------
+	TOPメニュー
+------------------------------------------------------------*/
+
+/* 番号発行エリア
+----------------------------------- */
+.connection_number_wrap {
+  background: #fff;
+  text-align:center;
+  position: relative;
+}
+
+#connection_info_not_published {
+  padding: 29px;
+}
+.connection_number_wrap #connection_info_not_published .title_message {
+  text-align:center;
+}
+.connection_number_wrap .btn_link_long {
+  height: 60px;
+  display: block;
+  line-height: 60px;
+  margin: 10px auto 0;
+  position: relative;
+}
+#connection_info_published {
+	display: none;
+  padding: 29px;
+}
+.connection_number_area .copy_alert,
+.connection_number_area .title_message {
+  text-align: left;
+  width: 440px;
+  margin: 0 auto;
+}
+.connection_number_area .copy_alert {
+  display: none;
+}
+.connection_number_wrap .connection_number {
+	width: 290px;
+  height: 60px;
+  background-color: #fff;
+  border: 1px solid #e8e8e8;
+  cursor: default;
+	float: left;
+	font-size: 28px;
+	vertical-align: middle;
+  line-height: 60px;
+	padding: 0 20px;
+}
+.connection_number_wrap .connection_number:hover {
+  color: #9b9b9b;
+}
+.connection_number_wrap .connection_number:active {
+  color: #0081CC;
+}
+.connection_number_wrap .again_number {
+	float: left;
+	margin-left: 10px;
+}
+.connection_number_wrap .btn_link_short {
+  height: 60px;
+  display: block;
+  line-height: 60px;
+  width: 120px;
+}
+.connection_number_wrap .btn_link_long .call_option_icon,
+.connection_number_wrap .btn_link_short .iconspan {
+  margin-right: 10px;
+  vertical-align: middle;
+  font-size: 16px;
+}
+.connection_number_wrap .btn_link_long .button_text {
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
+}
+.connection_number_wrap .again_number_wrap {
+  margin: 10px auto 0;
+  display: inline-block;
+}
+
+.connection_number_wrap .mail_to_btn {
+  border-radius: 25px;
+  box-sizing: border-box;
+  color: #222;
+  display: inline-block;
+  font-size: 25px;
+  height: 50px;
+  margin: 5px 10px;
+  padding: 5px 0;
+  width: 50px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.connection_number_wrap .mail_to_btn:hover{
+  background: #f5f5f5;
+}
+.connection_number_wrap .mail_to_btn:active{
+  transform: scale(1);
+  color: #fff;
+  background-color: #0081CC;
+}
+
+
+/* お知らせ表示エリア
+----------------------------------- */
+.notification_area {
+	margin-top: 80px;
+}
+
+.notification_area .title_message{
+	text-align:left;
+	font-size: 20px;
+	color: #0081CC;
+  border-bottom: 1px solid #a7a7a7;
+  margin-bottom: 10px;
+}
+
+.notification_area .notification{
+	width: 100%;
+  height: calc(100vh - 500px);
+	min-height: 150px;
+  overflow: auto;
+}
+
+.notification_area .notification .notification_row{
+	text-align: left !important;
+  margin-bottom: 8px;
+}
+
+.notification_area .notification .date{
+	float: left;
+  display: block;
+
+}
+.notification_area .notification .message{
+	width: auto !important;
+	margin-left: 115px;
+	display: block;
+	text-align: left !important;
+}
+
+
+
+/*-----------------------------------------------------------
+	TOPメニュー
+------------------------------------------------------------*/
+
+.conecting_wrap {
+  background-color: #333;
+  height: 100vh;
+  position: relative;
+}
+
+.conecting_inner {
+  position: relative;
+  width: 620px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #fff;
+}
+
+.loding_text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 18px;
+  letter-spacing: 3px;
+}
+
+.loding_text .point {
+  letter-spacing: -7px;
+  font-size: 16px;
+  margin-right: -4px;
+}
+
+.conect_text {
+  position: absolute;
+  left: 250px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 22px;
+  width: 370px;
+}
+
+.loding_label_icon {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  font-size: 16px;
+  color: white;
+}
+
+.lodingimg_efect_wrap {
+  width: 200px;
+  height: 200px;
+  display: block;
+  position: relative;
+}
+
+.lodingimg_efect {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.lodingimg_efect:after {
+  display: block;
+  position: relative;
+  width: 200px;
+  height: 196px;
+  -webkit-animation: rotate 1.5s linear infinite;
+  -moz-animation: rotate 1.5s linear infinite;
+  -ms-animation: rotate 1.5s linear infinite;
+  -o-animation: rotate 1.5s linear infinite;
+  animation: rotate 1.5s linear infinite;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  border-top: 2px solid #a3a2a9;
+  border-bottom: 2px solid #0081CC;
+  border-left: 2px solid #a3a2a9;
+  border-right: 2px solid #0081CC;
+  content: '';
+}
+.lodingimg_efect_wrap.connection_number_loding {
+  width: 25px;
+  height: 21px;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.lodingimg_efect_wrap.connection_number_loding .lodingimg_efect:after {
+  width: 25px;
+  height: 21px;
+  -webkit-animation: rotate 0.5s linear infinite;
+  -moz-animation: rotate 0.5s linear infinite;
+  -ms-animation: rotate 0.5s linear infinite;
+  -o-animation: rotate 0.5s linear infinite;
+  animation: rotate 0.5s linear infinite;
+  border-top: 2px solid #c78603;
+  border-bottom: 2px solid #f9bf4d;
+  border-left: 2px solid #c78603;
+  border-right: 2px solid #0081CC;
+}
+
+.connecting_efect {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background-color: black;
+}
+
+.connecting_efect:after {
+  display: block;
+  position: relative;
+  width: 125px;
+  height: 125px;
+  -webkit-animation: rotate 1.5s linear infinite;
+  -moz-animation: rotate 1.5s linear infinite;
+  -ms-animation: rotate 1.5s linear infinite;
+  -o-animation: rotate 1.5s linear infinite;
+  animation: rotate 1.5s linear infinite;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  border-top: 2px solid #a3a2a9;
+  border-bottom: 2px solid #0081CC;
+  border-left: 2px solid #a3a2a9;
+  border-right: 2px solid #0081CC;
+  content: '';
+}
+
+
+@-webkit-keyframes rotate {
+	0% {-webkit-transform: rotate(0deg);}
+	100% {-webkit-transform: rotate(360deg);}
+}
+@-moz-keyframes rotate {
+	0% {-moz-transform: rotate(0deg);}
+	100% {-moz-transform: rotate(360deg);}
+}
+@-ms-keyframes rotate {
+	0% {-ms-transform: rotate(0deg);}
+	100% {-ms-transform: rotate(360deg);}
+}
+@-o-keyframes rotate {
+	0% {-o-transform: rotate(0deg);}
+	100% {-o-transform: rotate(360deg);}
+}
+@keyframes rotate {
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(360deg);}
+}
+
+/*-----------------------------------------------------------
+	モーダル
+------------------------------------------------------------*/
+.non_reccomend_wrap {
+  bottom: 10%;
+  left: 35%;
+  background-color: #fff;
+  z-index: 50;
+}
+
+.non_reccomend_main {
+  text-align: center;
+  padding: 10px;
+  margin-top: 5px;
+  line-height: 18px;
+}
+
+.non_reccomend_link_wrap {
+  margin-top: 30px;
+}
+
+.non_reccomend_link {
+  color: #0081CC !important;
+  text-decoration: underline;
+}
+
+.non_reccomend_cancel {
+  margin-top: 10px;
+}
+
+.non_reccomend_modal_default {
+  display: none;
+  position: fixed;
+  margin: auto;
+  width: 450px;
+  height: 180px;
+  background-color: #fff;
+  border-radius: 6px;
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>WebRTCサンプル</title>
+	
+
+</head>
+	<body>
+		<video id="myVideo" width="320" height="240" autoplay></video>
+		<output></output>
+		<script>
+			navigator.webkitGetUserMedia({video:true, audio:true},
+				function(stream){
+					var data = webkitURL.createObjectURL(stream);
+					document.getElementById("myVideo").src = data;
+				},
+				function(error){
+					var ele = document.getElementsByTagName("output")[0];
+					ele.innerHTML = "エラー："+error.code;
+				}
+			);
+		</script>
+	</body>
+</html>

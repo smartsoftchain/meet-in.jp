@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+/*
+*	Title:「 MEETIN 」document_listCSS
+*	File Nmae: document_list.css
+*	Last Modified: 2016-12-12
+*/
+
+
+
+/*----------------------------------------------------------------
+	資料
+-----------------------------------------------------------------*/
+
+/* 資料一覧
+------------------------------------ */
+
+.mi_document_list_document_icon {
+  max-width: 155px;
+  height: auto;
+  margin: 10px 0;
+  border: solid 1px #c8c8c8;
+  min-width: 155px;
+  min-height: 120px;
+}
+
+table.document_list td {
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+table.document_list td:nth-child(1) {
+  width: 40px;
+}
+table.document_list td:nth-child(2) {
+  width: 160px;
+}
+table.document_list td:nth-child(3) {
+  vertical-align: top;
+  text-align: left;
+  padding: 24px 10px;
+  width: 370px;
+}
+table.document_list td:nth-child(3) h2 {
+  font-size: 16px;
+  color: #555;
+}
+table.document_list td:nth-child(3) span {
+  margin-right: 45px;
+}
+table.document_list td:nth-child(3) span:before {
+  color: #0081CC;
+}
+table.document_list td:nth-child(3) p {
+  max-width: 575px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+table.document_list td:nth-child(4) {
+  width: 100px;
+}
+table.document_list td:nth-child(4) span {
+  font-size: 25px;
+}
+table.document_list td:nth-child(5) {
+  padding: 0;
+}
+table.document_list td:nth-child(5) a {
+  display: block;
+  height: 100%;
+  padding-right: 20px;
+  width: 40px;
+  position: relative;
+  float:right;
+}
+table.document_list td:nth-child(5) span {
+  width: 30px;
+  display: inline-block;
+  font-size: 50px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+table.document_list tr > td:nth-child(5):hover a {
+  background: #A8DBFF;
+}
+table.document_list tr:hover > td:nth-child(5) span {
+  color: #222;
+}

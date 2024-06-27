@@ -1,0 +1,334 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/meet-in.eot?r1jcd0');
+  src:  url('../fonts/meet-in.eot?r1jcd0#iefix') format('embedded-opentype'),
+    url('../fonts/meet-in.ttf?r1jcd0') format('truetype'),
+    url('../fonts/meet-in.woff?r1jcd0') format('woff'),
+    url('../fonts/meet-in.svg?r1jcd0#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-setting:before {
+  content: "\e94e";
+}
+.icon-meet-in:before {
+  content: "\e946";
+}
+.icon-facebook:before {
+  content: "\e947";
+}
+.icon-LinkedIn:before {
+  content: "\e948";
+}
+.icon-twitter:before {
+  content: "\e949";
+}
+.icon-cheack_icon-cheak:before {
+  content: "\e94a";
+}
+.icon-mail:before {
+  content: "\e94b";
+}
+.icon-notification:before {
+  content: "\e94c";
+}
+.icon-contact:before {
+  content: '';
+  background-image: url("/img/icon_telephone.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  position: relative;
+  width: 20px;
+  height: 16px;
+  vertical-align: middle;
+}
+.icon-clock:before {
+  content: '';
+  background-image: url("/img/icon_clock.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  position: relative;
+  bottom: 2px;
+  vertical-align: middle;
+  margin-right: 4px;
+  width: 19px;
+  height: 19px;
+}
+.icon-good-reaction {
+  content: '';
+  background-image: url("/img/icon_good_reaction.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  position: relative;
+  right: 2.5px;
+  bottom: 0.5px;
+  width: 15px;
+  height: 14px;
+  vertical-align: middle;
+  margin: 0 auto;
+}
+.icon-hand:before,
+.icon-hand-active:before {
+  content: '';
+  bottom: 1px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  position: relative;
+  width: 15px;
+  height: 18px;
+  vertical-align: middle;
+  margin: 0 auto;
+}
+.icon-hand:before {
+  background-image: url("/img/icon_raise_hand.svg");
+}
+.icon-hand-active:before {
+  background-image: url("/img/icon_raise_hand_active.svg");
+}
+.icon-highlight-draw:before {
+  content: "\e94d";
+}
+.icon-account-parsonal:before {
+  content: "\e900";
+}
+.icon-arrow:before {
+  content: "\e901";
+}
+.icon-browse-out:before {
+  content: "\e902";
+}
+.icon-browse:before {
+  content: "\e903";
+}
+.icon-businesscard:before {
+  content: "\e904";
+}
+.icon-call-cut:before {
+  content: "\e905";
+}
+.icon-call:before {
+  content: "\e906";
+}
+.icon-close:before {
+  content: "\e907";
+}
+.icon-code:before {
+  content: "\e908";
+}
+.icon-coffe:before {
+  content: "\e909";
+}
+.icon-comment-02:before {
+  content: "\e90a";
+}
+.icon-comment-off:before {
+  content: "\e90b";
+}
+.icon-comment:before {
+  content: "\e90c";
+}
+.icon-company-puls:before {
+  content: "\e90d";
+}
+.icon-company:before {
+  content: "\e90e";
+}
+.icon-completion:before {
+  content: "\e90f";
+}
+.icon-configuration-personal:before {
+  content: "\e910";
+}
+.icon-configuration:before {
+  content: "\e911";
+}
+.icon-connect:before {
+  content: "\e912";
+}
+.icon-content:before {
+  content: "\e913";
+}
+.icon-cursor02:before {
+  content: "\e914";
+}
+.icon-delete:before {
+  content: "\e915";
+}
+.icon-document-01:before {
+  content: "\e916";
+}
+.icon-document:before {
+  content: "\e917";
+}
+.icon-download:before {
+  content: "\e918";
+}
+.icon-edit:before {
+  content: "\e919";
+}
+.icon-expansion:before {
+  content: "\e91a";
+}
+.icon-folder:before {
+  content: "\e91b";
+}
+.icon-full-screen:before {
+  content: "\e91c";
+}
+.icon-highlight:before {
+  content: "\e91d";
+}
+.icon-history:before {
+  content: "\e91e";
+}
+.icon-hold:before {
+  content: "\e91f";
+}
+.icon-link:before {
+  content: "\e920";
+}
+.icon-login:before {
+  content: "\e921";
+}
+.icon-logout:before {
+  content: "\e922";
+}
+.icon-memo:before {
+  content: "\e923";
+}
+.icon-menu-01:before {
+  content: "\e924";
+}
+.icon-menu-02:before {
+  content: "\e925";
+}
+.icon-menu-03:before {
+  content: "\e926";
+}
+.icon-menu-04:before {
+  content: "\e927";
+}
+.icon-menu-05:before {
+  content: "\e928";
+}
+.icon-menu-06:before {
+  content: "\e929";
+  display: block;
+  width: 33px;
+}
+.icon-menu-07:before {
+  content: "\e92a";
+}
+.icon-menu-08:before {
+  content: "\e92b";
+}
+.icon-menu-down:before {
+  content: "\e92c";
+}
+.icon-microphone-off:before {
+  content: "\e92d";
+}
+.icon-microphone:before {
+  content: "\e92e";
+}
+.icon-parsonal-puls:before {
+  content: "\e92f";
+}
+.icon-parsonal:before {
+  content: "\e930";
+}
+.icon-pc:before {
+  content: "\e931";
+}
+.icon-pen:before {
+  content: "\e932";
+}
+.icon-pointer:before {
+  content: "\e933";
+}
+.icon-post-it:before {
+  content: "\e934";
+}
+.icon-puls:before {
+  content: "\e935";
+}
+.icon-rec:before {
+  content: "\e936";
+}
+.icon-reduced-screen:before {
+  content: "\e937";
+}
+.icon-report:before {
+  content: "\e939";
+}
+.icon-reset:before {
+  content: "\e93a";
+}
+.icon-search:before {
+  content: "\e93b";
+}
+.icon-tag:before {
+  content: url("/img/tag_icon.svg");
+}
+.icon-share:before {
+  content: "\e93c";
+}
+.icon-sp:before {
+  content: "\e93d";
+}
+.icon-tab:before {
+  content: "\e93e";
+}
+.icon-upload:before {
+  content: "\e93f";
+}
+.icon-url:before {
+  content: "\e940";
+}
+.icon-video-off:before {
+  content: "\e941";
+}
+.icon-video:before {
+  content: "\e942";
+}
+.icon-whiteboard:before {
+  content: "\e943";
+}
+.icon-window-share:before {
+  content: "\e944";
+}
+.icon-window:before {
+  content: "\e945";
+}
+.icon-calendar-o16:before {
+  content: url("/img/crowd-calendar_icon_o.png");
+}
+.icon-calendar-w18:before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-image: url("/img/crowd-calendar_icon_w@2x.png");
+  background-size: contain;
+  vertical-align: middle;
+}

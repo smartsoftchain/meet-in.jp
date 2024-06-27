@@ -1,0 +1,654 @@
+<html lang="ja"><head>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta name="robots" content="noindex">
+  <title>
+    dXオンライン営業 | いつでも、どこでも簡単にweb会議
+  </title>
+  <meta charset="utf-8">
+  <meta content="dXオンライン営業は、いつでも、どこでも簡単にweb会議ができるビデオチャットツールです。" name="description">
+  <meta content="web 会議　webミーティング　オンラインコミュニケーション　インストール不要　簡単" name="keywords">
+  <meta content="" name="author">
+  <link href="/img/favicon.ico" rel="shortcut icon">
+  <link href="/css/fonts.css?201903192" rel="stylesheet">
+  <link href="/css/ie7.css?201903192" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  <link href="/css/contract.css?201903192" rel="stylesheet">
+  <link href="/css/confirm_contact.css?201903192" rel="stylesheet">
+  <link href="/css/reset.css?201903192" rel="stylesheet">
+  <link href="/css/base.css?201903192" rel="stylesheet">
+  <link href="/css/page.css?201903192" rel="stylesheet">
+  <link href="/css/design.css?201903192" rel="stylesheet">
+  <link href="/css/top.css?20190719" rel="stylesheet">
+  <link href="/css/jquery-ui.css?201903192" rel="stylesheet">
+  <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script src="https://connect.facebook.net/signals/config/251868542198394?v=2.9.15&amp;r=stable" async=""></script><script async="" src="https://connect.facebook.net/en_US/fbevents.js"></script><script src="/js/jquery-1.11.2.min.js">
+  </script>
+  <script src="/js/jquery-ui.min.js">
+  </script>
+  <script src="/js/common.js">
+  </script>
+  <script src="/js/index/top.js">
+  </script>
+  <script>
+  
+    //スムーズスクロール部分の記述
+    $(function(){
+       $('a[href^=#]').click(function() {
+          var speed = 400; // ミリ秒
+          var href= $(this).attr("href");
+          var target = $(href == "#" || href == "" ? 'html' : href);
+          var position = target.offset().top - 80;
+
+          if(href!="#mi_overlay_confirm" && href!="#mi_overlay_privacy"){
+            $('body,html').animate({scrollTop:position}, speed, 'swing');
+            return false;
+          }
+       });
+    });
+
+    //ナビゲーション固定
+    $(function(){
+      var nav_list = $(".mi_js_scroll");
+      var nav_t_pos = $('.mi_lpmain_nav_wrap').offset().top;
+      var scr_count = $(window).scrollTop();
+
+      if(scr_count > nav_t_pos){
+         $('#mi_lp_top_nav').addClass('mi_lp_top_nav_fixed');
+         $('.mi_nav_active').removeClass('mi_nav_active');
+      }else{
+         $('#mi_lp_top_nav').removeClass("mi_lp_top_nav_fixed");
+        // $('.mi_js_scroll li:first-child a').addClass('mi_nav_active');
+      }
+
+       $(window).scroll(function(){
+         var nav_t_pos = $('.mi_lpmain_nav_wrap').offset().top;
+         var scr_count = $(window).scrollTop();
+         if(scr_count > nav_t_pos){
+            $('#mi_lp_top_nav').addClass('mi_lp_top_nav_fixed');
+         }else{
+            $('#mi_lp_top_nav').removeClass("mi_lp_top_nav_fixed");
+         }
+          $('.mi_nav_active').removeClass('mi_nav_active');
+
+          var how_to_use_t_pos = $('#mi_how_to_use_section').offset().top - 64;
+          var to_use_t_pos = $('#mi_to_use_section').offset().top - 64;
+          var chara_t_pos = $('#mi_chara_section').offset().top - 64;
+          // var vido_t_pos = $('#mi_vido_section').offset().top - 64;
+          var case_t_pos = $('#mi_case_section').offset().top - 64;
+          var plan_t_pos = $('#mi_plan_section').offset().top - 64;
+          // var vision_t_pos = $('#mi_vision_section').offset().top - 64;
+          // var member_t_pos = $('#mi_member_section').offset().top - 64;
+          // var company_t_pos = $('#mi_company_section').offset().top - 64;
+          // var topic_t_pos = $('.mi_topic_section').offset().top - 64;
+
+          // if(scr_count > member_t_pos && scr_count < topic_t_pos ) {
+          // 	$('.mi_js_scroll li:nth-child(8) a').addClass('mi_nav_active');
+          // }
+          // if (scr_count > vision_t_pos && scr_count < member_t_pos ) {
+          // 	$('.mi_js_scroll li:nth-child(7) a').addClass('mi_nav_active');
+          // }
+          // if (scr_count > plan_t_pos && scr_count < vision_t_pos ) {
+          // 	$('.mi_js_scroll li:nth-child(6) a').addClass('mi_nav_active');
+          // }
+          if (scr_count > case_t_pos && scr_count < plan_t_pos ) {
+            $('.mi_js_scroll li:nth-child(5) a').addClass('mi_nav_active');
+          }
+          if (scr_count > chara_t_pos && scr_count < case_t_pos ) {
+            $('.mi_js_scroll li:nth-child(4) a').addClass('mi_nav_active');
+          }
+          if (scr_count > to_use_t_pos && scr_count < chara_t_pos ) {
+            $('.mi_js_scroll li:nth-child(3) a').addClass('mi_nav_active');
+          }
+          if (scr_count > how_to_use_t_pos && scr_count < to_use_t_pos ) {
+            $('.mi_js_scroll li:nth-child(2) a').addClass('mi_nav_active');
+          }
+          if (scr_count > 0 && scr_count < how_to_use_t_pos ) {
+            $('.mi_js_scroll li:first-child a').addClass('mi_nav_active');
+          }
+       })
+    });
+    $(function(){
+      $('.modal_open').on('click',function(){
+        var modaltraget = "." + $(this).attr("id");
+        $(modaltraget).fadeIn("first");
+      });
+
+      $('.mi_modal_shadow').on('click',function(){
+        $(this).parent("div").fadeOut("first");
+      });
+    });
+
+    //プライバシーモーダル
+    $(function() {
+      $('.mi_overlay_privacy_open').click(function(){
+        $('#mi_overlay_privacy').fadeIn();
+      });
+    });
+
+    locateCenter();
+    $(window).resize(locateCenter);
+    function locateCenter() {
+      let w = $(window).width();
+      let h = $(window).height();
+
+      let cw = $('#trial_modal').outerWidth();
+      let ch = $('#trial_modal').outerHeight();
+
+      $('#trial_modal').css({
+      'left': ((w - cw) / 2) + 'px',
+      'top': ((h - ch) / 2) + 'px'
+      });
+    };
+    //オーバーレイ
+    $(function(){
+
+      $( 'form.contactform').submit(function(event){
+        event.preventDefault();
+        var nameVal = $(".contactform [name=name]").val();
+        var companyVal = $(".contactform [name=company]").val();
+        var telNumberVal = $(".contactform [name=tel_number]").val();
+        var mailVal = $(".contactform [name=mail]").val();
+        var domeinVal = $(".contactform [name=domein]").val();
+        var subject = $(".contactform [name=subject]").val();
+        var contactVal = $(".contactform [name=contact]").val();
+        var privacyVal = $(".contactform [name=privacy]").val();
+        var useVal = $(".contactform [name=use]").val();
+        var knewVal = $(".contactform [name=knew]:checked").val();
+
+        $(".mi_confirm_name").text(nameVal);
+        $(".mi_confirm_company").text(companyVal);
+        $(".mi_confirm_tel_number").text(telNumberVal);
+        $(".mi_confirm_mail").text(mailVal + "@" + domeinVal);
+        $(".mi_confirm_subject").text(subject);
+        $(".mi_confirm_contact").text(contactVal);
+        $(".mi_confirm_use").text(useVal);
+        $(".mi_confirm_knew").text(knewVal);
+
+        $(".mi_confirm_name_input").val(nameVal);
+        $(".mi_confirm_company_input").val(companyVal);
+        $(".mi_confirm_tel_number_input").val(telNumberVal);
+        $(".mi_confirm_mail_input").val(mailVal + "@" + domeinVal);
+        $(".mi_confirm_subject_input").val(subject);
+        $(".mi_confirm_contact_input").val(contactVal);
+        $(".mi_confirm_use_input").val(useVal);
+        $(".mi_confirm_knew_input").val(knewVal);
+
+        $("#mi_overlay_confirm").fadeIn("first");
+        return false;
+      });
+
+      $('.mi_overlay_colose_btn').on('click',function(){
+        $(this).parents(".mi_overlay").fadeOut("first");
+      });
+    });
+
+    // ルーム接続
+    $(function(){
+      $('.mi_connect_input_button').on('click',function(){
+        var roomname = $('.mi_connect_input').val();
+        window.location.href = 'https://' + document.domain +'/room/'+roomname
+      });
+    });
+  
+  </script>
+  <style>
+  
+    .mi_overlay {
+      position: fixed;
+    }
+  
+  </style>
+
+</head>
+<body>
+<!-- LPナビゲーション start -->
+<nav class="mi_lpmain_nav_wrap">
+  <div class="mi_lpmain_nav" id="mi_lp_top_nav">
+    <div class="mi_lpmain_nav_block">
+      <div class="mi_lp_nav_logo_wrap">
+        <img alt="meet in" src="/img/logo_header.png" class="mi_lp_nav_logo" onclick="location.href='#'">
+        <p class="mi_lp_nav_logo_side_message">Web会議・商談システム</p>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- LPナビゲーション end -->
+
+<!-- wrap start -->
+<div class="lp_wrap" id="mi_wrap">
+  <!-- メインコンテンツ start -->
+  <div class="mi_clearfix mi_top_visual" id="mi_top_visual">
+    <!-- LP 料金・機能に関して、その他お問い合わせ start-->
+    <section class="mi_form_section mi_contact_section mi_bg_orange" id="mi_contact_section">
+      <div class="mi_top_section_inner">
+        <div class="mi_top_section_title_block">
+          <h2 class="mi_top_section_title mi_contact_title">
+          料金・機能に関して、その他お問い合わせ
+          </h2>
+        </div>
+        <p class="mi_contact_subtitle">meet inに関するお問い合わせ、お申し込みは下記に必要事項をご入力の上お問い合わせください。<br>
+        担当者より追って詳細のご案内をさせていただきます。</p>
+        <div class="mi_contact_block">
+          <form action="/lp/cf_complete.php" class="contactform" method="post">
+            <div class="mi_contactform_block">
+              <p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>氏名</p><input class="mi_contactform_input_text_m" name="name" placeholder="田中 太郎" required="" type="text">
+            </div>
+            <div class="mi_contactform_block">
+              <p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>会社名<span class="mi_contactform_confilm_text">（個人事業主の場合は氏名を再度入力してください。）</span></p><input class="mi_contactform_input_text_l" name="company" placeholder="株式会社meet in" required="" type="text">
+            </div>
+            <div class="mi_contactform_block">
+              <p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>電話番号</p><input class="mi_contactform_input_text_m" name="tel_number" placeholder="000-0000-0000" required="" type="text">
+            </div>
+            <div class="mi_contactform_block">
+              <p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>メールアドレス</p><input class="mi_contactform_input_text_ml" name="mail" placeholder="aaaaaaaaaaaaaaa" required="" type="text"><span class="mi_text_atmark">@</span><input class="mi_contactform_input_text_s" name="domein" placeholder="aaaa.jp" required="" type="text">
+            </div>
+            <div class="mi_contactform_block">
+              <p class="mi_contactform_title"><span class="mi_contactform_required">必須</span>件名</p>
+              <select class="form_selectbox" name="subject">
+                <option value="お申し込みについて">お申し込みについて</option>
+                <option value="ご契約について">ご契約について</option>
+                <option value="トラブルについて">トラブルについて</option>
+                <option value="その他">その他</option>
+              </select>
+            </div>
+            <div class="mi_contactform_block">
+              <p class="mi_contactform_title">
+              <!-- <span class="mi_contactform_required">必須</span> -->
+              お問い合わせ内容</p>
+              <textarea class="mi_contactform_textarea" name="contact" placeholder="お問い合わせ内容を記載して下さい。"></textarea>
+            </div>
+            <div class="mi_contactform_block">
+              <p class="mi_contactform_title">使用用途</p><input class="mi_contactform_input_text_l" name="use" placeholder="例：ミーティング、営業など" type="text">
+            </div>
+            <div class="mi_contactform_block">
+              <p class="mi_contactform_title">どちらで知りましたか？</p>
+              <label for="mi_knew_check_1"><input class="mi_contactform_checkbox" id="mi_knew_check_1" name="knew" required="" type="radio" value="meet inからのご提案" checked="">meet inからのご提案</label><br>
+              <label for="mi_knew_check_2"><input class="mi_contactform_checkbox" id="mi_knew_check_2" name="knew" required="" type="radio" value="代理店からのご提案">代理店からのご提案</label><br>
+              <label for="mi_knew_check_3"><input class="mi_contactform_checkbox" id="mi_knew_check_3" name="knew" required="" type="radio" value="商談相手が使用していて">商談相手が使用していて</label><br>
+              <label for="mi_knew_check_4"><input class="mi_contactform_checkbox" id="mi_knew_check_4" name="knew" required="" type="radio" value="オンライン商談ツールを検索していて">オンライン商談ツールを検索していて</label><br>
+              <label for="mi_knew_check_5"><input class="mi_contactform_checkbox" id="mi_knew_check_5" name="knew" required="" type="radio" value="その他">その他</label>
+            </div>
+            <p class="mi_contactform_text">
+              <input class="mi_contactform_checkbox" id="mi_privacy_check" name="privacy" required="" type="checkbox">
+              <label for="mi_privacy_check">
+              <a class="mi_overlay_privacy_open" href="#mi_overlay_privacy">
+              個人情報の取り扱いについて</a>
+              承諾しました。
+              </label>
+            </p>
+            <div class="mi_contactform_send_wrap">
+              <a href="javascript:void"><button class="mi_contactform_send mi_overlay_confirm_open">確認画面へ</button></a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <!-- LP 料金・機能に関して、その他お問い合わせ end-->
+
+    <!-- LPフッターセクション start -->
+    <footer class="mi_lp_footer">
+      <div class="mi_footer_wrap">
+        <a href="" class="mi_footer_list">
+        TOP</a>
+        <a href="/lp/lp_company_profile.html" class="mi_footer_list">
+        会社概要</a>
+        <a href="#mi_contact_section" class="mi_footer_list">
+        お問い合わせ</a>
+        <a href="#mi_overlay_privacy" class="mi_footer_list">
+					個人情報の取り扱いについて</a>
+      </div>
+      <img alt="meet in" class="mi_footer_img" src="/img/lp/rogo-meetin-footer.png">
+    </footer>
+    <!-- LPフッターセクション end -->
+
+    <!-- LPプライバシーポップアップコンテンツコンテンツ begin -->
+    <div class="mi_overlay mi_overlay_privacy" id="mi_overlay_privacy">
+      <div class="mi_modal_shadow"></div>
+      <div class="mi_overlay_wrap mi_overlay_privacy_wrap">
+        <div class="mi_overlay_contents mi_privacy_block">
+          <div class="mi_overlay_colose">
+            <a class="mi_overlay_colose_btn" href="javascript:void(0)"><img alt="閉じる" class="mi_privacy_close_img" src="/img/lp/ico-close.png"><br>
+            閉じる</a>
+          </div>
+          <div class="mi_overlay_contents_title mi_privacy_title_wrap">
+            <h2 class="mi_privacy_title">
+              プライバシーポリシー
+            </h2>
+          </div>
+          <dl class="mi_privacy_list">
+            <dt>
+              <span class="mi_text_orange">●</span>個人情報の取り扱いについて
+            </dt>
+            <dd>
+              株式会社meet in（以下「当社」）は、個人情報の適切な取り扱いを期しています。当社が提供する「meet in」によるサービス（以下、「当サービス」）へ のお申し込みについて、下記の事項をご理解いただき、同意の上で個人情報をご提供ください。
+            </dd>
+            <dd></dd>
+            <dt>
+              <span class="mi_text_orange">●</span>個人情報の管理
+            </dt>
+            <dd>
+              当社は、お客さまの個人情報を正確かつ最新の状態に保ち、個人情報への不正アクセス・紛失・破損・改ざん・漏洩などを防止するため、セキュリティシステムの維持・管理体制の整備・ 社員教育の徹底等の必要な措置を講じ、安全対策を実施し個人情報の厳重な管理を行ないます。
+            </dd>
+            <dd></dd>
+            <dt>
+              <span class="mi_text_orange">●</span>個人情報の利用目的
+            </dt>
+            <dd>
+              以下の利用目的のために、個人情報を取得致します。<br>
+              その利用目的の範囲を超えて取得した個人情報を利用することはありません。<br>
+              （1）当サービス利用に関する登録及び個人認証<br>
+              （2）当サービス利用に関する料金請求その他の代金請求及び商品等の引渡し業務に関すること<br>
+              （3）当サービス利用に関する問合せ内容の確認、回答、その他ご要望等への対応<br>
+              （4）当サービスの利用に伴う電話連絡及び電子メール、資料のご送付<br>
+              （5）当サービスの利用に関する新サービス、新メニューのご案内ならびに調査及び障害連絡<br>
+              （6）当サービスの利用に関する保守及びメンテナンス等の運営<br>
+              （7）当社によるサービスの開発およびマーケティング
+            </dd>
+            <dd></dd>
+            <dt>
+              <span class="mi_text_orange">●</span>個人情報の第三者への開示・提供の禁止
+            </dt>
+            <dd>
+              当社は、お客さまよりお預かりした個人情報を適切に管理し、次のいずれかに該当する場合を除き、個人情報を第三者に開示いたしません。<br>
+              ・お客さまの同意がある場合<br>
+              ・お客さまが希望されるサービスを行なうために当社が業務を委託する業者に対して開示する場合<br>
+              ・法令に基づき開示することが必要である場合
+            </dd>
+            <dd></dd>
+            <dt>
+              <span class="mi_text_orange">●</span>個人情報の安全対策
+            </dt>
+            <dd>
+              当社は、個人情報の正確性及び安全性確保のために、セキュリティに万全の対策を講じています。
+            </dd>
+            <dd></dd>
+            <dt>
+              <span class="mi_text_orange">●</span>ご本人の照会
+            </dt>
+            <dd>
+              お客さまがご本人の個人情報の照会・修正・削除などをご希望される場合には、ご本人であることを確認の上、対応させていただきます。
+            </dd>
+            <dd></dd>
+            <dt>
+              <span class="mi_text_orange">●</span>法令、規範の遵守と見直し
+            </dt>
+            <dd>
+              当社は、保有する個人情報に関して適用される日本の法令、その他規範を遵守するとともに、本ポリシーの内容を適宜見直し、その改善に努めます。
+            </dd>
+            <dd></dd>
+            <dt>
+              <span class="mi_text_orange">●</span>個人情報の開示等の請求について
+            </dt>
+            <dd>
+              提出して頂いた個人情報について、利用目的の通知、個人情報の開示、訂正、項目の追加または削除、消去や利用停止、提供停止を求める権利があります。自己の個人情報の開示等の請求を行う場合は、下記までご連絡ください。
+            </dd>
+            <dd></dd>
+            <dt>
+              <span class="mi_text_orange">●</span>個人情報の取り扱いに関するお問い合わせ先
+            </dt>
+            <dd>
+              株式会社meet in　個人情報対応窓口<br>
+              住所：〒171-0022 東京都豊島区南池袋2-25-5 藤久ビル東5号館 4F<br>
+              メール：<a href="mailto:privacy@meet-in.jp">privacy@meet-in.jp</a><br>
+              担当責任：個人情報保護管理者
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <!-- LPプライバシーコンテンツ end -->
+
+    <!-- LPプライバシーポップアップコンテンツコンテンツ begin -->
+    <div class="mi_overlay mi_overlay_memo" id="mi_overlay_memo">
+      <div class="mi_modal_shadow"></div>
+      <div class="mi_overlay_wrap mi_overlay_memo_wrap">
+        <div class="mi_overlay_contents mi_memo_block">
+          <div class="mi_overlay_colose">
+            <a class="mi_overlay_colose_btn" href="javascript:void(0)"><img alt="閉じる" class="mi_privacy_close_img" src="/img/lp/ico-close.png"><br>
+            閉じる</a>
+          </div>
+          <h2 class="mi_memo_title mi_Robotofont mi_text_orange">
+            Memo
+          </h2>
+          <p class="mi_memo_text">
+            オンライン上で「直接会う」ことで<br>
+            ムダな移動時間を短縮し、生産性の高い仕事に集中出来る
+          </p><img alt="" class="mi_memo_img" src="/img/lp/img-memo-graf.png">
+        </div>
+      </div>
+    </div>
+    <!-- LPプライバシーコンテンツ end -->
+
+    <!-- LPプライバシーポップアップコンテンツコンテンツ begin -->
+    <div class="mi_chara_block01 mi_modal_wrap" id="mi_modal_01">
+      <div class="mi_modal_shadow"></div>
+      <div class="mi_modal_contents mi_chara_block mi_clearfix">
+        <div class="mi_detail_wrap mi_flt-l">
+          <h4 class="mi_detail_title">
+            <span class="mi_title_number mi_title_textpurple">1</span><span class="mi_title_text mi_title_borderpurple">超ラクチン</span>
+          </h4>
+          <p class="mi_text_bold">
+            アプリのダウンロードや<br>
+            ログイン・固定回線は一切不要。
+          </p>
+          <p class="mi_detail_text">
+            meet inのTOPページ上で作成したURLを共有するだけでスタート可能。世界中どこにいてもパソコンやタブレットが1台あればいつでもmeet in。
+          </p>
+          <p class="mi_text_caution">
+            ※URL作成フォームはmeet inを活用している会社のホームページにもついています。
+          </p>
+          <ul class="mi_checkList mi_clearfix">
+            <li class="mi_checkList_borderpurple">
+              <p class="mi_checkList_title">
+                <img alt="ログイン不要" src="/img/lp/tool-login.png">
+              </p>
+            </li>
+            <li class="mi_checkList_borderpurple">
+              <p class="mi_checkList_title">
+                <img alt="固定meet in番号" src="/img/lp/tool-namber.png">
+              </p>
+            </li>
+            <li class="mi_checkList_borderpurple">
+              <p class="mi_checkList_title">
+                <img alt="ブラウザだけで会話可能" src="/img/lp/tool-talk.png">
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="mi_img_wrap mi_flt-r">
+          <img alt="" class="" src="/img/lp/main-ill-click.png">
+        </div>
+      </div>
+    </div>
+    <!-- LPプライバシーコンテンツ end -->
+
+    <!-- LPプライバシーポップアップコンテンツコンテンツ begin -->
+    <div class="mi_modal_wrap mi_chara_block02" id="mi_modal_02">
+      <div class="mi_modal_shadow"></div>
+      <div class="mi_modal_contents mi_chara_block mi_clearfix">
+        <div class="mi_detail_wrap mi_flt-r">
+          <h4 class="mi_detail_title">
+            <span class="mi_title_number mi_title_textorange">2</span><span class="mi_title_text mi_title_borderorange">超簡単</span>
+          </h4>
+          <p class="mi_text_bold">
+            ワンアクションで<br>
+            資料やメモを一発共有。
+          </p>
+          <p class="mi_detail_text">
+            資料を共有したければ、画面にドラッグ＆ドロップで一発で共有。録画もメモの共有も画面の共有もクリック一つで簡単に。会わなくてもいつでも、だれでも簡単にミーティングが出来るミートイン。
+          </p>
+          <ul class="mi_checkList mi_clearfix">
+            <li class="mi_checkList_borderorange">
+              <p class="mi_checkList_title">
+                <img alt="ワンクリック録画" src="/img/lp/tool-video.png">
+              </p>
+            </li>
+            <li class="mi_checkList_borderorange">
+              <p class="mi_checkList_title">
+                <img alt="リアルタイム共有メモ" src="/img/lp/tool-memo.png">
+              </p>
+            </li>
+            <li class="mi_checkList_borderorange">
+              <p class="mi_checkList_title">
+                <img alt="瞬間資料共有" src="/img/lp/tool-shear.png">
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="mi_img_wrap mi_flt-l">
+          <img alt="" class="" src="/img/lp/main-ill-one-action.png">
+        </div>
+      </div>
+    </div>
+    <!-- LPプライバシーコンテンツ end -->
+
+    <!-- LPプライバシーポップアップコンテンツコンテンツ begin -->
+    <div class="mi_modal_wrap mi_chara_block03" id="mi_modal_03">
+      <div class="mi_modal_shadow"></div>
+      <div class="mi_modal_contents mi_chara_block mi_clearfix">
+        <div class="mi_detail_wrap mi_flt-l">
+          <h4 class="mi_detail_title">
+            <span class="mi_title_number mi_title_textpurple">3</span><span class="mi_title_text mi_title_borderpurple">超便利</span><span class="mi_chara_tokkyo">特許出願中</span>
+          </h4>
+          <p class="mi_text_bold">
+            名刺表示や複数人接続など<br>
+            コミュニケーションツールが満載。
+          </p>
+          <p class="mi_detail_text">
+            1対1でのミーティングに限らず、複数人でのミーティングも可能。(特許出願中）名刺表示機能や万が一ネットが途切れた場合に備えた固定電話機能など、コミュニケーションに欠かせない便利な機能が付属されています。
+          </p>
+          <ul class="mi_checkList mi_clearfix">
+            <li class="mi_checkList_borderpurple">
+              <p class="mi_checkList_title">
+                <img alt="名刺表示機能" src="/img/lp/tool-maishi.png">
+              </p>
+            </li>
+            <li class="mi_checkList_borderpurple">
+              <p class="mi_checkList_title">
+                <img alt="PC・タブレットスマホ対応" src="/img/lp/tool-pc-tab-sp.png">
+              </p>
+            </li>
+            <li class="mi_checkList_borderpurple">
+              <p class="mi_checkList_title">
+                <img alt="新機能随時追加" src="/img/lp/tool-cloud.png">
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="mi_img_wrap mi_flt-r">
+          <img alt="" class="" src="/img/lp/main-ill-tool.png">
+        </div>
+      </div>
+    </div>
+    <!-- LPプライバシーコンテンツ end -->
+
+    <!-- お問合せ内容確認ポップアップコンテンツコンテンツ begin -->
+    <div class="mi_overlay mi_overlay_confirm" id="mi_overlay_confirm">
+      <div class="mi_modal_shadow"></div>
+      <div class="mi_overlay_wrap mi_overlay_confirm_wrap">
+        <div class="mi_overlay_contents mi_confirm_block">
+          <div class="mi_overlay_colose">
+            <a class="mi_overlay_colose_btn" href="javascript:void(0)"><img alt="閉じる" class="mi_privacy_close_img" src="/img/lp/ico-close.png"><br>
+            閉じる</a>
+          </div>
+          <div class="mi_overlay_contents_title mi_confirm_title_wrap">
+            <img alt="meet in" class="mi_confirm_title_img" src="/img/lp/rogo.png">
+            <h2 class="mi_confirm_title">お問い合わせ<br>
+            確認画面</h2>
+          </div>
+          <table class="mi_confirm_content">
+            <tbody><tr>
+              <th>氏名</th>
+              <td class="mi_confirm_name"></td>
+            </tr>
+            <tr>
+              <th>会社名</th>
+              <td class="mi_confirm_company"></td>
+            </tr>
+            <tr>
+              <th>電話番号</th>
+              <td class="mi_confirm_tel_number"></td>
+            </tr>
+            <tr>
+              <th>メールアドレス</th>
+              <td class="mi_confirm_mail"></td>
+            </tr>
+            <tr>
+              <th>件名</th>
+              <td class="mi_confirm_subject"></td>
+            </tr>
+            <tr>
+              <th>お問い合わせ内容</th>
+              <td class="mi_confirm_contact"></td>
+            </tr>
+            <tr>
+              <th>使用用途</th>
+              <td class="mi_confirm_use"></td>
+            </tr>
+            <tr>
+              <th>どちらで知りましたか？</th>
+              <td class="mi_confirm_knew"></td>
+            </tr>
+          </tbody></table>
+          <form action="/lp/cf_complete.php" class="mi_confirm_form" id="mi_confirm_send_form" method="post" name="mi_confirm_send_form">
+            <input class="mi_confirm_name_input mi_confirm_input_req" name="confirm_name" type="hidden">
+            <input class="mi_confirm_company_input mi_confirm_input_req" name="confirm_company" type="hidden">
+            <input class="mi_confirm_tel_number_input mi_confirm_input_req" name="confirm_tel" type="hidden">
+            <input class="mi_confirm_mail_input mi_confirm_input_req" name="confirm_mail" type="hidden">
+            <input class="mi_confirm_subject_input mi_confirm_input_req" name="confirm_subject" type="hidden">
+            <input class="mi_confirm_contact_input mi_confirm_input_req" name="confirm_contact" type="hidden">
+            <input class="mi_confirm_use_input" name="confirm_use" type="hidden">
+            <input class="mi_confirm_knew_input mi_confirm_input_req" name="confirm_knew" type="hidden">
+            <input type="hidden" name="confirm_type" class="mi_confirm_type_input" value="お問い合わせ">
+            <button class="mi_default_button mi_confirm_send">送信</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- お問い合わせ内容確認 end -->
+
+    <!-- コネクト begin -->
+    <div class="in_connect_area" style="z-index:50;">
+      <div class="conecting_wrap">
+        <div class="conecting_inner">
+          <div class="lodingimg_efect_wrap">
+            <div class="lodingimg_efect"></div>
+            <p class="loding_text">
+              Connecting<span class="point">・・・</span>
+            </p>
+          </div>
+          <p class="conect_text">
+            ご入力ありがとうございます。<br>
+            担当者を呼び出しております・・・
+          </p><br>
+          <br>
+          <a class="btn_link_long hvr-fade click-fade" href="javascript:void(0);" id="cancel_connection" style="width:660px"><span class="icon-meet-in call_option_icon"></span><span class="button_text">中止</span></a>
+        </div>
+      </div>
+    </div>
+    <!-- コネクト end -->
+  </div>
+  <!-- メインコンテンツ end -->
+
+  <!-- ====================================== モーダルコンテンツ[start] ====================================== -->
+  <div class="modal-content" id="modal-content">
+    <!-- id="db-log2"    -->
+    <div class="inner-wrap"></div>
+  </div>
+  <!-- ====================================== モーダルコンテンツ[end] ======================================== -->
+
+  <!-- 汎用ダイアログ start -->
+  <div id="common_dialog_area"></div>
+  <!-- 汎用ダイアログ end -->
+</div>
+<!-- wrap end -->
+
+  <script src="/js/jquery-1.11.2.min.js">
+  </script>
+  <script src="/js/detectSpeed.js">
+  </script>
+  <link href="/css/jquery-ui.css" rel="stylesheet">
+  <script src="/js/jquery-ui.min.js">
+  </script>
+
+
+<script>window.TabCaptureExtentionExists = true;</script><script>window.ScreenCaptureExtentionExists = true;</script><script>window.ScreenShareExtentionExists = true;</script></body></html>

@@ -1,0 +1,42 @@
+10
+
+dir
+0
+https://172.24.1.44/svn/delphinus/application/smarty/templates/setting-log
+https://172.24.1.44/svn/delphinus
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+974c56ca-a70b-4177-b905-ce661fac0144
+
+call-log-list.tpl
+file
+
+
+
+add
+
+operation-log-list.tpl
+file
+
+
+
+add
+

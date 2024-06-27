@@ -1,0 +1,1352 @@
+@charset "UTF-8";
+
+.wrap {
+  overflow: hidden; /* 右横の謎の余白防止 */
+}
+
+body {
+  color: #FFFFFF;
+  background-color: #000000;
+}
+
+/* SPLPナビ spLpNav start */
+.spLpNav_wrap {
+  padding: 0 10px;
+  box-sizing: border-box;
+  height: 50px;
+  background: #fff;
+  display: flex;
+  z-index: 10;
+}
+
+.spLpNav_logo {
+  margin-top: 18px;
+  width: 69px;
+  height: 14.8px;
+}
+
+.spLpNav_logo_message {
+  font-size: 8px;
+  font-weight: 500;
+  line-height: 1.63;
+  margin-top: 18px;
+  margin-left: 13px;
+  color: #222;
+}
+
+.spLpNav_contactBtn,
+.spLpNav_loginBtn {
+  text-decoration: none;
+}
+.spLpNav_loginBtn {
+  margin-left: auto;
+  text-align: center;
+  padding-top: 12px;
+}
+
+.spLpNav_contactBtn_icon {
+  width: 17px;
+  height: 14px;
+}
+
+.spLpNav_loginBtn_icon {
+  width: 11px;
+  margin-bottom: 1px;
+}
+
+.spLpNav_menu_icon {
+  width: 20px;
+  height: 14px;
+}
+
+.spLpNav_contactBtnText {
+  color: #0081CC;
+  font-size: 8px;
+  font-weight: bold;
+  letter-spacing: -0.8px;
+}
+
+.spLpNav_loginBtnText {
+  display: block;
+  color: #9b9b9b;
+  font-size: 8px;
+  font-weight: bold;
+  letter-spacing: -0.8px;
+}
+
+.spLpNav_menuText {
+  color: #9b9b9b;
+  font-size: 8px;
+  font-weight: bold;
+  letter-spacing: -0.8px;
+}
+/* SPLPナビ spLpNav end */
+
+/* SPLPTOP spLpTop メイン start */
+.spLpTop_background {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  z-index: -3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.earth_background {
+  position: relative;
+  width: 650px;
+  height: 650px;
+  z-index: -2;
+  animation: earth-rotate-anime 360s linear infinite;
+}
+@keyframes earth-rotate-anime {
+  0%  {transform: rotate(0);}
+  100%  {transform: rotate(360deg);}
+}
+
+.star_background {
+  position: absolute;
+  opacity: 0.5;
+  z-index: -1;
+  animation: star-rotate-anime 180s linear infinite;
+}
+@keyframes star-rotate-anime {
+  0%  {transform: rotate(0);}
+  100%  {transform: rotate(360deg);}
+}
+
+.spLpTopTitle__wrap {
+  text-align: center;
+  padding-top: 55px;
+}
+
+/* .topLogo {
+  width: 224px;
+  height: auto;
+} */
+
+.spLpTopTitle__wrap {
+  font-size: 13px;
+  line-height: 1.67;
+  letter-spacing: 1px;
+  font-weight: 500;
+  margin: 0 0 18px;
+  text-align: center;
+}
+
+.spLpTopTitle {
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 1.33;
+  letter-spacing: -0.9px;
+  margin: 0 0 35px;
+}
+
+.spLptop_pc_woman_img {
+  width: 270px;
+  margin-bottom: 30px;
+}
+
+.spLpTop_contactBtn {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  width: 217px;
+  height: 44.4px;
+  border-radius: 100px;
+  background-color: #0081CC;
+  border: none;
+  box-shadow: 0 3px 0 0 #ce8100;
+  margin-bottom: 70px;
+}
+/* SPLPTOP spLpTop メイン end */
+
+.spLpTopConnect__wrap {
+  text-align: center;
+  padding: 20px;
+}
+
+.mi_connect_input_wrap {
+	border: 1px solid #7373b5;
+  padding: 25px 20px;
+  font-size: 12px;
+}
+.mi_connect_input_title {
+	color: #7373b5;
+	font-weight: bold;
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+.mi_connect_input_text {
+	margin-bottom: 20px;
+}
+.mi_connect_input {
+	box-sizing: border-box;
+	padding: 0 20px;
+	width: 225px;
+  height: 45px;
+  font-size: 14px;
+  margin-bottom: 15px;
+	vertical-align: top;
+  text-align: center;
+}
+.mi_connect_input_button {
+  color: #fff;
+  font-weight: bold;
+	width: 154px;
+  height: 45px;
+  border-radius: 100px;
+  border: solid 1px #7373b5;
+  background-color: #7373b5;
+  font-size: 17px;
+}
+
+.connect_alert {
+	height: 50px;
+	width: 280px;
+	background: #9A3400 0% 0% no-repeat padding-box;
+	border-radius: 24px;
+	opacity: 1;
+	margin-bottom: 25px;
+	padding: 5px;
+	text-align: left;
+	letter-spacing: 0;
+	color: #FFFFFF;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.connect_alert:before {
+	content: url(/img/round-warning-24px.png);
+	position: absolute;
+	top: 50%;
+	left: 4%;
+	transform: translateY(-50%);
+}
+
+/* Topバナーの　CSS start */
+.mi_content_banner_list {
+	width: 100%;
+	background: #0081CC;
+	text-align: center;
+	padding-top: 33px;
+	
+}
+.mi_content_banner_img_box {
+	padding-bottom: 33px;
+}
+.mi_top_banner_link {
+	display: inline-block;
+	background: #fff;
+	margin: 0 auto;	
+}
+.mi_top_banner_img {
+	height: 308px;
+}
+
+.mi_top_banner_img:hover{
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+/* Topバナーの　CSS END  */
+
+.mi_top_sp_pc_rental_img {
+  width: 308px;
+  height: 308px;
+  margin: 33px 0;
+}
+
+/* SPLP 5分でわかるミートインセクション start */
+.spLp_twoStep_section_inner_5minute{
+  background: #fff;
+  width: 300px;
+  height: 249px;
+  text-align: center;
+  margin: 0 auto -1px;
+  padding: 45px 0 0 0;
+}
+.spLp_twoStep_section_inner_5minute02{
+  background: #fff;
+    width: 300px;
+    height: 279px;
+    text-align: center;
+    margin: 0 auto -1px;
+}
+
+.spLp_twoStep_section_inner_title02 {
+  font-size: 18px;
+  color: #0081CC;
+	padding-bottom: 24px;
+}
+
+.spLp_twoStep_section_inner_movie img {
+  width: 271px;
+  height: auto;
+}
+/* SPLP 5分でわかるミートインセクション end */
+
+/* SPLP 2ステップで簡単接続！セクション start */
+.spLp_twoStep_section {
+  background: #f1f1f1;
+  text-align: center;
+  padding-bottom: 45px;
+}
+
+.spLp_twoStep_section_title_block {
+  text-align: center;
+}
+
+.spLp_twoStep_section_title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+  padding-top: 50px;
+}
+
+.spLp_twoStep_section_titleLine {
+  width: 223px;
+  border-bottom: 3px solid #0081CC;
+  margin: 0 auto 25px;
+}
+
+.spLp_twoStep_section_inner {
+  background: #fff;
+  width: 335px;
+  height: 409px;
+  color: #222;
+  text-align: center;
+  margin: 0 auto -1px;
+  padding: 45px 0 0 0;
+}
+
+.spLp_twoStep_section_bach_count {
+  display: inline-block;
+  vertical-align: middle;
+  color: #fff;
+  text-align: center;
+  width: 26px;
+  height: 26px;
+  background-color: #a6a6a6;
+  border-radius: 17px;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 29px;
+  margin-bottom: 15px;
+}
+
+.spLp_twoStep_section_inner_title {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.75;
+  color: #222;
+}
+
+.aaa {
+  margin-bottom: 20px;
+}
+
+.spLp_createUrl_img {
+  width: 260px;
+  height: 216px;
+}
+/* SPLP 2ステップで簡単接続！セクション end */
+
+/* SPLP 下記までお問い合わせください！セクション start */
+.spLp_contactUs_section {
+  background: #f1f1f1;
+  text-align: center;
+  padding-bottom: 20px;
+}
+.spLp_contactUs_section.background_star {
+  background: url(/img/lp/img-top.png);
+}
+
+.spLp_contactUs_section_inner {
+  background: #fff;
+  width: 335px;
+  margin: 0 auto;
+}
+
+.spLp_contactUs_section_text {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.5;
+  color: #222;
+  padding: 46px 0 20px;
+}
+
+.spLp_contactBtn {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  width: 217px;
+  height: 44.4px;
+  border-radius: 100px;
+  background-color: #0081CC;
+  border: none;
+  box-shadow: 0 3px 0 0 #ce8100;
+  margin-bottom: 40px;
+}
+/* SPLP 下記までお問い合わせください！セクション end */
+
+/* SPlP meet inの3つの特徴セクション start */
+.spLp_threeFeatures_section {
+  background: #fff;
+  text-align: center;
+  padding: 30px 0 70px;
+}
+
+.spLp_threeFeatures_section_title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+}
+
+.spLp_threeFeatures_section_titleLine {
+  width: 198px;
+  border-bottom: 3px solid #0081CC;
+  margin: 0 auto 58px;
+}
+
+.spLp_simple_easy_img {
+  width: 301px;
+  height: 226px;
+  margin-bottom: 15px;
+}
+
+.spLp_threeFeatures_section_Num {
+  font-size: 35px;
+  font-weight: bold;
+  color: #0081CC;
+  margin-bottom: 10px;
+}
+
+.spLp_threeFeatures_1_title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+}
+
+.spLp_threeFeatures_1_titleLine {
+  width: 142px;
+  border-bottom: 4px solid #0081CC;
+  margin: 0 auto 20px;
+}
+
+.spLp_threeFeatures_1_subTitle {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+.spLp_threeFeatures_1_text {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.92;
+  color: #222;
+  margin-bottom: 25px;
+}
+
+.spLp_check_detailsBtn {
+  width: 230px;
+  height: 45px;
+  border-radius: 8px;
+  background-color: #9b9b9b;
+  border: none;
+  margin-bottom: 26px;
+}
+
+.spLp_check_detailsBtn_text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+}
+/* SPlP meet inの3つの特徴セクション end */
+
+/* SPLP よくあるお悩み start */
+.spLp_commonProblemsList_section_wrap {
+  background: #7373b5;
+  text-align: center;
+  color: #fff;
+  padding: 48px 0 20px;
+}
+.spLp_commonProblemsList_section_subTitle {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.spLp_commonProblemsList_section_title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.spLp_commonProblemsList_section_titleLine {
+  width: 175px;
+  border: solid 2px #0081CC;
+  margin: 0 auto 20px;
+}
+.spLp_commonProblemsList_section_mainTitle {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.15;
+  margin-bottom: 42px;
+}
+.spLp_commonProblemsList_block {
+  width: 335px;
+  margin: 0 auto;
+  color: #fff;
+}
+.spLp_commonProblemsList_block_meeting.no_margin_bottom {
+  margin: 0 auto;
+}
+.spLp_commonProblemsList_block_title {
+  font-size: 13px;
+  font-weight: 500;
+  background-color: #222;
+  padding-top: 5px;
+  height: 15px;
+  width: 335px;
+  margin: auto;
+}
+.spLp_commonProblemsList_inner_sales,
+.spLp_commonProblemsList_inner_recruit,
+.spLp_commonProblemsList_inner_meeting {
+  background: #fff;
+  display: flex;
+  width: 335px;
+  margin: auto;
+}
+.sales_addMarginBottom20,
+.recruit_addMarginBottom20,
+.meeting_addMarginBottom20 {
+  width: 335px;
+  margin: 0 auto 20px;
+}
+.spLp_commonProblem_img {
+  width: 81px;
+  height: 81px;
+}
+.spLp_commonProblemsList_innerTextWrap {
+  text-align: left;
+  margin: 15px 0 0 25px;
+}
+.spLp_commonProblemsList_inner_subTitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: #7373b5;
+  margin-bottom: 5px;
+}
+.spLp_commonProblemsList_inner_description {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #222;
+}
+.spLp_sales_arrow_img,
+.spLp_recruit_arrow_img,
+.spLp_meeting_arrow_img
+{
+  width: 25px;
+  height: 13px;
+  position: relative;
+  top: 34px;
+  left: 40px;
+}
+.spLp_recruit_arrow_img {
+  position: relative;
+  top: 34px;
+  left: 19px;
+}
+.spLp_meeting_arrow_img {
+  position: relative;
+  top: 34px;
+  left: 30px;
+}
+/* SPLP よくあるお悩み end */
+/* クリックすると営業時の悩みの解決策が開く start */
+.spLp_sales_solution_block,
+.spLp_recruit_solution_block,
+.spLp_meeting_solution_block {
+  background: #fff;
+  text-align: center;
+  padding: 20px 0 42px;
+  border-top: 1px solid #9b9b9b;
+  margin: 0 auto 20px;
+  width: 335px;
+}
+.spLp_solution_mainTitle {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  width: 81px;
+  height: 15px;
+  margin: 0 auto 18px;
+  padding-top: 4px;
+  background-color: #222;
+}
+.spLp_solution_title {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #222;
+  margin-bottom: 20px;
+}
+.spLp_solution_img {
+  width: 299px;
+  height: 177px;
+}
+/* クリックすると営業時の悩みの解決策が開く end */
+/* クリックすると採用時の悩みの解決策が開く start */
+/* クリックすると採用時の悩みの解決策が開く end */
+/* SPLP meet in導入事例 セクション start */
+.spLp_case_study_section {
+  background: #fff;
+  text-align: center;
+  padding-bottom: 20px;
+}
+.spLp_case_study_section_title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+  line-height: 1.5;
+  padding-top: 56px;
+}
+.spLp_case_study_section_titleLine {
+  width: 223px;
+  border-bottom: 3px solid #0081CC;
+  margin: 0 auto;
+}
+.spLp_case_1_section {
+  background: #fff;
+  padding-top: 20px;
+}
+.spLp_case_1_block {
+  color: #222;
+  background: #fff;
+  text-align: center;
+  width: 335px;
+  border-bottom: 1px solid #9b9b9b;
+  border-right: 1px solid #9b9b9b;
+  border-left: 1px solid #9b9b9b;
+  margin: 0 auto;
+}
+.spLp_case_1_img {
+  width: 335px;
+  height: 137px;
+  margin: 0 auto 30px;
+}
+.spLp_case_1_textWrap {
+  text-align: left;
+  margin: 0 0 20px 14px;
+}
+.spLp_case_1_companyName {
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 10px;
+}
+.spLp_case_1_companyComment {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.75;
+  color: #222;
+}
+/* SPLP meet in導入事例 セクション end */
+/* SPLP 料金・機能に関して、その他お問い合わせ start */
+.spLp_contact_section {
+  background: #0081CC;
+  color: #222;
+  padding: 51px 25px 47px;
+}
+.spLp_contact_section_title {
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.35;
+  margin-bottom: 15px;
+}
+.spLp_contact_section_subTitle {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.69;
+  margin-bottom: 15px;
+}
+.spLp_contactForm_required {
+  display: inline-block;
+  text-align: center;
+  color: #fff;
+  background: #222;
+  width: 55px;
+  height: 23px;
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 11px;
+}
+.spLp_contactForm_title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 9px;
+}
+.spLp_contactForm_confilm_text {
+  font-size: 12px;
+  font-weight: bold;
+}
+.spLp_contactForm_input_text {
+  border: none;
+  height: 50px;
+  border-radius: 3px;
+  font-size: 16px;
+  padding: 0 20px;
+  margin-bottom: 30px;
+}
+.spLp_form_selectbox {
+  box-sizing: unset;
+  background-color: #fff;
+}
+.spLp_contactForm_input_text_m {
+  width: 210px;
+}
+.spLp_contactForm_input_text_l {
+  width: 210px;
+}
+.spLp_contactForm_input_text_ml {
+  width: 117px;
+}
+.spLp_contactForm_input_text_s {
+  width: 100px;
+}
+.spLp_contactForm_text_atmark {
+  display: inline-block;
+  font-size: 16px;
+  vertical-align: top;
+  margin-top: 18px;
+}
+.spLp_contactForm_textArea {
+  width: 210px;
+  height: 91px;
+  line-height: 1.5;
+  padding: 10px 20px;
+  font-family: -webkit-body;
+}
+.spLp_contactForm_text {
+  margin-bottom: 26px;
+}
+.spLp_overlay_privacy_open {
+  text-decoration: none;
+  color: #222;
+  text-decoration: underline;
+}
+.spLp_privacy_check_text {
+  margin: 0 0 26px 24px;
+}
+.spLp_contactForm_send_wrap {
+  text-align: center;
+}
+.spLp_contactForm_send {
+  margin: 0 auto;
+  width: 240px;
+  height: 56px;
+  border-radius: 30px;
+  background: #fff;
+  color: #0081CC;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+}
+
+.privacy_modal_contents {
+  width: 375px;
+  height: 650px;
+  background: #FFFFFF;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: sticky;
+  background-color: rgba(0, 0, 0, .45);
+  overflow: scroll;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: none;
+}
+
+.privacy_modal_message_area {
+  width: 350px;
+  height: 1956px;
+  background: #FFFFFF;
+  margin: 0 auto;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 13px;
+  font-family: Hiragino Sans GB;
+  line-height: 20px;
+  color: #333333;
+  padding-top: 10px;
+}
+
+.privacy_modal_message_main_content {
+  height: 1775px;
+  width: 283px;
+  margin: 0 auto;
+  margin-top: 32px;
+}
+
+.modal_line_area {
+  height: 1940px;
+  width: 320px;
+  margin: 0 auto;
+  border: 1px solid #0081CC;
+}
+
+.modal_close_button {
+  float: right;
+  font-size: 20px;
+  background: White;
+  border-style: none;
+  outline: none;
+}
+
+.modal_close_icon {
+  width: 26px;
+  height: 26px;
+  margin-top: 15px;
+  margin-right: 10px;
+}
+
+h2.privacy_title {
+  margin-top: 77px;
+  font-size: 20px;
+}
+
+h3 {
+  margin-top: 20px;
+  color: #333333;
+}
+
+.privacy_list {
+  list-style: none;
+}
+
+.privacy_list_contents {
+  list-style: none;
+  margin-top: 13.4px;
+}
+
+.title_mark {
+  color: #0081CC;
+}
+/* SPLP 料金・機能に関して、その他お問い合わせ end */
+/* SPLP フッターセクション start */
+.spLp_footer {
+  background: #fff;
+  text-align: center;
+  padding: 40px 0 200px;
+}
+.spLp_footer_wrap {
+  margin-bottom: 50px;
+}
+.spLp_footer_list {
+  text-decoration: none;
+  color: #222;
+  border-left: 1px solid #979797;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0 9px 0 15px;
+}
+/* SPLP フッターセクション end */
+.createRoom__wrap {
+  text-align: center;
+  margin-top: 85px;
+}
+
+.createRoom__wrap input {
+  padding: 0 10px;
+}
+
+.createRoom__wrap p {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  margin-top: 10px;
+}
+
+/* .topBtn__wrap {
+  padding-top: 95px;
+} */
+
+/* .topBtn__wrap .defaultBtn {
+  margin: 0 auto;
+  margin-bottom: 23px;
+} */
+
+.topOptions {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.topOptions__btn {
+  color: #FFFFFF;
+  font-size: 8px;
+  letter-spacing: 4px;
+  cursor: pointer;
+}
+
+/* オプションモーダル  */
+#overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  z-index: 100;
+}
+
+#optionsModal {
+  width: 80%;
+  height: 75%;
+  position: fixed;
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  display: none;
+  z-index: 200;
+  text-align: center;
+  padding: 25px 10px;
+}
+
+#optionsModal p {
+  color: #555555;
+  margin: 10px 0;
+}
+
+.optionsModal__title {
+  font-size: 20px;
+}
+
+.optionsModal__subTitle {
+  font-size: 14px;
+}
+
+.optionsModal__image {
+  width: 35%;
+  height: auto;
+  margin: 20px 0 10px;
+}
+
+.optionsModal__shareBtn--wrap {
+  padding: 0 30px;
+}
+
+.optionsModal__shareBtn-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.optionsModal__shareBtn--item {
+  width: 28%;
+  padding: 0;
+}
+
+.optionsModal__shareBtn--item img {
+  width: 100%;
+  height: auto;
+}
+
+.optionsModal__shareBtn--item img:hover {
+  opacity: 0.8;
+}
+
+.optionsModal__cancel {
+  color: #999999;
+  font-size: 18px;
+  display: block;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 45px;
+  left: 0;
+  right: 0;
+  width: 165px;
+}
+
+/* SPトップ画面のエラーメッセージ */
+.sp_top_error_area{
+	margin-top : 10px;
+	text-align: center;
+}
+.sp_top_error_area p{
+	font-size: 15px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	color: red;
+}
+
+
+/*----------------------------------------------------------------
+	lp用 モーダル 共通
+-----------------------------------------------------------------*/
+
+.mi_modal_wrap {
+	display: none;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+.mi_modal_shadow {
+	background: rgba(0, 0, 0, 0.8);
+	cursor: pointer;
+	position: absolute;
+	height: 100%;
+	width: 100%
+}
+
+.mi_modal_contents {
+	background: #fff;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 40px 43px 40px 50px;
+	width: 467px;
+}
+
+
+.mi_contact_confilm_block  {
+	background: #fff;
+	padding: 50px 80px;
+}
+
+.mi_contactform_block {
+	margin-bottom: 27px;
+}
+
+.mi_contactform_title {
+	font-size: 16px;
+	margin-bottom: 6px;
+	font-weight: bold;
+}
+
+.mi_contactform_required {
+	background-color: #333;
+	color: #fff;
+	display: inline-block;
+	height: 23px;
+	line-height: 23px;
+	margin-right: 10px;
+	text-align: center;
+	width: 55px;
+}
+
+.mi_contactform_confilm_text {
+	font-size: 12px;
+}
+
+.mi_contactform_input_text_s {
+	border: none;
+	border-radius: 3px;
+	font-size: 16px;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 20px;
+	width: 100px;
+}
+
+.mi_contactform_input_text_ss {
+	border: none;
+	border-radius: 3px;
+	font-size: 16px;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 20px;
+	width: 60px;
+}
+
+.mi_contactform_input_text_m {
+	border: none;
+	border-radius: 3px;
+	font-size: 16px;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 20px;
+	width: 200px;
+}
+
+.mi_contactform_input_text_ml {
+	border: none;
+	border-radius: 3px;
+	font-size: 16px;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 20px;
+	width: 225px;
+}
+
+.mi_contactform_input_text_l {
+	border: none;
+	border-radius: 3px;
+	font-size: 16px;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 20px;
+	width: 400px;
+}
+
+.mi_contactform_textarea {
+	border: none;
+	border-radius: 3px;
+	font-size: 16px;
+	height: 200px;
+	line-height: 1.5;
+	padding: 10px 20px;
+	width: calc(100% - 40px);
+}
+
+.mi_contactform_checkbox {
+	margin: 0 6px 0 0;
+	width: 16px;
+}
+.mi_confirm_back {
+	background: none;
+	color: #333;
+	width: 239.5px;
+	display: block;
+	margin: 0 auto;
+	text-decoration: underline;
+}
+.mi_confirm_back:hover { text-decoration: none; }
+.mi_overlay_privacy_open {
+	text-decoration: underline;
+}
+
+.mi_overlay_privacy_open:hover {
+	color: #333;
+	text-align: none;
+}
+
+.mi_text_atmark {
+	display: inline-block;
+	font-size: 16px;
+	vertical-align: bottom;
+	margin: 0 12px 15px 12px;
+}
+
+.mi_contactform_send_wrap {
+	text-align: center;
+	margin-top: 40px;
+}
+
+.mi_overlay_confirm_open {
+	margin: 0 auto;
+	width: 240px;
+	height: 56px;
+	border-radius: 30px;
+	background: #fff;
+	color: #0081CC;
+	font-size: 20px;
+	font-weight: bold;
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-moz-transition: all 0.3s ease-in-out 0s;
+	-o-transition: all 0.3s ease-in-out 0s;
+	transition: all 0.3s ease-in-out 0s;
+}
+
+/* .mi_overlay_confirm_open_s {
+	margin: 0 auto;
+	width: 200px;
+	height: 56px;
+	border-radius: 30px;
+	background: #fff;
+	color: #0081CC;
+	font-size: 20px;
+	font-weight: bold;
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-moz-transition: all 0.3s ease-in-out 0s;
+	-o-transition: all 0.3s ease-in-out 0s;
+	transition: all 0.3s ease-in-out 0s;
+} */
+
+.mi_overlay_confirm_open:hover {
+	color: #fff;
+	background: #0081CC
+}
+
+.mi_overlay_confirm_open:active {
+	background: #c98601
+}
+
+/*----------------------------------------------------------------
+	lp用 オーバーレイ 共通
+-----------------------------------------------------------------*/
+
+.mi_overlay {
+	display: none;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	z-index: 100;
+}
+
+.mi_overlay_wrap {
+	background: #fff;
+	border: solid 1px #979797;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.mi_overlay_contents {
+	border: solid 1px #0081CC;
+	position: relative;
+}
+
+.mi_overlay_colose {
+	position: absolute;
+	top: 17px;
+	right: 25px;
+}
+
+.mi_overlay_colose_btn {
+	color: #d8d8d8;
+	display: block;
+	font-size: 10px;
+	text-align: center;
+}
+
+a.mi_overlay_colose_btn:hover {
+	color: #d8d8d8;
+}
+
+.mi_privacy_close_img {
+	margin-bottom: 9px;
+	width: 36px;
+}
+
+/*----------------------------------------------------------------
+	lp用 オーバーレイ プライバシーポリシー
+-----------------------------------------------------------------*/
+
+.mi_overlay_privacy_wrap {
+	overflow: auto;
+	height: calc(100vh - 50px);
+	padding: 22px 26px 25px;
+	width: 702px;
+}
+
+.mi_privacy_block {
+	padding: 73px 77px 143px;
+}
+
+.mi_overlay_contents_title {
+	text-align: center;
+	margin-bottom: 80px;
+}
+
+.mi_privacy_title_img {
+	margin-bottom: 40px;
+}
+
+.mi_privacy_title {
+	font-size: 25px;
+}
+
+.mi_privacy_list dt {
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+.mi_privacy_list dt span {
+	margin-right: 5px;
+}
+
+.mi_privacy_list dd {
+	line-height: 1.5;
+	margin-bottom: 17px;
+}
+
+
+/*----------------------------------------------------------------
+	lp用 オーバーレイ 確認画面
+-----------------------------------------------------------------*/
+
+.mi_overlay_confirm_wrap {
+  overflow: auto;
+  height: calc(100vh - 50px);
+  padding: 22px 15px 25px;
+  width: calc(100% - 36px);
+  color: #333;
+}
+
+.mi_confirm_block {
+	padding: 50px 20px;
+}
+
+.mi_overlay_contents_title {
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+.mi_confirm_title_img {
+	margin-bottom: 15px;
+}
+
+.mi_confirm_title {
+	font-size: 20px;
+	line-height: 1.5;
+}
+
+.mi_confirm_content {
+	border-top: solid 1px #0081CC;
+	margin-bottom: 40px;
+	width: 100%;
+}
+
+.mi_confirm_content tr {
+	border-bottom: solid 1px #0081CC;
+}
+
+.mi_confirm_content th {
+	padding: 10px;
+	font-weight: bold;
+	text-align: left;
+	width: 180px;
+}
+
+.mi_confirm_content td {
+	padding: 10px;
+	text-align: left;
+}
+
+.mi_confirm_send {
+	display: block;
+	margin: 0 auto;
+	width: 239.5px;
+	height: 56px;
+	line-height: 56px;
+	border-radius: 100px;
+	background-color: #0081CC;
+	outline: none;
+	border: none;
+	color: #fff;
+	font-weight: bold;
+	text-align: center;
+	font-size: 20px;
+}
+
+a.mi_confirm_send:hover {
+	background-color: #A8DBFF;
+	color: #fff
+}

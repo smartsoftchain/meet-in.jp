@@ -1,0 +1,2565 @@
+@font-face {
+  font-family: 'IPAex明朝';
+  src: url(../fonts/ipaexm.ttf);
+}
+
+.content__wrap {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.full_screen__wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #333333;
+}
+
+.full_screen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 500ms 0s ease;
+}
+
+.meeting__header {
+  width: 100%;
+  height: 15%;
+  position: absolute;
+  top: 0;
+  background: linear-gradient(#333333, transparent);
+  opacity: 0.6;
+  z-index: 100;
+}
+
+.meeting__header.landscape {
+  z-index: 1;
+}
+
+.meeting__header--timeWrap {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #FFFFFF;
+  letter-spacing: 1px;
+}
+
+.meeting__header--timeMark {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #87C87F;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.meeting__headerlogo{
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 56px;
+  z-index: 300;
+  cursor: pointer;
+}
+
+.meeting__header--logo {
+  width: 180%;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.meeting__menuBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 56px;
+  z-index: 300;
+  cursor: pointer;
+}
+
+.meeting__sidebar {
+  position: absolute;
+  top: 43px;
+  right: 15px;
+  width: 56px;
+  z-index: 200;
+  background: linear-gradient(rgba(255, 255, 255, 0.4), transparent);
+  padding: 34px 0 24px;
+  display: none;
+}
+
+.meeting__sidebar--btn {
+  width: 100%;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.meeting__members--wrap {
+  position: absolute;
+  top: 70%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.meeting__members--item {
+  width: 20%;
+}
+
+.meeting__members--img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.meeting__footer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px 15px;
+  z-index: 10;
+}
+
+.meeting__footer.landscape {
+	width: 78%;
+	justify-content: space-around;
+}
+
+/* 縦長画面 */
+.meeting__footer--btn-v {
+	width: 18%;
+	height: 0%;
+}
+
+/* 横長画面 */
+.meeting__footer--btn-h {
+	width: 10%;
+	height: 0%;
+}
+
+/* 人画像サンプル用 */
+.display_none {
+  display: none;
+}
+
+.visible_none {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transition: all 900ms 0 ease;
+}
+
+/* チャット画面 */
+.chat__wrap {
+  display: none;
+}
+
+.chat__return {
+  width: 27px;
+  height: 27px;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  z-index: 100;
+  cursor: pointer;
+}
+
+.chat__return img {
+  width: 100%;
+  height: 100%;
+}
+
+.chat__content {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100% - 55px);
+  position: absolute;
+  top: 0;
+  padding: 30px 0;
+  overflow-y: scroll;
+}
+
+.chat__content--left {
+  display: grid;
+  grid-template-columns: 15% 1fr;
+  position: relative;
+}
+
+.chat__leftImg {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.chat__img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  bottom: 40px;
+  left: 5px;
+}
+
+.chat__leftComment--wrap {
+  font-size: 14px;
+  line-height: 1.4;
+  width: 82%;
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.chat__leftComment {
+  color: #555555;
+  margin-left: 10px;
+  background-color: #ECECEC;
+  border-radius: 16px;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+
+.chat__leftComment--last {
+  color: #555555;
+  margin-left: 10px;
+  background-color: #ECECEC;
+  border-radius: 16px 16px 16px 0;
+  padding: 10px;
+}
+
+.chat__content--right {
+  display: grid;
+  grid-template-columns: 22% 1fr;
+}
+
+.chat__rightEmpty {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.chat__rightComment--wrap {
+  font-size: 14px;
+  line-height: 1.4;
+  width: 90%;
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.chat__rightComment {
+  color: #FFFFFF;
+  background-color: #0081CC;
+  border-radius: 16px;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+
+.chat__rightComment--last {
+  color: #FFFFFF;
+  background-color: #0081CC;
+  border-radius: 16px 16px 0 16px;
+  padding: 10px;
+}
+
+.chat__rightComment--delivered {
+  font-size: 11px;
+  color: #FFFFFF;
+  letter-spacing: 1px;
+  margin-top: 2px;
+  text-align: right;
+}
+
+.lastComment {
+  margin-bottom: 40px;
+}
+
+.chat__footer {
+  width: 100%;
+  height: 50px;
+  background-color: #9E9E9E;
+  position: absolute;
+  bottom: 0;
+}
+
+.chat__addComment {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  cursor: pointer;
+  display: none;
+}
+
+.chat__addComment img {
+  /* width: 100%;
+  height: 100%; */
+}
+
+.chat__addEmoji {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.chat__addEmoji img {
+  width: 100%;
+  height: 100%;
+}
+
+.chat__textArea {
+  /* display: none; */
+}
+
+.chat__textArea  textarea {
+  box-sizing: border-box !important;
+  font-size: 16px !important;
+  color: #555555 !important;
+  width: calc(100% - 80px) !important;
+  /* height: 75px !important; */
+  position: absolute !important;
+  /* bottom: 15px !important; */
+  border: none !important;
+  border-radius: 5px !important;
+  box-shadow: 0 0 10px #777777 !important;
+  resize: none !important;
+  margin: 10px 20px 0 !important;
+  padding: 8px 10px !important;
+}
+
+/* ペイント画面 */
+.chat__paint {
+  display: none;
+}
+
+.paint__content {
+  width: 100%;
+  height: 94%;
+  background-color: #FFFFFF;
+  position: absolute;
+  bottom: 0;
+  z-index: 400;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.paint__header {
+  color: #B2B2B2;
+  font-weight: bold;
+  letter-spacing: 1px;
+  position: absolute;
+  width: 100%;
+}
+
+.paint__header--undo {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.paint__header--done {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.paint__sideBtn {
+  margin-top: 50px;
+}
+
+.paint__sideBtn div {
+  padding-right: 5px;
+}
+
+.paint__sideBtn div img {
+  width: 37px;
+  height: 37px;
+}
+
+.paint__sideBtn--img {
+  margin-bottom: 5px;
+}
+
+/* サンプル */
+.paint__sample {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 227px;
+  height: 105px;
+  transform: rotate(45deg);
+}
+
+.paint__footer {
+  width: 210px;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-left: -15px;
+  background-color: #fff;
+  padding: 5px;
+}
+
+.color__palet {
+  margin-top: 10px;
+}
+
+.color__palet div {
+  margin-bottom: 10px;;
+  width: 6vw;
+}
+
+.color__white {
+  width: 6vw;
+  border: 1px solid #979797;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.color__black {
+  width: 6vw;
+  background-color: #333333;
+  border-radius: 50%;
+}
+
+.color__green {
+  width: 6vw;
+  background-color: #87C87F;
+  border-radius: 50%;
+}
+
+.color__yellow {
+  width: 6vw;
+  background-color: #F3C200;
+  border-radius: 50%;
+}
+
+.color__red {
+  width: 6vw;
+  background-color: #D0021B;
+  border-radius: 50%;
+}
+
+.color__blue {
+  width: 6vw;
+  background-color: #4A90E2;
+  border-radius: 50%;
+}
+
+.selected_color_frame{
+	border: 3px solid #0081CC !important;
+}
+
+/* ======================
+ ビデオレイアウト関連
+======================*/
+div.video_area_wrap{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+/* ビデオアイコン領域内にあるビデオのスタイル */
+.video_target_area{
+  position: absolute;
+  display: none;
+  text-align: center;
+}
+/* 画面が縦方向の場合のビデオスタイル */
+.video_target_area_vertical{
+  width: 100%;
+}
+/* 画面が横方向の場合のビデオスタイル */
+.video_target_area_side{
+  height: 100%;
+}
+
+.video_target_area_side .img_video_off{
+  height: 90%;
+}
+
+
+/* 自分のビデオ領域 */
+.big_video_area{
+  z-index: 1;
+}
+
+/* カメラOFF時、大きい際のsvg */
+.big_video_area .sp_video_mic_off_icon,
+.big_video_area .sp_vertial_video_mic_off_icon {
+  width: 27px;
+  height: 27px;
+  position: absolute;
+}
+/* 相手のビデオ領域 */
+.small_video_area{
+  z-index: 2;
+  /*background-color: rgba(5,5,5,0.3);*/
+}
+
+/* カメラOFF時、小さい部分のsvg */
+.small_video_area .sp_video_mic_off_icon,
+.small_video_area .sp_vertial_video_mic_off_icon {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+}
+
+/* ビデオタグ自体のスタイル */
+.video_style{
+  width: 100%;
+  height: 100%;
+}
+
+/* カメラOFFの画像 */
+.img_video_off{
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 500ms 0s ease;
+  position: absolute;
+  z-index: 5;
+}
+
+/* カメラoffアイコン最初は非表示 */
+.sp_own_mic_off_icon {
+  display: none;
+}
+/* 小さいカメラOFFの画像 */
+.img_small_video_off{
+  display: none;
+  z-index: 5;
+  margin: auto;
+  height: 100%;
+  max-width:100%;
+  max-height:100%;
+}
+/* IEの場合は必ず画像OFFなので強制力のあるクラスを追加する */
+.forced_img_video_off{
+  display: block !important;
+}
+/* ミュート画像 */
+.img_mute{
+  display: none;
+  position: absolute;
+  left: 0;
+}
+.img_big_mute{
+  height: 15%;
+  z-index: 6;
+}
+.img_small_mute{
+  height: 40%;
+  z-index: 6;
+}
+/* ======================
+ ホワイトボード関連
+====================== */
+/* キャンバスの表示領域 */
+div.canvas_area{
+  /* width: 100%; */
+  width: calc(100% - 150px);
+  height: 100%;
+  overflow: scroll;
+  float: right;
+}
+
+/* ========================================================================================
+ チャット関連
+ 基本「!important」を使用しているのは、タグ毎DBに保存しており
+ webとspで同じタグを使用する必要がある為、spだけデザインを変えるために使用しています。
+ ※メッセージだけの保存であれば、SP専用のタグを切れるので下記スタイルは書き直すことができます。
+
+ 「div.」などの方法で強制力を持たせても良かったですが、webの方でタグがどう変わるかわからないので
+ スタイルの強制で対応しました。
+======================================================================================== */
+/* チャット文字の大きさ（SP版は大きく） */
+.chat_message_size_forced{
+  font-size: 13px !important;
+}
+/* チャット全体に右余白を開ける為の設定 */
+.chat_board_message_forced{
+  margin-right: 20px !important;
+}
+/* チャットメッセージ領域のアイコン表示サイズの子要素の領域 */
+div.chat_board_userimg_wrap_left_forced{
+  width: 55px !important;
+  height: 55px !important;
+}
+/* チャットメッセージ表示領域の設定 */
+.chat_board_userimg_left_forced{
+  margin-right: 50px;
+}
+/* チャットを続けて打った場合の領域場所 */
+.chat_board_message_box_end_forced{
+  margin-left: 82px  !important;
+  margin-right: 0px !important;
+}
+/* チャットメッセージのパディング */
+.chat_message_padding_forced{
+  padding : 10px !important;
+}
+/* チャット送信用フォントアイコン */
+.icon_send_chat_message{
+  font-size: 26px;
+  color: #ffffff;
+}
+
+/* ======================
+ フォトアルバムアクセス関連
+======================*/
+.access_photos{
+  display: none;
+}
+.sp_document_area{
+  display: none;
+}
+.sp_document_content {
+  width: 100%;
+  height: 94%;
+  background-color: #eeeeee;
+  position: absolute;
+  bottom: 0;
+  z-index: 400;
+  display: flex;
+  flex-direction: row-reverse;
+}
+.sp_document_header {
+  color: #B2B2B2;
+  font-weight: bold;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 401;
+}
+.sp_document_close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+div.sp_img_document_area{
+  width: 100%;
+  height: 90%;
+  margin: auto;
+  background-color: #eeeeee;
+  position: relative;
+}
+
+#imgPen {
+  margin: 0 auto;
+  margin-top: 10px;
+  display: block;
+}
+
+/* 横長画像に設定するスタイル */
+.width_long_image{
+  position: absolute;
+  top:0;
+  bottom:0;
+  right:0;
+  left:0;
+  margin: auto;
+  max-width:100%;
+  max-height:100%;
+}
+/* 縦長画像に設定するスタイル */
+.height_long_image{
+  position: absolute;
+  top:0;
+  bottom:0;
+  right:0;
+  left:0;
+  margin: auto;
+  max-width:100%;
+  max-height:100%;
+}
+/* 資料のキャンバス */
+.sp_img_canvas{
+  z-index: 20;
+  position: absolute;
+  top:0;
+  bottom:0;
+  right:0;
+  left:0;
+  margin: auto;
+  max-width:100%;
+  max-height:100%;
+}
+
+/* ======================
+ ルームシェアモーダル
+======================*/
+.modal_share_room{
+  z-index: 11;
+  position: absolute;
+  width: 100%;
+  height: 329px;
+  box-shadow: 1px 1px 3px 0px #333;
+  background-color: #ffffff;
+  top: 16%;
+  display: none;
+}
+.modal_share_room .title_logo{
+  text-align: center;
+  color: #b4b4b4;
+  margin-top: 45px;
+  font-size: 41px;
+}
+.modal_share_room .title_header{
+  margin-top: 21px;
+  font-family: Meiryo;
+  font-size: 18px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.39;
+  letter-spacing: normal;
+  text-align: center;
+  color: #0081CC;
+}
+.modal_share_room .message_label{
+  margin-top: 8px;
+  font-family: Meiryo;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  text-align: center;
+  color: #333333;
+}
+.modal_share_room .room_url_label{
+  margin-top: 20px;
+  font-family: Meiryo;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #0081CC;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.negotiation_modal_close {
+  background: #0081CC url(/img/btn_close.png) no-repeat center center;
+/*  background-color: #0081CC; */
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+  .negotiation_modal_close:hover { background-color: #A8DBFF;}
+
+/*コピーするボタン*/
+.room_copy_btn {
+  width: 160px;
+  height: 40px;
+  background-color: #f5f5f5;
+}
+.room_copy_btn:hover { background: #c8c8c8; color: #fff; }
+
+.copy_btn_inner{
+  font-family: Meiryo;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #b2b2b2;
+}
+.copy_btn_inner img{
+  vertical-align: middle;
+  padding-right: 10px;
+  width: 20px;
+}
+/* 招待文をコピするために表示するメッセージ文領域 */
+.share_message_area{
+  position: absolute;
+  top: 0;
+  left: -999;
+}
+.share_message{
+  font-size: 0;
+  height: 0;
+  width: 0;
+}
+
+/* ======================
+ 共有メモ
+======================*/
+/* 共有メモの全体領域 */
+.share_memo_area{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  z-index: 400;
+  background-color: rgb(200, 200, 200);
+  display: none;
+}
+/* 共有メモ閉じるボタン */
+.share_memo_close{
+  width: 27px;
+  height: 27px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 100;
+  cursor: pointer;
+}
+/* 共有メモのメッセージ領域 */
+.share_memo_messages{
+  margin-top: 52px;
+  width: 100%;
+  height: calc(90% - 57px);
+}
+/* 実際のメッセージ表示箇所 */
+.share_memo_text{
+  width: 98%;
+  height: 100%;
+  font-size: 16px !important;
+}
+/* PDFダウンロードアイコン */
+.share_memo_footer{
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+/* 同席モード用の定義 */
+.view_only_control_contents{
+  position: absolute;
+  width: 100%;
+  height: calc(100%);
+  top: 0;
+  left: 0;
+  z-index:1000;
+}
+/* 現在SP版で最前面に出したい場合のz-index */
+.zindex1001{
+  z-index:1001 !important;
+}
+.zindex1002{
+  z-index:1002 !important;
+}
+.view_only_control_footer{
+  visibility:hidden
+}
+
+/* ======================
+ 共有メモ
+======================*/
+.room_e_contract {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  z-index: 400;
+  background-color: #ffffff;
+  display: none;
+}
+
+.e_contract_header_area {
+  position: relative;
+  padding: 15px 20px;
+  border-bottom: 1px solid #E9E8E7;
+}
+
+.e_contract_header_area span {
+  font-size: 20px;
+  position: absolute;
+  top: 15px;
+}
+
+.e_contract_header_title {
+  color: #333;
+  font-size: 20px;
+  margin-left: 30px;
+}
+
+.e_contract_setting_area {
+  padding: 20px 20px 80px;
+}
+
+.e_contract_title_area {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.e_contract_title_area h2 {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.e_contract_title_area p {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* ======================
+ 文字起こし
+======================*/
+/* 文字起こしの全体領域 */
+.audio-text-area-sp{
+  position: absolute;
+  width: 100%;
+  height: 75%;
+  top: 10%;
+  z-index: 300;
+  background: #FFFFFF;
+  visibility: hidden;
+  border-radius: 3px;
+}
+
+/* 文字起こしのコンテンツ領域 */
+.audio-text-content {
+  margin-top: 10px;
+  width: 100%;
+  height: 70%;
+}
+
+.audio-text-content-small {
+  margin-top: 10px;
+  width: 100%;
+  height: 50%;
+}
+
+#audio-text-boxarea:empty::before {
+  content: "\0020音声から文字起こしを行います。\A「マイク」を確認し「開始」を押してください。\A \0020開始後「停止」を押すと文字を編集できます。";
+  font-size: 11px;
+  display: block;
+  white-space: pre;
+  border-radius: 4px;
+  border: 1px solid #DCDCDC;
+  height: 100%;
+  line-height: 1.5;
+}
+
+/* 文字起こしのヘッダー領域 */
+.audio-text-header {
+  border-bottom: 1px solid #DCDCDC;
+  opacity: 1;
+  font-size: 13px;
+  color: #585858;
+  padding: 5px 8px;
+  line-height: 32px;
+  cursor: move;
+}
+
+.audio-text-header-text {
+  margin-left: 5px;
+}
+
+/* 文字起こしのダウンロード */
+.audio-text-download-button-label {
+  font-size: 11px;
+  color: #585858;
+  text-decoration: none;
+}
+/* ダウンロードのアイコン */
+.audio-text-download-button-label::before {
+  content: '';
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-image: url("/img/doc-save.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.audio-text-download-span {
+  position: absolute;
+  right: 20px;
+  display: inline-block;
+  text-align: center;
+}
+
+/* メッセージ表示領域 */
+.audio-text-boxarea {
+  width: 98%;
+  height: calc(85%);
+  font-size: 16px;
+  pointer-events: none;
+}
+
+/* 同期ページの表示領域 */
+.audio-text-boxarea-page {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #DCDCDC;
+  border-radius: 4px;
+  overflow: scroll;
+  outline: none;
+  padding: 7px 10px 7px 10px;
+  resize: none;
+  box-sizing: border-box;
+}
+
+/* 表示領域リサイズ */
+.audio_textbox_area_short {
+  width: 100%;
+  height: 35%;
+  top: 50%;
+}
+
+@media (orientation: landscape) {
+  /* 文字起こしのコンテンツ領域 */
+  .audio-text-content {
+    margin-top: 10px;
+    width: 100%;
+    height: 50%;
+  }
+
+  .audio_textbox_area_short {
+    width: 50%;
+    height: 60%;
+    top: 20%;
+  }
+
+  /* 文字起こしのページネーション領域 */
+  .audio-text-pagenation-area {
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    margin: 8px auto 0;
+  }
+
+  /* 文字起こしフッター領域 */
+  .audio-text-footer {
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+  }
+}
+
+/* 文字起こしのページネーション領域 */
+.audio-text-pagenation-area {
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  margin: 16px auto 0;
+}
+
+.audio-text-pagenation-area-small {
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.audio-text-pagenation {
+  width: 240px;
+  margin: 0 auto;
+}
+
+.audio-text-boxarea textarea {
+  display: none;
+}
+
+.audio-text-boxarea .current {
+  display: block;
+}
+
+.audio-text-page-number {
+  display: none;
+  color: #B4B4B4;
+  margin-left: 10px;
+}
+
+.audio-text-page-number.view{
+  display: inline-block;
+}
+
+.audio-text-page-number.current{
+  color: #0081CC;
+}
+
+.audio-text-page-number:hover {
+  color: #B4B4B4;
+}
+
+/* 文字起こしフッター領域 */
+.audio-text-footer {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+.audio-text-footer-small {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* 文字起こし表示サイズ変更ボタン */
+.icon-downward {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid black;
+}
+.icon-upward {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid black;
+}
+
+/** パートナー登録フォーム **/
+.partner_setting_form_area {
+  background: #fff;
+}
+
+.partner_setting_table {
+  width: 100%;
+}
+
+.partner_setting_template_row {
+  margin-bottom: 15px;
+}
+
+.partner_setting_template_row td {
+  padding: 0 20px;
+}
+
+.partner_setting_table_label {
+  font-size: 14px;
+  color: #333;
+  padding: 5px 0;
+}
+
+.partner_setting_table_label .require {
+  font-size: 10px;
+  color: #fff;
+  background-color: #DF6A6E;
+  margin-left: 10px;
+  padding: 2px 5px;
+}
+
+.partner_setting_table_label_partner {
+  font-size: 14px;
+  font-weight: normal;
+  color: #333;
+  padding: 5px 0;
+}
+
+.partner_setting_title_input {
+  width: calc(100% - 20px);
+  height: 36px;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  padding: 0 10px;
+}
+
+.partner_setting_title_input2 {
+  width: calc(100% - 50px);
+  height: 36px;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  padding: 0 10px;
+}
+
+.partner_setting_template_row input[type="date"] {
+  color: #333;
+  width: calc(100% - 20px);
+  height: 36px;
+  background-color: #ffffff;
+  position: relative;
+  border: 1px solid #B1B1B1;
+  border-radius: 4px;
+  padding: 0 10px;
+}
+
+.partner_setting_template_row input[type="date"]::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+}
+
+.partner_setting_template_row input[type="date"]::-webkit-clear-button{
+  -webkit-appearance: none;
+}
+
+.partner_setting_template_row input[type=date]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.partner_setting_table_date {
+  display: flex;
+}
+
+.partner_setting_table_date_item {
+  margin-right: 10px;
+}
+
+.partner_setting_table_date_item span {
+  margin-right: 5px;
+}
+
+.partner_setting_template_row input[type="date"].partner_setting_table_date_item {
+  width: 120px;
+}
+
+
+.partner_setting_template_select {
+  overflow: hidden;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  position: relative;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+}
+
+#e_contract_document_text {
+  color: #333;
+  line-height: 1.6;
+}
+
+.partner_setting_template_select select {
+  color: #333;
+  width: 100%;
+  padding-right: 1em;
+  cursor: pointer;
+  text-indent: 0.01px;
+  text-overflow: ellipsis;
+  border: none;
+  outline: none;
+  background: transparent;
+  background-image: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0 38px 0 10px;
+}
+
+.partner_setting_template_select select::-ms-expand {
+  display: none;
+}
+
+.partner_setting_template_select::before {
+  position: absolute;
+  top: 1.0em;
+  right: 0.9em;
+  width: 0;
+  height: 0;
+  padding: 0;
+  content: '';
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #666666;
+  pointer-events: none;
+}
+
+.partner_setting_partner_row td {
+  padding-top: 20px;
+}
+
+.partner_setting_item {
+  margin-bottom: 20px;
+}
+
+.partner_setting_item_header {
+  color: #B18D47;
+  font-size: 13px;
+  height: 37px;
+  line-height: 37px;
+  border-radius: 4px 4px 0 0;
+  background-color: #A8DBFF;
+  padding: 0 10px;
+  position: relative;
+}
+
+.partner_setting_item_remove {
+  font-size: 22px;
+  color: #888;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  cursor: pointer;
+}
+
+.partner_setting_item_count {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.partner_setting_input_area {
+  border-radius: 0 0 4px 4px;
+  background-color: #E5F4FF;
+  padding: 15px 20px 10px;
+}
+
+.partner_setting_input_row {
+  margin-bottom: 10px;
+}
+
+.partner_setting_input_row label {
+  font-size: 12px;
+  color: #333;
+  display: block;
+}
+
+.partner_setting_input_row .require {
+  font-size: 10px;
+  color: #fff;
+  background-color: #DF6A6E;
+  margin-left: 5px;
+  padding: 2px 5px;
+}
+
+.sign-text-note {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #555;
+  margin: 5px 0;
+}
+
+.partner_setting_input_name {
+  width: 40%;
+  height: 32px;
+  border: 1px solid #bbbbbb;
+  border-radius: 2px;
+  padding: 0 10px;
+}
+
+.partner_setting_input_name.lastname {
+  margin-right: 10px;
+}
+
+.partner_setting_input {
+  width: calc(100% - 20px);
+  height: 32px;
+  border: 1px solid #bbbbbb;
+  border-radius: 2px;
+  padding: 0 10px;
+}
+
+.partner_setting_item_lifting {
+  margin: 15px 0 10px;
+}
+
+.partner_setting_item_lifting_label {
+  font-size: 12px;
+  color: #333;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.partner_setting_item_lifting_btnarea {
+  display: flex;
+  justify-content: space-between;
+}
+
+.partner_setting_item_lifting_btn {
+  color: #0081CC;
+  text-align: center;
+  background-color: #A8DBFF;
+  width: calc(50% - 5px);
+  height: 30px;
+  line-height: 30px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.partner_setting_send_code {
+  color: #0081CC;
+  font-weight: bold;
+  text-align: center;
+  width: 132px;
+  height: 32px;
+  line-height: 32px;
+  background-color: #fff;
+  border: 1px solid #0081CC;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.partner_setting_send_code:hover {
+  opacity: 0.7;
+}
+
+.partner_setting_partner_add {
+  color: #0081CC;
+  font-weight: bold;
+  text-align: center;
+  width: 107px;
+  height: 32px;
+  line-height: 32px;
+  background-color: #fff;
+  border: 1px solid #0081CC;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.partner_setting_partner_add:hover {
+  opacity: 0.7;
+}
+
+.form_setting_file_area {
+  margin-top: 20px;
+}
+.form_setting_table {
+  width: 100%;
+}
+
+.form_setting_label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form_setting_table_label {
+  font-size: 10px;
+  color: #333;
+  font-weight: normal;
+  width: 90px;
+  height: 36px;
+  line-height: 36px;
+  text-align: left;
+  border-bottom: 1px solid #E9E8E7;
+  padding: 0 10px;
+}
+
+.form_setting_table_item {
+  font-size: 12px;
+  color: #707070;
+  height: 36px;
+  line-height: 36px;
+  text-align: left;
+  border-bottom: 1px solid #E9E8E7;
+  padding: 0 10px;
+}
+
+.form_setting_table_item_date {
+  color: #707070;
+  height: 36px;
+  line-height: 36px;
+  text-align: left;
+  border-bottom: 1px solid #E9E8E7;
+  padding: 0 10px;
+  display: flex;
+}
+
+.form_setting_table_date {
+  font-size: 10px;
+  margin-right: 5px;
+}
+
+.form_setting_table_date span {
+  font-size: 10px;
+  margin-right: 5px;
+}
+
+.form_setting_parts_text {
+  border: 1px solid #888;
+  cursor: move;
+  width: 200px;
+  height: 80px;
+  opacity: 0.8;
+}
+
+.form_setting_parts_sign {
+  border: 1px solid #888;
+  cursor: move;
+  width: 200px;
+  height: 80px;
+  opacity: 0.8;
+}
+
+.form_setting_parts_checkbox {
+  border: 1px solid #888;
+  cursor: move;
+  width: 200px;
+  height: 80px;
+  opacity: 0.8;
+}
+
+.form_template-name{
+  position: relative;
+  width: 720px;
+  height: 50px;
+  background: white;
+  margin-bottom: 15px;
+  border-radius: 7px;
+  border: 1px solid #E9E8E7;
+  margin-top: 2%;
+}
+
+.form_template-name-change{
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background: #E5F4FF;
+  margin-bottom: 15px;
+  border-radius: 7px;
+  border: 1px solid #99C5E5;
+  margin-top: 2%;
+  content: "(　選択中　)"
+}
+
+/* .form_template-name-change:after{
+  margin-top: 2%;
+  margin-left: 15px;
+  font-weight: bold;
+  content: "(表示中)"
+} */
+
+.file_target{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
+}
+
+.template-name_text{
+  font-size: 15px;
+  line-height: 50px;
+  padding-left: 5%;
+}
+
+.form_setting_file_display_area {
+  background-color: #FFF9EF;
+  padding: 20px 30px;
+}
+
+.form_setting_file_display_template {
+  margin-bottom: 20px;
+}
+
+.form_setting_file_display_label {
+  color: #0081CC;
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.form_setting_file_display_item {
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.form_setting_parts_area{
+  width: 720px;
+  height: 150px;
+  background: #FFF9EF;
+  border-radius: 7px;
+  margin-top: 3%;
+}
+
+.form_setting_parts_text_area{
+  font-weight: bold;
+  margin-left: 2%;
+  padding-top: 1%;
+}
+
+.form_setting_parts_area_main{
+  display: flex;
+}
+
+.form_setting_title_area{
+  margin-bottom: 3%;
+}
+
+.form_setting_error {
+  color: #E16A6C;
+}
+
+.form_setting_parts_text{
+  width: 190px;
+  height: 50px;
+  background: #99C5E5;
+  border-radius: 5px;
+  border: none;
+  padding-top: 11px;
+}
+
+.parts_inner_text{
+  width: 140px;
+  height: 35px;
+  background: white;
+  border: 1px solid #A2A2A2;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.form_setting_parts_sign_area{
+  margin-left: 5%;
+  margin-top: 1%;
+}
+
+.form_setting_parts_sign{
+  width: 80px;
+  height: 50px;
+  background: #99C5E5;
+  border-radius: 5px;
+  border: none;
+  padding-top: 10px;
+}
+
+.dot-logo-text{
+  margin-left: 85%;
+  margin-top: -17%;
+}
+
+.dot-logo-sign{
+  margin-left: 74%;
+  margin-top: -43%;
+}
+
+.dot-logo-checkbox{
+  margin-left: 74%;
+  margin-top: -40%;
+}
+
+.parts_inner_sign{
+  width: 40px;
+  height: 40px;
+  background: white;
+  border: 1px solid #A2A2A2;
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-top: -1px;
+}
+
+.form_setting_parts_checkbox_area{
+  margin-left: 5%;
+  margin-top: 1%;
+}
+
+.form_setting_parts_checkbox{
+  width: 80px;
+  height: 50px;
+  background: #99C5E5;
+  border-radius: 5px;
+  border: none;
+  padding-top: 10px;
+}
+
+.parts_inner_checkbox{
+  width: 35px;
+  height: 35px;
+  background: white;
+  border: 1px solid #A2A2A2;
+  margin-left: 10px;
+  margin-top: 1px;
+  border-radius: 5px;
+}
+
+.form_setting_document_operation_area {
+  display: flex;
+}
+
+.form_setting_document_operation_area2 {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.form_setting_document_operation_left {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form_setting_document_status_area {
+  margin-right: 60px;
+}
+
+.form_setting_document_operation_label {
+  font-size: 14px;
+  color: #4C4C4C;
+  line-height: 0.5;
+}
+
+.form_setting_document_operation_text {
+  font-size: 28px;
+  color: #4C4C4C;
+}
+
+.form_setting_document_page_area {
+  margin: 30px 0 10px;
+}
+
+.form_setting_document_operation_right {
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  padding-top: 10px;
+}
+
+.form_setting_document_page_area {
+  margin: 0 0 0 auto;
+  display: flex;
+}
+
+.form_setting_document_count_area {
+  width: 100px;
+  display: flex;
+}
+
+.page-text {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.count-text {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.form_setting_document_pager_prev{
+  border: 1px solid #A2A2A2;
+  font-size: 25px;
+  border-radius: 5px;
+  color: #A2A2A2;
+  cursor: pointer;
+}
+
+.form_setting_document_pager_next{
+  border: 1px solid #A2A2A2;
+  font-size: 25px;
+  border-radius: 5px;
+  color: #A2A2A2;
+  cursor: pointer;
+}
+
+.form_setting_file_pager_prev{
+  border: 1px solid #A2A2A2;
+  font-size: 25px;
+  border-radius: 5px;
+  color: #A2A2A2;
+  cursor: pointer;
+}
+
+.form_setting_file_pager_next{
+  border: 1px solid #A2A2A2;
+  font-size: 25px;
+  border-radius: 5px;
+  color: #A2A2A2;
+  cursor: pointer;
+}
+
+.button-wrapper{
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.return-button-box{
+  width: 160px;
+  height: 40px;
+  background: #A2A2A2;
+  color: white;
+  font-weight: bold;
+  margin-right: 3%;
+  border-radius: 3px;
+  text-align: center;
+  line-height: 40px;
+  position: relative;
+}
+
+.return-button-box a{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
+}
+
+.form_setting_document_img{
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+
+.form_setting_file_img {
+  width: 100vw;
+  position: relative;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.form_setting_file_img img {
+  box-sizing: border-box;
+  width: 360px;
+  border: 1px solid #888;
+}
+
+.signup-button-box {
+  width: 160px;
+  height: 40px;
+  background:#0081CC;
+  color: white;
+  font-weight: bold;
+  border-radius: 3px;
+  text-align: center;
+  line-height: 40px;
+  position: relative;
+}
+
+.signup-button-box a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
+}
+
+/** 契約書上に表示するダミーフォーム **/
+/** 入力フォーム（1行） **/
+.form_setting_parts_text_dammy {
+  border-radius: 1px;
+  background-color: #E5F4FF;
+  display: flex;
+  position: relative;
+  padding: 5px;
+}
+
+.form_setting_parts_text_dammy.input {
+  width: 165px;
+}
+
+.form_setting_parts_text_dammy .done {
+  font-size: 8px;
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  min-width: 60px;
+  color: #B18D47;
+  background-color: #FFDE96;
+  border-radius: 1px 1px 0 0;
+  padding: 2px 10px 2px;
+  box-sizing: border-box;
+}
+
+.parts_inner_text_dammy_area {
+  display: flex;
+}
+
+.parts_inner_text_dammy {
+  font-size: 12px;
+  border: 1px solid #0081CC;
+  border-radius: 2px;
+  width: 150px;
+  height: 16px;
+  background: #fff;
+  padding: 1px 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: IPAex明朝;
+}
+
+input.parts_inner_text_dammy {
+  padding: 0 2px;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 100;
+}
+
+.form_setting_parts_text_dammy_confirm {
+  width: 335px;
+  height: 52px;
+  border-radius: 2px;
+  background-color: #0081CC;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/** テキストフォーム（複数行） **/
+.form_setting_parts_textarea_dammy {
+  border-radius: 1px;
+  background-color: #E5F4FF;
+  display: flex;
+  position: relative;
+  padding: 10px;
+}
+
+.form_setting_parts_textarea_dammy.input {
+  width: 165px;
+}
+
+.form_setting_parts_textarea_dammy .done {
+  position: absolute;
+  top: -7.5px;
+  left: 0;
+  width: 100%;
+  min-width: 60px;
+  color: #B18D47;
+  font-size: 8px;
+  background-color: #FFDE96;
+  border-radius: 1px 1px 0 0;
+  padding: 2px 7.5px;
+  box-sizing: border-box;
+}
+
+.parts_inner_textarea_dammy_area {
+  display: flex;
+}
+
+.parts_inner_textarea_dammy {
+  font-size: 14px;
+  line-height: 1.1;
+  color: #A2A2A2;
+  border: 1px solid #0081CC;
+  border-radius: 2px;
+  width: 150px;
+  height: 16px;
+  background: #fff;
+  padding: 1px 5px;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  resize: none;
+  font-family: IPAex明朝;
+}
+
+textarea.parts_inner_textarea_dammy {
+  padding: 0 5px;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 100;
+}
+
+.form_setting_parts_textarea_dammy_confirm {
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 5px;
+}
+
+/** 押印 **/
+.form_setting_parts_sign_dammy {
+  border-radius: 1px;
+  background-color: #E5F4FF;
+  display: flex;
+  position: relative;
+  padding: 5px;
+}
+
+.form_setting_parts_sign_dammy .done {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  min-width: 60px;
+  color: #B18D47;
+  font-size: 8px;
+  background-color: #FFDE96;
+  border-radius: 2px 2px 0 0;
+  padding: 2px 10px 2px;
+  box-sizing: border-box;
+}
+
+.parts_inner_sign_dammy {
+  border: 1px solid #0081CC;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  background: #fff;
+  margin-left: 7.5px;
+}
+
+.form_setting_parts_sign_dammy_confirm {
+  width: 85px;
+  height: 70px;
+  border-radius: 2px;
+  background-color: #0081CC;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/** チェックボックス **/
+.form_setting_parts_checkbox_dammy {
+  border-radius: 2px;
+  background-color: #E5F4FF;
+  display: flex;
+  position: relative;
+  padding: 5px;
+}
+
+.form_setting_parts_checkbox_dammy .done {
+  font-size: 8px;
+  position: absolute;
+  top: -7.5px;
+  left: 0;
+  width: 100%;
+  min-width: 60px;
+  color: #B18D47;
+  background-color: #FFDE96;
+  border-radius: 2px 2px 0 0;
+  padding: 2px 5px;
+  box-sizing: border-box;
+}
+
+.form_setting_parts_checkbox_input {
+  width: 42px;
+  height: 26px;
+  border-radius: 1px;
+  background-color: #E5F4FF;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.form_setting_parts_checkbox_input .done {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  min-width: 60px;
+  color: #B18D47;
+  font-size: 10px;
+  background-color: #FFDE96;
+  border-radius: 1px 1px 0 0;
+  padding: 2px 1px 2px;
+  box-sizing: border-box;
+}
+
+.parts_inner_checkbox_dammy {
+  border: 1px solid #0081CC;
+  border-radius: 1px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+}
+
+.parts_inner_checkbox_dammy.input {
+  cursor: pointer;
+}
+
+.form_setting_parts_checkbox_dammy_confirm {
+  width: 65px;
+  height: 52px;
+  border-radius: 2px;
+  background-color: #0081CC;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.parts_inner_remove {
+  font-size: 24px;
+  color: #fff;
+  text-align: center;
+  background-color: #0081CC;
+  width: 32px;
+  height: 32px;
+  line-height: 30px;
+  border-radius: 2px;
+  margin-left: 12px;
+  cursor: pointer;
+}
+
+.form_setting_parts_text_dammy img, .form_setting_parts_textarea_dammy img, .form_setting_parts_sign_dammy img, .form_setting_parts_checkbox_dammy img {
+  border: none;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+.form_setting_partner_select {
+  width: 147px;
+  height: 40px;
+  background-color: #E5F4FF;
+  border-radius: 2px;
+  position: absolute;
+  right: 0;
+  top: -45px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  display: none;
+  z-index: 200;
+}
+
+.form_setting_partner_select.checkbox {
+  height: 56px;
+  top: -60px;
+}
+
+.form_setting_partner_select.checkbox label {
+  font-size: 12px;
+}
+
+.form_setting_partner_select_label {
+  font-size: 10px;
+  color: #333;
+}
+
+.form_setting_partner_select_label .require {
+  font-size: 10px;
+  color: #fff;
+  background-color: #E16A6C;
+  border-radius: 1px;
+  margin-left: 5px;
+  padding: 0 5px;
+}
+
+.form_setting_partner_select select {
+  font-size: 12px;
+  background-color: #ffffff;
+  width: 128px;
+  height: 16px;
+  color: #333;
+}
+
+.form_setting_partner_select_confirm {
+  width: 294px;
+  height: 80px;
+  background-color: #E5F4FF;
+  border-radius: 2px;
+  position: absolute;
+  right: 0;
+  top: -90px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  z-index: 200;
+}
+
+.form_setting_partner_select_confirm.checkbox {
+  height: 97px;
+  top: -107px;
+}
+
+.partner_select_confirm {
+  width: 256px;
+  height: 32px;
+  line-height: 32px;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #B1B1B1;
+  border-radius: 4px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.form_setting_partner_sign {
+  width: 120px;
+  height: 100px;
+  background-color: #E5F4FF;
+  border-radius: 1px;
+  position: absolute;
+  right: 0;
+  top: -105px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  display: none;
+}
+
+.form_setting_partner_sign input {
+  width: 100px;
+  height: 14px;
+  color: #333;
+  box-sizing: border-box;
+  margin-bottom: 2.5px;
+  padding: 0 5px;
+}
+
+.form_setting_partner_sign button {
+  font-size: 10px;
+  width: 100px;
+  height: 16px;
+  line-height: 16px;
+  color: #fff;
+  background-color: #0081CC;
+  border: none;
+  border-radius: 1px;
+}
+
+.form_setting_partner_sign button:hover {
+  opacity: 0.7;
+}
+
+.mgn-t20 {
+  margin-top: 20px;
+}
+
+/** パートナーエリア **/
+.form_setting_partner_area {
+  margin: 60px 0;
+}
+
+.form_setting_partner_area#partnerArea {
+  display: none;
+}
+
+.form_setting_partner_title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.form_setting_partner_description {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.form_setting_partner_item {
+  border: 1px #A2A2A2 solid;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.form_setting_partner_number {
+  color: #fff;
+  text-align: center;
+  background-color: #0081CC;
+  width: 38px;
+  height: 36px;
+  line-height: 38px;
+  border-radius: 50%;
+  margin-right: 32px;
+}
+
+.form_setting_partner_name {
+  font-size: 14px;
+  color: #333;
+  margin-top: 5px;
+}
+
+.form_setting_partner_organization {
+  font-size: 14px;
+  color: #333;
+  margin-top: 5px;
+}
+
+.form_setting_partner_email {
+  font-size: 14px;
+  color: #333;
+  margin-top: 5px;
+}
+
+.form_setting_partner_resend {
+  height: 38px;
+}
+
+.form_setting_partner_resend a {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 72px;
+  height: 38px;
+  line-height: 38px;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  background-color: #0081CC;
+  border-radius: 2px;
+}
+
+.form_setting_partner_resend a:hover {
+  opacity: 0.8;
+}
+
+.form_setting_partner_unapproved {
+  margin: 0 25px 10px 0;
+}
+
+.form_setting_partner_resend {
+  box-sizing: border-box;
+  width: 72px;
+  height: 38px;
+  line-height: 38px;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  background-color: #A2A2A2;
+  border-radius: 2px;
+}
+
+/** メッセージエリア **/
+.form_setting_message_area {
+  margin-bottom: 40px;
+}
+
+.form_setting_message_area#messageArea {
+  display: none;
+}
+
+.form_setting_partner_description {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.form_setting_partner_textarea {
+  color: #333;
+  width: 100%;
+  height: 128px;
+  resize: none;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #A2A2A2;
+}
+
+.e_contract_loading {
+  position: absolute;
+  width: auto;
+  height: 30px;
+  display: none;
+}
+
+.mi_mgn-left40 {
+  margin-left: 40px;
+}
+
+/** 送信完了画面 **/
+#done {
+  display: none;
+  padding-bottom: 80px;
+}
+
+.e_contract_center{
+  text-align: center;
+  margin-top: 40px;
+}
+
+.e_contract_img__section{
+  margin-bottom: 20px
+}
+
+.e_contract_item__medium{
+  font-family: HiraginoSans-W4;
+  font-size: 24px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #4c4c4c;
+}
+
+.e_contract_item__small {
+  font-family: HiraginoSans-W4;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #4c4c4c;
+  margin: 5px 0 20px;
+  padding: 0 40px;
+}
+
+.btn_client_submit_area {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.mi_cancel_btn {
+  background: #e1e1e1;
+  color: #6e6e6e;
+  margin-right: 4px;
+}
+
+.mi_default_button {
+  width: 160px;
+}
+
+/* カラーパレット出現ボタン */
+.color_palet_circle {
+  width: 55px;
+  height: 55px;
+  border-radius: 30px;
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  background-color: #fff;
+}
+
+/* カラーパレット閉じるボタン */
+.cancel-icon::before,
+.cancel-icon::after {
+  display: block;
+  content: "";
+  position: absolute;
+  top: 36%;
+  left: 67%;
+  width: 52%;
+  height: 10%;
+  margin: -8% 0 0 -42%;
+  background: #fff;
+}
+
+.cancel-icon::before {
+  transform: rotate(-45deg);
+}
+
+.cancel-icon::after {
+  transform: rotate(45deg);
+}
+
+.paint__footerClose {
+  height: 35px;
+  width: 35px;
+  position: absolute;
+  background-color: #0081CC;
+  color: #fff;
+  font-size: 10px;
+  text-align: center;
+  line-height: 5;
+}
+
+/* モーダル */
+.nonReccomendModal {
+  font-size: 11px;
+  text-align: center;
+  box-sizing: border-box;
+  width: 70%;
+  height: 130px;
+  position: absolute;
+  top: 20%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: #FCFCFC;
+  border-radius: 15px;
+  padding: 15px;
+  display: none;
+}
+
+
+.non_reccomend_link_wrap {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.non_reccomend_link {
+  color: #0081CC !important;
+  text-decoration: underline;
+}
+
+.non_reccomend_cancel {
+  width: 160px;
+  height: 27px;
+}
+
+/* スマホ縦表示 */
+@media (orientation: portrait) and (max-width: 480px){
+  /* 画像エリア */
+  div.sp_img_document_area,
+  div.canvas_area
+  { 
+    width: 100%;
+    float: none;
+    overflow: scroll;
+    margin: 0;
+  }
+  div.canvas_area {
+    height: 100%;
+  }
+  div.sp_img_document_area {
+    height: 74%;
+  }
+
+  div.sp_img_document_area {
+    position: relative;
+  }
+
+  /* パレットエリア */
+  .paint__sideBtn {
+    display: flex;
+    margin: 0;
+  }
+
+  .paint__footer {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 135px;
+    box-sizing: border-box;
+    padding: 10px;
+  }
+
+  .color__palet {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0;
+    padding-right: 10px;
+  }
+
+  /* カラー表示の丸枠の大きさ */
+  .color__palet div {
+    width: 8vw;
+  }
+
+  .color__white {
+    width: 10vw;
+  }
+  
+  .color__black {
+    width: 10vw;
+  }
+  
+  .color__green {
+    width: 10vw;
+  }
+  
+  .color__yellow {
+    width: 10vw;
+  }
+  
+  .color__red {
+    width: 10vw;
+  }
+  
+  .color__blue {
+    width: 10vw;
+  }
+
+  .paint__footerClose {
+    right: 10px;
+    top: 0px;
+  }
+}
+
+
+.monitoring_mode .big_video_area {
+  z-index: unset;
+}
+
+.monitoring_mode .small_video_area {
+  z-index: unset;
+}
+
+.monitoring_mode .img_mute {
+  display: block;
+  z-index: 1001;
+  height: 40%;
+}
+.monitoring_mode .big_video_area .img_mute {
+  height: 15%;
+  top: 94px;
+}

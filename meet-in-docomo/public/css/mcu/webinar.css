@@ -1,0 +1,1166 @@
+@charset "UTF-8";
+/*
+*	Title:「 webinar 」lp用のtopのCSS
+*	File Nmae: top.css
+*	Last Modified: 2020-3-23
+*/
+
+/* 必須のスタイル */
+.required {
+	margin-left: 8px;
+	padding: 2px 5px;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 1;
+	color: #fff;
+	background: #df6b6e;
+}
+
+/* エラーメッセージ */
+.errmsg {
+	font-size: 0.95em;
+	line-height: 1.6;
+	color: #df6b6d;
+	padding-bottom: 15px;
+}
+/* 共通非表示 */
+.display_none {
+	display: none;
+}
+/* 共通のテキストボックスサイズ begin */
+.text_postcode1 {
+	width: 30px !important;
+	height: 100%;
+	padding: 0 10px;
+	display: inline-block !important;
+	margin-left: 10px;
+	margin-right: 10px;
+	border: 1px solid #e9e8e7;
+}
+.text_postcode2 {
+	width: 40px !important;
+	height: 100%;
+	padding: 0 10px;
+	display: inline-block !important;
+	margin-left: 5px;
+	margin-right: 14px;
+	border: 1px solid #e9e8e7;
+}
+.text_street_address {
+	width: 256px !important;
+	height: 100%;
+	padding: 0 10px;
+	display: inline-block !important;
+	border: 1px solid #e9e8e7;
+}
+.text_short {
+	/* width: 80px !important; */
+	height: 100%;
+	padding: 0 10px;
+	display: inline-block !important;
+	border: 1px solid #e9e8e7;
+	width: calc((100% / 3) - 20px);
+}
+.text_date {
+	width: 100px !important;
+	height: 100%;
+	padding: 0 10px;
+	display: inline-block !important;
+	border: 1px solid #e9e8e7;
+}
+.text_medium {
+	width: 200px !important;
+	height: 100%;
+	display: inline-block !important;
+	padding: 0 10px;
+	border: 1px solid #e9e8e7;
+}
+.text_long {
+	width: 440px !important;
+	height: 100%;
+	padding: 0 10px;
+	display: inline-block !important;
+	border: 1px solid #e9e8e7;
+}
+.text_long2 {
+	width: 620px !important;
+	height: 100%;
+	padding: 0 10px;
+	display: inline-block !important;
+	border: 1px solid #e9e8e7;
+}
+.text_long_url {
+	width: 620px !important;
+	height: 100%;
+	padding: 0 10px;
+	display: inline-block !important;
+	font-size: 12px;
+	border: 1px solid #e9e8e7;
+	color: #6e6e6e;
+}
+/* 時間・分を選択するセレクトボックスのサイズ */
+.time_select {
+	height: 100%;
+	margin-left: 10px;
+	border: 1px solid #e9e8e7;
+	background: #fff;
+	width: calc((100% / 3) - 20px);
+}
+/* 共通のテキストボックスサイズ end */
+
+/* 新規登録ボタン */
+.webinarAddBtn {
+	height: 50px;
+	border-radius: 2px;
+}
+
+/* ファイル選択ボタン */
+.select_file {
+	cursor: pointer;
+	color: #ffffff;
+	background-color: #b2b2b2;
+	font-size: 11px;
+	padding: 0 13.5px;
+	border: solid 1px #b2b2b2;
+}
+/* ファイル削除ボタン */
+.delete_file {
+	cursor: pointer;
+	color: #979797;
+	background-color: #ffffff;
+	font-size: 11px;
+	padding: 0 13.5px;
+	border: solid 1px #979797;
+}
+/* ウェビナー登録・更新の画像タイトルに表示するメッセージ */
+.webinar_img_comment_area {
+	line-height: 15px;
+	font-size: 11px;
+	margin-top: 10px;
+}
+/* 文字を青くする */
+.font-blue {
+	color: blue !important;
+}
+
+/* ウェビナー参加申請フォームの概要表示領域 */
+.div_webinar_outline_area {
+	margin-bottom: 30px;
+}
+.pre_webinar_outline_area {
+	white-space: pre-wrap;
+	background-color: #fff;
+	padding: 20px;
+	text-align: center;
+	line-height: 20px;
+}
+/* デザイン微調整用の共通スタイル begin */
+.compulsion_mgb_20 {
+	margin-bottom: 20px !important;
+}
+.width_unset {
+	width: unset;
+}
+.text_align_left {
+	text-align: left !important;
+}
+.text_align_center {
+	text-align: center !important;
+}
+.width70 {
+	width: 70px !important;
+}
+.width80 {
+	width: 80px !important;
+}
+.width120 {
+	width: 120px !important;
+}
+.width250 {
+	width: 250px !important;
+}
+.width450 {
+	width: 450px !important;
+}
+.height400 {
+	height: 400px !important;
+}
+.line_height30 {
+	line-height: 30px !important;
+}
+.mgb_unset {
+	margin-bottom: unset !important;
+}
+.mgb_10 {
+	margin-bottom: 10px !important;
+}
+.mgb_20 {
+	margin-bottom: 20px !important;
+}
+.mgb_40 {
+	margin-bottom: 40px !important;
+}
+.mgt_20 {
+	margin-top: 20px !important;
+}
+.mgt_40 {
+	margin-top: 40px;
+}
+.mgt_50 {
+	margin-top: 50px;
+}
+.nmgt_10 {
+	margin-top: -10px;
+}
+.mgr_unset {
+	margin-right: unset;
+}
+.mgr_10 {
+	margin-right: 10px;
+}
+.mgr_20 {
+	margin-right: 20px;
+}
+.mgl_20 {
+	margin-left: 20px;
+}
+.mgl_30 {
+	margin-left: 30px;
+}
+.mgl_50 {
+	margin-left: 50px;
+}
+.clear_both {
+	clear: both;
+}
+.float_left {
+	float: left;
+}
+.font_size10 {
+	font-size: 10px !important;
+}
+.left25 {
+	left: 25px !important;
+}
+.left30 {
+	left: 30px !important;
+}
+.left_-3 {
+	left: -3px !important;
+}
+/* デザイン微調整用の共通スタイル end */
+
+/* コピーメッセージ */
+.msg_copy_url {
+	position: relative;
+}
+.msg_copy_url_message {
+	position: absolute;
+	top: 20px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+}
+.msg_copy_url_message_complete {
+	position: absolute;
+	top: -10px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+}
+
+/* 仮デザインのウェビナー申請者画面の背景色 */
+.webinar_participant_form_background {
+	background-color: #ffeece;
+}
+/* 仮デザインのウェビナー申請者画面のボタン */
+.btn_webinar_participant_form {
+	background-color: #0081CC;
+	color: #fff;
+}
+/* ウェビナー一覧画面の検索ボタン領域 */
+.webinar_list_search_area {
+	float: left;
+}
+/* ウェビナー一覧画面の件数表示領域 */
+.webinar_count_tab_area {
+	margin-left: 1px;
+}
+/* ウェビナー一覧画面の件数表示 */
+.webinar_count_tab {
+	float: left;
+	padding: 10px;
+	width: 140px;
+	text-align: center;
+	background-color: #fff;
+	margin-right: 10px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+/* ウェビナー一覧画面の件数表示ホバー時 */
+.webinar_count_tab:hover {
+	cursor: pointer;
+}
+/* ウェビナー一覧画面の現在選択中の件数表示 */
+.current_webinar_count_tab {
+	background-color: #E5F4FF;
+}
+/* ウェビナー一覧画面の画像表示 */
+.webinar_no-img-block {
+	position: relative;
+	background: #efefef;
+	border: 1px solid #b9b9b9;
+	width: 176px;
+	height: 125px;
+}
+.mi_no-img_icon {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+table.document_list td:nth-child(2) {
+	width: 200px;
+}
+table.document_list td:nth-child(4) {
+	width: 60px;
+}
+.webinar_cancell_ico {
+	vertical-align: top;
+	width: 20px;
+}
+/* ウェビナー一覧表示領域の枠に表示する線 */
+.webinar_list_area {
+	border: 1px solid #eee;
+}
+.webinar_list_dateText {
+	font-size: 12px;
+}
+.list_webinar_name {
+	font-size: 18px;
+}
+/* ウェビナー一覧内のカウント表示タイトル領域 */
+.webinar_list_inner_count_title_area {
+	margin-top: 20px;
+	line-height: 1;
+}
+/* ウェビナー一覧内のカウント表示タイトル */
+.webinar_list_inner_count_title {
+	background-color: #707070;
+	font-size: 10px;
+	color: #fff;
+	padding: 3px 8px;
+	line-height: 1;
+}
+/* ウェビナー一覧内のカウント表示領域 */
+.webinar_list_inner_count_area {
+	font-size: 18px;
+	padding-top: 10px;
+	padding-bottom: 18px;
+	line-height: 1;
+}
+/* ウェビナー一覧内のカウント表示 */
+.webinar_list_inner_count {
+}
+/* ウェビナー一覧の反応アイコン領域 */
+.reaction_area {
+	float: left;
+	display: table-cell;
+	vertical-align: middle;
+	padding-top: 2px;
+}
+/* ウェビナー一覧の反応アイコン（いいね、笑顔、拍手） */
+.reaction_icon {
+	width: 15px;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+/* ウェビナー一覧の反応カウント */
+.reaction_count {
+	float: right;
+	padding-top: 2px;
+}
+/* ウェビナー一覧の反応アイコンの区切り線 */
+.reaction_border {
+	border-left: solid 1px #b2b2b2;
+	margin-left: 15px;
+	margin-right: 15px;
+	float: left;
+	height: 15px;
+	margin-top: 8px;
+}
+/* ウェビナー利用可能時間のデザイン */
+.webinar_use_time_area{
+	float: left;
+	line-height: 30px;
+	margin-left: 50px;
+}
+.webinar_use_time_title{
+	margin-right: 10px;
+}
+.webinar_use_time_value{
+
+}
+/****** ウェビナー詳細 begin *******/
+/* ウェビナー詳細のタブ領域 */
+.webinar_detail_tab_area {
+	height: 45px;
+	border-bottom: solid 3px #dbdbdb;
+	margin-bottom: 40px;
+	margin-top: -30px;
+}
+/* ウェビナー詳細のタブ */
+.webinar_detail_tab {
+	float: right;
+	padding: 10px;
+	width: 170px;
+	text-align: center;
+	background-color: #fff;
+	margin-left: 10px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+/* ウェビナー詳細画面の現在選択中の件数表示 */
+.current_webinar_detail_tab {
+	background-color: #fae1a8;
+}
+/* ウェビナー詳細画面のタブホバー時 */
+.webinar_detail_tab:hover {
+	cursor: pointer;
+}
+/* ウェビナー名表示領域 */
+.wd_webinar_name_area {
+}
+/* 反応アイコン表示領域 */
+.webinar_reaction_area {
+	height: 30px;
+	margin-bottom: 30px;
+	display: inline-block;
+	background-color: #fff;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+/* ウェビナー名のサブメッセージ */
+.wbwna_sub {
+	font-size: 12px;
+	line-height: 1;
+	margin-bottom: 6px;
+}
+/* ウェビナー名称 */
+.wbwna_main {
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 1;
+	padding-bottom: 20px;
+}
+/* 入場ボタン領域 */
+.webinar_detail_btn_admission_area {
+	margin-bottom: 40px;
+}
+/* URLリンク */
+.webinar_detail_lnk_url {
+	font-size: 10px;
+	text-decoration: underline;
+	color: blue !important;
+	margin-right: 10px;
+}
+/****** ウェビナー詳細 end *******/
+
+/****** ウェビナー登録完了 begin *******/
+/* タイトルアイコン */
+.wrc_title_icon {
+	margin: 13px 10px 15px 0;
+	height: 40px;
+	width: 40px;
+	font-size: 40px;
+	float: left;
+	color: #0081CC;
+}
+/* タイトル画像 */
+.wrc_title_img {
+	width: 60px;
+	height: 60px;
+	float: left;
+	margin-top: 10px;
+	margin-right: 20px;
+}
+/* タイトルメッセージ */
+.wrc_title_message {
+	display: inline-block;
+	margin-top: 7px;
+}
+.wrc_title_sub_message {
+	font-size: 12px;
+	margin-top: -25px;
+}
+/* メイン領域 */
+.wrc_main_area {
+	width: 100%;
+	max-width: 800px;
+	clear: both;
+	min-height: 130px;
+	background: #fff;
+	padding: 40px;
+}
+/* コピーURL領域 */
+.wrcca_copy_area {
+}
+/* コピータイトル */
+.wrcca_title {
+	font-size: 15px;
+	font-weight: bold;
+}
+/* コピータイトルの■ */
+.wrcca_title_square {
+	color: #0081CC;
+}
+/* コピーメッセージ */
+.wrcca_message {
+}
+/* コピーURLの領域 */
+.wrcca_url_area {
+	height: 40px;
+	padding-top: 10px;
+}
+/* コピーアイコン */
+.wrcca_copy_image {
+	width: 25px;
+	height: 25px;
+	vertical-align: middle;
+}
+.wrcca_copy_image:hover {
+	cursor: pointer;
+}
+/****** ウェビナー登録完了 end *******/
+
+/****** ウェビナー参加者一覧 begin *******/
+/* 一覧のカウント表示領域(ページャーが動的なタグなので、こちらを上にあげる) */
+.pagenation_counts_area {
+	float: left;
+	margin-top: -25px;
+}
+/* 一覧のカウントタイトル */
+.pagenation_count_title {
+	font-size: 10px;
+	height: 25px;
+}
+/* 一覧のカウント数値 */
+.pagenation_count_number {
+	font-size: 17px;
+}
+/****** ウェビナー参加者一覧 end *******/
+
+/****** ウェビナー参加者一覧のメールモーダル begin *******/
+/* モーダルコンテンツ */
+.modal-content {
+	display: none;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0%;
+	left: 0%;
+	z-index: 501;
+}
+.modal-content .inner-wrap {
+	z-index: 503;
+	height: 80%;
+	width: 43%;
+	background: #fff;
+	overflow-y: auto;
+}
+/* メールモーダルの実際の表示領域 */
+.modal_content_mail_area {
+	border-radius: 10px 10px 10px 10px;
+	min-width: 750px;
+}
+/* メールモーダルのヘッダー領域 */
+.mcm_header {
+	background-color: #0081CC;
+	position: relative;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	height: 50px;
+}
+/* メールモーダルヘッダータイトル */
+.mcm_header_title {
+	color: #fff;
+	font-size: 20px;
+	font-weight: bold;
+	padding-left: 30px;
+	line-height: 50px;
+}
+/* 閉じるアイコン領域 */
+.mcm_close_icon {
+	background: unset !important;
+	padding: 15px 0 !important;
+}
+/* 閉じるアイコン */
+.mcm_icon-close {
+	font-size: 20px !important;
+	color: #fff !important;
+	font-weight: bold;
+}
+/* メールの送信情報領域 */
+.mcm_contents {
+	padding: 50px;
+	color: #6e6e6e;
+}
+
+/* メール送信宛先領域 */
+.mcm_destination_area {
+	margin-bottom: 10px;
+}
+.mcm_destination_area:after,
+.mcm_destination_area:before {
+	content: "";
+	clear: both;
+	display: block;
+}
+/* メールの送信情報input */
+.mcm_contents input,
+.mcm_contents select {
+	background: none;
+	padding: 0 5px 0 15px;
+	text-align: left;
+	font-size: 14px;
+	color: #6e6e6e;
+	border: 1px solid #e8e8e8;
+	height: 40px;
+	border-radius: 5px 5px 5px 5px;
+}
+/* 宛先入力領域共通 */
+.mcm_destination_title,
+.mcm_destination_data {
+	float: left;
+}
+/* 宛先タイトル */
+.mcm_destination_title {
+	height: 40px;
+	width: 180px;
+	line-height: 40px;
+}
+/* メール本文の差し込領域 */
+.mcm_mail_body_area {
+	width: 640px;
+	margin-top: 20px;
+}
+/* メール本文の差し込み選択領域 */
+.mcm_mail_body_data_head {
+	background-color: #E5F4FF;
+	border: 1px solid #e8e8e8;
+	padding: 20px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+/* メール本文の差し込みタイトル */
+.mcm_mail_body_select_title {
+	font-weight: bold;
+	width: 160px;
+	display: inline-block;
+}
+/* メール本文の差し込みセレクト */
+.mcm_mail_body_select {
+	background-color: #fff !important;
+	width: 320px;
+}
+/* メール本文領域 */
+.textarea_mail_body,
+.textarea_mail_body_confirme {
+	height: 400px;
+	width: 634px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border: 1px solid #e8e8e8;
+	letter-spacing: 3px;
+}
+
+/* HTML時にパネル等を非表示 */
+.trumbowyg-button-pane,
+.trumbowyg-textarea,
+.trumbowyg-overlay {
+	display: none;
+}
+
+/* 添付ファイルの名称表示領域 */
+.mcm_appended_names {
+	padding: 0 5px 0 15px;
+	text-align: left;
+	font-size: 14px;
+	border: 1px solid #e8e8e8;
+	height: 50px;
+	border-radius: 5px 5px 5px 5px;
+}
+.mcm_appended_names:after,
+.mcm_appended_names:before {
+	content: "";
+	clear: both;
+	display: block;
+}
+/* 添付ファイル名 */
+.mcm_appended_name {
+	background-color: #e8e8e8;
+	border-radius: 10px 10px 10px 10px;
+	float: left;
+	height: 15px;
+	width: 175px;
+	padding: 10px;
+	margin-right: 10px;
+	margin-top: 8px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	position: relative;
+}
+/* 添付ファイル名の×アイコン */
+.mcm_appended_name span {
+	cursor: pointer;
+	position: absolute;
+	right: 5px;
+}
+/* 添付ファイルアップロード領域 */
+.mcm_appended_draggable_area {
+	margin-top: 20px;
+	border: 2px dotted #e8e8e8;
+	border-radius: 5px 5px 5px 5px;
+	height: 100px;
+	text-align: center;
+}
+/* 添付ファイルアップロード領域メッセージ */
+.mcm_appended_draggable_message {
+	margin-top: 25px;
+	line-height: 15px;
+}
+.mcm_appended_draggable_message a {
+	text-decoration: underline;
+	color: #6e6e6e;
+}
+/* メール送信確認ボタン領域 */
+.mcm_btn_confirme_area {
+	border-top: 2px solid #e8e8e8;
+	text-align: center;
+	padding: 50px;
+}
+/* 添付ファイルアップロード時のホバーイベント */
+.droppable_appended {
+	border: 1px solid #0081CC;
+}
+/* 宛先表示領域 */
+.view_destination_area {
+	line-height: 40px;
+	width: 440px;
+}
+/* 送信日時設定 */
+.radio_send_date_status{
+	margin-top: -1px;
+}
+/****** ウェビナー参加者一覧のメールモーダル end *******/
+
+/****** ウェビナー参加者一覧のメールモーダル（確認） begin *******/
+.mcm_contents_confirme {
+	padding: 30px 30px 30px 30px;
+	color: #6e6e6e;
+}
+.mail_confirme_send_date{
+	margin-top: 20px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	font-weight: bold;
+}
+.mail_confirme_send_date span{
+	margin-left: 30px;
+}
+.mcm_confirme_area{
+	border: 1px solid #e8e8e8;
+	border-radius: 5px 5px 5px 5px;
+	padding: 20px 40px 40px 40px;
+}
+.mcm_destination_confirme{
+	border-bottom: 1px solid #e8e8e8;
+}
+.mcm_destination_confirme:after, .mcm_destination_confirme:before {
+	content: "";
+	clear: both;
+	display: block;
+}
+.mcmdc_title{
+	float: left;
+	height: 40px;
+	width: 180px;
+	line-height: 40px;
+}
+.mcmdc_data{
+	float: left;
+	height: 40px;
+	width: 400px;
+	line-height: 40px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.mcmdc_appended_names_data{
+	float: left;
+	height: 40px;
+	width: 400px;
+	line-height: 40px;
+}
+.mcmdc_destination_text{
+	float: left;
+	width: 400px;
+	line-height: 40px;
+}
+.mcm_mail_body_confirme{
+	padding: 20px 0 20px 0;
+	white-space: pre-wrap;
+	border-bottom: 1px solid #e8e8e8;
+	line-height: 20px;
+	letter-spacing: 3px;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+.mcm_appended_confirme{
+	border-bottom: 1px solid #e8e8e8;
+	margin-bottom: 50px;
+	height: 110px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.mcm_confirme_view_frame{
+	background-color: #e8e8e8;
+	border-radius: 10px 10px 10px 10px;
+	height: 10px;
+	line-height: 10px;
+	padding: 10px;
+	margin-top: 5px;
+}
+.error_mail_message{
+	margin-bottom: 5px;
+	color: red;
+}
+/****** ウェビナー参加者一覧のメールモーダル（確認） end *******/
+/****** ウェビナー参加者一覧のメールモーダル（完了） begin *******/
+.mcmc_icon_area {
+	text-align: center;
+	margin-top: 80px;
+}
+.mcmc_message_area {
+	text-align: center;
+	margin-top: 40px;
+	font-size: 30px;
+	font-weight: bold;
+}
+.mcmc_btn_complete_area {
+	text-align: center;
+	margin-top: 40px;
+}
+/****** ウェビナー参加者一覧のメールモーダル（完了） end *******/
+
+/****** ウェビナーリードCSV登録 begin *******/
+.lead_upload_type_area {
+	margin-top: 20px;
+}
+.lead_upload_csv_area {
+	background-color: #fff;
+	height: 120px;
+	padding: 10px;
+	margin-bottom: 40px;
+}
+.drop_csv_area {
+	border: dotted 2px #e8e8e8;
+	height: 100%;
+	text-align: center;
+}
+.droppable_drop_csv_area {
+	border: 1px solid #0081CC !important;
+}
+.drop_csv_message {
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+.display_lead_upload_csv_area {
+	display: none;
+}
+.upload_csv_error_area {
+	display: none;
+}
+/****** ウェビナーリードCSV登録 end *******/
+
+/****** ウェビナーアンケート一覧 start *******/
+.mi_content_questionnaire_title {
+	height: 40px;
+	margin: 0;
+	display: inline-block;
+}
+
+.mi_table_main.question_list th,
+.mi_table_main.question_list td {
+	box-sizing: border-box;
+}
+
+.webinar_count_tab_wrap {
+	width: 100%;
+	height: 45px;
+	margin-bottom: 44px;
+	border-bottom: 3px solid #dbdbdb;
+}
+
+.webinar_count_tab_wrap .webinar_count_tab {
+	width: auto;
+	min-width: 140px;
+	height: 100%;
+	padding: 10px 28px;
+	box-sizing: border-box;
+}
+
+.webinar_count_tab_wrap .webinar_count_tab_area {
+	display: flex;
+	justify-content: flex-end;
+	margin: -18px -10px 0 0;
+}
+
+.seminar_title {
+	font-size: 10px;
+	margin-bottom: 44px;
+	letter-spacing: 0px;
+	color: #333333;
+}
+
+.seminar_title_detail {
+	font-size: 20px;
+}
+
+/* テーブル */
+.mi_table_main.question_list td {
+	height: 40px;
+	line-height: 40px;
+	cursor: pointer;
+}
+.mi_table_main.question_list th {
+	padding: 0 20px;
+}
+
+.mi_table_main.question_list td:nth-child(1),
+.mi_table_main.question_list th:nth-child(1) {
+	width: 140px;
+}
+
+.mi_table_main.question_list td:nth-child(2),
+.mi_table_main.question_list th:nth-child(2) {
+	width: 280px;
+	text-align: left;
+}
+
+.mi_table_main.question_list td:nth-child(3),
+.mi_table_main.question_list th:nth-child(3) {
+	width: 100px;
+}
+
+.mi_table_main.question_list th:nth-child(3) {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.mi_table_main.question_list td:nth-child(4),
+.mi_table_main.question_list th:nth-child(4) {
+	width: 200px;
+}
+
+.mi_table_main.question_list td:nth-child(5) span {
+	font-size: 24px;
+	line-height: 40px;
+}
+
+/* モーダル */
+.questionnaire_content {
+	position: relative;
+}
+
+.modal_content {
+	width: 565px;
+	height: 678px;
+	background: #ffffff 0% 0% no-repeat padding-box;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%); /* Safari用 */
+	transform: translate(-50%, -50%);
+	margin-top: -30px;
+	z-index: 510;
+}
+
+.modal_title,
+.item_explanation,
+.item_sub_title {
+	font-weight: 600;
+}
+
+.modal_title {
+	width: 100%;
+	height: 66px;
+	line-height: 66px;
+	font-size: 18px;
+	font-weight: 600;
+	padding-left: 36px;
+	box-sizing: border-box;
+	border: 1px solid #cccccc;
+}
+
+.modal_body {
+	padding: 55px 55px 10px;
+}
+
+.item_detail {
+	font-size: 12px;
+	margin-bottom: 30px;
+}
+
+.question_body {
+	max-height: 112px;
+	overflow: auto;
+	box-sizing: border-box;
+}
+
+.item_explanation {
+	margin-bottom: 20px;
+}
+
+.vote_block {
+	padding-bottom: 12px;
+	list-style: none;
+}
+
+.item_sub_title {
+	padding-bottom: 15px;
+}
+
+.vote_block span {
+	margin-right: 10px;
+}
+
+.square_icon {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	background-color: #000;
+}
+
+.modal_close_btn {
+	width: 160px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border: 1px solid #dbdbdb;
+	border-radius: 2px;
+	margin: 0 auto;
+	color: #a2a2a2;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.modal_overlay {
+	width: 100%;
+	height: calc(100% + 50px);
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 500;
+	background: #707070 0% 0% no-repeat padding-box;
+}
+
+.detail {
+	max-height: 145px;
+	overflow: auto;
+}
+
+.detail li {
+	padding-bottom: 5px;
+}
+
+/****** ウェビナーアンケート一覧 end *******/
+
+/****** ウェビナーアンケート結果一覧 begin *******/
+.th_date_area {
+	width: 200px;
+}
+.th_move_detail {
+	width: 30px;
+}
+.td_move_detail {
+	padding: unset !important;
+}
+.icon_hack_move_detail {
+	font-size: 20px;
+}
+.tr_questionnaire_aggregate {
+	cursor: pointer;
+}
+/****** ウェビナーアンケート結果一覧 end *******/
+/* ウェビナーアンケート結果モーダル begin */
+.modal_content_questionnaire_aggregate {
+	min-width: 750px;
+}
+.mcqa_header {
+	position: relative;
+	border-bottom: solid 1px #e8e8e8;
+	height: 50px;
+}
+.mcqa_header_title {
+	font-size: 20px;
+	font-weight: bold;
+	padding-left: 30px;
+	line-height: 50px;
+}
+.mcqa_contents {
+	padding: 20px;
+}
+.mcqa_close_area {
+	border-top: 2px solid #e8e8e8;
+	text-align: center;
+	padding: 20px;
+}
+.mcqac_title_main {
+	font-size: 14px;
+	font-weight: bold;
+	margin-top: 30px;
+}
+.mcqac_title_sub {
+	font-size: 13px;
+	margin-top: 20px;
+}
+.mcqac_questionnaire_title,
+.mcqac_answer_rate_area,
+.mcqac_answer_contents {
+	margin-top: 10px;
+}
+#questionnaire_aggregate_radio_area {
+	margin-bottom: 10px;
+}
+.questionnaire_aggregate_number {
+	margin-right: 20px;
+}
+.questionnaire_aggregate_text_area {
+	border-bottom: 1px solid #dee2e6;
+	margin-bottom: 10px;
+}
+.questionnaire_aggregate_text {
+	white-space: pre-wrap;
+}
+/* ウェビナーアンケート結果モーダル end */
+
+/* 履歴メールリンク（参加者・リード共通） begin */
+.lnk_history_mail{
+	text-decoration: underline;
+}
+/* 履歴メールリンク（参加者・リード共通） end */
+.webinarmi_content_title {
+	margin-top: 60px;
+}
+/* オープンセミナー begin */
+.os_description_area{
+	margin-top: 20px;
+	margin-bottom: 20px;
+	color: #333;
+}
+/* オープンセミナー end */

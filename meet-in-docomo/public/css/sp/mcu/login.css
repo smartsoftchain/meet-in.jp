@@ -1,0 +1,70 @@
+.content__wrap {
+  width: 100vw;
+  height: calc(100vh - 50px);
+  background-color: #F5F5F5;
+  position: relative;
+  padding-top: 50px;
+}
+
+.login__form--area {
+  width: 85%;
+  height: 420px;
+  margin: 0 auto;
+  background-color: #FFFFFF;
+  border: 1px solid #DCDCDC;
+  border-radius: 10px;
+  box-shadow: 0 0 8px #DCDCDC;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 40px 0 30px;
+  position: relative;
+  z-index: 2;
+}
+
+.login__form--logo {
+  width: 65%;
+}
+
+.login__form--area p {
+  color: #555555;
+  font-size: 10px;
+  margin-top: 10px;
+}
+
+.login__form--inputs {
+  width: 65%;
+  margin: 30px auto 0;
+}
+
+.login__form--input {
+  height: 56px;
+  position: relative;
+}
+
+.login__form--image {
+  position: absolute;
+  left: 5px;
+  top: 8px;
+}
+
+.buildings_image {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 20px);
+  height: auto;
+  margin: 0 10px;
+  z-index: 1;
+}
+
+.login__form--options {
+  margin-top: 10px;
+}
+
+.login__form--option {
+  font-size: 11px;
+  color: #555555;
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+/*
+*	Title:「 MEETIN 」document_listCSS
+*	File Nmae: document_list.css
+*	Last Modified: 2016-12-12
+*/
+
+
+
+/*----------------------------------------------------------------
+	資料
+-----------------------------------------------------------------*/
+
+/* 資料一覧
+------------------------------------ */
+
+.mi_document_list_document_icon {
+  width: 155px;
+  height: 110px;
+  margin: 10px 0;
+}
+
+table.document_list td {
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+table.document_list td:nth-child(1) {
+  width: 40px;
+}
+table.document_list td:nth-child(2) {
+  width: 160px;
+}
+table.document_list td:nth-child(3) {
+  vertical-align: top;
+  text-align: left;
+  padding: 24px 10px;
+}
+table.document_list td:nth-child(3) h2 {
+  font-size: 16px;
+}
+table.document_list td:nth-child(3) span {
+  margin-right: 60px;
+}
+table.document_list td:nth-child(3) span:before {
+  color: #0081CC;
+}
+table.document_list td:nth-child(3) p {
+  max-width: 575px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+table.document_list td:nth-child(4) {
+  width: 100px;
+}
+table.document_list td:nth-child(4) span {
+  font-size: 25px;
+}
+table.document_list td:nth-child(5) span {
+  width: 30px;
+  font-size: 30px;
+  opacity: 0;
+}
+
+table.document_list tr:hover > td:nth-child(5) span {
+  opacity: 1;
+}

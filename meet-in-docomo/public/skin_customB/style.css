@@ -1,0 +1,250 @@
+html, body{
+	margin: 0px; padding: 0px; text-align:center; font-family: Arial, Verdana, Helvetica, sans-serif;
+	font-size:13px;
+}
+#main{
+	margin:0px auto; padding:0px; text-align:left; /*float:left; margin:auto;*/
+}
+#webphone_bg_container{
+	margin-top:10px; padding:0px; float:left; text-align:center;
+	border:2px solid;
+	
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+}
+#container_dial{
+	margin-top:10px; margin-left:0px; padding:0px; display:none; text-align:center;
+}
+#header{
+	margin:0px; padding:0px; display:inline-block; width:100%;
+}
+IMG#speaker{
+	width:25px; height:25px; border:0px; padding:0px; float:left; margin:0px; cursor:pointer;
+}
+IMG#logout{
+	width:25px; height:25px; border:0px; padding:0px; float:right; cursor:pointer; margin:0px;
+}
+#logo{
+	display:inline-block; text-align:center; margin-top:22px;
+}
+* html #logo{
+	float:left; text-align:center; margin-top:23px;
+}
+#logo A, #logo2 A{
+	font-size:16px; font-weight:bold; text-decoration:none;
+}
+#PhoneNumberDiv{
+	width:98%; margin-right:0px; display:inline-block; margin-bottom:3px; margin-top:10px; margin-left:3px; height:30px; font-size:20px;
+	border:2px solid; text-align:center; padding:0px;
+	
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+#PhoneNumber{
+	width:93%; margin:0px; display:inline; height:30px; line-height:30px; font-size:20px;
+	text-align:center; padding:0px; border:0px;
+}
+#btn_save{
+	height:29px; line-height:29px; padding:0px; display:inline-block; font-size:16px; font-weight:bold;
+	margin-right:5px; margin-left:3px; margin-top:3px; margin-bottom:4px; cursor:pointer; float:left;
+
+	border:2px solid;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+#btn_callhangup{
+	height:29px; line-height:29px; padding:0px; display:inline-block; font-size:16px; font-weight:bold;
+	margin-right:0px; margin-left:5px; margin-top:3px; margin-bottom:4px; cursor:pointer;
+
+	border:2px solid;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+#btn_callhangup IMG{
+	border:0px; display:inline-block; margin-top:2px;
+}
+#info{
+	height:13px; width:97%; display:inline-block; padding:0px; margin:0px; font-size:11px; clear:both; text-align:right;
+}
+#info_event{
+	height:14px; width:100%; clear:both; display:inline-block; padding:0px; margin:0px; font-size:11px; text-align:center;
+}
+SPAN#credit{
+	font-size:11px; float:left; font-weight:bold;
+}
+SPAN#dtmf{
+	font-size:11px; float:left; font-weight:bold;
+}
+DIV#login_page_error_messages{
+	font-size:11px; color:#ff0000; float:right; width:100%; text-align:right; font-weight:bold;
+}
+SPAN#status{
+	font-size:11px; color:#26b14a; font-weight:bold;
+}
+SPAN#displayEvent{
+	font-size:11px; float:left; display:inline; text-align:center; width:100%; font-weight:bold;
+}
+#container_dial #numpad{
+	width:100%;  margin:0px; padding:0px; display:inline-block; text-align:center;
+}
+#container_dial #numpad .btn_numpad{
+	height:34px; margin:3px; padding:0px; cursor:pointer; display:inline-block; float:left;
+	text-align:center; line-height:34px; font-weight:bold; font-size:20px; 
+
+	border:2px solid;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+#container_dial #numpad .btn_numpad SPAN{
+	font-size:11px;
+}
+#container_dial #callbuttons{
+	 width:100%;  margin:6px 0px 0px 0px; padding:0px; display:inline-block; text-align:center; font-weight:bold; font-size:18px;
+}
+#container_dial #callbuttons #btn_call{
+	height:38px; line-height:38px; padding:0px; display:inline-block; float:left;
+	margin-right:5px; margin-left:3px; margin-top:0px; margin-bottom:0px; cursor:pointer;
+
+	border:2px solid;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+#container_dial #callbuttons #btn_hangup{
+	height:38px; line-height:38px; padding:0px; display:inline-block; float:left;
+	margin-right:3px; margin-left:5px; margin-top:0px; margin-bottom:0px; cursor:pointer;
+
+	border:2px solid;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+
+#container_dial #acceptreject{
+	width:100%;  margin:6px 0px 0px 0px; padding:0px; display:inline-block; text-align:center; font-weight:bold; font-size:18px;
+}
+#container_dial #acceptreject #btn_accept{
+	height:38px; line-height:38px; padding:0px; display:inline-block; float:left;
+	margin-right:5px; margin-left:3px; margin-top:0px; margin-bottom:0px; cursor:pointer;
+
+	border:2px solid;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+#container_dial #acceptreject #btn_reject{
+	height:38px; line-height:38px; padding:0px; display:inline-block; float:left;
+	margin-right:3px; margin-left:5px; margin-top:0px; margin-bottom:0px; cursor:pointer;
+
+	border:2px solid;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+
+#container_dial #callfunctions{
+	width:auto; margin:10px 0px 0px 0px; padding:0px; display:inline-block; text-align:center;
+	
+	border:1px solid;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+#container_dial #callfunctions IMG{
+	margin-top:2px; 
+}
+#container_dial #callfunctions SPAN{
+	display:inline-block; clear:both; font-size:9px; font-weight:bold; overflow:hidden;
+}
+#container_dial #callfunctions #btn_mute{
+	height:31px; margin:0px; padding:0px; display:inline-block; float:left;
+	cursor:pointer;
+	
+	border-radius:5px 0 0 5px;
+	-webkit-border-top-left-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	-moz-border-radius:5px 0 0 5px;
+	border-top:1px solid;
+	border-left:1px solid;
+	border-bottom:1px solid;
+	border-right:1px solid;
+
+}
+#container_dial #callfunctions #btn_transfer{
+	height:31px; margin:0px; padding:0px; display:inline-block; float:left;
+	cursor:pointer;
+	
+	border-radius:0 0px 0px 0;
+	-webkit-border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	-moz-border-radius:0 0px 0px 0;
+	border-top:1px solid;
+	border-bottom:1px solid;
+	border-right:1px solid;
+	border-left:1px solid;
+}
+#container_dial #callfunctions #btn_hold{
+	height:31px; margin:0px; padding:0px; display:inline-block; float:left;
+	cursor:pointer;
+	
+	border-radius: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-top:1px solid;
+	border-bottom:1px solid;
+	border-right:1px solid;
+	border-left-width:0;
+	border-left-color:transparent;
+}
+#container_dial #callfunctions #btn_redial{
+	height:31px; margin:0px; padding:0px; display:inline-block; float:left;
+	cursor:pointer;
+	
+	border-radius:0 5px 5px 0;
+	-webkit-border-top-right-radius:5px;
+	-webkit-border-bottom-right-radius:5px;
+	-moz-border-radius:0 5px 5px 0;
+	border-top:1px solid;
+	border-right:1px solid;
+	border-bottom:1px solid;
+	border-left-width:0;
+	border-left-color:transparent;
+}
+#container_register{
+	padding:0px; display:none; font-weight:bold; margin-top: 33px; margin-left:0px; margin-right:0px; text-align:center;
+}
+#logo2{
+	width:100%; float:left; text-align:center; margin-top:1px;
+}
+* html #logo2{
+	width:100%; float:left; text-align:center; margin-top:0px;
+}
+#register_form{
+	padding:0px; margin:0px; display:inline-block;
+}
+#username_input{
+	width:100%; border:1px solid; font-size:14px; margin-top:2px;
+}
+#password_input{
+	width:100%; border:1px solid; font-size:14px; margin-top:2px;
+}
+label{
+	font-size:13px; text-align:left; float:left; display:inline;
+}
+#btn_connect{
+	margin:0px; padding:0px; width:100%; height:30px; float:left;
+	text-align:center; line-height:30px; font-weight:bold; font-size:16px;
+	border:2px solid; cursor:pointer;
+	
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+#btn_connect SPAN{
+    line-height:30px; display: inline-block; width: 100%; cursor: pointer;
+}

@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2008-2011 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+Author: Jozsef Vass
+-->
+
+<!-- Adobe labs limit width to 520 pixels. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="init()" backgroundColor="0xffffff" width="640" height="480">
+	<fx:Script>
+		<![CDATA[
+			import flash.events.SampleDataEvent;
+			import mx.collections.ArrayList;
+			import flash.external.ExternalInterface;
+			
+			// rtmfp server address (Adobe Cirrus or FMS)
+			[Bindable] private var connectUrl:String = "rtmfp://p2p.rtmfp.net";
+			
+			// developer key, please insert your developer key here
+			private const DeveloperKey:String = "1be4cea61139a4e9004f2008-21d4cc6c81eb";
+			
+			// please insert your web service URL here for exchanging peer ID
+//			private const WebServiceUrl:String = "https://delphinus.sense.co.jp/flash-api/flash-web-service";
+			private var WebServiceUrl:String = "";
+			
+			// this is the connection to rtmfp server
+			private var netConnection:NetConnection;	
+			
+			// outgoing media stream (audio, video, text and some control messages)
+			private var outgoingStream:NetStream;
+			
+			// incoming media stream (audio, video, text and some control messages)
+			private var incomingStream:NetStream;
+			
+			// ID management serice
+			private var idManager:AbstractIdManager;
+			
+			private var remoteVideo:Video;
+			
+			// login/registration states
+			private const LoginNotConnected:String = "LoginNotConnected";
+			private const LoginConnecting:String = "LoginConnecting";
+			private const LoginConnected:String = "LoginConnected";
+			private const LoginDisconnecting:String = "LoginDisconnecting";
+			
+			// call states, only used when LoginConnected		
+			private const CallReady:String = "CallReady";
+			private const CallCalling:String = "CallCalling";
+			private const CallRinging:String = "CallRinging";
+			private const CallEstablished:String = "CallEstablished";
+			private const CallFailed:String = "CallFailed";
+			
+			// ユーザーID(0～5)
+			// ビルドするときにUserIdを0に設定してビルドし、ビルドが終わったらUserIdを1に変えてビルドし、5まで繰り返す
+			private const UserId:String = "5";
+			
+			// available microphone devices
+			[Bindable] private var micNames:ArrayList = new ArrayList();
+			private var micIndex:int = 0;
+			
+			// available camera deviced
+			[Bindable] private var cameraNames:ArrayList = new ArrayList();
+			private var cameraIndex:int = 0;
+			
+			// user name is saved in local shared object
+//			private var localSO:SharedObject;
+			
+			[Bindable] private var remoteName:String = "";
+			private var remoteId:String = "";
+			
+			private var callTimer:int;
+			
+			private var ringer:Sound;
+			private var ringerChannel:SoundChannel;
+			
+			private var myUsername:String = "";
+			private var targetUsername:String = "";
+			private var state:String;
+			
+			private var myWidth:int = 640;
+			private var myHeight:int = 480;
+			
+			// signaling
+			/**
+			 * Simple request-reply protocol.
+			 * 
+			 * Call flow 1, caller cancels call
+			 * FP1 --- Invite --> FP2
+			 * FP1 --- Cancel --> FP2
+			 * FP1 <-- Ok ------- FP2
+			 * 
+			 * Call flow 2, callee rejects call
+			 * FP1 --- Invite --> FP2
+			 * FP1 <-- Reject --- FP2
+			 * 
+			 * * Call flow 3, call established and caller ends call
+			 * FP1 --- Invite --> FP2
+			 * FP1 <-- Accept --- FP2
+			 * FP1 --- Bye -----> FP2
+			 * FP1 <-- Ok ------- FP2
+			 */
+			private const Relay:String = "relay";
+			private const Invite:String = "invite";
+			private const Cancel:String = "cancel";
+			private const Accept:String = "accept";
+			private const Reject:String = "reject";
+			private const Bye:String = "bye";
+			private const Ok:String = "ok";
+			
+			// called when application is loaded            		
+			private function init():void
+			{		
+				state = LoginNotConnected;
+				ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+				
+//				localSO = SharedObject.getLocal("videoPhoneSettings");
+				
+				var mics:Array = Microphone.names;
+				if (mics)
+				{
+					micNames.source = mics;
+				}
+				else
+				{
+				}
+				
+				var cameras:Array = Camera.names;
+				if (cameras)
+				{
+					cameraNames.source = cameras;
+				}
+				else
+				{
+				}
+				
+				// selected mic device
+				micIndex = 0;
+//				if (localSO.data.hasOwnProperty("micIndex"))
+//				{
+//					micIndex = localSO.data.micIndex;
+//				}
+				
+				// selected camera device
+//				if (localSO.data.hasOwnProperty("cameraIndex"))
+//				{
+//					cameraIndex = localSO.data.cameraIndex;
+//				}
+				
+				// mic volume
+				var micVolume:int = 50;
+//				if (localSO.data.hasOwnProperty("micVolume"))
+//				{
+//					micVolume = localSO.data.micVolume;
+//				}
+				
+				// speaker volume
+				var speakerVolume:Number = 80;
+//				if (localSO.data.hasOwnProperty("speakerVolume"))
+//				{
+//					speakerVolume = localSO.data.speakerVolume;
+//				}
+				
+				// configure audio and video
+				var mic:Microphone = getMicrophone();
+				var micIsOn:Boolean = false;
+				if (mic)
+				{
+					mic.gain = micVolume;
+					
+					mic.addEventListener(ActivityEvent.ACTIVITY, onDeviceActivity);
+					
+					handleCodecChange();
+					micIsOn = true;
+				}
+				
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				var cameraIsOn:Boolean = false;
+				if (camera)
+				{
+					camera.addEventListener(ActivityEvent.ACTIVITY, onDeviceActivity);
+					
+					cameraChanged();
+					cameraIsOn = true;
+				}
+				
+				ExternalInterface.addCallback("setMyUsername", setMyUsername);
+				ExternalInterface.addCallback("callTarget", callTarget);
+				ExternalInterface.addCallback("startCamera", startCamera);
+				ExternalInterface.addCallback("startMic", startMic);
+				ExternalInterface.addCallback("stopCamera", stopCamera);
+				ExternalInterface.addCallback("stopMic", stopMic);
+				ExternalInterface.addCallback("changeSize", changeSize);
+				ExternalInterface.addCallback("changeCamera", changeCamera);
+				ExternalInterface.addCallback("destroyFlash", destroyFlash);
+				ExternalInterface.addCallback("onHangup", onHangup);
+				ExternalInterface.addCallback("onDisconnect", onDisconnect);
+				
+				ExternalInterface.call("meetinFlashTargetVideo_init_finish_" + UserId, cameraIsOn, micIsOn, cameraNames);
+			}
+			
+			// user clicked connect
+			private function onConnect():void
+			{
+//				try
+//				{
+//					localSO.flush();
+//				}
+//				catch (e:Error)
+//				{
+//				}
+				
+				netConnection = new NetConnection();
+				netConnection.addEventListener(NetStatusEvent.NET_STATUS, netConnectionHandler);
+				
+				// incoming call coming on NetConnection object
+				var c:Object = new Object();
+				c.onRelay = function(id:String, action:String, name:String):void
+				{
+					if (Invite == action)
+					{
+						if (state == CallReady)
+						{
+							state = CallRinging;
+							ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+							
+							// callee subscribes to media, to be able to get the remote user name
+							incomingStream = new NetStream(netConnection, id);
+							incomingStream.play("media-caller");
+							
+							// set volume for incoming stream
+							var st:SoundTransform = new SoundTransform(1);
+							incomingStream.soundTransform = st;
+							
+							incomingStream.receiveAudio(false);
+							incomingStream.receiveVideo(false);
+							
+							var i:Object = new Object;
+							
+							incomingStream.client = i;
+							
+							remoteName = name;
+							remoteId = id;
+							
+							acceptCall();
+						}
+						else
+						{
+							netConnection.call(Relay, null, id, Reject, myUsername);
+						}
+					}
+					else if (Reject == action)
+					{
+						state = CallReady;
+						ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+						
+						onHangup(action);
+					}
+					else if (Accept == action)
+					{
+						if (state != CallCalling)
+						{
+							return;
+						}
+						
+						state = CallEstablished;
+						ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+					}
+					else if (Bye == action)
+					{
+						netConnection.call(Relay, null, id, Ok, myUsername);
+						
+						state = CallReady;
+						ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+						
+						onHangup(action);
+					}
+					else if (Cancel == action)
+					{
+						netConnection.call(Relay, null, id, Ok, myUsername);
+						
+						state = CallReady;
+						ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+						
+						onHangup(action);
+					}
+				}
+				
+				netConnection.client = c;
+				
+				try
+				{
+					netConnection.connect(connectUrl, DeveloperKey);
+				}
+				catch (e:ArgumentError)
+				{
+					return;
+				}
+				
+				state = LoginConnecting;
+				ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+			}
+			
+			private function netConnectionHandler(event:NetStatusEvent):void
+			{
+				switch (event.info.code)
+				{
+					case "NetConnection.Connect.Success":
+						connectSuccess();
+						break;
+					
+					case "NetConnection.Connect.Closed":
+						state = LoginNotConnected;
+						ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+						break;
+					
+					case "NetStream.Connect.Success":
+						// we get this when other party connects to our outgoing stream
+						break;
+					
+					case "NetConnection.Connect.Failed":
+						state = LoginNotConnected;
+						ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+						break;
+				}
+			}
+			
+			// connection to rtmfp server succeeded and we register our peer ID with an id exchange service
+			// other clients can use id exchnage service to lookup our peer ID
+			private function connectSuccess():void
+			{
+				// exchange peer id using web service
+				idManager = new HttpIdManager();
+				idManager.service = WebServiceUrl;
+				
+				idManager.addEventListener("registerSuccess", idManagerEvent);
+				idManager.addEventListener("registerFailure", idManagerEvent);
+				idManager.addEventListener("lookupFailure", idManagerEvent);
+				idManager.addEventListener("lookupSuccess", idManagerEvent);
+				idManager.addEventListener("idManagerError", idManagerEvent);
+				
+				idManager.register(myUsername, netConnection.nearID);
+			}
+			
+			private function placeCall(user:String, identity:String):void
+			{
+				if (identity.length != 64)
+				{	
+					state = CallFailed;
+					ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+					return;
+				}
+				
+				netConnection.call(Relay, null, identity, Invite, myUsername);
+				
+				// caller publishes media stream
+				outgoingStream = new NetStream(netConnection, NetStream.DIRECT_CONNECTIONS);
+				outgoingStream.publish("media-caller");
+				
+				var o:Object = new Object
+				o.onPeerConnect = function(caller:NetStream):Boolean
+				{
+					return true; 
+				}
+				outgoingStream.client = o;
+				
+				startAudio();
+				startVideo();
+				
+				// caller subscribes to callee's media stream
+				incomingStream = new NetStream(netConnection, identity);
+				incomingStream.play("media-callee");
+				
+				// set volume for incoming stream
+				var st:SoundTransform = new SoundTransform(1);
+				incomingStream.soundTransform = st;
+				
+				var i:Object = new Object;
+				incomingStream.client = i;
+				
+				remoteVideo = new Video();
+				remoteVideo.width = myWidth;
+				remoteVideo.height = myHeight;
+				remoteVideo.attachNetStream(incomingStream);
+				remoteVideoDisplay.addChild(remoteVideo);
+				
+				remoteName = user;
+				remoteId = identity;
+				
+				state = CallCalling;
+				ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+			}
+			
+			// process successful response from id manager		
+			private function idManagerEvent(e:Event):void
+			{
+				if (e.type == "registerSuccess")
+				{
+					switch (state)
+					{
+						case LoginConnecting:
+							state = LoginConnected;
+							ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+							break;
+						case LoginDisconnecting:
+						case LoginNotConnected:
+							state = LoginNotConnected;
+							ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+							ExternalInterface.call("meetinFlashTargetVideo_idManagerEvent_registerSuccess_" + UserId, state);
+							return;
+						case LoginConnected:
+							ExternalInterface.call("meetinFlashTargetVideo_idManagerEvent_registerSuccess_" + UserId, state);
+							return;
+					}	
+					
+					state = CallReady;
+					ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+					
+					ExternalInterface.call("meetinFlashTargetVideo_idManagerEvent_registerSuccess_" + UserId, state);
+				}
+				else if (e.type == "lookupSuccess")
+				{
+					// party query response
+					var i:IdManagerEvent = e as IdManagerEvent;
+					
+					placeCall(i.user, i.id);	
+				}
+				else
+				{
+					// all error messages ar IdManagerError type
+					var error:IdManagerError = e as IdManagerError;
+
+					onDisconnect();
+				}
+			}
+			
+			// user clicked accept button
+			private function acceptCall():void
+			{
+				incomingStream.receiveAudio(true);
+				incomingStream.receiveVideo(true);
+				
+				remoteVideo = new Video();
+				remoteVideo.width = 640;
+				remoteVideo.height = 480;
+				remoteVideo.attachNetStream(incomingStream);
+				remoteVideoDisplay.addChild(remoteVideo);
+				
+				// callee publishes media
+				outgoingStream = new NetStream(netConnection, NetStream.DIRECT_CONNECTIONS);
+				outgoingStream.publish("media-callee");
+				
+				var o:Object = new Object
+				o.onPeerConnect = function(caller:NetStream):Boolean
+				{
+					return true; 
+				}
+				outgoingStream.client = o;
+				
+				netConnection.call(Relay, null, remoteId, Accept, myUsername);
+				
+				startVideo();
+				startAudio();
+				
+				state = CallEstablished;
+				ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+				
+				ExternalInterface.call("meetinFlashTargetVideo_acceptCall_" + UserId, state);
+			}
+			
+			private function onDisconnect():void
+			{
+				onHangup(null);
+				
+				if (idManager)
+				{
+					idManager.unregister();
+					idManager = null;
+				}
+				
+				state = LoginNotConnected;
+				ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+				
+				netConnection.close();
+				netConnection = null;
+				
+				ExternalInterface.call("meetinFlashTargetVideo_onDisconnect_" + UserId, state);
+			}
+			
+			// placing a call
+			private function onCall():void
+			{	
+				if (netConnection && netConnection.connected)
+				{
+					if (targetUsername.length == 0)
+					{
+						return;
+					}
+					
+					// first, we need to lookup callee's peer ID
+					if (idManager)
+					{
+						idManager.lookup(targetUsername);
+					}
+					else
+					{
+						return;
+					}
+				}
+				else
+				{
+				}
+			}
+			
+			private function startAudio():void
+			{
+				var mic:Microphone = getMicrophone();
+				if (mic && outgoingStream)
+				{
+					outgoingStream.attachAudio(mic);
+				}
+			}
+			
+			private function startVideo():void
+			{
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				if (camera)
+				{
+					if (outgoingStream)
+					{
+						outgoingStream.attachCamera(camera);
+					}
+				}
+			}
+			
+			private function onDeviceActivity(e:ActivityEvent):void
+			{
+				//				status("Device activity: " + e.activating + "\n");
+			}
+			
+			private function onHangup(action:String):void
+			{
+				// signaling based on state
+				if (CallEstablished == state)
+				{
+					netConnection.call(Relay, null, remoteId, Bye, myUsername);
+				}
+				else if (CallCalling == state)
+				{
+					netConnection.call(Relay, null, remoteId, Cancel, myUsername);	
+				}
+				else if (CallRinging == state)
+				{
+					netConnection.call(Relay, null, remoteId, Reject, myUsername);	
+				}
+				
+				targetUsername = "";
+				state = CallReady;
+				ExternalInterface.call("meetinFlashTargetVideo_onStateChanged_" + UserId, state);
+				
+				if (incomingStream)
+				{
+					incomingStream.close();
+				}
+				
+				if (outgoingStream)
+				{
+					outgoingStream.close();
+				}
+				
+				incomingStream = null;
+				outgoingStream = null;
+				
+				remoteName = "";
+				remoteId = "";
+				
+				callTimer = 0;
+				
+				ExternalInterface.call("meetinFlashTargetVideo_onHangup_" + UserId, state, action);
+			}
+			
+			private function getMicrophone():Microphone
+			{
+				return Microphone.getEnhancedMicrophone(micIndex);
+			}
+			
+			private function speakerVolumeChanged(e:Event):void
+			{
+				if (incomingStream)
+				{
+					var volume:Number = e.target.value / 100;
+					var st:SoundTransform = new SoundTransform(volume);
+					incomingStream.soundTransform = st;
+				}
+				
+//				localSO.data.speakerVolume = e.target.value;
+//				try
+//				{
+//					localSO.flush();
+//				}
+//				catch (e:Error)
+//				{
+//				}
+			}
+			
+			private function micVolumeChanged(e:Event):void
+			{
+				var mic:Microphone = getMicrophone();
+				if (mic)
+				{
+					mic.gain = e.target.value;
+					
+//					localSO.data.micVolume = e.target.value;
+//					localSO.flush();
+				}
+			}
+			
+			// sending text message
+			private function onSend():void
+			{
+/*
+				var msg:String = textInput.text; 
+				if (msg.length != 0 && outgoingStream)
+				{
+					outgoingStream.send("onIm", userNameInput.text, msg);
+				}
+*/
+			}
+			
+			private function micChanged(event:Event):void
+			{
+//				micIndex = micSelection.selectedIndex;
+				
+				var mic:Microphone = getMicrophone();
+				
+				// set the new microphne values based on UI
+				mic.addEventListener(ActivityEvent.ACTIVITY, onDeviceActivity);
+				
+				handleCodecChange();
+				
+				if (state == CallEstablished)
+				{	
+					outgoingStream.attachAudio(mic);
+				}
+				
+//				localSO.data.micIndex = micIndex;
+//				try
+//				{
+//					localSO.flush();
+//				}
+//				catch (e:Error)
+//				{
+//				}
+			}
+			
+			private function cameraChanged(event:Event = null):void
+			{
+//				cameraIndex = cameraSelection.selectedIndex;
+				
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				
+				if (camera)
+				{
+					camera.setMode(640, 480, 10);
+					camera.setQuality(0, 80);
+				}
+				
+				// when user changes video device, we want to show preview
+//				localVideoDisplay.attachCamera(camera);
+				
+				if (state == CallEstablished)
+				{	
+					outgoingStream.attachCamera(camera);
+				}
+				
+//				localSO.data.cameraIndex = cameraIndex;
+//				try
+//				{
+//					localSO.flush();
+//				}
+//				catch (e:Error)
+//				{
+//				}
+			}
+			
+			private function videoQualityChanged(e:Event = null):void
+			{
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				if (camera)
+				{
+					camera.setQuality(0, 80);
+				}
+			}
+			
+			private function onAudioMuted():void
+			{
+				if (incomingStream)
+				{
+					incomingStream.receiveAudio(true);
+				}
+			}
+			
+			private function onVideoPaused():void
+			{
+				if (incomingStream)
+				{
+					incomingStream.receiveVideo(true);
+				}
+			}
+			
+			private function handleCodecChange():void
+			{
+				var mic:Microphone = getMicrophone();
+				if (mic)
+				{	
+					mic.codec = SoundCodec.SPEEX;
+					mic.framesPerPacket = 1;
+					mic.encodeQuality = int(6);
+					mic.setSilenceLevel(0);
+				}
+			}
+			
+			private function speexQuality(e:Event):void
+			{
+				var mic:Microphone = getMicrophone();
+				if (mic)
+				{
+					var quality:int = int(e.target.selectedItem);
+					mic.encodeQuality = quality;
+				}
+			}
+			
+			private function nellymoserRate(e:Event):void
+			{
+				var mic:Microphone = getMicrophone();
+				if (mic)
+				{
+					var rate:int = int(e.target.selectedItem);
+					mic.rate = rate;
+				}
+			}
+			
+			public function setMyUsername(value:String, value2:String):void {
+				myUsername = value;
+				WebServiceUrl = value2;
+				onConnect();
+			}
+
+			public function callTarget(value:String):void {
+				targetUsername = value;
+				onCall();
+			}
+
+			public function startCamera():void {
+				startVideo();
+			}
+			
+			public function startMic():void {
+				startAudio();
+			}
+			
+			public function stopCamera():void {
+				if (outgoingStream) {
+					outgoingStream.attachCamera(null);
+				}
+			}
+			
+			public function stopMic():void {
+				if (outgoingStream) {
+					outgoingStream.attachAudio(null);
+				}
+			}
+
+			public function changeSize(width:int, height:int):void {
+				if (incomingStream) {
+					if (remoteVideo) {
+						remoteVideoDisplay.removeChild(remoteVideo);
+
+						remoteVideo = new Video();
+						remoteVideo.width = width;
+						remoteVideo.height = height;
+						remoteVideo.attachNetStream(incomingStream);
+						remoteVideoDisplay.addChild(remoteVideo);
+						
+						myWidth = width;
+						myHeight = height;
+					}
+				}
+			}
+
+			public function changeCamera(newCameraIndex:int):void
+			{
+//				cameraIndex = cameraSelection.selectedIndex;
+				cameraIndex = newCameraIndex;
+				
+				var camera:Camera = Camera.getCamera(cameraIndex.toString());
+				var cameraIsOn:Boolean = false;
+				
+				if (camera)
+				{
+					camera.setMode(640, 480, 10);
+					camera.setQuality(0, 80);
+					cameraIsOn = true;
+				}
+				
+				// when user changes video device, we want to show preview
+//				localVideoDisplay.attachCamera(camera);
+				
+				if (state == CallEstablished)
+				{	
+					outgoingStream.attachCamera(camera);
+				}
+				
+//				localSO.data.cameraIndex = cameraIndex;
+//				try
+//				{
+//					localSO.flush();
+//				}
+//				catch (e:Error)
+//				{
+//				}
+
+				ExternalInterface.call("meetinFlashTargetVideo_changeCamera_finish_" + UserId, cameraIsOn);
+			}
+			
+			public function destroyFlash():void {
+//				onHangup();
+				onDisconnect();
+			}
+		]]>
+	</fx:Script>
+	
+	<s:HGroup>
+		<mx:VideoDisplay id="remoteVideoDisplay" width="640" height="480" />
+	</s:HGroup>
+</s:Application>

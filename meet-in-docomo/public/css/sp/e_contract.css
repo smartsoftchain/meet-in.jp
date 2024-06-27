@@ -1,0 +1,666 @@
+.e_contract__wrap {
+  width: 100vw;
+  height: 100vh;
+  background-color: #eee;
+}
+
+.e_contract__header {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 1px #ddd;
+}
+
+.e_contract__header--logo {
+  height: 24px;
+  width: auto;
+  margin-left: 15px;
+}
+
+.e_contract__header--title {
+  color: #333;
+  font-size: 18px;
+  margin-left: 25px;
+}
+
+.e_contract__content--wrap {
+  background-color: #fff;
+  box-sizing: border-box;
+  width: calc(100% - 30px);
+  margin: 15px auto;
+  padding: 40px 20px 60px;
+}
+
+.e_contract__content--title {
+  color: #4C4C4C;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.e_contract__content--titleCenter {
+  color: #4C4C4C;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.e_contract__content--description {
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.e_contract__content--checkImg {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.e_contract__content--checkImg img {
+  width: 50%;
+  height: auto;
+}
+
+.e_contract__status--list {
+  margin-bottom: 40px;
+}
+
+.e_contract__status--row {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  border-bottom: 1px solid #CCC;
+}
+
+.e_contract__status--label {
+  font-size: 14px;
+  color: #4C4C4C;
+  width: 40%;
+}
+
+.e_contract__status--content {
+  font-size: 22px;
+  color: #4C4C4C;
+}
+
+.e_contract__file--list {
+
+}
+
+.e_contract__file--count {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.form_template-name {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  background: white;
+  border: 1px solid #E9E8E7;
+  border-radius: 4px;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin-bottom: 10px;
+  padding: 0 15px;
+}
+
+.form_template-name-change {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  background: #E5F4FF;
+  border: 1px solid #99C5E5;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  padding: 0 15px;
+  content: "(　選択中　)"
+}
+
+/* .form_template-name-change:after {
+  font-size: 12px;
+  margin-left: 10px;
+  content: "(表示中)"
+} */
+
+.file_target {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
+}
+
+.template-name_text {
+  font-size: 12px;
+  line-height: 40px;
+}
+
+.e_contract__content--input input {
+  border: 1px solid #E9E8E7;
+  border-radius: 4px;
+  width: calc(100% - 30px);
+  height: 40px;
+  padding: 0 15px;
+  margin-bottom: 20px;
+}
+.e_contract__content--input input::-webkit-input-placeholder {
+  color: #B2B2B2;
+}
+
+.e_contract__content--submit {
+  text-align: center;
+}
+
+.e_contract__content--reject {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.form-wrapper {
+  margin-top: 20px;
+}
+
+.sign-text-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.sign-text-label .note {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.sign-text-label .required {
+  margin-left: 8px;
+  padding: 2px 5px;
+  font-size: 12px;
+  line-height: 1.0;
+  color: #fff;
+  background: #df6b6e;
+}
+
+.sign-text-note {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.authorization-code-note {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.tel-note {
+  font-size: 11px;
+  color: #555;
+  line-height: 1.6;
+  margin-top: 5px;
+}
+
+.sign-text-field {
+  width: calc(100% - 35px);
+  height: 40px;
+  border-radius: 3px;
+  border: solid 1px #afafaf;
+  background-color: #ffffff;
+  padding: 0 14px;
+}
+
+.e_contract__content--submit input {
+  color: #fff;
+  font-size: 16px;
+  background-color: #0081CC;
+  width: 60%;
+  height: 50px;
+  line-height: 50px;
+  border: none;
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+.e_contract__content--submit a {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  background-color: #0081CC;
+  width: 60%;
+  height: 50px;
+  line-height: 50px;
+  border: none;
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+.e_contract__content--reject a {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  background-color: #DF6A6E;
+  width: 60%;
+  height: 50px;
+  line-height: 50px;
+  border: none;
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+
+.form_setting_document_img {
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+
+/** ページャーエリア **/
+.form_setting_document_operation_area {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form_setting_document_page_area {
+  margin: 30px 0 10px;
+}
+
+.page-text {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.count-text {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.form_setting_document_pager_prev {
+  border: 1px solid #A2A2A2;
+  font-size: 25px;
+  border-radius: 5px;
+  color: #A2A2A2;
+  cursor: pointer;
+}
+
+.form_setting_document_pager_next {
+  border: 1px solid #A2A2A2;
+  font-size: 25px;
+  border-radius: 5px;
+  color: #A2A2A2;
+  cursor: pointer;
+}
+
+.form_setting_document_count_area {
+  margin: 30px 0 10px;
+}
+
+.form_setting_file_pager_prev {
+  border: 1px solid #A2A2A2;
+  font-size: 25px;
+  border-radius: 5px;
+  color: #A2A2A2;
+  cursor: pointer;
+}
+
+.form_setting_file_pager_next {
+  border: 1px solid #A2A2A2;
+  font-size: 25px;
+  border-radius: 5px;
+  color: #A2A2A2;
+  cursor: pointer;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.return-button-box {
+  width: 160px;
+  height: 40px;
+  background: #A2A2A2;
+  color: white;
+  font-weight: bold;
+  margin-right: 3%;
+  border-radius: 3px;
+  text-align: center;
+  line-height: 40px;
+  position: relative;
+}
+
+.return-button-box a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
+}
+
+.form_setting_document_img {
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+
+.form_setting_file_img {
+  width: 360px;
+  position: relative;
+  border: 10px solid #EFEFEF;
+  margin-left: -35px;
+}
+
+.form_setting_file_img img {
+  box-sizing: border-box;
+  width: 360px;
+  border: 1px solid #888;
+}
+
+.e_contract_loading {
+  position: absolute;
+  width: auto;
+  height: 30px;
+  display: none;
+}
+
+.e_contract_title_area {
+  margin-top: 20px;
+}
+
+.form_setting_error {
+  font-size: 12px;
+  color: #E16A6C;
+}
+
+/** 契約書上に表示するダミーフォーム **/
+/** 入力フォーム（1行） **/
+.form_setting_parts_text_dammy {
+  border-radius: 1px;
+  background-color: #E5F4FF;
+  display: flex;
+  position: relative;
+  padding: 5px;
+}
+
+.form_setting_parts_text_dammy.input {
+  width: 165px;
+}
+
+.form_setting_parts_text_dammy .done {
+  font-size: 8px;
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  min-width: 60px;
+  color: #B18D47;
+  background-color: #FFDE96;
+  border-radius: 1px 1px 0 0;
+  padding: 2px 10px;
+  box-sizing: border-box;
+}
+
+.parts_inner_text_dammy {
+  border: 1px solid #0081CC;
+  border-radius: 2px;
+  width: 150px;
+  height: 16px;
+  background: #fff;
+  padding: 1px 5px;
+  box-sizing: border-box;
+}
+
+input.parts_inner_text_dammy {
+  padding: 0 2px;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 100;
+}
+
+/** テキストフォーム（複数行） **/
+.form_setting_parts_textarea_dammy {
+  border-radius: 1px;
+  background-color: #E5F4FF;
+  display: flex;
+  position: relative;
+  padding: 10px;
+}
+
+.form_setting_parts_textarea_dammy.input {
+  width: 165px;
+}
+
+.form_setting_parts_textarea_dammy .done {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  min-width: 60px;
+  color: #B18D47;
+  font-size: 8px;
+  background-color: #FFDE96;
+  border-radius: 1px 1px 0 0;
+  padding: 2px 7.5px;
+  box-sizing: border-box;
+}
+
+.parts_inner_textarea_dammy_area {
+  display: flex;
+}
+
+.parts_inner_textarea_dammy {
+  font-size: 14px;
+  color: #A2A2A2;
+  border: 1px solid #0081CC;
+  border-radius: 2px;
+  width: 150px;
+  height: 16px;
+  background: #fff;
+  padding: 1px 5px;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  resize: none;
+}
+
+textarea.parts_inner_textarea_dammy {
+  padding: 2px 2px;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 100;
+}
+
+.form_setting_parts_textarea_dammy_confirm {
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 5px;
+}
+
+/** 押印 **/
+.form_setting_parts_sign_dammy {
+  border-radius: 1px;
+  background-color: #E5F4FF;
+  display: flex;
+  position: relative;
+  padding: 5px;
+}
+
+.form_setting_parts_sign_dammy .done {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  min-width: 60px;
+  color: #B18D47;
+  font-size: 8px;
+  background-color: #FFDE96;
+  border-radius: 2px 2px 0 0;
+  padding: 2px 10px;
+  box-sizing: border-box;
+}
+
+.parts_inner_sign_dammy {
+  border: 1px solid #0081CC;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  background: #fff;
+  margin-left: 7.5px;
+}
+
+/** チェックボックス **/
+.form_setting_parts_checkbox_dammy {
+  border-radius: 2px;
+  background-color: #E5F4FF;
+  display: flex;
+  position: relative;
+  padding: 5px;
+}
+
+.form_setting_parts_checkbox_dammy .done {
+  font-size: 8px;
+  position: absolute;
+  top: -7.5px;
+  left: 0;
+  width: 100%;
+  min-width: 60px;
+  color: #B18D47;
+  background-color: #FFDE96;
+  border-radius: 2px 2px 0 0;
+  padding: 2px 5px;
+  box-sizing: border-box;
+}
+
+.form_setting_parts_checkbox_input {
+  width: 42px;
+  height: 26px;
+  border-radius: 1px;
+  background-color: #E5F4FF;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.form_setting_parts_checkbox_input .done {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  min-width: 60px;
+  color: #B18D47;
+  font-size: 10px;
+  background-color: #FFDE96;
+  border-radius: 1px 1px 0 0;
+  padding: 2px 1px;
+  box-sizing: border-box;
+}
+
+.parts_inner_checkbox_dammy {
+  border: 1px solid #0081CC;
+  border-radius: 1px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+}
+
+.parts_inner_checkbox_dammy.input {
+  cursor: pointer;
+}
+
+.form_setting_parts_text_dammy img, .form_setting_parts_textarea_dammy img, .form_setting_parts_sign_dammy img, .form_setting_parts_checkbox_dammy img {
+  border: none;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+.form_setting_partner_sign {
+  width: 120px;
+  height: 100px;
+  background-color: #E5F4FF;
+  border-radius: 1px;
+  position: absolute;
+  right: 0;
+  top: -105px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  display: none;
+}
+
+.form_setting_partner_sign input {
+  width: 100px;
+  height: 14px;
+  color: #333;
+  box-sizing: border-box;
+  margin-bottom: 2.5px;
+  padding: 0 5px;
+}
+
+.form_setting_partner_sign button {
+  font-size: 10px;
+  width: 100px;
+  height: 16px;
+  line-height: 16px;
+  color: #fff;
+  background-color: #0081CC;
+  border: none;
+  border-radius: 1px;
+}
+
+.form_setting_partner_sign button:hover {
+  opacity: 0.7;
+}
+
+.mgn-t20 {
+  margin-top: 20px;
+}
+
+/* -----非推奨ページ--------*/
+.error_body {
+  background-color: #E5F4FF;
+}
+.content_area {
+  margin: 20px auto;
+  width: 90%;
+}
+
+.error_textfield {
+  height: 267px;
+  background-color: #FFFFFF;
+  padding: 19px 20px;
+  text-align: center;
+
+}
+
+.error_title {
+  color: #0081CC;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.error_textarea {
+  margin-bottom: 20px;
+  line-height: 2;
+  color: #333333;
+  font-size: 12px;
+}
+
+.error_subtitle {
+  font-weight: bold;
+}
+
+.error_text {
+  color: #333333;
+  font-size: 12px;
+}

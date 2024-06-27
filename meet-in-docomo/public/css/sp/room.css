@@ -1,0 +1,203 @@
+@charset "UTF-8";
+
+body {
+  color: #FFFFFF;
+}
+
+.top_background {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  z-index: -3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.top_backwrap {
+  width: 75%;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 0 15px 15px;
+  margin: 30px auto;
+}
+
+.earth_background {
+  position: relative;
+  width: 650px;
+  height: 650px;
+  z-index: -2;
+  animation: earth-rotate-anime 360s linear infinite;
+}
+@keyframes earth-rotate-anime {
+  0%  {transform: rotate(0);}
+  100%  {transform: rotate(360deg);}
+}
+
+.star_background {
+  position: absolute;
+  z-index: -1;
+  height: 100vh;
+}
+
+
+.topTitle__wrap {
+  text-align: center;
+  padding-top: 30px;
+}
+
+.topLogo {
+  width: 224px;
+  height: auto;
+}
+
+.subTitle__wrap {
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: 1px;
+  margin-top: 10px;
+}
+
+.createRoom__wrap {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.createRoom__wrap input {
+  padding: 0 10px;
+}
+
+.createRoom__wrap p {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  margin-top: 10px;
+}
+
+.topBtn__wrap {
+  padding-top: 85px;
+}
+
+.topBtn__wrap .defaultBtn {
+  margin: 0 auto;
+  margin-bottom: 23px;
+}
+
+.topInfotext {
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 20px;
+}
+.topInfotext__tel {
+  color: #fff;
+  font-size: 22px;
+}
+
+.topOptions {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.topOptions__btn {
+  color: #FFFFFF;
+  font-size: 8px;
+  letter-spacing: 4px;
+  cursor: pointer;
+}
+
+/* オプションモーダル  */
+#overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  z-index: 100;
+}
+
+#optionsModal {
+  width: 80%;
+  height: 75%;
+  position: fixed;
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  display: none;
+  z-index: 200;
+  text-align: center;
+  padding: 25px 10px;
+}
+
+#optionsModal p {
+  color: #555555;
+  margin: 10px 0;
+}
+
+.optionsModal__title {
+  font-size: 20px;
+}
+
+.optionsModal__subTitle {
+  font-size: 14px;
+}
+
+.optionsModal__image {
+  width: 35%;
+  height: auto;
+  margin: 20px 0 10px;
+}
+
+.optionsModal__shareBtn--wrap {
+  padding: 0 30px;
+}
+
+.optionsModal__shareBtn-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.optionsModal__shareBtn--item {
+  width: 28%;
+  padding: 0;
+}
+
+.optionsModal__shareBtn--item img {
+  width: 100%;
+  height: auto;
+}
+
+.optionsModal__shareBtn--item img:hover {
+  opacity: 0.8;
+}
+
+.optionsModal__cancel {
+  color: #999999;
+  font-size: 18px;
+  display: block;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 45px;
+  left: 0;
+  right: 0;
+  width: 165px;
+}
+
+/* SPトップ画面のエラーメッセージ */
+.sp_top_error_area{
+	margin-top : 10px;
+	text-align: center;
+}
+.sp_top_error_area p{
+	font-size: 15px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	color: red;
+}
+
+/* SPトップ画面のモニタリングするのチェックボックス */
+.chk_room_mode{
+  width : 19px;
+}

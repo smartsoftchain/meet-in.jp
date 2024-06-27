@@ -1,0 +1,133 @@
+
+<!-- 
+  You must copy the webphone.jar in this directory for this example to work.
+  Then change at least the "serverAddress" variable below.
+  *You need at least the Standard license for this to work (the basic version doesn't contain the java script API)
+  *Make sure to have the webphone.jar near this html or set the file exact path with the "archive" applet parameter
+  *Always put the webphone's html code in a <div> element with id="webphone_bg_container"
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css" media="all">@import "style.css";</style>
+<title>Mizutech Webphone</title>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script type="text/JavaScript" src="js/curvycorners.src.js"></script>
+<script type="text/JavaScript" src="js/wp_api.js"></script>
+<script type="text/JavaScript" src="js/wp_common.js"></script>
+<script type="text/javascript">var curvyCornersNoAutoScan = true;</script>
+<script type="text/javascript">
+
+	wp_api.attributes = { id: 'webphone', code: 'webphone.webphone.class', name: 'webphone', archive: 'webphone.jar', codebase: '.', width: 1, height: 1, alt: 'Enable or install java: http://java.com/en/download/index.jsp', MAYSCRIPT: true };
+
+	// Webphone Configuration Settings
+	
+	wp_api.parameters = {
+					serveraddress: '218.251.249.71:9051', // yoursipdomain.com your VoIP server IP address or domain name
+					JAVA_CODEBASE: '.',
+					username: '7040000001',
+					password: '9b9edrvheXf',
+					MAYSCRIPT: true,
+					mayscript: 'yes',
+					scriptable: true,
+					jsscriptevent: 2,
+					autocfgsave: -1,
+					permissions: 'all-permissions',
+//					loglevel: 4,
+					hasincomingcall: true
+					//classloader_cache: false
+					};
+
+	// Webphone Skin Configuration Settings
+
+	wp_api.haveloginpage = true;		// in case you want to use a login page, set this variable to true
+	
+	wp_api.brandname = 'Mizutech';
+	wp_api.company_webpage = 'www.mizu-voip.com';
+	
+	wp_api.background_color = '#d7ebf2';		// webphone background color	
+	wp_api.general_text_color = '#444444';		// general text color
+	
+	wp_api.button_color = '#2d9dc3'			// button color
+	wp_api.button_text_color = '#ffffff';		// button text color
+	
+	wp_api.call_button_color = '#1cb12a';		// call button color
+	wp_api.hangup_button_color = '#d43434';	// hangup button color
+	wp_api.status_text_color = '#26b14a';	// color of displayed status messages
+	
+	wp_api.webphone_width = 286;				// width of webphone - don't specify measurement unit
+	wp_api.webphone_height = 386;				// height of webphone - don't specify measurement unit
+
+</script>
+
+
+</head>
+<body onkeyup="wp_common.onKeyPressEvent(event)">
+<div id="js_not_enabled">The webphone needs JavaScript to be enabled</div>
+<DIV id="main">
+<div id="webphone_bg_container">
+	<div id="container_dial"> <!-- Main page (dialpad) -->
+    	<div id="header">
+	    	<img src="images/speaker.png" border="0" title="Volume Controls" id="speaker" onmouseover="wp_common.btnControl('speaker',2)" onmouseout="wp_common.btnControl('speaker',1)" onclick="wp_common.wp_AudioDevice()" />
+            
+    	    <!--<img src="images/logout.png" border="0" title="Logout" id="logout" onmouseover="wp_common.btnControl('logout',2)" onmouseout="wp_common.btnControl('logout',1)" onclick="wp_common.wp_Unregister()" />-->
+		</div>
+        <div id="PhoneNumberDiv">
+	    	<input type="text" id="PhoneNumber" name="PhoneNumber" value="" onfocus="wp_common.testFocus(1)" onblur="wp_common.testFocus(0)" />
+		</div>
+        <div style="width:200px; float:left; clear:both;"><!--//--></div>
+        <div id="info">
+	        <span id="credit" title="My account balance / My number"></span><span id="dtmf"></span>&nbsp;<span id="status" ondblclick="wp_common.voipStatusRegister()" title="Call status"></span>
+        </div>
+        <div id="info_event">
+	        <span id="displayEvent">&nbsp;</span>
+        </div>
+        <div id="lines"></div>
+        <div>
+	        <!--<div id="btn_save" onclick="wp_common.wp_CallHangup()">Save</div>-->
+    	    <div id="btn_callhangup" onclick="wp_common.wp_CallHangup()"><img src="images/btn_call.png" border="0" title="" /></div>
+        </div>
+        <div style="width:200px; float:left; clear:both;"><!--//--></div>
+    	<div id="numpad">
+            <div id="btn_1" class="btn_numpad" onclick="wp_common.wp_BtnValue(1)">1<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+            <div id="btn_2" class="btn_numpad" onclick="wp_common.wp_BtnValue(2)">2<span>&nbsp;ABC&nbsp;</span></div>
+            <div id="btn_3" class="btn_numpad" onclick="wp_common.wp_BtnValue(3)">3<span>&nbsp;DEF&nbsp;&nbsp;</span></div>
+            <div id="btn_4" class="btn_numpad" onclick="wp_common.wp_BtnValue(4)">4<span>&nbsp;GHI&nbsp;</span></div>
+            <div id="btn_5" class="btn_numpad" onclick="wp_common.wp_BtnValue(5)">5<span>&nbsp;JKL&nbsp;&nbsp;</span></div>
+            <div id="btn_6" class="btn_numpad" onclick="wp_common.wp_BtnValue(6)">6<span>&nbsp;MNO&nbsp;</span></div>
+            <div id="btn_7" class="btn_numpad" onclick="wp_common.wp_BtnValue(7)">7<span>PQRS</span></div>
+            <div id="btn_8" class="btn_numpad" onclick="wp_common.wp_BtnValue(8)">8<span>&nbsp;TUV&nbsp;&nbsp;</span></div>
+            <div id="btn_9" class="btn_numpad" onclick="wp_common.wp_BtnValue(9)">9<span>&nbsp;WXYZ</span></div>
+            <div id="btn_10" class="btn_numpad" onclick="wp_common.wp_BtnValue('*')"><span style="font-size:36px; line-height:17px;">&nbsp;<br />*&nbsp;&nbsp;&nbsp;</span></div>
+            <div id="btn_0" class="btn_numpad" onclick="wp_common.wp_BtnValue(0)">0<span style="font-size:14px;">&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+            <div id="btn_11" class="btn_numpad" onclick="wp_common.wp_BtnValue('#')">#<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+		</div>
+        <div id="callfunctions">
+            <div title="Mute" id="btn_mute" onclick="wp_common.wp_Mute()"><img src="images/mute.png" border="0" /><span>Mute</span></div>
+            <div title="Call Hold" id="btn_hold" onclick="wp_common.wp_HoldOrVoicemail()"><img src="images/hold.png" id="btn_hold_img" border="0" /><span id="btn_hold_span">Hold</span></div>
+            <div title="Redial" id="btn_redial" onclick="wp_common.wp_Redial()"><img src="images/redial.png" border="0" /><span>Redial</span></div>
+		</div>
+    </div>
+	<div id="container_register"> <!-- Login page -->
+	    <div id="logo2">
+            	<a href="" id="logo2_a" target="_blank" title=""></a>
+		</div>
+    	<div id="login_page_error_messages">&nbsp;</div>
+        <div id="register_form">
+        <br /><br /><br />
+        	<label>Username</label><br />
+            <input type="text" id="username_input" name="username_input" value="" title="SIP username" /><br /><br />
+            <label>Password</label><br />
+            <input type="password" id="password_input" name="password_input" value="" title="SIP password" /><br /><br />
+            <input type="checkbox" id="savesettings" name="savesettings" value="" title="Save all your login setting on this PC" /><span>Save Settings</span><br /><br />
+            <div id="btn_connect" onclick="return wp_common.wp_LoadAppletAndRegister()" title="Register to sipserver"><span>Connect</span></div>
+        </div>
+    </div>
+	<span id="testtest" style="float:left; text-align:left;"></span>
+</div>
+</DIV>
+<script type="text/JavaScript" src="js/wp_layout_2.js"></script>
+</body>
+</html>

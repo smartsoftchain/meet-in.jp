@@ -1,0 +1,185 @@
+@charset "UTF-8";
+/*
+*	Title:「 MEETIN 」のcontractのCSS
+*	File Nmae: contract.css
+*	Last Modified: 2018-10-15
+*/
+
+/*----------------------------------------------------------------
+	contract画面のcss
+-----------------------------------------------------------------*/
+
+.mi_wrap {
+	background-color: #e8e8e8;
+}
+.mi_content_area {
+	margin: 60px auto!important;
+	display: block;
+	width: 800px;
+	padding: 30px 0 25px 0;
+	background-color: #e8e8e8;
+}
+.mi_content_wrap {
+	width: 800px;
+	border-radius: 4px;
+	background-color: #ffffff;
+}
+.mi_content_wrap table {
+	border: solid 2px #e8e8e8;
+	border-collapse: collapse;
+	margin: 0 auto;
+	font-family: YuGo;
+	font-size: 20px;
+	font-weight: bold;
+	width: 800px;
+}
+.mi_content_wrap tr {
+	border: solid 2px #e8e8e8;
+	padding: 40px 80px;
+	text-align: left;
+}
+.mi_content_wrap th, td {
+	padding: 40px 40px;
+	text-align: left;
+}
+.mi_content_title {
+	display: flex;
+}
+.mi_title_img {
+	padding-right: 10px;
+}
+/*----------------------------------------------------------------
+	contract_modal画面のcss
+-----------------------------------------------------------------*/
+
+.modal_wrap table {
+	margin: 0 auto;
+	width: 100%;
+}
+.radio_label {
+	padding-left: 20px;
+	margin-right: 20px;
+	font-size: 20px;
+	color: #636363;
+}
+.radio:checked {
+	color: #0081CC;
+}
+.radio:checked label::after {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 11px;
+	height: 11px;
+	background: #0081CC;
+	border-radius: 50%;
+}
+.modal_wrap {
+	padding: 60px;
+	height: 480px;
+	border: solid 1px #0081CC;
+	position: relative;
+}
+.mi_modal_area {
+	width: 800px;
+	background-color: #ffffff;
+	overflow: auto;
+	padding: 26px 26px;
+	margin: 0 auto;
+	position: fixed;
+    top: 50%;
+    left: 50%;
+	transform: translate(-50%,-50%);
+	border-radius: 6px;
+}
+.modal_title {
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+	border-bottom: solid 1px #0081CC;
+	padding: 30px;
+	color: #636363;
+}
+.modal_wrap tr {
+	border-bottom: solid 1px #0081CC;
+}
+.modal_wrap td {
+	padding: 18px 25px;
+	font-weight: bold;
+	text-align: left;
+    color: #636363;
+    font-size: 20px;
+}
+.btn_modal {
+	display: block;
+	margin: 0 auto;
+	width: 240px;
+	height: 60px;
+	border-radius: 100px;
+	color: #fff;
+	font-weight: bold;
+	text-align: center;
+	font-size: 20px;
+    background-color: #0081CC;
+    border: 2px solid #0081CC;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.btn_modal:hover {
+    background-color: transparent;
+    border: 2px solid #0081CC;
+    color: #0081CC !important;
+}
+
+.btn_modal:active {
+	background: #0081CC;
+	color: #fff !important;
+}
+
+.text_s {
+	font-size: 14px!important;
+	color: #636363;
+	padding-right: 5px;
+}
+.space {
+	padding: 18px 25px 60px 0;
+	line-height: 1.5;
+}
+.text_m {
+	font-size: 20px;
+	text-align: center;
+}
+.text_m p {
+	margin: 30px;
+	line-height: 1.5;
+}
+
+.btn_contract{
+	border-radius: 8px;
+    width: 180px;
+    background-color: #0081CC;
+    border: 2px solid #0081CC;
+    color: #fff !important;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.btn_contract:hover {
+    background-color: transparent;
+    border: 2px solid #0081CC;
+    color: #0081CC !important;
+}
+
+.btn_contract:active {
+	background: #0081CC;
+    color: #fff !important;
+}
